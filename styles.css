@@ -15,7 +15,7 @@
     padding: 0 5%;
     position: relative;
     background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.3)),
-                url('design/banner-bg.jpg') center/cover;
+                url('fss.png') center/cover;
     color: white;
 }
 
@@ -29,10 +29,6 @@
     height: 100%;
     background: rgba(0,0,0,0.4);
     z-index: -1;
-}
-
-.hero::after {
-    background-image: url('design/hero-overlay.png');
 }
 
 .portfolio-grid {
@@ -1104,7 +1100,7 @@ cite {
     z-index: 0;
     height: 300px; /* 恢复高度 */
     background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.3)), 
-                url('design/banner-bg.jpg') center/cover fixed; /* 恢复背景 */
+                url('banner.png') center/cover fixed; /* 恢复背景 */
     display: flex;
     align-items: center;
     justify-content: center;
