@@ -71,5 +71,54 @@
         </div>
     </footer>
 
+    <script>
+    // 增强版移动端菜单控制
+    function initMobileMenu() {
+        const menuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        if (!menuBtn || !navLinks) return;
+
+        // 更可靠的移动端检测
+        const mobileMedia = window.matchMedia('(max-width: 768px)');
+        if (!mobileMedia.matches) return;
+
+        // 点击汉堡菜单
+        menuBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const isOpen = navLinks.classList.contains('active');
+            navLinks.classList.toggle('active', !isOpen);
+            document.body.classList.toggle('no-scroll', !isOpen);
+            menuBtn.querySelector('i').classList.toggle('fa-times', !isOpen);
+        });
+
+        // 点击外部关闭
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.nav-container') && 
+                !e.target.closest('.nav-links') && 
+                navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                document.body.classList.remove('no-scroll');
+                menuBtn.querySelector('i').classList.remove('fa-times');
+            }
+        });
+
+        // 窗口resize时重置状态
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                navLinks.classList.remove('active');
+                document.body.classList.remove('no-scroll');
+                menuBtn.querySelector('i').classList.remove('fa-times');
+            }
+        });
+    }
+    document.addEventListener('DOMContentLoaded', initMobileMenu);
+
+    // 恢复原有微信交互逻辑
+    document.querySelector('.wechat-link').addEventListener('click', function(e) {
+        e.preventDefault();
+        this.querySelector('.wechat-qr').classList.toggle('show');
+    });
+    </script>
+
 </body>
 </html> 
