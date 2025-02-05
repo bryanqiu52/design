@@ -15,7 +15,7 @@
     padding: 0 5%;
     position: relative;
     background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.3)),
-                url(fss.png) center/cover;
+                url('fss.png') center/cover;
     color: white;
 }
 
@@ -133,12 +133,32 @@
     
     .hero-buttons {
         flex-direction: column;
+        gap: 1.2rem;
         width: 100%;
+        max-width: 280px;
+        margin: 2rem auto 0;
     }
     
     .cta-btn {
+        padding: 1rem 1.5rem;
+        font-size: 1rem;
+        border-radius: 8px;
         width: 100%;
         text-align: center;
+    }
+    
+    .cta-btn.outline {
+        border-width: 1.5px;
+        background: rgba(255, 255, 255, 0.05);
+    }
+    
+    /* 保持桌面端原有样式 */
+    @media (min-width: 769px) {
+        .cta-btn {
+            padding: 1.2rem 2.5rem;
+            font-size: 1.1rem;
+            width: auto;
+        }
     }
     
     .header-lang {
@@ -165,8 +185,73 @@
     }
     
     .nav-links {
-        padding: 1rem;
-        background: rgba(26,26,26,0.95);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        z-index: 1001;
+        backdrop-filter: blur(20px);
+        background: rgba(26, 26, 26, 0.95);
+    }
+    
+    .nav-links a {
+        width: auto;
+        padding: 1.2rem 0;
+        margin: 1rem 0;
+        font-size: 1.6rem;
+        padding-left: 0;
+    }
+
+    .nav-links a::before {
+        content: none; /* 移除项目符号 */
+    }
+
+    /* 调整关闭按钮位置 */
+    .nav-links::after {
+        right: 50%;
+        transform: translateX(50%);
+        top: 2rem;
+    }
+    
+    .mobile-menu-btn {
+        display: block !important;
+        z-index: 1002;
+        pointer-events: auto;
+    }
+    
+    @keyframes menuFade {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* 修复菜单初始状态 */
+    .nav-links:not(.active) {
+        display: none !important;
+    }
+    
+    .nav-links.active {
+        display: flex !important;
+    }
+    
+    /* 防止内容覆盖 */
+    .main-content {
+        position: relative;
+        z-index: 1;
+    }
+}
+
+/* 移动端显示汉堡按钮 */
+@media (max-width: 768px) {
+    .mobile-menu-btn {
+        display: block !important;
+        z-index: 1002;
+        pointer-events: auto;
     }
 }
 
@@ -185,7 +270,7 @@ body {
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 1000; /* 保持低于二维码弹窗 */
+    z-index: 1003;
     backdrop-filter: blur(4px);
     box-shadow: 0 2px 10px rgba(0,0,0,0.3);
 }
@@ -205,13 +290,17 @@ body {
     letter-spacing: 2px;
 }
 
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
 .nav-links a {
     color: white;
     text-decoration: none;
-    margin-left: 2rem;
     position: relative;
     padding: 0.5rem 0;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s ease;
 }
 
 .nav-links a::after {
@@ -239,42 +328,17 @@ body {
 }
 
 .mobile-menu-btn {
-    display: none;
+    display: none; /* 默认隐藏 */
     background: none;
     border: none;
-    color: white;
-    font-size: 1.5rem;
-}
-
-@media (max-width: 768px) {
-    .nav-links {
-        display: none;
-        flex-direction: column;
-        padding: 1rem;
-    }
-    
-    .nav-links.show {
-        display: flex;
-    }
-    
-    .nav-links a {
-        margin: 0.5rem 0;
-    }
-    
-    .mobile-menu-btn {
-        display: block;
-    }
-    
-    .nav-links a::after {
-        left: 50%;
-        transform: translateX(-50%);
-        width: 0;
-    }
-    
-    .nav-links a:hover::after,
-    .nav-links a.active::after {
-        width: 80%;
-    }
+    padding: 12px;
+    margin-left: auto;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    /* 苹果风格优化 */
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 /* 新增首页样式 */
@@ -368,10 +432,11 @@ body {
 /* 微信二维码样式 */
 .wechat-link {
     position: relative;
-    z-index: 1000; /* 确保高于其他内容 */
+    z-index: 1001;
 }
 
 .wechat-qr {
+    z-index: 1002;
     position: absolute;
     bottom: 120%;
     left: 50%;
@@ -385,7 +450,6 @@ body {
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
-    z-index: 1001;
 }
 
 .wechat-qr::before {
@@ -2067,4 +2131,98 @@ main {
 
 .social-buttons a:hover {
     text-decoration: none; /* 确保悬停时无下划线 */
+}
+
+/* 添加全局样式 */
+.no-scroll {
+    overflow: hidden;
+}
+
+/* 移动端全屏菜单 */
+@media (max-width: 768px) {
+    .nav-links {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        z-index: 1001;
+        backdrop-filter: blur(20px);
+        background: rgba(26, 26, 26, 0.95);
+    }
+
+    .nav-links.active {
+        display: flex;
+        animation: menuFade 0.3s ease;
+    }
+
+    .nav-links a {
+        font-size: 1.8rem;
+        margin: 1.5rem 0;
+        padding: 1rem 2rem;
+        border-radius: 8px;
+    }
+
+    .nav-links a:hover {
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .mobile-menu-btn {
+        display: block !important;
+        z-index: 1002;
+        pointer-events: auto;
+    }
+
+    @keyframes menuFade {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+}
+
+/* 移动端显示汉堡按钮 */
+@media (max-width: 768px) {
+    .mobile-menu-btn {
+        display: block !important;
+        z-index: 1002;
+        pointer-events: auto;
+    }
+}
+
+/* 更新关闭按钮样式 */
+.menu-close-btn {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    color: white;
+    font-size: 2.5rem;
+    line-height: 1;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.menu-close-btn:hover {
+    background: rgba(255,255,255,0.1);
+    transform: rotate(90deg);
+}
+
+/* 确保移动端菜单在顶部 */
+@media (max-width: 768px) {
+    .nav-links {
+        z-index: 1001; /* 高于导航栏 */
+    }
+    
+    .wechat-qr {
+        z-index: 999; /* 低于移动菜单 */
+    }
 } 

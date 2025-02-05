@@ -217,5 +217,42 @@
     </footer>
 
     <script src="js/main.js"></script>
+    <script>
+    // 与首页相同的菜单控制代码
+    document.addEventListener('DOMContentLoaded', function() {
+        const menuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        if (!menuBtn || !navLinks) return;
+
+        const mobileMedia = window.matchMedia('(max-width: 768px)');
+        if (!mobileMedia.matches) return;
+
+        menuBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const isOpen = navLinks.classList.contains('active');
+            navLinks.classList.toggle('active', !isOpen);
+            document.body.classList.toggle('no-scroll', !isOpen);
+            menuBtn.querySelector('i').classList.toggle('fa-times', !isOpen);
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.nav-container') && 
+                !e.target.closest('.nav-links') && 
+                navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                document.body.classList.remove('no-scroll');
+                menuBtn.querySelector('i').classList.remove('fa-times');
+            }
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                navLinks.classList.remove('active');
+                document.body.classList.remove('no-scroll');
+                menuBtn.querySelector('i').classList.remove('fa-times');
+            }
+        });
+    });
+    </script>
 </body>
 </html> 
