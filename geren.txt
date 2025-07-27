@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 16675191883
 打电话
@@ -35,3 +36,42 @@ bryan52@qq.com
 发邮件
 民治[地铁站]
 去导航
+=======
+
+16675191883
+打电话
+poke1883
+加微信
+bryan52@qq.com
+发邮件
+民治[地铁站]
+去导航
+办公技能
+Work Skill
+PhotoshopIllustratorPremiereC4DAIGC生成KeyShot剪映相机拍摄
+平面电商设计/UI设计/视频制作/3D渲染/AIGC
+
+个人作品
+Personal Design
+3D渲染
+视频3D渲染
+图片3D渲染
+拍摄作品
+产品拍摄&视频制作
+生活实拍
+设计作品
+UI界面/WEB设计
+LOGO设计
+海报及线下物料
+包装设计
+电商设计
+banner
+16675191883
+打电话
+poke1883
+加微信
+bryan52@qq.com
+发邮件
+民治[地铁站]
+去导航
+>>>>>>> 0661f59ed661215ca6d05f7ac4a4cdcf145a0048
