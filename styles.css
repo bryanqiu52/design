@@ -15,7 +15,7 @@
     padding: 0 5%;
     position: relative;
     background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.3)),
-                url('fss.png') center/cover;
+                url('images/fss.png') center/cover;
     color: white;
 }
 
@@ -33,7 +33,7 @@
 
 .portfolio-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 450px));
     gap: 2rem;
     padding: 2rem 5%;
     max-width: 1200px;
@@ -179,10 +179,7 @@
     .nav-menu {
         padding: 1rem 5%;
     }
-    
-    .logo {
-        font-size: 1.2rem;
-    }
+
     
     .nav-links {
         position: fixed;
@@ -262,7 +259,8 @@ body {
     font-family: 'Helvetica Neue', sans-serif;
     line-height: 1.6;
     font-size: 16px;
-    padding-top: 80px; /* 导航栏高度补偿 */
+    padding-top: 80px; /* 恢复顶部内边距 */
+    margin: 0; /* 移除左右边距 */
 }
 
 /* 导航样式 */
@@ -279,7 +277,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.5rem 5%;
+    padding: 1.5rem 5% 1.5rem calc(5% + env(safe-area-inset-left));
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -494,8 +492,16 @@ body {
 }
 
 /* 作品页增强样式 */
+.filter-controls {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 2rem auto;
+    flex-wrap: wrap;
+}
+
 .filter-controls .cta-btn {
-    padding: 0.8rem 1.5rem;
+    padding: 0.8rem 1.8rem;
     font-size: 0.9rem;
     letter-spacing: 0.5px;
 }
@@ -1164,7 +1170,7 @@ cite {
     z-index: 0;
     height: 300px; /* 恢复高度 */
     background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.3)), 
-                url('banner.png') center/cover fixed; /* 恢复背景 */
+                url('images/banner.png') center/cover fixed; /* 恢复背景 */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2225,4 +2231,4 @@ main {
     .wechat-qr {
         z-index: 999; /* 低于移动菜单 */
     }
-} 
+}

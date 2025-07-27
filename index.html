@@ -1,77 +1,72 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Design BRYAN</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <link rel="stylesheet" href="styles.css">
-    <!-- 首页特有样式保留在此 -->
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Design BRYAN</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet"/>
+<link href="styles.css" rel="stylesheet"/>
+<!-- 首页特有样式保留在此 -->
 </head>
-<body class="home-page">
-    <!-- 直接写入导航代码 -->
-    <nav class="nav-container">
-        <div class="nav-menu">
-            <div class="logo">BRYAN</div>
-            <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
-            <div class="nav-links">
-                <a href="index.html" class="active">首页</a>
-                <a href="portfolio.html">作品</a>
-                <a href="about.html">关于</a>
-                <a href="contact.html">联系</a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- 全屏Hero -->
-    <section class="hero">
-        <div class="hero-content">
-            <div class="header-lang">
-                <span>中文</span> 
-                <span>English</span>
-                <span>日本語</span>
-            </div>
-            <h1 class="hero-title">创意无界限</h1>
-            <p class="hero-subtitle">数字设计解决方案专家</p>
-            <div class="hero-buttons">
-                <a href="portfolio.html" class="cta-btn">查看作品集</a>
-                <a href="contact.html" class="cta-btn outline">立即联系</a>
-            </div>
-        </div>
-    </section>
-
-    <main class="main-content">
-        <!-- 首页其他内容 -->
-    </main>
-
-    <footer class="site-footer">
-        <div class="footer-content">
-            <div class="social-links">
-                <a href="https://www.behance.net" target="_blank" rel="noopener" aria-label="Behance">
-                    <i class="fab fa-behance"></i>
-                </a>
-                <a href="https://dribbble.com" target="_blank" rel="noopener" aria-label="Dribbble">
-                    <i class="fab fa-dribbble"></i>
-                </a>
-                <a href="https://www.instagram.com" target="_blank" rel="noopener" aria-label="Instagram">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="#wechat-modal" class="wechat-link" aria-label="微信">
-                    <i class="fab fa-weixin"></i>
-                    <div class="wechat-qr">
-                        <img src="qrcode.png" alt="微信二维码">
-                    </div>
-                </a>
-            </div>
-            <div class="footer-info">
-                <p>© 2025 Design Bryan. All rights reserved</p>
-                <p>bryanqiu52@gmail.com</p>
-            </div>
-        </div>
-    </footer>
-
-    <script>
+<body class="home-page" style="background-image: url(images/20250728000635_fss.png);">
+<!-- 直接写入导航代码 -->
+<nav class="nav-container"><div class="nav-menu"><img class_="logo" id="site-logo" src="images/20250728020256_2155.png" style="max-height: 40px; width: auto;"/>
+<button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+<div class="nav-links">
+<a class="active" href="index.html">首页</a>
+<a href="portfolio.html">作品</a>
+<a href="about.html">关于</a>
+<a href="contact.html">联系</a>
+</div>
+</div>
+</nav>
+<!-- 全屏Hero -->
+<section class="hero">
+<div class="hero-content">
+<div class="header-lang">
+<span>中文</span>
+<span>English</span>
+<span>日本語</span>
+</div>
+<h1 class="hero-title">创意无界限</h1>
+<p class="hero-subtitle">数字设计解决方案专家</p>
+<div class="hero-buttons">
+<a class="cta-btn" href="portfolio.html">查看作品集</a>
+<a class="cta-btn outline" href="contact.html">立即联系</a>
+</div>
+</div>
+</section>
+<main class="main-content">
+<!-- 首页其他内容 -->
+</main>
+<footer class="site-footer">
+<div class="footer-content">
+<div class="social-links">
+<a aria-label="Behance" href="https://www.behance.net" rel="noopener" target="_blank">
+<i class="fab fa-behance"></i>
+</a>
+<a aria-label="Dribbble" href="https://dribbble.com" rel="noopener" target="_blank">
+<i class="fab fa-dribbble"></i>
+</a>
+<a aria-label="Instagram" href="https://www.instagram.com" rel="noopener" target="_blank">
+<i class="fab fa-instagram"></i>
+</a>
+<a aria-label="微信" class="wechat-link" href="#wechat-modal">
+<i class="fab fa-weixin"></i>
+<div class="wechat-qr">
+<img alt="微信二维码" src="images/qrcode.png"/>
+</div>
+</a>
+</div>
+<div class="footer-info">
+<p>© 2025 Design Bryan. All rights reserved</p>
+<p>bryanqiu52@gmail.com</p>
+</div>
+</div>
+</footer>
+<script>
     // 增强版移动端菜单控制
     function initMobileMenu() {
         const menuBtn = document.querySelector('.mobile-menu-btn');
@@ -119,6 +114,5 @@
         this.querySelector('.wechat-qr').classList.toggle('show');
     });
     </script>
-
 </body>
-</html> 
+</html>
