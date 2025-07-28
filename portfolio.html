@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>作品集 | Design BRYAN</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet"/>
+<link href="styles.css" rel="stylesheet"/>
+<style>
+        作品页特有样式
+        .portfolio-page {
+            padding: 8rem 5% 4rem;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        /* 模态窗口样式 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            overflow: auto;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 5% auto;
+            padding: 2rem;
+            width: 80%;
+            max-width: 800px;
+            border-radius: 8px;
+            position: relative;
+            animation: modalFadeIn 0.3s;
+        }
+
+        @keyframes modalFadeIn {
+            from {opacity: 0; transform: translateY(-50px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #333;
+        }
+
+        .modal-image-container {
+            width: 100%;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-image-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+
+        .modal-overview h3 {
+            margin-bottom: 1rem;
+            color: #333;
+            font-size: 1.2rem;
+        }
+
+        .modal-overview p {
+            line-height: 1.6;
+            color: #666;
+        }
+    </style>
+</head>
+<body class="sub-page">
+<!-- 直接写入导航代码 -->
+<nav class="nav-container"><div class="nav-menu"><span class_="logo-text" id="site-logo" style="font-size: 1.5rem; font-weight: bold; letter-spacing: 2px;">BRYAN</span>
+<button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+<div class="nav-links">
+<a href="index.html">首页</a>
+<a class="active" href="portfolio.html">作品</a>
+<a href="about.html">关于</a>
+<a href="contact.html">联系</a>
+</div>
+</div>
+</nav>
+<!-- 全屏Banner -->
+<section class="page-banner" style="background-image: url(images/20250728000720_banner.png);">
+<div class="banner-content">
+<h1 class="page-title">作品集<span>Portfolio</span></h1>
+</div>
+</section>
+<main class="main-content">
+<div class="filter-controls">
+<button class="cta-btn outline active" data-category="all">全部作品</button>
+<button class="cta-btn outline" data-category="branding">品牌设计</button>
+<button class="cta-btn outline" data-category="ui">UI设计</button>
+<button class="cta-btn outline" data-category="packaging">包装设计</button>
+<button class="cta-btn outline" data-category="dianshang">电商设计</button>
+</div>
+<div class="portfolio-grid" id="portfolioContainer">
+<!-- 作品将通过JavaScript动态加载 -->
+</div>
+<script>
+            // 从JSON文件加载作品数据
+            function loadWorks() {
+                try {
+                    const scriptTag = document.querySelector('script[type="application/json"]');
+                    if (!scriptTag) {
+                        console.error('未找到作品数据脚本标签');
+                        return;
+                    }
+                    
+                    const data = JSON.parse(scriptTag.textContent);
+                    if (!data || !Array.isArray(data.works)) {
+                        console.error('作品数据格式不正确:', data);
+                        return;
+                    }
+                    
+                    const container = document.getElementById('portfolioContainer');
+                    if (!container) {
+                        console.error('未找到作品容器元素');
+                        return;
+                    }
+                    
+                    container.innerHTML = '';
+
+                    // 动态生成作品卡片
+                    data.works.forEach(work => {
+                        const card = document.createElement('div');
+                        card.className = 'work-card';
+                        card.dataset.category = work.category;
+
+                        card.innerHTML = `
+                            <img src="images/${work.image}" alt="${work.title}">
+                            <div class="work-card-content">
+                                <div class="work-header">
+                                    <h3>${work.title}</h3>
+                                    <span class="category">${getCategoryName(work.category)}</span>
+                                </div>
+                                <p>${work.description}</p>
+                            </div>
+                        `;
+
+                        container.appendChild(card);
+                    card.addEventListener('click', () => openModal(work));
+                    });
+                } catch (error) {
+                    console.error('加载作品数据失败:', error);
+                }
+            }
+
+            // 获取分类中文名称
+            function getCategoryName(category) {
+                const categories = {
+                    'branding': '品牌设计',
+                    'ui': 'UI/UX设计',
+                    'packaging': '包装设计',
+                    'dianshang': '电商设计',
+                    'all': '全部作品'
+                };
+                return categories[category] || category;
+            }
+
+            // 页面加载时初始化
+            document.addEventListener('DOMContentLoaded', loadWorks);
+
+function openModal(work) {
+    const modal = document.getElementById('projectModal');
+    const modalContent = document.getElementById('modalProjectOverview');
+    
+    // 设置模态窗口内容
+    modalContent.innerHTML = `
+        <h2>${work.title}</h2>
+        <div class="modal-image-container">
+            <img src="images/${work.image}" alt="${work.title}">
+        </div>
+        <div class="modal-overview">
+            <h3>项目概述</h3>
+            <p>${work.overview || '暂无项目概述内容'}</p>
+        </div>
+    `;
+    
+    modal.style.display = 'block';
+}
+
+// 关闭模态窗口
+function closeModal() {
+    document.getElementById('projectModal').style.display = 'none';
+}
+
+document.addEventListener('click', (event) => {
+    const modal = document.getElementById('projectModal');
+    if (event.target.classList.contains('close-btn') || event.target === modal) {
+        closeModal();
+    }
+});
+        </script>
+</main>
+<!-- 项目概述模态窗口 -->
+<div class="modal" id="projectModal">
+<div class="modal-content">
+<span class="close-btn">×</span>
+<div id="modalProjectOverview"></div>
+</div>
+</div>
+<footer class="site-footer">
+<div class="footer-content">
+<div class="social-links">
+<a aria-label="Behance" href="https://www.behance.net" rel="noopener" target="_blank">
+<i class="fab fa-behance"></i>
+</a>
+<a aria-label="Dribbble" href="https://dribbble.com" rel="noopener" target="_blank">
+<i class="fab fa-dribbble"></i>
+</a>
+<a aria-label="Instagram" href="https://www.instagram.com" rel="noopener" target="_blank">
+<i class="fab fa-instagram"></i>
+</a>
+<a aria-label="微信" class="wechat-link" href="#wechat-modal">
+<i class="fab fa-weixin"></i>
+<div class="wechat-qr">
+<img alt="微信二维码" src="images/qrcode.png"/>
+</div>
+</a>
+</div>
+<div class="footer-info">
+<p>© 2025 Design Bryan. All rights reserved</p>
+<p>bryanqiu52@gmail.com</p>
+</div>
+</div>
+</footer>
+<script src="js/main.js"></script>
+<script src="js/portfolio.js"></script>
+<script>
+    // 与首页相同的菜单控制代码
+    document.addEventListener('DOMContentLoaded', function() {
+        const menuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        if (!menuBtn || !navLinks) return;
+
+        const mobileMedia = window.matchMedia('(max-width: 768px)');
+        if (!mobileMedia.matches) return;
+
+        menuBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const isOpen = navLinks.classList.contains('active');
+            navLinks.classList.toggle('active', !isOpen);
+            document.body.classList.toggle('no-scroll', !isOpen);
+            menuBtn.querySelector('i').classList.toggle('fa-times', !isOpen);
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.nav-container') && 
+                !e.target.closest('.nav-links') && 
+                navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                document.body.classList.remove('no-scroll');
+                menuBtn.querySelector('i').classList.remove('fa-times');
+            }
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                navLinks.classList.remove('active');
+                document.body.classList.remove('no-scroll');
+                menuBtn.querySelector('i').classList.remove('fa-times');
+            }
+        });
+    });
+    </script>
+<!--WORKS_START--><script type="application/json">{
+  "works": []
+}</script><!--WORKS_END--></body>
+</html>
