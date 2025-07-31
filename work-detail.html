@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>作品详情 | Design BRYAN</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet"/>
+    <link href="styles.css?v=3" rel="stylesheet"/>
+</head>
+<body class="sub-page">
+<!-- 直接写入导航代码 -->
+<nav class="nav-container"><div class="nav-menu"><span class_="logo-text" id="site-logo" style="font-size: 1.5rem; font-weight: bold; letter-spacing: 2px;">BRYAN</span>
+<button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+<div class="nav-links">
+<a href="index.html">首页</a>
+<a class="active" href="portfolio.html">作品</a>
+<a href="about.html">关于</a>
+<a href="contact.html">联系</a>
+</div>
+</div>
+</nav>
+
+<!-- 全屏Banner（移到main外部） -->
+<section class="page-banner" id="detailBanner">
+<div class="banner-overlay"></div>
+<div class="banner-content">
+<h1 class="page-title" id="projectTitle"></h1>
+</div>
+</section>
+
+<main class="main-content work-detail-page">
+
+    <div class="back-to-works">
+        <a href="portfolio.html" class="cta-btn outline small"><i class="fas fa-arrow-left"></i> 返回作品集</a>
+        <div class="breadcrumbs">
+            <a href="index.html">首页</a> &gt; <a href="portfolio.html">作品</a> &gt; <span id="currentPage">作品详情</span>
+        </div>
+    </div>
+
+    <div class="work-detail-container">
+        <!-- 图片轮播区域 -->
+        <div class="carousel-container">
+            <button class="carousel-control prev-btn"><i class="fas fa-chevron-left"></i></button>
+            <div class="main-image-container">
+                <img alt="项目主图" id="mainImage" src=""/>
+            </div>
+            <button class="carousel-control next-btn"><i class="fas fa-chevron-right"></i></button>
+        </div>
+
+        <!-- 缩略图区域 -->
+        <div class="thumbnail-container">
+            <div class="thumbnail-list" id="thumbnailList"></div>
+
+            <!-- 缩略图区域内部的信息卡片 -->
+            <div class="info-card">
+                <div class="meta-item"><span class="meta-label">客户:</span> <span id="projectClient"></span></div>
+                <div class="meta-item"><span class="meta-label">分类:</span> <span id="projectServices"></span></div>
+                <div class="meta-item"><span class="meta-label">日期:</span> <span id="projectDate"></span></div>
+                <div class="meta-item"><span class="meta-label">年份:</span> <span id="projectYear"></span></div>
+            </div>
+        </div>
+
+        <!-- 项目概述区域 -->
+        <div class="overview-card">
+            <h3>项目概述</h3>
+            <p id="projectDescription"></p>
+        </div>
+    </div>
+    <!-- 推荐作品区域 -->
+    <div class="related-works">
+        <h2 class="section-title">推荐作品</h2>
+        <div class="related-works-grid" id="relatedWorksGrid"></div>
+    </div>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-content">
+        <div class="social-links">
+            <a aria-label="Behance" href="https://www.behance.net" rel="noopener" target="_blank">
+                <i class="fab fa-behance"></i>
+            </a>
+            <a aria-label="Dribbble" href="https://dribbble.com" rel="noopener" target="_blank">
+                <i class="fab fa-dribbble"></i>
+            </a>
+            <a aria-label="Instagram" href="https://www.instagram.com" rel="noopener" target="_blank">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a aria-label="微信" class="wechat-link" href="#wechat-modal">
+                <i class="fab fa-weixin"></i>
+                <div class="wechat-qr">
+                    <img alt="微信二维码" src="images/qrcode.png">
+                </img></div>
+            </a>
+        </div>
+        <div class="footer-info">
+            <p>© 2025 Design Bryan. All rights reserved</p>
+            <p>bryanqiu52@gmail.com</p>
+        </div>
+    </div>
+</footer>
+
+<!-- 引入作品数据 -->
+<script>document.addEventListener('DOMContentLoaded', function() {
+    fetch('data/works.json?t=' + new Date().getTime())
+        .then(response => response.json())
+        .then(data => {
+            const scriptTag = document.createElement('script');
+            scriptTag.type = 'application/json';
+            scriptTag.id = 'works-data';
+            scriptTag.textContent = JSON.stringify(data);
+            document.body.appendChild(scriptTag);
+            
+            // 触发数据加载完成事件
+            const event = new Event('dataLoaded');
+            document.dispatchEvent(event);
+        })
+        .catch(error => console.error('加载作品数据失败:', error));
+});</script>
+
+
+<script src="js/main.js?v=2"></script>
+<script src="js/menu.js"></script>
+<script src="js/detail.js"></script>
+<script src="scripts/back-to-top.js"></script>
+</body>
+</html>

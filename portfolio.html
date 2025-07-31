@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>作品集 | Design BRYAN</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet"/>
+<link href="styles.css?v=3" rel="stylesheet"/>
+</head>
+<body class="sub-page">
+<!-- 直接写入导航代码 -->
+<nav class="nav-container"><div class="nav-menu"><span class="logo-text" id="site-logo" style="font-size: 1.5rem; font-weight: bold; letter-spacing: 2px;">BRYAN</span>
+<button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+<div class="nav-links">
+<a href="index.html">首页</a>
+<a class="active" href="portfolio.html">作品</a>
+<a href="about.html">关于</a>
+<a href="contact.html">联系</a>
+</div>
+</div>
+</nav>
+<!-- 全屏Banner -->
+<section class="page-banner" style="background-image: url(images/20250728000720_banner.png);">
+<div class="banner-content">
+<h1 class="page-title">作品集<span>Portfolio</span></h1>
+</div>
+</section>
+<main class="main-content">
+<div class="filter-controls">
+<button class="cta-btn outline active" data-category="all">全部作品</button>
+<button class="cta-btn outline" data-category="branding">品牌设计</button>
+<button class="cta-btn outline" data-category="ui">UI设计</button>
+<button class="cta-btn outline" data-category="packaging">包装设计</button>
+<button class="cta-btn outline" data-category="dianshang">电商设计</button>
+</div>
+<div class="portfolio-grid" id="portfolioContainer">
+<!-- 作品将通过JavaScript从works.json动态加载 -->
+</div>
+</main>
+<footer class="site-footer">
+<div class="footer-content">
+<div class="social-links">
+<a aria-label="Behance" href="https://www.behance.net" rel="noopener" target="_blank">
+<i class="fab fa-behance"></i>
+</a>
+<a aria-label="Dribbble" href="https://dribbble.com" rel="noopener" target="_blank">
+<i class="fab fa-dribbble"></i>
+</a>
+<a aria-label="Instagram" href="https://www.instagram.com" rel="noopener" target="_blank">
+<i class="fab fa-instagram"></i>
+</a>
+<a aria-label="微信" class="wechat-link" href="#wechat-modal">
+<i class="fab fa-weixin"></i>
+<div class="wechat-qr">
+<img alt="微信二维码" src="images/qrcode.png"/>
+</div>
+</a>
+</div>
+<div class="footer-info">
+<p>© 2025 Design Bryan. All rights reserved</p>
+<p>bryanqiu52@gmail.com</p>
+</div>
+</div>
+</footer>
+<script src="js/menu.js"></script>
+<!-- 移除main.js的自动加载，改为在数据准备好后手动加载 -->
+<script>/* main.js will be loaded after data is ready */</script>
+<script src="scripts/back-to-top.js"></script>
+<script>
+    // 从works.json获取作品数据
+    fetch('data/works.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('网络响应错误: ' + response.status);
+            }
+            return response.json();
+        })
+        .then(data => {
+            // 存储作品数据到全局变量
+            window.worksData = data.works || [];
+            console.log('作品数据加载成功:', window.worksData);
+
+            // 创建一个script标签来存储JSON数据
+            const script = document.createElement('script');
+            script.type = 'application/json';
+            script.id = 'works-data';
+            script.textContent = JSON.stringify(window.worksData);
+            document.body.appendChild(script);
+
+            // 动态加载main.js
+            const mainScript = document.createElement('script');
+            mainScript.src = 'js/main.js?v=5';
+            mainScript.onload = function() {
+                // main.js加载成功，调用loadWorks()
+                if (typeof loadWorks === 'function') {
+                    loadWorks();
+                } else {
+                    console.error('main.js加载失败或loadWorks函数未定义');
+                }
+            };
+            mainScript.onerror = function() {
+                console.error('main.js加载失败');
+            };
+            document.body.appendChild(mainScript);
+        })
+        .catch(error => {
+            console.error('加载作品数据失败:', error);
+            // 加载失败时显示错误信息
+            const portfolioContainer = document.getElementById('portfolioContainer');
+            if (portfolioContainer) {
+                portfolioContainer.innerHTML = '<div class="error-message">加载作品数据失败: ' + error.message + '</div>';
+            }
+        });
+</script></body>
+</html>
