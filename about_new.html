@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于我 | Design BRYAN</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        :root {
+            --primary: #121212;
+            --secondary: #ff3366;
+            --text-light: #f5f5f5;
+            --text-muted: rgba(255, 255, 255, 0.6);
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --card-hover: rgba(255, 51, 102, 0.1);
+        }
+
+        body {
+            background-color: var(--primary);
+            color: var(--text-light);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem 6rem;
+        }
+
+        /* 个人形象区 */
+        .profile-section {
+            position: relative;
+            padding: 6rem 2rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            background: linear-gradient(135deg, rgba(255, 51, 102, 0.05) 0%, rgba(0, 0, 0, 0) 100%);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .profile-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(255, 51, 102, 0.1) 0%, rgba(0, 0, 0, 0) 70%);
+            z-index: 0;
+        }
+
+        .profile-image-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+            z-index: 1;
+        }
+
+        .profile-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--secondary);
+            box-shadow: 0 0 30px rgba(255, 51, 102, 0.5);
+            transition: transform 0.5s ease;
+        }
+
+        .profile-image:hover {
+            transform: scale(1.05);
+        }
+
+        .pulse-animation {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            background: rgba(255, 51, 102, 0.3);
+            animation: pulse 3s infinite;
+            z-index: -1;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 0;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.6;
+            }
+        }
+
+        .name-title {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, #ffffff, #b3b3b3);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+            z-index: 1;
+        }
+
+        .job-tags {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .job-tag {
+            padding: 0.5rem 1.2rem;
+            background: rgba(255, 51, 102, 0.1);
+            border-radius: 30px;
+            font-size: 1rem;
+            color: var(--secondary);
+            transition: all 0.3s ease;
+        }
+
+        .job-tag:hover {
+            background: rgba(255, 51, 102, 0.3);
+            transform: translateY(-3px);
+        }
+
+        /* 个人简介 */
+        .bio-section {
+            margin-bottom: 6rem;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .bio-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--secondary);
+        }
+
+        .bio-content {
+            color: var(--text-muted);
+            line-height: 1.8;
+            max-height: 120px;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+
+        .bio-content.expanded {
+            max-height: 1000px;
+        }
+
+        .bio-toggle {
+            margin-top: 1.5rem;
+            padding: 0.8rem 1.5rem;
+            background: rgba(255, 51, 102, 0.1);
+            border: none;
+            border-radius: 30px;
+            color: var(--secondary);
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .bio-toggle:hover {
+            background: rgba(255, 51, 102, 0.3);
+            transform: translateY(-3px);
+        }
+
+        /* 时间线样式 */
+        .timeline-section {
+            margin-bottom: 6rem;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--secondary), rgba(255, 51, 102, 0));
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            border: 4px solid var(--secondary);
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+
+        .timeline-item:nth-child(odd)::after {
+            right: -12px;
+        }
+
+        .timeline-item:nth-child(even)::after {
+            left: -12px;
+        }
+
+        .timeline-content {
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            background: var(--card-hover);
+        }
+
+        .timeline-content .date {
+            font-size: 0.9rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: rgba(255, 51, 102, 0.1);
+            border-radius: 15px;
+        }
+
+        .timeline-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content .position {
+            color: var(--text-muted);
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-content ul {
+            padding-left: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .timeline-content li {
+            margin-bottom: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* 个人项目 */
+        .projects-section {
+            margin-bottom: 6rem;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-card {
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            border-left: 3px solid var(--secondary);
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            background: var(--card-hover);
+        }
+
+        .project-card h3 {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--secondary);
+            font-size: 1.3rem;
+        }
+
+        .project-card p {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+            color: var(--text-muted);
+        }
+
+        /* 技能矩阵 */
+        .skills-section {
+            margin-bottom: 6rem;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .skill-category {
+            flex: 1;
+            min-width: 250px;
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        .category-title {
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid rgba(255, 51, 102, 0.2);
+        }
+
+        .skill-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-name {
+            font-weight: 500;
+            color: var(--text-light);
+        }
+
+        .skill-rating {
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        .skill-stars {
+            margin-bottom: 0.8rem;
+            color: #ffd700;
+        }
+
+        .skill-bar-container {
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .skill-bar {
+            height: 100%;
+            background: linear-gradient(to right, var(--secondary), #ff6699);
+            border-radius: 5px;
+            width: 0;
+            transition: width 1s ease-in-out;
+        }
+
+        /* 兴趣爱好 */
+        .interests-section {
+            margin-bottom: 4rem;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .interests-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .interest-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 2rem 1.5rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .interest-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            background: var(--card-hover);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .interest-icon-container {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--secondary), #ff6699);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .interest-icon {
+            font-size: 2.5rem;
+            color: white;
+        }
+
+        .interest-name {
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .interest-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* 页脚 */
+        .site-footer {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-light);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        .footer-info {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* 滚动动画 */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 992px) {
+            .timeline::after {
+                left: 31px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+
+            .timeline-item:nth-child(odd)::after,
+            .timeline-item:nth-child(even)::after {
+                left: 18px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .about-container {
+                padding: 3rem 1.5rem 4rem;
+            }
+
+            .profile-section {
+                padding: 4rem 1.5rem;
+            }
+
+            .name-title {
+                font-size: 2.2rem;
+            }
+
+            .skills-container {
+                flex-direction: column;
+            }
+
+            .interests-container {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            .profile-image {
+                width: 160px;
+                height: 160px;
+            }
+
+            .name-title {
+                font-size: 1.8rem;
+            }
+
+            .job-tag {
+                font-size: 0.9rem;
+                padding: 0.4rem 1rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .bio-content {
+                font-size: 0.95rem;
+            }
+
+            .timeline-item {
+                padding-left: 50px;
+            }
+
+            .timeline-item::after {
+                width: 15px;
+                height: 15px;
+                left: 15px;
+            }
+
+            .interests-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+    </style>
+</head>
+<body>
+    <div class="about-container">
+        <!-- 个人形象区 -->
+        <section class="profile-section">
+            <div class="profile-image-container">
+                <img alt="个人照片" class="profile-image" src="images/2024_08_10_00_01_IMG_5204.jpg">
+                <div class="pulse-animation"></div>
+            </div>
+            <h1 class="name-title">邱晓南</h1>
+            <div class="job-tags">
+                <span class="job-tag">设计师</span>
+                <span class="job-tag">开发者</span>
+                <span class="job-tag">创意爱好者</span>
+            </div>
+        </section>
+
+        <!-- 个人简介 -->
+        <section class="bio-section">
+            <h2 class="section-title">关于我</h2>
+            <div class="bio-content" id="bioContent">
+                <p>我是一名拥有5年工作经验的平面设计师，现居深圳，毕业于广州华立科技职业学院软件技术专业。</p>
+                <p>我擅长将创意理念转化为视觉作品，精通Photoshop、Illustrator和Figma等设计工具，同时具备HTML/CSS和JavaScript开发能力，能够实现设计到代码的完整流程。</p>
+                <p>在深圳睿光科技有限公司担任平面设计师期间，我主导了公司3D打印机产品全案物料设计，优化品牌视觉形象，提升市场认知度30%，制作的产品说明视频播放量超50万次。</p>
+            </div>
+            <button class="bio-toggle" id="bioToggle">
+                <span>查看更多</span>
+                <i class="fas fa-chevron-down"></i>
+            </button>
+        </section>
+
+        <!-- 时间线 -->
+        <section class="timeline-section animate-on-scroll">
+            <h2 class="section-title">职业轨迹</h2>
+            <div class="timeline">
+                <!-- 工作经历 -->
+                <div class="timeline-item animate-on-scroll">
+                    <div class="timeline-icon"><i class="fas fa-briefcase"></i></div>
+                    <div class="timeline-content">
+                        <p class="date">2022.06 - 2024.07</p>
+                        <h3>深圳睿光科技有限公司</h3>
+                        <p class="position">平面设计师</p>
+                        <ul>
+                            <li>主导公司3D打印机产品全案物料设计</li>
+                            <li>优化品牌视觉形象，提升市场认知度30%</li>
+                            <li>制作产品说明视频，播放量超50万次</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item animate-on-scroll">
+                    <div class="timeline-icon"><i class="fas fa-briefcase"></i></div>
+                    <div class="timeline-content">
+                        <p class="date">2021.04 - 2022.04</p>
+                        <h3>深圳心爱加教育咨询有限公司</h3>
+                        <p class="position">平面设计师</p>
+                        <ul>
+                            <li>设计课程宣传资料200+套</li>
+                            <li>制作企业宣传视频15部</li>
+                            <li>优化线上课程视觉呈现</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- 教育背景 -->
+                <div class="timeline-item animate-on-scroll">
+                    <div class="timeline-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <div class="timeline-content">
+                        <p class="date">2018.09 - 2021.06</p>
+                        <h3>广州华立科技职业学院</h3>
+                        <p class="position">软件技术专业</p>
+                        <ul>
+                            <li>学习软件技术专业知识</li>
+                            <li>参与校园设计大赛获得二等奖</li>
+                            <li>自学UI/UX设计并完成多个个人项目</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 个人项目 -->
+        <section class="projects-section animate-on-scroll">
+            <h2 class="section-title">个人项目</h2>
+            <div class="project-card">
+                <h3><i class="fas fa-project-diagram"></i> 个人作品集网站</h3>
+                <p>设计并开发了个人作品集网站，展示自己的设计作品和项目经验。</p>
+                <p>使用HTML、CSS、JavaScript和Tailwind CSS开发，响应式设计适配各种设备。</p>
+            </div>
+        </section>
+
+        <!-- 技能矩阵 -->
+        <section class="skills-section animate-on-scroll">
+            <h2 class="section-title">技能矩阵</h2>
+            <div class="skills-container">
+                <div class="skill-category">
+                    <h3 class="category-title"><i class="fas fa-paint-brush"></i> 设计技能</h3>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">Photoshop</span>
+                            <span class="skill-rating">5/5</span>
+                        </div>
+                        <div class="skill-stars">⭐⭐⭐⭐⭐</div>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar" data-width="95%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">Illustrator</span>
+                            <span class="skill-rating">4/5</span>
+                        </div>
+                        <div class="skill-stars">⭐⭐⭐⭐</div>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar" data-width="85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">Figma</span>
+                            <span class="skill-rating">3/5</span>
+                        </div>
+                        <div class="skill-stars">⭐⭐⭐</div>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar" data-width="70%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3 class="category-title"><i class="fas fa-code"></i> 技术能力</h3>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">HTML/CSS</span>
+                            <span class="skill-rating">4/5</span>
+                        </div>
+                        <div class="skill-stars">⭐⭐⭐⭐</div>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar" data-width="80%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">JavaScript</span>
+                            <span class="skill-rating">3/5</span>
+                        </div>
+                        <div class="skill-stars">⭐⭐⭐</div>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar" data-width="65%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">3D建模</span>
+                            <span class="skill-rating">3/5</span>
+                        </div>
+                        <div class="skill-stars">⭐⭐⭐</div>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar" data-width="60%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 兴趣爱好 -->
+        <section class="interests-section animate-on-scroll">
+            <h2 class="section-title">兴趣爱好</h2>
+            <div class="interests-container">
+                <div class="interest-card">
+                    <div class="interest-icon-container">
+                        <i class="fas fa-camera interest-icon"></i>
+                    </div>
+                    <h3 class="interest-name">摄影</h3>
+                    <p class="interest-desc">捕捉生活中的美好瞬间</p>
+                </div>
+                <div class="interest-card">
+                    <div class="interest-icon-container">
+                        <i class="fas fa-cube interest-icon"></i>
+                    </div>
+                    <h3 class="interest-name">3D建模</h3>
+                    <p class="interest-desc">创造立体世界</p>
+                </div>
+                <div class="interest-card">
+                    <div class="interest-icon-container">
+                        <i class="fas fa-music interest-icon"></i>
+                    </div>
+                    <h3 class="interest-name">音乐</h3>
+                    <p class="interest-desc">享受旋律与节奏</p>
+                </div>
+                <div class="interest-card">
+                    <div class="interest-icon-container">
+                        <i class="fas fa-plane interest-icon"></i>
+                    </div>
+                    <h3 class="interest-name">旅行</h3>
+                    <p class="interest-desc">探索不同文化</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="social-links">
+                <a aria-label="Behance" href="https://www.behance.net" rel="noopener" target="_blank">
+                    <i class="fab fa-behance"></i>
+                </a>
+                <a aria-label="Dribbble" href="https://dribbble.com" rel="noopener" target="_blank">
+                    <i class="fab fa-dribbble"></i>
+                </a>
+                <a aria-label="Instagram" href="https://www.instagram.com" rel="noopener" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a aria-label="微信" class="wechat-link" href="#wechat-modal">
+                    <i class="fab fa-weixin"></i>
+                </a>
+            </div>
+            <div class="footer-info">
+                <p>© 2025 Design Bryan. All rights reserved</p>
+                <p>bryanqiu52@gmail.com</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 可折叠简介功能
+        const bioToggle = document.getElementById('bioToggle');
+        const bioContent = document.getElementById('bioContent');
+
+        bioToggle.addEventListener('click', () => {
+            bioContent.classList.toggle('expanded');
+            const isExpanded = bioContent.classList.contains('expanded');
+            bioToggle.innerHTML = isExpanded ? '<span>收起</span><i class="fas fa-chevron-up"></i>' : '<span>查看更多</span><i class="fas fa-chevron-down"></i>';
+        });
+
+        // 技能条动画
+        function animateSkills() {
+            const skillBars = document.querySelectorAll('.skill-bar');
+
+            skillBars.forEach((bar, index) => {
+                const width = bar.getAttribute('data-width');
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 300 + index * 100);
+            });
+        }
+
+        // 滚动动画
+        function handleScrollAnimations() {
+            const animatedElements = document.querySelectorAll('.animate-on-scroll');
+
+            animatedElements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.3;
+
+                if (elementPosition < screenPosition) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        // 页面加载完成后初始化
+        window.addEventListener('load', () => {
+            animateSkills();
+            handleScrollAnimations();
+
+            // 添加波浪效果
+            const profileSection = document.querySelector('.profile-section');
+            const wave = document.createElement('div');
+            wave.style.position = 'absolute';
+            wave.style.bottom = '0';
+            wave.style.left = '0';
+            wave.style.width = '100%';
+            wave.style.height = '30px';
+            wave.style.background = 'url("data:image/svg+xml,%3Csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1440 320\"%3E%3Cpath fill=\"%23121212\" fill-opacity=\"1\" d=\"M0,128L48,149.3C96,171,192,213,288,213.3C384,213,480,171,576,170.7C672,171,768,213,864,218.7C960,224,1056,192,1152,160C1248,128,1344,96,1392,80L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z\"%3E%3C/path%3E%3C/svg%3E")';
+            wave.style.backgroundSize = 'cover';
+            wave.style.backgroundPosition = 'center bottom';
+            profileSection.appendChild(wave);
+        });
+
+        // 滚动时检测元素
+        window.addEventListener('scroll', handleScrollAnimations);
+    </script>
+</body>
+</html>

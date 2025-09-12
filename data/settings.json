@@ -1,0 +1,13 @@
+{
+  "site": {
+    "title": "Design BRYAN",
+    "description": "创意无界限 - 数字设计解决方案专家",
+    "keywords": "设计, 平面设计, UI设计, 品牌设计, 包装设计, 电商设计",
+    "copyright": "© 2025 Design Bryan. All rights reserved",
+    "logo": "images/logo.png",
+    "favicon": "images/favicon.ico"
+  },
+  "analytics": {
+    "google": "UA-XXXXXXXXX-X"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "name": "测试设计师",
+  "experience": "5年",
+  "title": "资深UI设计师",
+  "location": "北京",
+  "education": "设计学院本科",
+  "contact": {
+    "phone": "13800138000",
+    "email": "test@example.com",
+    "wechat": "test_wechat"
+  },
+  "bio": "这是一个测试简介。",
+  "design_skills": [
+    {
+      "name": "Photoshop",
+      "level": "精通"
+    },
+    {
+      "name": "Figma",
+      "level": "熟练"
+    }
+  ],
+  "additional_skills": [
+    "原型设计",
+    "用户研究"
+  ],
+  "career": "<div class=\"timeline-item\"><h3>资深UI设计师</h3><p>某科技公司 - 2020年至今</p></div>",
+  "certifications": "<div class=\"cert-item\"><h3>UI设计认证</h3><p>2021年获得</p></div>"
+}

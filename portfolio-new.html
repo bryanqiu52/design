@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>设计师作品 | 个人作品集</title>
+    <link href="css/styles.css" rel="stylesheet"/>
+    <link href="css/scrollbar-fix.css" rel="stylesheet"/>
+    <link href="css/scrollbar-style.css" rel="stylesheet"/>
+    <!-- 新的布局样式 -->
+    <style>
+        /* 新的作品网格布局 */
+        .portfolio-new-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1.2rem;
+            box-sizing: border-box;
+            overflow-x: hidden;
+        }
+
+        .portfolio-new-grid .work-card {
+            flex: 1 1 260px;
+            max-width: calc(33.333% - 1.2rem);
+            box-sizing: border-box;
+        }
+
+        @media (max-width: 900px) {
+            .portfolio-new-grid .work-card {
+                max-width: calc(50% - 1.2rem);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .portfolio-new-grid .work-card {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body class="sub-page portfolio-page">
+    <!-- 导航栏 -->
+    <header class="header">
+        <div class="container header-container">
+            <a class="logo" href="index.html">
+                <img alt="Logo" src="images/logo.png"/>
+            </a>
+            <nav class="nav">
+                <ul class="nav-links">
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="about.html">关于我</a></li>
+                    <li><a href="portfolio.html" class="active">作品集</a></li>
+                    <li><a href="contact.html">联系我</a></li>
+                </ul>
+            </nav>
+            <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+        </div>
+    </header>
+
+    <!-- 主要内容 -->
+    <main class="main-content">
+        <!-- 全屏Banner -->
+        <section class="hero-banner" style="background-image: url('images/20250728000720_banner.png');">
+            <div class="container hero-content">
+                <h1>我的作品集</h1>
+                <p>探索我的创意作品和设计项目</p>
+            </div>
+        </section>
+
+        <!-- 筛选控件 -->
+        <section class="filter-controls-container">
+            <div class="container">
+                <div class="filter-controls">
+                    <button data-category="all">全部作品</button>
+                    <button data-category="branding">品牌设计</button>
+                    <button data-category="ui">UI设计</button>
+                    <button data-category="packaging">包装设计</button>
+                    <button data-category="dianshang">电商设计</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 作品网格 -->
+        <section class="portfolio-section">
+            <div class="container">
+                <div class="portfolio-new-grid" id="portfolioContainerNew">
+                    <!-- 作品卡片将通过JavaScript动态加载 -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img alt="Logo" src="images/logo.png"/>
+                </div>
+                <div class="footer-links">
+                    <ul>
+                        <li><a href="index.html">首页</a></li>
+                        <li><a href="about.html">关于我</a></li>
+                        <li><a href="portfolio.html">作品集</a></li>
+                        <li><a href="contact.html">联系我</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <p>联系方式</p>
+                    <p>邮箱: example@designer.com</p>
+                    <p>电话: 123-456-7890</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 设计师个人网站. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/data-service.js"></script>
+    <script src="js/menu.js"></script>
+    <script src="js/star_background.js"></script>
+    <!-- 新的作品集加载脚本 -->
+    <script>
+        // 加载作品数据并生成新的作品网格
+        function loadWorksNew() {
+            console.log('开始加载作品数据');
+            try {
+                // 直接从JSON文件加载数据
+                fetch('data/works.json')
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('网络响应异常: ' + response.status);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('获取到的作品数据:', data);
+                        // 检查数据格式
+                        const worksData = data && data.works && Array.isArray(data.works) ? data.works : data;
+                        if (!worksData || !Array.isArray(worksData) || worksData.length === 0) {
+                            console.error('作品数据格式不正确或为空:', data);
+                            return;
+                        }
+                        console.log('作品数量:', worksData.length);
+
+                        const container = document.getElementById('portfolioContainerNew');
+                        if (!container) {
+                            console.error('未找到作品容器元素');
+                            return;
+                        }
+
+                        container.innerHTML = '';
+
+                        // 动态生成作品卡片
+                        worksData.forEach((work, index) => {
+                            // 确保作品有ID
+                            work.id = work.id || index + 1;
+                            // 创建作品卡片
+                            const card = document.createElement('div');
+                            card.className = 'work-card';
+                            card.dataset.category = work.category || 'branding';
+                            card.dataset.id = work.id;
+
+                            // 卡片HTML内容
+                            card.innerHTML = `
+                                <div class="work-image-container">
+                                    <img src="images/${work.image || 'default.png'}" alt="${work.title || '作品图片'}"/>
+                                    <div class="work-overlay">
+                                        <h3>${work.title || '未命名作品'}</h3>
+                                        <p>${work.category || '未分类'}</p>
+                                    </div>
+                                </div>
+                                <div class="work-card-content">
+                                    <h3>${work.title || '未命名作品'}</h3>
+                                    <p>${work.service || ''}</p>
+                                </div>
+                            `;
+
+                            // 添加点击事件
+                            card.addEventListener('click', function() {
+                                // 这里可以添加打开作品详情的逻辑
+                                alert('打开作品: ' + (work.title || '未命名作品'));
+                            });
+
+                            container.appendChild(card);
+                        });
+
+                        // 初始化筛选功能
+                        initFiltersNew();
+                    })
+                    .catch(error => {
+                        console.error('加载作品失败:', error);
+                    });
+            } catch (error) {
+                console.error('加载作品失败:', error);
+            }
+        }
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            loadWorksNew();
+        });
+
+        // 初始化筛选功能 - 新实现
+        function initFiltersNew() {
+            const filterButtons = document.querySelectorAll('.filter-controls button');
+            if (filterButtons.length > 0) {
+                filterButtons.forEach(button => {
+                    const category = button.dataset.category || button.textContent.trim().toLowerCase();
+                    button.addEventListener('click', function() {
+                        filterWorksNew(category);
+                        // 更新按钮激活状态
+                        filterButtons.forEach(btn => btn.classList.remove('active'));
+                        this.classList.add('active');
+                    });
+                });
+                // 初始显示所有作品
+                filterButtons[0].classList.add('active');
+            }
+        }
+
+        // 筛选作品 - 新实现
+        function filterWorksNew(category) {
+            console.log('筛选类别:', category);
+            const workCards = document.querySelectorAll('.work-card');
+            const portfolioGrid = document.querySelector('.portfolio-new-grid');
+            let hasVisibleCards = false;
+
+            // 先隐藏所有卡片
+            workCards.forEach(card => {
+                card.classList.add('hidden');
+                card.style.display = 'none';
+                card.style.height = '0';
+                card.style.width = '0';
+                card.style.margin = '0';
+                card.style.padding = '0';
+                card.style.border = 'none';
+            });
+
+            // 然后显示符合条件的卡片
+            workCards.forEach(card => {
+                const cardCategory = card.dataset.category;
+                const shouldShow = category === 'all' || cardCategory === category;
+
+                if (shouldShow) {
+                    card.classList.remove('hidden');
+                    card.style.display = 'block';
+                    card.style.height = 'auto';
+                    card.style.width = 'auto';
+                    card.style.margin = '';
+                    card.style.padding = '';
+                    card.style.border = '';
+                    hasVisibleCards = true;
+                }
+            });
+
+            // 如果没有可见卡片，显示提示信息
+            if (!hasVisibleCards) {
+                let noResults = document.querySelector('.no-results');
+                if (!noResults) {
+                    noResults = document.createElement('div');
+                    noResults.className = 'no-results';
+                    noResults.style.textAlign = 'center';
+                    noResults.style.padding = '2rem';
+                    noResults.style.width = '100%';
+                    portfolioGrid.appendChild(noResults);
+                }
+                noResults.textContent = '没有找到匹配的作品';
+            } else {
+                const noResults = document.querySelector('.no-results');
+                if (noResults) {
+                    noResults.remove();
+                }
+            }
+
+            // 强制重排布局
+            forceReflow(portfolioGrid);
+        }
+
+        // 强制元素重绘和重排
+        function forceReflow(element) {
+            if (!element) return;
+            element.style.opacity = '0.99';
+            setTimeout(() => {
+                element.style.opacity = '1';
+            }, 50);
+        }
+    </script>
+</body>
+</html>

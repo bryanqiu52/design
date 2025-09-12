@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+    <link rel="stylesheet" href="css/scrollbar-fix.css">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>作品集 | Design BRYAN</title>
+<!-- 优先使用CDN加载Font Awesome -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" onload="this.classList.add('loaded')"/>
+<!-- 如果CDN加载失败，则使用本地备份 -->
+<script>
+  // 检查Font Awesome是否加载成功
+  setTimeout(function() {
+    if (!document.querySelector('link[href*="font-awesome"].loaded')) {
+      console.log('Font Awesome CDN加载失败，尝试使用本地备份...');
+      var link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = 'css/font-awesome.min.css';
+      document.head.appendChild(link);
+    }
+  }, 3000); // 3秒后检查
+</script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet"/>
+<link href="css/styles.css?v=3" rel="stylesheet"/>
+</head>
+<body class="sub-page">
+<div class="particle-bg"></div>
+<!-- 直接写入导航代码 -->
+<nav class="nav-container"><div class="nav-menu"><span class="logo-text" id="site-logo" style="font-size: 1.5rem; font-weight: bold; letter-spacing: 2px;">BRYAN</span>
+<button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+<div class="nav-links">
+<a href="index.html">首页</a>
+<a class="active" href="portfolio.html">作品</a>
+<a href="about.html">关于</a>
+<a href="contact.html">联系</a>
+</div>
+</div>
+</nav>
+<!-- 全屏Banner -->
+<section class="page-banner" style="background-image: url(images/20250728000720_banner.png);">
+<div class="banner-content">
+<h1 class="page-title">作品集<span>Portfolio</span></h1>
+</div>
+</section>
+<main class="main-content">
+<div class="filter-controls">
+<button class="cta-btn outline active" data-category="all">全部作品</button>
+<button class="cta-btn outline" data-category="branding">品牌设计</button>
+<button class="cta-btn outline" data-category="ui">UI设计</button>
+<button class="cta-btn outline" data-category="packaging">包装设计</button>
+<button class="cta-btn outline" data-category="dianshang">电商设计</button>
+</div>
+<div class="portfolio-grid" id="portfolioContainer">
+<!-- 作品将通过JavaScript从works.json动态加载 -->
+</div>
+</main>
+<footer class="site-footer">
+<div class="footer-content">
+<div class="social-links">
+<a aria-label="Behance" href="https://www.behance.net" rel="noopener" target="_blank">
+<i class="fab fa-behance"></i>
+</a>
+<a aria-label="Dribbble" href="https://dribbble.com" rel="noopener" target="_blank">
+<i class="fab fa-dribbble"></i>
+</a>
+<a aria-label="Instagram" href="https://www.instagram.com" rel="noopener" target="_blank">
+<i class="fab fa-instagram"></i>
+</a>
+<a aria-label="微信" class="wechat-link" href="#wechat-modal">
+<i class="fab fa-weixin"></i>
+<div class="wechat-qr">
+<img alt="微信二维码" src="images/qrcode.png"/>
+</div>
+</a>
+</div>
+<div class="footer-info">
+<p>© 2025 Design Bryan. All rights reserved</p>
+<p>bryanqiu52@gmail.com</p>
+</div>
+</div>
+</footer>
+<script src="js/data-service.js"></script>
+<script src="js/menu.js"></script>
+<script src="js/main.js"></script>
+    <script src="js/filter-fix.js"></script>
+<script src="js/star_background.js"></script>
+
+<!-- 备用作品加载脚本 -->
+<script>
+    // 页面加载完成后执行
+    document.addEventListener('DOMContentLoaded', function() {
+        // 如果5秒后作品容器仍然为空，则尝试直接加载数据
+        setTimeout(function() {
+            const container = document.getElementById('portfolioContainer');
+            if (container && container.innerHTML.trim() === '') {
+                console.log('作品容器为空，尝试直接加载数据...');
+                fetch('data/works.json')
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`加载失败: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('直接加载的数据:', data);
+                        if (data && data.works && Array.isArray(data.works)) {
+                            // 清空容器
+                            container.innerHTML = '';
+                            // 动态生成作品卡片
+                            data.works.forEach((work, index) => {
+                                const card = document.createElement('div');
+                                card.className = 'work-card';
+                                card.dataset.category = work.category || 'all';
+                                card.dataset.index = index;
+                                card.dataset.projectId = work.id || index + 1;
+
+                                // 确保图片路径正确
+                                // 所有图片都在images目录下，确保路径正确
+                                const imagePath = work.cover_image ? 
+                                    (work.cover_image.startsWith('images/') ? `${work.cover_image}` : `images/${work.cover_image}`) : 
+                                    'images/default.png';
+                                console.log('备用加载 - 作品图片路径:', imagePath);
+
+                                card.innerHTML = `
+                                    <img src="${imagePath}" alt="${work.title || '作品图片'}">
+                                    <div class="work-card-content">
+                                        <div class="work-header">
+                                            <h3>${work.title || '未命名作品'}</h3>
+                                            <span class="category">${getCategoryName(work.category) || '未分类'}</span>
+                                        </div>
+                                        <p>${work.description || '暂无作品描述'}</p>
+                                    </div>
+                                `;
+
+                                container.appendChild(card);
+                                console.log('备用加载 - 成功添加作品卡片:', work.title);
+                                // 添加点击事件以跳转到作品详情页
+                                card.addEventListener('click', () => {
+                                    window.location.href = `work-detail.html?id=${work.id || index + 1}`;
+                                });
+                            });
+                            // 作品卡片生成后初始化筛选功能
+                            if (typeof initFilters === 'function') {
+                                initFilters();
+                            }
+                        } else {
+                            console.error('直接加载的数据格式不正确:', data);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('直接加载数据失败:', error);
+                    });
+            }
+        }, 5000); // 5秒后执行
+    });
+
+    // 简单的分类名称获取函数
+    function getCategoryName(category) {
+        const defaultCategories = {
+            'branding': '品牌设计',
+            'ui': 'UI设计',
+            'packaging': '包装设计',
+            'dianshang': '电商设计',
+            'all': '全部作品'
+        };
+        return defaultCategories[category] || category;
+    }
+</script>
+<script src="scripts/back-to-top.js"></script></body>
+</html>

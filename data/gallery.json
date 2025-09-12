@@ -1,0 +1,40 @@
+{
+  "categories": [
+    {
+      "id": "branding",
+      "name": "品牌设计",
+      "description": "企业品牌视觉形象设计"
+    },
+    {
+      "id": "ui",
+      "name": "UI设计",
+      "description": "用户界面设计与用户体验优化"
+    },
+    {
+      "id": "packaging",
+      "name": "包装设计",
+      "description": "产品包装与视觉识别系统"
+    },
+    {
+      "id": "dianshang",
+      "name": "电商设计",
+      "description": "电子商务平台视觉设计"
+    }
+  ],
+  "featured": [
+    {
+      "id": 1,
+      "title": "品牌重塑项目",
+      "category": "branding",
+      "image": "images/works/001/main.jpg",
+      "description": "为科技公司完成的品牌重塑项目，包括标志设计、视觉识别系统和品牌指南。"
+    },
+    {
+      "id": 2,
+      "title": "移动应用UI设计",
+      "category": "ui",
+      "image": "images/works/002/main.jpg",
+      "description": "健康追踪应用的用户界面设计，注重用户体验和交互流畅性。"
+    }
+  ]
+}

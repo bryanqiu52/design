@@ -1,0 +1,39 @@
+/* 调试用CSS：可视化所有元素边框，帮助识别溢出元素 */
+* {
+    outline: 1px solid rgba(255, 0, 0, 0.2) !important;
+    box-sizing: border-box !important;
+}
+
+/* 突出显示可能导致滚动条的元素 */
+body, html {
+    overflow-x: hidden !important;
+}
+
+/* 检查.grid-container的父元素 */
+.main-content, .container {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* 增强.portfolio-grid的溢出控制 */
+.portfolio-grid {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+/* 隐藏时完全不占用空间 */
+.work-card.hidden {
+    display: none !important;
+    height: 0 !important;
+    width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+}

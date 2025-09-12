@@ -1,0 +1,92 @@
+/* 滚动条问题修复专用CSS */
+
+/* 基础设置 */
+html, body {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+}
+
+/* 容器设置 */
+.container, .main-content {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+}
+
+/* 作品网格修复 */
+.portfolio-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)) !important;
+    gap: 1.2rem !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    padding: 0 1.2rem !important; /* 添加内边距防止卡片边缘被裁剪 */
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+    grid-auto-flow: dense !important;
+}
+
+/* 作品卡片修复 */
+.work-card {
+    position: relative !important;
+    overflow: hidden !important;
+    border-radius: 16px !important;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    display: block !important;
+    height: 100% !important;
+    cursor: pointer !important;
+    z-index: 1 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* 隐藏卡片时完全不占用空间 */
+.work-card.hidden {
+    display: none !important;
+    height: 0 !important;
+    width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    opacity: 0 !important;
+    transform: scale(0.95) !important;
+    overflow: hidden !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+/* 筛选控件修复 */
+.filter-controls {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    padding: 0.5rem 0 !important;
+    box-sizing: border-box !important;
+}
+
+/* 响应式调整 */
+@media (max-width: 767px) {
+    .portfolio-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)) !important;
+        gap: 0.8rem !important;
+        padding: 0 0.8rem !important;
+    }
+}
+
+/* 强制重绘和重排 */
+.force-reflow {
+    animation: forceReflow 0.5s ease forwards !important;
+}
+
+@keyframes forceReflow {
+    0% { opacity: 0.99; }
+    100% { opacity: 1; }
+}
