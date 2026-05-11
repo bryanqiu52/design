@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>城南 | 设计师个人介绍</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="styles.css" rel="stylesheet"/>
+<style>
+.chengnan-hero {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 140px 5% 4rem;
+    background: linear-gradient(180deg, var(--primary) 0%, rgba(255,51,102,0.05) 100%);
+}
+
+.chengnan-content {
+    text-align: center;
+    max-width: 800px;
+}
+
+.designer-avatar {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 2rem;
+    font-size: 4rem;
+    color: white;
+    box-shadow: 0 20px 60px rgba(255,51,102,0.3);
+}
+
+.designer-name {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.8) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.designer-title {
+    font-size: 1.2rem;
+    color: var(--secondary);
+    margin-bottom: 1.5rem;
+    letter-spacing: 2px;
+}
+
+.designer-bio {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+}
+
+.designer-stats {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-top: 3rem;
+    flex-wrap: wrap;
+}
+
+.designer-stat {
+    text-align: center;
+}
+
+.designer-stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--secondary);
+}
+
+.designer-stat-label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-top: 0.3rem;
+}
+
+.life-section {
+    padding: 6rem 0;
+}
+
+.life-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.life-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    padding: 2.5rem;
+    text-align: center;
+    transition: all 0.4s ease;
+}
+
+.life-card:hover {
+    transform: translateY(-10px);
+    border-color: rgba(255,51,102,0.3);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.life-icon {
+    width: 70px;
+    height: 70px;
+    background: rgba(255,51,102,0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 1.8rem;
+    color: var(--secondary);
+    transition: all 0.3s ease;
+}
+
+.life-card:hover .life-icon {
+    background: var(--secondary);
+    color: white;
+    transform: scale(1.1) rotate(5deg);
+}
+
+.life-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+}
+
+.life-card p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+.quote-section {
+    padding: 6rem 0;
+    background: linear-gradient(135deg, rgba(255,51,102,0.08) 0%, rgba(0,212,170,0.05) 100%);
+}
+
+.quote-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.quote-icon {
+    font-size: 3rem;
+    color: var(--secondary);
+    opacity: 0.5;
+    margin-bottom: 1.5rem;
+}
+
+.quote-text {
+    font-size: 1.5rem;
+    font-style: italic;
+    line-height: 1.8;
+    color: var(--text);
+    margin-bottom: 2rem;
+}
+
+.quote-author {
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+    .designer-name {
+        font-size: 2rem;
+    }
+    .designer-stats {
+        gap: 2rem;
+    }
+}
+</style>
+</head>
+<body>
+<nav class="nav">
+<div class="nav-container">
+<a href="index.html" class="logo">
+<img src="CN_logo.svg" alt="城南设计工作室" class="logo-img">
+</a>
+<div class="nav-links">
+<a href="index.html">首页</a>
+<a href="portfolio.html">案例</a>
+<a href="chengnan.html" class="active">城南</a>
+<a href="about.html">关于</a>
+<a href="contact.html">联系</a>
+</div>
+<button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+</div>
+</nav>
+
+<section class="chengnan-hero">
+<div class="chengnan-content">
+<div class="designer-avatar">
+<i class="fas fa-user"></i>
+</div>
+<h1 class="designer-name">Bryan Qiu</h1>
+<p class="designer-title">创始人 & 设计总监</p>
+<p class="designer-bio">
+                嗨，我是 Bryan，城南设计工作室的创始人。作为一名热爱生活的设计师，<br>
+                我相信好的设计源于对生活的观察和感悟。工作之余，我是一个咖啡爱好者、<br>
+                游戏玩家、摄影爱好者，音乐也是我生活中不可或缺的一部分。
+            </p>
+<div class="designer-stats">
+<div class="designer-stat">
+<div class="designer-stat-number">8+</div>
+<div class="designer-stat-label">年设计经验</div>
+</div>
+<div class="designer-stat">
+<div class="designer-stat-number">120+</div>
+<div class="designer-stat-label">完成项目</div>
+</div>
+<div class="designer-stat">
+<div class="designer-stat-number">999+</div>
+<div class="designer-stat-label">杯咖啡</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="life-section">
+<div class="container">
+<div class="section-header center">
+<span class="section-tag">Life</span>
+<h2 class="section-title">生活中的我</h2>
+</div>
+<div class="life-grid">
+<div class="life-card" data-animate>
+<div class="life-icon"><i class="fas fa-coffee"></i></div>
+<h3>咖啡爱好者</h3>
+<p>每天从一杯手冲咖啡开始，享受研磨咖啡豆的香气和萃取的过程。咖啡不仅是提神饮品，更是一种生活态度。</p>
+</div>
+<div class="life-card" data-animate>
+<div class="life-icon"><i class="fas fa-gamepad"></i></div>
+<h3>游戏玩家</h3>
+<p>闲暇时光喜欢探索各种独立游戏，从精美的游戏美术设计中获得灵感，也享受游戏带来的放松时光。</p>
+</div>
+<div class="life-card" data-animate>
+<div class="life-icon"><i class="fas fa-camera"></i></div>
+<h3>摄影爱好者</h3>
+<p>用镜头记录生活中的美好瞬间，街景、建筑、人文都是我喜欢拍摄的题材。摄影让我学会用不同的视角观察世界。</p>
+</div>
+<div class="life-card" data-animate>
+<div class="life-icon"><i class="fas fa-music"></i></div>
+<h3>音乐发烧友</h3>
+<p>工作时喜欢听爵士和电子音乐，设计灵感常常在旋律中涌现。音乐是我创作过程中最好的伴侣。</p>
+</div>
+</div>
+</div>
+</section>
+
+<section class="quote-section">
+<div class="container">
+<div class="quote-content">
+<div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+<p class="quote-text">
+                    "设计不仅仅是工作，更是一种生活方式。<br>
+                    用心感受生活，才能创造出有温度的设计。"
+                </p>
+<p class="quote-author">— Bryan Qiu</p>
+</div>
+</div>
+</section>
+
+<section class="cta-section">
+<div class="container">
+<div class="cta-content" data-animate>
+<h2>想认识更多？</h2>
+<p>无论是设计合作还是咖啡交流，都欢迎联系我</p>
+<a href="contact.html" class="btn btn-primary btn-lg">
+<span>联系我</span>
+<i class="fas fa-arrow-right"></i>
+</a>
+</div>
+</div>
+</section>
+
+<footer class="footer">
+<div class="container">
+<div class="footer-grid">
+<div class="footer-brand">
+<img src="CN_logo.svg" alt="城南设计工作室" class="footer-brand-logo">
+<p>专注品牌视觉与数字设计，用创意为品牌赋能</p>
+</div>
+<div class="footer-links">
+<h4>快速链接</h4>
+<ul>
+<li><a href="index.html">首页</a></li>
+<li><a href="portfolio.html">案例</a></li>
+<li><a href="chengnan.html">城南</a></li>
+<li><a href="about.html">关于</a></li>
+<li><a href="contact.html">联系</a></li>
+</ul>
+</div>
+<div class="footer-contact">
+<h4>联系方式</h4>
+<ul>
+<li><i class="fas fa-envelope"></i> bryanqiu52@gmail.com</li>
+<li><i class="fab fa-weixin"></i> poke1883</li>
+</ul>
+</div>
+<div class="footer-social">
+<h4>关注我们</h4>
+<div class="social-links">
+<a href="https://www.behance.net" target="_blank"><i class="fab fa-behance"></i></a>
+<a href="https://dribbble.com" target="_blank"><i class="fab fa-dribbble"></i></a>
+<a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+</div>
+</div>
+</div>
+<div class="footer-bottom">
+<p>© 2025 城南设计工作室 Chengnan Design Studio. All rights reserved.</p>
+</div>
+</div>
+</footer>
+
+<script>
+document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+    this.classList.toggle('active');
+    document.querySelector('.nav-links').classList.toggle('active');
+    document.body.classList.toggle('no-scroll');
+});
+
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+        document.querySelector('.mobile-menu-btn').classList.remove('active');
+        document.querySelector('.nav-links').classList.remove('active');
+        document.body.classList.remove('no-scroll');
+    });
+});
+
+function animateOnScroll() {
+    const elements = document.querySelectorAll('[data-animate]');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-in');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+    elements.forEach(el => observer.observe(el));
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    animateOnScroll();
+});
+</script>
+</body>
+</html>

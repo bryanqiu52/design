@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>作品集 | 城南设计工作室</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="styles.css" rel="stylesheet"/>
+</head>
+<body>
+<nav class="nav">
+<div class="nav-container">
+<a href="index.html" class="logo">
+<img src="CN_logo.svg" alt="城南设计工作室" class="logo-img">
+</a>
+<div class="nav-links">
+<a href="index.html">首页</a>
+<a href="portfolio.html" class="active">案例</a>
+<a href="chengnan.html">城南</a>
+<a href="about.html">关于</a>
+<a href="contact.html">联系</a>
+</div>
+<button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+</div>
+</nav>
+
+<header class="page-header">
+<h1>案例</h1>
+<p>探索我们的创意世界，每一个作品都是用心之作</p>
+</header>
+
+<section class="portfolio-section">
+<div class="container">
+<div class="portfolio-filters">
+<button class="filter-btn active" data-filter="all">全部作品</button>
+<button class="filter-btn" data-filter="branding">品牌设计</button>
+<button class="filter-btn" data-filter="ui">UI设计</button>
+<button class="filter-btn" data-filter="packaging">包装设计</button>
+<button class="filter-btn" data-filter="dianshang">电商设计</button>
+</div>
+<div class="portfolio-grid" id="portfolioGrid">
+</div>
+<div class="load-more-container">
+<button class="btn btn-outline" id="loadMoreBtn" style="display: none;">加载更多</button>
+</div>
+</div>
+</section>
+
+<footer class="footer">
+<div class="container">
+<div class="footer-grid">
+<div class="footer-brand">
+<img src="CN_logo.svg" alt="城南设计工作室" class="footer-brand-logo">
+<p>专注品牌视觉与数字设计，用创意为品牌赋能</p>
+</div>
+<div class="footer-links">
+<h4>快速链接</h4>
+<ul>
+<li><a href="index.html">首页</a></li>
+<li><a href="portfolio.html">案例</a></li>
+<li><a href="chengnan.html">城南</a></li>
+<li><a href="about.html">关于</a></li>
+<li><a href="contact.html">联系</a></li>
+</ul>
+</div>
+<div class="footer-contact">
+<h4>联系方式</h4>
+<ul>
+<li><i class="fas fa-envelope"></i> bryanqiu52@gmail.com</li>
+<li><i class="fab fa-weixin"></i> poke1883</li>
+</ul>
+</div>
+<div class="footer-social">
+<h4>关注我们</h4>
+<div class="social-links">
+<a href="https://www.behance.net" target="_blank"><i class="fab fa-behance"></i></a>
+<a href="https://dribbble.com" target="_blank"><i class="fab fa-dribbble"></i></a>
+<a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+</div>
+</div>
+</div>
+<div class="footer-bottom">
+<p>© 2025 城南设计工作室 Chengnan Design Studio. All rights reserved.</p>
+</div>
+</div>
+</footer>
+
+<script>
+const worksData = [
+    { id: 1, title: "科技品牌重塑", category: "branding", image: "images/work1.jpg", description: "为新兴科技公司打造全新的品牌形象系统，从策略到视觉全方位升级", year: "2024" },
+    { id: 2, title: "移动APP界面设计", category: "ui", image: "images/work2.jpg", description: "用户体验至上的移动应用界面设计，打造流畅自然的交互体验", year: "2024" },
+    { id: 3, title: "精品咖啡包装", category: "packaging", image: "images/work3.jpg", description: "精品咖啡产品包装设计，融合产地文化与时尚元素", year: "2024" },
+    { id: 4, title: "美妆电商设计", category: "dianshang", image: "images/work4.jpg", description: "高端美妆电商店铺视觉设计，提升品牌档次感和购买转化", year: "2024" },
+    { id: 5, title: "连锁品牌VI设计", category: "branding", image: "images/work5.jpg", description: "统一品牌形象，提升品牌认知度，完整的视觉识别系统", year: "2023" },
+    { id: 6, title: "金融APP界面", category: "ui", image: "images/work6.jpg", description: "安全易用的金融类应用设计，注重安全感和易用性平衡", year: "2023" },
+    { id: 7, title: "有机食品包装", category: "packaging", image: "images/work7.jpg", description: "有机食品包装系列，传递健康新鲜的品牌理念", year: "2023" },
+    { id: 8, title: "家居电商设计", category: "dianshang", image: "images/work8.jpg", description: "家居电商平台视觉升级，打造温馨品质购物体验", year: "2023" },
+    { id: 9, title: "餐饮品牌设计", category: "branding", image: "images/work9.jpg", description: "餐饮品牌全套视觉设计，融合品牌故事与美食文化", year: "2022" },
+    { id: 10, title: "社交App UI", category: "ui", image: "images/work10.jpg", description: "社交类移动应用界面设计，注重个性表达和互动体验", year: "2022" },
+    { id: 11, title: "茶叶礼盒包装", category: "packaging", image: "images/work11.jpg", description: "茶叶产品包装，融入传统文化元素，适合馈赠亲友", year: "2022" },
+    { id: 12, title: "数码电商设计", category: "dianshang", image: "images/work12.jpg", description: "数码产品电商视觉设计，突出科技感与专业性", year: "2022" }
+];
+
+const ITEMS_PER_PAGE = 6;
+let currentPage = 1;
+let currentFilter = 'all';
+let displayedWorks = [];
+
+function getCategoryName(category) {
+    const categories = { branding: '品牌设计', ui: 'UI设计', packaging: '包装设计', dianshang: '电商设计' };
+    return categories[category] || category;
+}
+
+function filterWorks(category) {
+    currentFilter = category;
+    currentPage = 1;
+    
+    if (category === 'all') {
+        displayedWorks = [...worksData];
+    } else {
+        displayedWorks = worksData.filter(work => work.category === category);
+    }
+    
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.filter === category);
+    });
+    
+    renderWorks(true);
+}
+
+function renderWorks(reset = false) {
+    const container = document.getElementById('portfolioGrid');
+    const start = 0;
+    const end = currentPage * ITEMS_PER_PAGE;
+    const worksToShow = displayedWorks.slice(start, end);
+    
+    if (reset) {
+        container.innerHTML = '';
+    }
+    
+    worksToShow.forEach((work, index) => {
+        const existingCard = container.querySelector(`[data-id="${work.id}"]`);
+        if (existingCard) return;
+        
+        const card = document.createElement('a');
+        card.href = `project.html?id=${work.id}`;
+        card.className = 'portfolio-item';
+        card.dataset.id = work.id;
+        card.style.animationDelay = `${index * 0.05}s`;
+        
+        card.innerHTML = `
+            <div class="portfolio-item-image">
+                <img src="${work.image}" alt="${work.title}" loading="lazy">
+                <div class="portfolio-item-overlay">
+                    <span class="portfolio-item-category">${getCategoryName(work.category)}</span>
+                </div>
+            </div>
+            <div class="portfolio-item-info">
+                <h3>${work.title}</h3>
+                <p>${work.description}</p>
+                <span class="portfolio-item-link">
+                    查看详情 <i class="fas fa-arrow-right"></i>
+                </span>
+            </div>
+        `;
+        
+        container.appendChild(card);
+    });
+    
+    const loadMoreBtn = document.getElementById('loadMoreBtn');
+    if (end < displayedWorks.length) {
+        loadMoreBtn.style.display = 'inline-flex';
+    } else {
+        loadMoreBtn.style.display = 'none';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    filterWorks('all');
+    
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            filterWorks(this.dataset.filter);
+        });
+    });
+    
+    document.getElementById('loadMoreBtn').addEventListener('click', function() {
+        currentPage++;
+        renderWorks();
+    });
+    
+    document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+        this.classList.toggle('active');
+        document.querySelector('.nav-links').classList.toggle('active');
+        document.body.classList.toggle('no-scroll');
+    });
+    
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            document.querySelector('.mobile-menu-btn').classList.remove('active');
+            document.querySelector('.nav-links').classList.remove('active');
+            document.body.classList.remove('no-scroll');
+        });
+    });
+});
+</script>
+</body>
+</html>
