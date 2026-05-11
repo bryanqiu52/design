@@ -1220,14 +1220,22 @@ ul {
     overflow: hidden;
 }
 
-.project-hero::before {
-    content: '';
+.project-hero-bg {
     position: absolute;
     inset: 0;
     background-size: cover;
     background-position: center;
-    opacity: 0.15;
-    filter: blur(30px);
+    opacity: 0.12;
+    filter: blur(20px);
+    z-index: 0;
+}
+
+.project-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, var(--primary) 0%, transparent 50%, var(--primary) 100%);
+    z-index: 0;
 }
 
 .project-hero-content {
