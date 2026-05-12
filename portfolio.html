@@ -85,40 +85,21 @@
 </div>
 </footer>
 
+<script src="js/data.js"></script>
 <script>
-const worksData = [
-    { id: 1, title: "科技品牌重塑", category: "branding", image: "images/work1.jpg", description: "为新兴科技公司打造全新的品牌形象系统，从策略到视觉全方位升级", year: "2024" },
-    { id: 2, title: "移动APP界面设计", category: "ui", image: "images/work2.jpg", description: "用户体验至上的移动应用界面设计，打造流畅自然的交互体验", year: "2024" },
-    { id: 3, title: "精品咖啡包装", category: "packaging", image: "images/work3.jpg", description: "精品咖啡产品包装设计，融合产地文化与时尚元素", year: "2024" },
-    { id: 4, title: "美妆电商设计", category: "dianshang", image: "images/work4.jpg", description: "高端美妆电商店铺视觉设计，提升品牌档次感和购买转化", year: "2024" },
-    { id: 5, title: "连锁品牌VI设计", category: "branding", image: "images/work5.jpg", description: "统一品牌形象，提升品牌认知度，完整的视觉识别系统", year: "2023" },
-    { id: 6, title: "金融APP界面", category: "ui", image: "images/work6.jpg", description: "安全易用的金融类应用设计，注重安全感和易用性平衡", year: "2023" },
-    { id: 7, title: "有机食品包装", category: "packaging", image: "images/work7.jpg", description: "有机食品包装系列，传递健康新鲜的品牌理念", year: "2023" },
-    { id: 8, title: "家居电商设计", category: "dianshang", image: "images/work8.jpg", description: "家居电商平台视觉升级，打造温馨品质购物体验", year: "2023" },
-    { id: 9, title: "餐饮品牌设计", category: "branding", image: "images/work9.jpg", description: "餐饮品牌全套视觉设计，融合品牌故事与美食文化", year: "2022" },
-    { id: 10, title: "社交App UI", category: "ui", image: "images/work10.jpg", description: "社交类移动应用界面设计，注重个性表达和互动体验", year: "2022" },
-    { id: 11, title: "茶叶礼盒包装", category: "packaging", image: "images/work11.jpg", description: "茶叶产品包装，融入传统文化元素，适合馈赠亲友", year: "2022" },
-    { id: 12, title: "数码电商设计", category: "dianshang", image: "images/work12.jpg", description: "数码产品电商视觉设计，突出科技感与专业性", year: "2022" }
-];
-
 const ITEMS_PER_PAGE = 6;
 let currentPage = 1;
 let currentFilter = 'all';
 let displayedWorks = [];
-
-function getCategoryName(category) {
-    const categories = { branding: '品牌设计', ui: 'UI设计', packaging: '包装设计', dianshang: '电商设计' };
-    return categories[category] || category;
-}
 
 function filterWorks(category) {
     currentFilter = category;
     currentPage = 1;
     
     if (category === 'all') {
-        displayedWorks = [...worksData];
+        displayedWorks = [...projectsData];
     } else {
-        displayedWorks = worksData.filter(work => work.category === category);
+        displayedWorks = projectsData.filter(work => work.category === category);
     }
     
     document.querySelectorAll('.filter-btn').forEach(btn => {

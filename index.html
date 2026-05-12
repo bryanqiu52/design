@@ -285,18 +285,8 @@
 </div>
 </footer>
 
+<script src="js/data.js"></script>
 <script>
-const featuredWorks = [
-    { id: 1, title: "科技品牌重塑", category: "branding", image: "images/work1.jpg" },
-    { id: 2, title: "移动APP界面设计", category: "ui", image: "images/work2.jpg" },
-    { id: 3, title: "精品咖啡包装", category: "packaging", image: "images/work3.jpg" },
-    { id: 4, title: "美妆电商设计", category: "dianshang", image: "images/work4.jpg" }
-];
-
-function getCategoryName(category) {
-    const categories = { branding: '品牌设计', ui: 'UI设计', packaging: '包装设计', dianshang: '电商设计' };
-    return categories[category] || category;
-}
 
 function loadFeaturedWorks() {
     const container = document.getElementById('featuredWorks');
