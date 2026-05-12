@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>网站管理后台</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #fff;
+            padding: 20px 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            color: #222;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #4a90e2;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #357abd;
+        }
+
+        .btn-success {
+            background: #5cb85c;
+            color: #fff;
+        }
+
+        .btn-success:hover {
+            background: #4cae4c;
+        }
+
+        .btn-danger {
+            background: #d9534f;
+            color: #fff;
+        }
+
+        .btn-danger:hover {
+            background: #c9302c;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: #fff;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .btn-warning {
+            background: #f0ad4e;
+            color: #fff;
+        }
+
+        .btn-warning:hover {
+            background: #ec971f;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .tab-btn {
+            padding: 12px 24px;
+            border: none;
+            background: #e9ecef;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            background: #4a90e2;
+            color: #fff;
+        }
+
+        .tab-btn:hover:not(.active) {
+            background: #dee2e6;
+        }
+
+        .panel {
+            display: none;
+        }
+
+        .panel.active {
+            display: block;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .panel-title {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #4a90e2;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-group textarea.large {
+            min-height: 200px;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            justify-content: flex-end;
+        }
+
+        .project-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .project-item {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .project-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: #e9ecef;
+        }
+
+        .project-content {
+            padding: 20px;
+        }
+
+        .project-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .project-category {
+            display: inline-block;
+            padding: 4px 10px;
+            background: #e9ecef;
+            border-radius: 20px;
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .project-meta {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 15px;
+        }
+
+        .project-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .info-item {
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .info-item i {
+            font-size: 24px;
+            color: #4a90e2;
+        }
+
+        .info-item-content {
+            flex: 1;
+        }
+
+        .info-item-label {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 4px;
+        }
+
+        .info-item-value {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: #fff;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: scale(0.9);
+            transition: transform 0.3s;
+        }
+
+        .modal-overlay.active .modal {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            padding: 20px 30px;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            background: #fff;
+            z-index: 10;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #888;
+            transition: color 0.3s;
+        }
+
+        .modal-close:hover {
+            color: #333;
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .modal-footer {
+            padding: 20px 30px;
+            border-top: 1px solid #e9ecef;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            position: sticky;
+            bottom: 0;
+            background: #fff;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            padding: 15px 25px;
+            background: #333;
+            color: #fff;
+            border-radius: 8px;
+            font-size: 14px;
+            z-index: 2000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast.success {
+            background: #5cb85c;
+        }
+
+        .toast.error {
+            background: #d9534f;
+        }
+
+        .code-output {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 13px;
+            white-space: pre-wrap;
+            word-break: break-all;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .output-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #888;
+        }
+
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #ccc;
+        }
+
+        .empty-state h3 {
+            margin-bottom: 10px;
+            color: #666;
+        }
+
+        .section-divider {
+            height: 1px;
+            background: #e9ecef;
+            margin: 30px 0;
+        }
+
+        .help-text {
+            font-size: 12px;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        .tag-input-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            min-height: 50px;
+            background: #fff;
+        }
+
+        .tag-input-container:focus-within {
+            border-color: #4a90e2;
+        }
+
+        .tag-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 10px;
+            background: #e9ecef;
+            border-radius: 20px;
+            font-size: 13px;
+        }
+
+        .tag-item button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            color: #888;
+            padding: 0;
+            line-height: 1;
+        }
+
+        .tag-item button:hover {
+            color: #d9534f;
+        }
+
+        .tag-input {
+            flex: 1;
+            min-width: 100px;
+            border: none;
+            outline: none;
+            font-size: 14px;
+            padding: 5px;
+        }
+
+        .result-input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .result-input-group input {
+            flex: 1;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 15px 20px;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .tabs {
+                flex-wrap: wrap;
+            }
+
+            .project-list {
+                grid-template-columns: 1fr;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1><i class="fas fa-cog"></i> 网站管理后台</h1>
+        <div class="header-actions">
+            <button class="btn btn-success" onclick="exportAllChanges()">
+                <i class="fas fa-download"></i> 导出所有修改
+            </button>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('projects')">
+                <i class="fas fa-briefcase"></i> 案例管理
+            </button>
+            <button class="tab-btn" onclick="switchTab('profile')">
+                <i class="fas fa-user"></i> 个人信息
+            </button>
+            <button class="tab-btn" onclick="switchTab('export')">
+                <i class="fas fa-file-code"></i> 代码导出
+            </button>
+        </div>
+
+        <div id="projects-panel" class="panel active">
+            <div class="panel-header">
+                <h2 class="panel-title">案例列表</h2>
+                <button class="btn btn-primary" onclick="openProjectModal()">
+                    <i class="fas fa-plus"></i> 新增案例
+                </button>
+            </div>
+            <div id="project-list" class="project-list"></div>
+        </div>
+
+        <div id="profile-panel" class="panel">
+            <div class="card">
+                <h3 class="card-title"><i class="fas fa-user-circle"></i> 基本信息</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>网站标题</label>
+                        <input type="text" id="site-title" placeholder="例如：城南设计工作室">
+                    </div>
+                    <div class="form-group">
+                        <label>网站副标题</label>
+                        <input type="text" id="site-subtitle" placeholder="例如：用设计为品牌创造价值">
+                    </div>
+                    <div class="form-group">
+                        <label>邮箱</label>
+                        <input type="email" id="site-email" placeholder="例如：bryanqiu52@gmail.com">
+                    </div>
+                    <div class="form-group">
+                        <label>微信</label>
+                        <input type="text" id="site-wechat" placeholder="例如：poke1883">
+                    </div>
+                    <div class="form-group">
+                        <label>Behance链接</label>
+                        <input type="url" id="site-behance" placeholder="例如：https://www.behance.net/username">
+                    </div>
+                    <div class="form-group">
+                        <label>Dribbble链接</label>
+                        <input type="url" id="site-dribbble" placeholder="例如：https://dribbble.com/username">
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button class="btn btn-primary" onclick="saveProfile()">
+                        <i class="fas fa-save"></i> 保存修改
+                    </button>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3 class="card-title"><i class="fas fa-info-circle"></i> 关于我们</h3>
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label>工作室介绍</label>
+                        <textarea id="about-intro" class="large" placeholder="工作室介绍内容"></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>服务优势（每行一条）</label>
+                        <textarea id="about-services" placeholder="专业品质 - 多年设计经验&#10;深度沟通 - 充分理解需求&#10;准时交付 - 严格把控项目进度"></textarea>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button class="btn btn-primary" onclick="saveAbout()">
+                        <i class="fas fa-save"></i> 保存修改
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="export-panel" class="panel">
+            <div class="card">
+                <h3 class="card-title"><i class="fas fa-code"></i> data.js 导出</h3>
+                <p class="help-text">以下是 data.js 文件的完整内容，复制后替换项目中的 data.js 文件即可。</p>
+                <div class="code-output" id="data-js-output"></div>
+                <div class="output-actions">
+                    <button class="btn btn-success" onclick="copyToClipboard()">
+                        <i class="fas fa-copy"></i> 复制到剪贴板
+                    </button>
+                    <button class="btn btn-primary" onclick="downloadDataJS()">
+                        <i class="fas fa-download"></i> 下载文件
+                    </button>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 20px;">
+                <h3 class="card-title"><i class="fas fa-question-circle"></i> 使用说明</h3>
+                <ol style="padding-left: 20px; line-height: 2;">
+                    <li>在「案例管理」中添加或修改案例</li>
+                    <li>在「个人信息」中更新网站基本信息和关于页面内容</li>
+                    <li>点击「导出所有修改」或切换到「代码导出」查看生成的代码</li>
+                    <li>复制代码或下载文件，替换项目中的对应文件</li>
+                    <li>将修改后的文件上传到 GitHub 仓库</li>
+                    <li>GitHub Actions 会自动部署更新</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="project-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-title">新增案例</h3>
+                <button class="modal-close" onclick="closeProjectModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="project-id">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>案例标题 *</label>
+                        <input type="text" id="project-title" placeholder="例如：科技品牌重塑">
+                    </div>
+                    <div class="form-group">
+                        <label>分类 *</label>
+                        <select id="project-category">
+                            <option value="branding">品牌设计</option>
+                            <option value="ui">UI设计</option>
+                            <option value="packaging">包装设计</option>
+                            <option value="dianshang">电商设计</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>副标题</label>
+                        <input type="text" id="project-subtitle" placeholder="简短描述">
+                    </div>
+                    <div class="form-group">
+                        <label>客户</label>
+                        <input type="text" id="project-client" placeholder="客户名称">
+                    </div>
+                    <div class="form-group">
+                        <label>年份</label>
+                        <input type="text" id="project-year" placeholder="例如：2024">
+                    </div>
+                    <div class="form-group">
+                        <label>项目周期</label>
+                        <input type="text" id="project-duration" placeholder="例如：3个月">
+                    </div>
+                    <div class="form-group">
+                        <label>服务内容</label>
+                        <input type="text" id="project-services" placeholder="用逗号分隔，例如：品牌策略,视觉设计,VI系统">
+                    </div>
+                    <div class="form-group">
+                        <label>封面图片</label>
+                        <input type="text" id="project-image" placeholder="例如：images/work1.jpg">
+                        <p class="help-text">图片路径，请确保 images 目录下存在该文件</p>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>案例描述</label>
+                        <textarea id="project-description" class="large" placeholder="详细描述案例背景和内容"></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>项目挑战</label>
+                        <textarea id="project-challenge" placeholder="描述项目面临的主要挑战"></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>解决方案</label>
+                        <textarea id="project-solution" placeholder="描述解决方案"></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>成果数据</label>
+                        <div id="results-container">
+                            <div class="result-input-group">
+                                <input type="text" placeholder="数字，如：150%" class="result-number">
+                                <input type="text" placeholder="说明，如：品牌认知度提升" class="result-label">
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-secondary btn-sm" onclick="addResultInput()" style="margin-top: 10px;">
+                            <i class="fas fa-plus"></i> 添加成果
+                        </button>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>标签</label>
+                        <div class="tag-input-container" id="tag-container">
+                            <input type="text" class="tag-input" id="tag-input" placeholder="输入标签后按回车添加">
+                        </div>
+                        <p class="help-text">输入标签后按回车添加，点击 × 删除</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeProjectModal()">取消</button>
+                <button class="btn btn-primary" onclick="saveProject()">
+                    <i class="fas fa-save"></i> 保存
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        let projectsData = [];
+        let currentTags = [];
+        let hasChanges = false;
+
+        function init() {
+            loadProjects();
+            loadProfile();
+            renderProjectList();
+            updateExportOutput();
+            setupTagInput();
+        }
+
+        function loadProjects() {
+            try {
+                projectsData = JSON.parse(localStorage.getItem('admin_projects')) || [];
+            } catch (e) {
+                projectsData = [];
+            }
+        }
+
+        function saveProjects() {
+            localStorage.setItem('admin_projects', JSON.stringify(projectsData));
+            hasChanges = true;
+        }
+
+        function loadProfile() {
+            const profile = JSON.parse(localStorage.getItem('admin_profile')) || {};
+            document.getElementById('site-title').value = profile.siteTitle || '城南设计工作室';
+            document.getElementById('site-subtitle').value = profile.siteSubtitle || '用设计为品牌创造价值';
+            document.getElementById('site-email').value = profile.email || 'bryanqiu52@gmail.com';
+            document.getElementById('site-wechat').value = profile.wechat || 'poke1883';
+            document.getElementById('site-behance').value = profile.behance || '';
+            document.getElementById('site-dribbble').value = profile.dribbble || '';
+            document.getElementById('about-intro').value = profile.aboutIntro || '';
+            document.getElementById('about-services').value = profile.aboutServices || '';
+        }
+
+        function saveProfile() {
+            const profile = {
+                siteTitle: document.getElementById('site-title').value,
+                siteSubtitle: document.getElementById('site-subtitle').value,
+                email: document.getElementById('site-email').value,
+                wechat: document.getElementById('site-wechat').value,
+                behance: document.getElementById('site-behance').value,
+                dribbble: document.getElementById('site-dribbble').value,
+                aboutIntro: document.getElementById('about-intro').value,
+                aboutServices: document.getElementById('about-services').value
+            };
+            localStorage.setItem('admin_profile', JSON.stringify(profile));
+            hasChanges = true;
+            showToast('个人信息已保存', 'success');
+        }
+
+        function saveAbout() {
+            const profile = JSON.parse(localStorage.getItem('admin_profile')) || {};
+            profile.aboutIntro = document.getElementById('about-intro').value;
+            profile.aboutServices = document.getElementById('about-services').value;
+            localStorage.setItem('admin_profile', JSON.stringify(profile));
+            hasChanges = true;
+            showToast('关于我们已保存', 'success');
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.panel').forEach(panel => panel.classList.remove('active'));
+            event.target.closest('.tab-btn').classList.add('active');
+            document.getElementById(tab + '-panel').classList.add('active');
+            
+            if (tab === 'export') {
+                updateExportOutput();
+            }
+        }
+
+        function renderProjectList() {
+            const container = document.getElementById('project-list');
+            
+            if (projectsData.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-briefcase"></i>
+                        <h3>暂无案例</h3>
+                        <p>点击右上角「新增案例」开始添加</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = projectsData.map(project => `
+                <div class="project-item">
+                    <img src="${project.image}" alt="${project.title}" class="project-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect fill=%22%23e9ecef%22 width=%22100%22 height=%22100%22/%3E%3Ctext x=%2250%22 y=%2255%22 text-anchor=%22middle%22 fill=%22%23888%22 font-size=%2212%22%3ENo Image%3C/text%3E%3C/svg%3E'">
+                    <div class="project-content">
+                        <span class="project-category">${project.categoryName}</span>
+                        <h3 class="project-title">${project.title}</h3>
+                        <div class="project-meta">
+                            <span><i class="fas fa-calendar"></i> ${project.year}</span>
+                            <span style="margin-left: 15px;"><i class="fas fa-clock"></i> ${project.duration}</span>
+                        </div>
+                        <div class="project-actions">
+                            <button class="btn btn-warning btn-sm" onclick="editProject(${project.id})">
+                                <i class="fas fa-edit"></i> 编辑
+                            </button>
+                            <button class="btn btn-danger btn-sm" onclick="deleteProject(${project.id})">
+                                <i class="fas fa-trash"></i> 删除
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openProjectModal(project = null) {
+            document.getElementById('project-modal').classList.add('active');
+            
+            if (project) {
+                document.getElementById('modal-title').textContent = '编辑案例';
+                document.getElementById('project-id').value = project.id;
+                document.getElementById('project-title').value = project.title;
+                document.getElementById('project-category').value = project.category;
+                document.getElementById('project-subtitle').value = project.subtitle || '';
+                document.getElementById('project-client').value = project.client || '';
+                document.getElementById('project-year').value = project.year || '';
+                document.getElementById('project-duration').value = project.duration || '';
+                document.getElementById('project-services').value = (project.services || []).join(',');
+                document.getElementById('project-image').value = project.image || '';
+                document.getElementById('project-description').value = project.description || '';
+                document.getElementById('project-challenge').value = project.challenge || '';
+                document.getElementById('project-solution').value = project.solution || '';
+                
+                currentTags = [...(project.tags || [])];
+                renderTags();
+                
+                renderResults(project.results || []);
+            } else {
+                document.getElementById('modal-title').textContent = '新增案例';
+                document.getElementById('project-id').value = '';
+                document.getElementById('project-title').value = '';
+                document.getElementById('project-category').value = 'branding';
+                document.getElementById('project-subtitle').value = '';
+                document.getElementById('project-client').value = '';
+                document.getElementById('project-year').value = new Date().getFullYear().toString();
+                document.getElementById('project-duration').value = '';
+                document.getElementById('project-services').value = '';
+                document.getElementById('project-image').value = '';
+                document.getElementById('project-description').value = '';
+                document.getElementById('project-challenge').value = '';
+                document.getElementById('project-solution').value = '';
+                
+                currentTags = [];
+                renderTags();
+                renderResults([]);
+            }
+        }
+
+        function closeProjectModal() {
+            document.getElementById('project-modal').classList.remove('active');
+        }
+
+        function editProject(id) {
+            const project = projectsData.find(p => p.id === id);
+            if (project) {
+                openProjectModal(project);
+            }
+        }
+
+        function deleteProject(id) {
+            if (confirm('确定要删除这个案例吗？')) {
+                projectsData = projectsData.filter(p => p.id !== id);
+                saveProjects();
+                renderProjectList();
+                showToast('案例已删除', 'success');
+            }
+        }
+
+        function saveProject() {
+            const id = document.getElementById('project-id').value;
+            const title = document.getElementById('project-title').value.trim();
+            
+            if (!title) {
+                showToast('请输入案例标题', 'error');
+                return;
+            }
+
+            const category = document.getElementById('project-category').value;
+            const categoryNames = {
+                branding: '品牌设计',
+                ui: 'UI设计',
+                packaging: '包装设计',
+                dianshang: '电商设计'
+            };
+
+            const results = [];
+            document.querySelectorAll('.result-input-group').forEach(group => {
+                const number = group.querySelector('.result-number').value.trim();
+                const label = group.querySelector('.result-label').value.trim();
+                if (number && label) {
+                    results.push({ number, label });
+                }
+            });
+
+            const project = {
+                id: id ? parseInt(id) : Date.now(),
+                title,
+                category,
+                categoryName: categoryNames[category],
+                subtitle: document.getElementById('project-subtitle').value.trim(),
+                client: document.getElementById('project-client').value.trim(),
+                year: document.getElementById('project-year').value.trim(),
+                duration: document.getElementById('project-duration').value.trim(),
+                services: document.getElementById('project-services').value.split(',').map(s => s.trim()).filter(s => s),
+                image: document.getElementById('project-image').value.trim() || 'images/work1.jpg',
+                gallery: [document.getElementById('project-image').value.trim() || 'images/work1.jpg'],
+                description: document.getElementById('project-description').value.trim(),
+                challenge: document.getElementById('project-challenge').value.trim(),
+                solution: document.getElementById('project-solution').value.trim(),
+                results,
+                features: [],
+                tags: [...currentTags]
+            };
+
+            if (id) {
+                const index = projectsData.findIndex(p => p.id === parseInt(id));
+                if (index !== -1) {
+                    projectsData[index] = project;
+                }
+            } else {
+                projectsData.unshift(project);
+            }
+
+            saveProjects();
+            renderProjectList();
+            closeProjectModal();
+            showToast(id ? '案例已更新' : '案例已添加', 'success');
+        }
+
+        function renderTags() {
+            const container = document.getElementById('tag-container');
+            const input = document.getElementById('tag-input');
+            container.innerHTML = '';
+            currentTags.forEach((tag, index) => {
+                const tagEl = document.createElement('span');
+                tagEl.className = 'tag-item';
+                tagEl.innerHTML = `${tag}<button type="button" onclick="removeTag(${index})">&times;</button>`;
+                container.appendChild(tagEl);
+            });
+            container.appendChild(input);
+        }
+
+        function removeTag(index) {
+            currentTags.splice(index, 1);
+            renderTags();
+        }
+
+        function setupTagInput() {
+            const input = document.getElementById('tag-input');
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    const value = input.value.trim();
+                    if (value && !currentTags.includes(value)) {
+                        currentTags.push(value);
+                        renderTags();
+                    }
+                    input.value = '';
+                }
+            });
+        }
+
+        function renderResults(results) {
+            const container = document.getElementById('results-container');
+            container.innerHTML = '';
+            
+            if (results.length === 0) {
+                container.innerHTML = `
+                    <div class="result-input-group">
+                        <input type="text" placeholder="数字，如：150%" class="result-number">
+                        <input type="text" placeholder="说明，如：品牌认知度提升" class="result-label">
+                    </div>
+                `;
+                return;
+            }
+
+            results.forEach(result => {
+                const group = document.createElement('div');
+                group.className = 'result-input-group';
+                group.innerHTML = `
+                    <input type="text" placeholder="数字，如：150%" class="result-number" value="${result.number}">
+                    <input type="text" placeholder="说明，如：品牌认知度提升" class="result-label" value="${result.label}">
+                `;
+                container.appendChild(group);
+            });
+        }
+
+        function addResultInput() {
+            const container = document.getElementById('results-container');
+            const group = document.createElement('div');
+            group.className = 'result-input-group';
+            group.innerHTML = `
+                <input type="text" placeholder="数字，如：150%" class="result-number">
+                <input type="text" placeholder="说明，如：品牌认知度提升" class="result-label">
+            `;
+            container.appendChild(group);
+        }
+
+        function updateExportOutput() {
+            const output = generateDataJS();
+            document.getElementById('data-js-output').textContent = output;
+        }
+
+        function generateDataJS() {
+            const projects = projectsData.map(p => ({
+                id: p.id,
+                title: p.title,
+                category: p.category,
+                categoryName: p.categoryName,
+                image: p.image,
+                gallery: p.gallery,
+                subtitle: p.subtitle || '',
+                client: p.client || '',
+                year: p.year || '',
+                duration: p.duration || '',
+                services: p.services || [],
+                description: p.description || '',
+                challenge: p.challenge || '',
+                solution: p.solution || '',
+                results: p.results || [],
+                features: p.features || [],
+                tags: p.tags || []
+            }));
+
+            return `const projectsData = ${JSON.stringify(projects, null, 4)};
+
+const featuredWorks = projectsData.slice(0, 4);
+
+const categories = { 
+    branding: '品牌设计', 
+    ui: 'UI设计', 
+    packaging: '包装设计', 
+    dianshang: '电商设计' 
+};
+
+function getCategoryName(category) {
+    return categories[category] || category;
+}
+
+function getProjectById(id) {
+    return projectsData.find(project => project.id === parseInt(id));
+}`;
+        }
+
+        function copyToClipboard() {
+            const output = generateDataJS();
+            navigator.clipboard.writeText(output).then(() => {
+                showToast('已复制到剪贴板', 'success');
+            }).catch(() => {
+                showToast('复制失败，请手动选择文本复制', 'error');
+            });
+        }
+
+        function downloadDataJS() {
+            const output = generateDataJS();
+            const blob = new Blob([output], { type: 'text/javascript' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'data.js';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast('文件已开始下载', 'success');
+        }
+
+        function exportAllChanges() {
+            switchTab('export');
+            document.querySelector('.tab-btn:nth-child(3)').click();
+            showToast('已切换到导出面板', 'success');
+        }
+
+        function showToast(message, type = '') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast ' + type;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
