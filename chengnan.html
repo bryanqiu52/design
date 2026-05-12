@@ -7,179 +7,529 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
 <link href="styles.css" rel="stylesheet"/>
 <style>
+/* 重置和基础样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--primary);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    overflow-x: hidden;
+}
+
+/* 装饰性文字样式 */
+.decorative-text {
+    position: absolute;
+    font-size: 20rem;
+    font-weight: 900;
+    color: rgba(255,255,255,0.02);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+}
+
+/* Hero 区域 */
 .chengnan-hero {
-    min-height: 80vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    min-height: 100vh;
     position: relative;
-    padding: 140px 5% 4rem;
-    background: linear-gradient(180deg, var(--primary) 0%, rgba(255,51,102,0.05) 100%);
+    padding: 180px 5% 100px;
+    overflow: hidden;
 }
 
-.chengnan-content {
-    text-align: center;
-    max-width: 800px;
+.chengnan-hero .decorative-text.top {
+    top: -80px;
+    right: -5%;
+    transform: rotate(5deg);
 }
 
-.designer-avatar {
-    width: 180px;
-    height: 180px;
-    border-radius: 50%;
+.chengnan-hero .decorative-text.bottom {
+    bottom: -100px;
+    left: -10%;
+    font-size: 15rem;
+    transform: rotate(-3deg);
+}
+
+.hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+.hero-left {
+    position: relative;
+}
+
+.avatar-container {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+}
+
+.avatar-main {
+    width: 100%;
+    aspect-ratio: 4/5;
     background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
+    border-radius: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 2rem;
-    font-size: 4rem;
+    font-size: 12rem;
     color: white;
-    box-shadow: 0 20px 60px rgba(255,51,102,0.3);
+    position: relative;
+    overflow: hidden;
 }
 
-.designer-name {
-    font-size: 3rem;
-    font-weight: 800;
-    margin-bottom: 0.5rem;
-    background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.8) 100%);
+.avatar-main::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2) 0%, transparent 50%),
+        radial-gradient(circle at 70% 70%, rgba(0,0,0,0.2) 0%, transparent 50%);
+}
+
+.avatar-decoration-1 {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    border: 3px solid var(--secondary);
+    border-radius: 50%;
+    top: -30px;
+    right: -30px;
+    animation: float 6s ease-in-out infinite;
+}
+
+.avatar-decoration-2 {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    background: var(--accent);
+    bottom: -20px;
+    left: -20px;
+    transform: rotate(45deg);
+    animation: float2 8s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(10deg); }
+}
+
+@keyframes float2 {
+    0%, 100% { transform: rotate(45deg) translateY(0); }
+    50% { transform: rotate(55deg) translateY(15px); }
+}
+
+.hero-right {
+    position: relative;
+}
+
+.hero-role {
+    font-size: 1rem;
+    color: var(--secondary);
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    margin-bottom: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.hero-role::before {
+    content: '';
+    width: 40px;
+    height: 1px;
+    background: var(--secondary);
+}
+
+.hero-name {
+    font-size: 6rem;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.hero-name span {
+    display: block;
+}
+
+.hero-name .highlight {
+    color: var(--secondary);
+    position: relative;
+    display: inline-block;
+}
+
+.hero-name .highlight::after {
+    content: '';
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background: rgba(255,51,102,0.2);
+    z-index: -1;
+}
+
+.hero-bio {
+    font-size: 1.3rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    margin-bottom: 40px;
+    max-width: 500px;
+}
+
+.hero-stats {
+    display: flex;
+    gap: 60px;
+}
+
+.stat-item {
+    position: relative;
+}
+
+.stat-number {
+    font-size: 4rem;
+    font-weight: 900;
+    line-height: 1;
+    background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 
-.designer-title {
-    font-size: 1.2rem;
-    color: var(--secondary);
-    margin-bottom: 1.5rem;
-    letter-spacing: 2px;
-}
-
-.designer-bio {
-    color: var(--text-secondary);
-    font-size: 1.1rem;
-    line-height: 1.8;
-    margin-bottom: 2rem;
-}
-
-.designer-stats {
-    display: flex;
-    justify-content: center;
-    gap: 3rem;
-    margin-top: 3rem;
-    flex-wrap: wrap;
-}
-
-.designer-stat {
-    text-align: center;
-}
-
-.designer-stat-number {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: var(--secondary);
-}
-
-.designer-stat-label {
+.stat-label {
     font-size: 0.9rem;
     color: var(--text-secondary);
-    margin-top: 0.3rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-top: 10px;
 }
 
-.life-section {
-    padding: 6rem 0;
+/* 生活方式区域 */
+.lifestyle-section {
+    padding: 150px 5%;
+    position: relative;
 }
 
-.life-grid {
+.section-header {
+    max-width: 1400px;
+    margin: 0 auto 100px;
+}
+
+.section-tag {
+    font-size: 0.9rem;
+    color: var(--secondary);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-bottom: 20px;
+}
+
+.section-title {
+    font-size: 4rem;
+    font-weight: 900;
+    line-height: 1.1;
+    max-width: 800px;
+}
+
+.lifestyle-grid {
+    max-width: 1400px;
+    margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-    margin-top: 3rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
 }
 
-.life-card {
+.lifestyle-card {
+    position: relative;
+    padding: 80px 60px;
     background: var(--card-bg);
     border: 1px solid var(--card-border);
-    border-radius: 20px;
-    padding: 2.5rem;
-    text-align: center;
-    transition: all 0.4s ease;
+    border-radius: 24px;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.life-card:hover {
+.lifestyle-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255,51,102,0.1) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.lifestyle-card:hover {
     transform: translateY(-10px);
     border-color: rgba(255,51,102,0.3);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
 }
 
-.life-icon {
-    width: 70px;
-    height: 70px;
-    background: rgba(255,51,102,0.1);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 1.5rem;
-    font-size: 1.8rem;
-    color: var(--secondary);
-    transition: all 0.3s ease;
+.lifestyle-card:hover::before {
+    opacity: 1;
 }
 
-.life-card:hover .life-icon {
-    background: var(--secondary);
-    color: white;
-    transform: scale(1.1) rotate(5deg);
+.lifestyle-icon {
+    font-size: 4rem;
+    margin-bottom: 30px;
+    display: inline-block;
+    transition: transform 0.5s ease;
 }
 
-.life-card h3 {
-    font-size: 1.3rem;
-    margin-bottom: 1rem;
+.lifestyle-card:hover .lifestyle-icon {
+    transform: scale(1.1) rotate(10deg);
 }
 
-.life-card p {
+.lifestyle-card h3 {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+.lifestyle-card p {
+    font-size: 1.1rem;
+    line-height: 1.8;
     color: var(--text-secondary);
-    font-size: 0.95rem;
-    line-height: 1.7;
 }
 
+.lifestyle-number {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    font-size: 8rem;
+    font-weight: 900;
+    color: rgba(255,255,255,0.05);
+    line-height: 1;
+}
+
+/* 引言区域 */
 .quote-section {
-    padding: 6rem 0;
-    background: linear-gradient(135deg, rgba(255,51,102,0.08) 0%, rgba(0,212,170,0.05) 100%);
+    padding: 150px 5%;
+    position: relative;
+    overflow: hidden;
+}
+
+.quote-section .decorative-text {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 25rem;
 }
 
 .quote-content {
-    max-width: 800px;
+    max-width: 1000px;
     margin: 0 auto;
+    position: relative;
+    z-index: 1;
     text-align: center;
 }
 
-.quote-icon {
-    font-size: 3rem;
+.quote-mark {
+    font-size: 8rem;
     color: var(--secondary);
-    opacity: 0.5;
-    margin-bottom: 1.5rem;
+    opacity: 0.3;
+    line-height: 1;
+    margin-bottom: 30px;
 }
 
 .quote-text {
-    font-size: 1.5rem;
-    font-style: italic;
-    line-height: 1.8;
-    color: var(--text);
-    margin-bottom: 2rem;
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.4;
+    margin-bottom: 40px;
 }
 
 .quote-author {
+    font-size: 1.1rem;
     color: var(--text-secondary);
-    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+/* 联系区域 */
+.contact-cta {
+    padding: 150px 5%;
+    position: relative;
+}
+
+.cta-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 100px 80px;
+    background: linear-gradient(135deg, rgba(255,51,102,0.1) 0%, rgba(0,212,170,0.05) 100%);
+    border: 1px solid rgba(255,51,102,0.2);
+    border-radius: 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-content::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+        radial-gradient(circle at 20% 20%, rgba(255,51,102,0.15) 0%, transparent 40%),
+        radial-gradient(circle at 80% 80%, rgba(0,212,170,0.1) 0%, transparent 40%);
+}
+
+.cta-content > * {
+    position: relative;
+    z-index: 1;
+}
+
+.cta-title {
+    font-size: 4rem;
+    font-weight: 900;
+    margin-bottom: 20px;
+}
+
+.cta-text {
+    font-size: 1.3rem;
+    color: var(--text-secondary);
+    margin-bottom: 50px;
+}
+
+.cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    padding: 25px 50px;
+    background: var(--secondary);
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cta-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(255,51,102,0.4);
+}
+
+.cta-btn i {
+    transition: transform 0.3s ease;
+}
+
+.cta-btn:hover i {
+    transform: translateX(5px);
+}
+
+/* 响应式设计 */
+@media (max-width: 1024px) {
+    .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 60px;
+        text-align: center;
+    }
+    
+    .avatar-container {
+        margin: 0 auto;
+    }
+    
+    .hero-role {
+        justify-content: center;
+    }
+    
+    .hero-bio {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .hero-stats {
+        justify-content: center;
+    }
+    
+    .lifestyle-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .section-title,
+    .cta-title {
+        font-size: 3rem;
+    }
+    
+    .hero-name {
+        font-size: 4rem;
+    }
+    
+    .quote-text {
+        font-size: 2rem;
+    }
 }
 
 @media (max-width: 768px) {
-    .designer-name {
-        font-size: 2rem;
+    .chengnan-hero {
+        padding: 140px 5% 80px;
     }
-    .designer-stats {
-        gap: 2rem;
+    
+    .hero-name {
+        font-size: 3rem;
+    }
+    
+    .hero-stats {
+        gap: 30px;
+    }
+    
+    .stat-number {
+        font-size: 3rem;
+    }
+    
+    .lifestyle-card {
+        padding: 50px 40px;
+    }
+    
+    .lifestyle-card h3 {
+        font-size: 1.5rem;
+    }
+    
+    .section-title,
+    .cta-title {
+        font-size: 2.5rem;
+    }
+    
+    .quote-text {
+        font-size: 1.5rem;
+    }
+    
+    .cta-content {
+        padding: 60px 40px;
+    }
+    
+    .decorative-text {
+        display: none;
     }
 }
+
+/* 滚动动画 */
+[data-animate] {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
+                transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-animate].animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+[data-animate]:nth-child(2) { transition-delay: 0.1s; }
+[data-animate]:nth-child(3) { transition-delay: 0.2s; }
+[data-animate]:nth-child(4) { transition-delay: 0.3s; }
 </style>
 </head>
 <body>
@@ -200,89 +550,107 @@
 </nav>
 
 <section class="chengnan-hero">
-<div class="chengnan-content">
-<div class="designer-avatar">
-<i class="fas fa-user"></i>
-</div>
-<h1 class="designer-name">Bryan Qiu</h1>
-<p class="designer-title">创始人 & 设计总监</p>
-<p class="designer-bio">
-                嗨，我是 Bryan，城南设计工作室的创始人。作为一名热爱生活的设计师，<br>
-                我相信好的设计源于对生活的观察和感悟。工作之余，我是一个咖啡爱好者、<br>
-                游戏玩家、摄影爱好者，音乐也是我生活中不可或缺的一部分。
+    <div class="decorative-text top">CHENGNAN</div>
+    <div class="decorative-text bottom">DESIGN</div>
+    
+    <div class="hero-grid">
+        <div class="hero-left" data-animate>
+            <div class="avatar-container">
+                <div class="avatar-main">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="avatar-decoration-1"></div>
+                <div class="avatar-decoration-2"></div>
+            </div>
+        </div>
+        
+        <div class="hero-right">
+            <p class="hero-role" data-animate>Founder & Creative Director</p>
+            <h1 class="hero-name" data-animate>
+                <span>Bryan</span>
+                <span class="highlight">Qiu</span>
+            </h1>
+            <p class="hero-bio" data-animate>
+                嗨，我是 Bryan，城南设计工作室的创始人。<br><br>
+                一名热爱生活的设计师，相信好的设计源于对生活的观察和感悟。<br>
+                咖啡、游戏、摄影、音乐 — 这些是我灵感的源泉。
             </p>
-<div class="designer-stats">
-<div class="designer-stat">
-<div class="designer-stat-number">8+</div>
-<div class="designer-stat-label">年设计经验</div>
-</div>
-<div class="designer-stat">
-<div class="designer-stat-number">120+</div>
-<div class="designer-stat-label">完成项目</div>
-</div>
-<div class="designer-stat">
-<div class="designer-stat-number">999+</div>
-<div class="designer-stat-label">杯咖啡</div>
-</div>
-</div>
-</div>
+            <div class="hero-stats">
+                <div class="stat-item" data-animate>
+                    <div class="stat-number">8+</div>
+                    <div class="stat-label">年设计经验</div>
+                </div>
+                <div class="stat-item" data-animate>
+                    <div class="stat-number">120+</div>
+                    <div class="stat-label">完成项目</div>
+                </div>
+                <div class="stat-item" data-animate>
+                    <div class="stat-number">999+</div>
+                    <div class="stat-label">杯咖啡</div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 
-<section class="life-section">
-<div class="container">
-<div class="section-header center">
-<span class="section-tag">Life</span>
-<h2 class="section-title">生活中的我</h2>
-</div>
-<div class="life-grid">
-<div class="life-card" data-animate>
-<div class="life-icon"><i class="fas fa-coffee"></i></div>
-<h3>咖啡爱好者</h3>
-<p>每天从一杯手冲咖啡开始，享受研磨咖啡豆的香气和萃取的过程。咖啡不仅是提神饮品，更是一种生活态度。</p>
-</div>
-<div class="life-card" data-animate>
-<div class="life-icon"><i class="fas fa-gamepad"></i></div>
-<h3>游戏玩家</h3>
-<p>闲暇时光喜欢探索各种独立游戏，从精美的游戏美术设计中获得灵感，也享受游戏带来的放松时光。</p>
-</div>
-<div class="life-card" data-animate>
-<div class="life-icon"><i class="fas fa-camera"></i></div>
-<h3>摄影爱好者</h3>
-<p>用镜头记录生活中的美好瞬间，街景、建筑、人文都是我喜欢拍摄的题材。摄影让我学会用不同的视角观察世界。</p>
-</div>
-<div class="life-card" data-animate>
-<div class="life-icon"><i class="fas fa-music"></i></div>
-<h3>音乐发烧友</h3>
-<p>工作时喜欢听爵士和电子音乐，设计灵感常常在旋律中涌现。音乐是我创作过程中最好的伴侣。</p>
-</div>
-</div>
-</div>
+<section class="lifestyle-section">
+    <div class="section-header" data-animate>
+        <p class="section-tag">Lifestyle</p>
+        <h2 class="section-title">生活中的我</h2>
+    </div>
+    
+    <div class="lifestyle-grid">
+        <div class="lifestyle-card" data-animate>
+            <span class="lifestyle-number">01</span>
+            <div class="lifestyle-icon">☕</div>
+            <h3>咖啡爱好者</h3>
+            <p>每天从一杯手冲咖啡开始，享受研磨咖啡豆的香气和萃取的过程。咖啡不仅是提神饮品，更是一种生活态度。</p>
+        </div>
+        
+        <div class="lifestyle-card" data-animate>
+            <span class="lifestyle-number">02</span>
+            <div class="lifestyle-icon">🎮</div>
+            <h3>游戏玩家</h3>
+            <p>闲暇时光喜欢探索各种独立游戏，从精美的游戏美术设计中获得灵感，也享受游戏带来的放松时光。</p>
+        </div>
+        
+        <div class="lifestyle-card" data-animate>
+            <span class="lifestyle-number">03</span>
+            <div class="lifestyle-icon">📷</div>
+            <h3>摄影爱好者</h3>
+            <p>用镜头记录生活中的美好瞬间，街景、建筑、人文都是我喜欢拍摄的题材。摄影让我学会用不同的视角观察世界。</p>
+        </div>
+        
+        <div class="lifestyle-card" data-animate>
+            <span class="lifestyle-number">04</span>
+            <div class="lifestyle-icon">🎵</div>
+            <h3>音乐发烧友</h3>
+            <p>工作时喜欢听爵士和电子音乐，设计灵感常常在旋律中涌现。音乐是我创作过程中最好的伴侣。</p>
+        </div>
+    </div>
 </section>
 
 <section class="quote-section">
-<div class="container">
-<div class="quote-content">
-<div class="quote-icon"><i class="fas fa-quote-left"></i></div>
-<p class="quote-text">
-                    "设计不仅仅是工作，更是一种生活方式。<br>
-                    用心感受生活，才能创造出有温度的设计。"
-                </p>
-<p class="quote-author">— Bryan Qiu</p>
-</div>
-</div>
+    <div class="decorative-text">CREATIVE</div>
+    <div class="quote-content" data-animate>
+        <div class="quote-mark">"</div>
+        <p class="quote-text">
+            设计不仅仅是工作，更是一种生活方式。<br>
+            用心感受生活，才能创造出有温度的设计。
+        </p>
+        <p class="quote-author">— Bryan Qiu</p>
+    </div>
 </section>
 
-<section class="cta-section">
-<div class="container">
-<div class="cta-content" data-animate>
-<h2>想认识更多？</h2>
-<p>无论是设计合作还是咖啡交流，都欢迎联系我</p>
-<a href="contact.html" class="btn btn-primary btn-lg">
-<span>联系我</span>
-<i class="fas fa-arrow-right"></i>
-</a>
-</div>
-</div>
+<section class="contact-cta">
+    <div class="cta-content" data-animate>
+        <h2 class="cta-title">想认识更多？</h2>
+        <p class="cta-text">无论是设计合作还是咖啡交流，都欢迎联系我</p>
+        <a href="contact.html" class="cta-btn">
+            <span>联系我</span>
+            <i class="fas fa-arrow-right"></i>
+        </a>
+    </div>
 </section>
 
 <footer class="footer">
