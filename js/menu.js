@@ -1,33 +1,30 @@
-function handleNavScroll() {
-    const navContainer = document.querySelector('.nav-container');
-    if (!navContainer) return;
-    if (window.scrollY > 5) {
-        navContainer.classList.add('scrolled');
-    } else {
-        navContainer.classList.remove('scrolled');
-    }
-}
-
 function initMobileMenu() {
     const menuBtn = document.querySelector('.mobile-menu-btn');
     const navLinks = document.querySelector('.nav-links');
 
-    if (!menuBtn || !navLinks) return;
+    // 增强元素检测
+    if (!menuBtn || !navLinks) {
+        console.error('菜单元素缺失:', { menuBtn, navLinks });
+        return;
+    }
 
-    // 检测移动端状态
+    // 实时检测移动端状态
     const mobileCheck = () => window.matchMedia('(max-width: 768px)').matches;
-    const isMobile = mobileCheck();
-    if (!isMobile) return;
+    if (!mobileCheck()) {
+        console.log('非移动端环境，跳过菜单初始化');
+        return;
+    }
+
+    // 强制显示移动菜单按钮
+    menuBtn.style.display = 'block';
+    menuBtn.style.zIndex = '1002';
 
     // 切换菜单状态
     const toggleMenu = (show) => {
         navLinks.classList.toggle('active', show);
         document.body.classList.toggle('no-scroll', show);
-        const icon = menuBtn.querySelector('i');
-        if (icon) {
-            icon.classList.toggle('fa-times', show);
-            icon.classList.toggle('fa-bars', !show);
-        }
+        menuBtn.querySelector('i').classList.toggle('fa-times', show);
+        console.log('菜单状态:', show ? '打开' : '关闭');
     };
 
     // 点击菜单按钮
@@ -47,14 +44,8 @@ function initMobileMenu() {
     window.addEventListener('resize', () => {
         if (!mobileCheck()) toggleMenu(false);
     });
+
+    console.log('移动菜单初始化成功');
 }
 
-// 确保DOM完全加载后执行
-window.addEventListener('DOMContentLoaded', () => {
-    // 初始化滚动效果
-    handleNavScroll();
-    window.addEventListener('scroll', handleNavScroll);
-    
-    // 初始化移动菜单
-    initMobileMenu();
-});
+document.addEventListener('DOMContentLoaded', initMobileMenu);
