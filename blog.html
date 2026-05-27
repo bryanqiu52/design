@@ -42,6 +42,23 @@
 
 <div class="news-list" id="blogList">
 </div>
+
+<div class="pagination-container" id="paginationContainer" style="display: none;">
+    <div class="pagination">
+        <button class="pagination-btn arrow" id="prevPageBtn" disabled>
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <div id="paginationNumbers" class="pagination-numbers"></div>
+        <button class="pagination-btn arrow" id="nextPageBtn" disabled>
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+    <span class="pagination-info" id="paginationInfo"></span>
+    <div class="pagination-jump">
+        <span class="pagination-jump-label">跳转到:</span>
+        <input type="number" class="pagination-jump-input" id="jumpInput" placeholder="e.g. 10" min="1">
+    </div>
+</div>
 </div>
 </section>
 
@@ -87,15 +104,15 @@
 
 <script src="js/data.js"></script>
 <script>
+const BLOG_ITEMS_PER_PAGE = 3;
 let currentBlogFilter = 'all';
+let currentBlogPage = 1;
+let filteredBlogPosts = [];
 
 function filterBlogPosts(category) {
     currentBlogFilter = category;
+    currentBlogPage = 1;
     renderBlogList();
-    
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.filter === category);
-    });
 }
 
 function renderBlogFilters() {
@@ -115,21 +132,30 @@ function renderBlogFilters() {
 
 async function renderBlogList() {
     const container = document.getElementById('blogList');
+    const scrollTop = window.pageYOffset;
     
     const posts = await loadBlogPostsData();
     window.blogPosts = posts;
     
-    let filteredPosts = window.blogPosts;
+    filteredBlogPosts = window.blogPosts;
     if (currentBlogFilter !== 'all') {
-        filteredPosts = filteredPosts.filter(post => post.category === currentBlogFilter);
+        filteredBlogPosts = filteredBlogPosts.filter(post => post.category === currentBlogFilter);
     }
     
-    if (!filteredPosts || filteredPosts.length === 0) {
+    if (!filteredBlogPosts || filteredBlogPosts.length === 0) {
         container.innerHTML = '<div style="color: white; text-align: center; padding: 50px;"><h3>暂无博客文章</h3></div>';
+        document.getElementById('paginationContainer').style.display = 'none';
+        requestAnimationFrame(() => {
+            window.scrollTo(0, scrollTop);
+        });
         return;
     }
     
-    container.innerHTML = filteredPosts.map((post, index) => `
+    const start = (currentBlogPage - 1) * BLOG_ITEMS_PER_PAGE;
+    const end = start + BLOG_ITEMS_PER_PAGE;
+    const postsToShow = filteredBlogPosts.slice(start, end);
+    
+    container.innerHTML = postsToShow.map((post, index) => `
         <article class="news-item">
             <div class="news-image">
                 <a href="blog-detail.html?slug=${post.slug}">
@@ -150,11 +176,175 @@ async function renderBlogList() {
             </div>
         </article>
     `).join('');
+    
+    renderBlogPagination();
+    
+    requestAnimationFrame(() => {
+        window.scrollTo(0, scrollTop);
+    });
+}
+
+function renderBlogPagination() {
+    const totalPages = Math.ceil(filteredBlogPosts.length / BLOG_ITEMS_PER_PAGE);
+    const paginationContainer = document.getElementById('paginationContainer');
+    const paginationNumbers = document.getElementById('paginationNumbers');
+    const paginationInfo = document.getElementById('paginationInfo');
+    const prevBtn = document.getElementById('prevPageBtn');
+    const nextBtn = document.getElementById('nextPageBtn');
+
+    if (totalPages <= 1) {
+        paginationContainer.style.display = 'none';
+        return;
+    }
+
+    paginationContainer.style.display = 'flex';
+
+    prevBtn.disabled = currentBlogPage === 1;
+    nextBtn.disabled = currentBlogPage === totalPages;
+
+    paginationNumbers.innerHTML = '';
+
+    const maxVisible = 5;
+    
+    if (totalPages <= maxVisible) {
+        for (let i = 1; i <= totalPages; i++) {
+            const button = document.createElement('button');
+            button.className = `pagination-btn${i === currentBlogPage ? ' active' : ''}`;
+            button.textContent = i;
+            button.addEventListener('click', () => {
+                currentBlogPage = i;
+                renderBlogList();
+                
+            });
+            paginationNumbers.appendChild(button);
+        }
+    } else {
+        if (currentBlogPage <= Math.floor(maxVisible / 2) + 1) {
+            for (let i = 1; i <= maxVisible - 1; i++) {
+                const button = document.createElement('button');
+                button.className = `pagination-btn${i === currentBlogPage ? ' active' : ''}`;
+                button.textContent = i;
+                button.addEventListener('click', () => {
+                    currentBlogPage = i;
+                    renderBlogList();
+                });
+                paginationNumbers.appendChild(button);
+            }
+            paginationNumbers.appendChild(document.createTextNode('...'));
+            const lastBtn = document.createElement('button');
+            lastBtn.className = 'pagination-btn';
+            lastBtn.textContent = totalPages;
+            lastBtn.addEventListener('click', () => {
+                currentBlogPage = totalPages;
+                renderBlogList();
+                
+            });
+            paginationNumbers.appendChild(lastBtn);
+        } else if (currentBlogPage >= totalPages - Math.floor(maxVisible / 2)) {
+            const firstBtn = document.createElement('button');
+            firstBtn.className = 'pagination-btn';
+            firstBtn.textContent = 1;
+            firstBtn.addEventListener('click', () => {
+                currentBlogPage = 1;
+                renderBlogList();
+                
+            });
+            paginationNumbers.appendChild(firstBtn);
+            paginationNumbers.appendChild(document.createTextNode('...'));
+            for (let i = totalPages - maxVisible + 2; i <= totalPages; i++) {
+                const button = document.createElement('button');
+                button.className = `pagination-btn${i === currentBlogPage ? ' active' : ''}`;
+                button.textContent = i;
+                button.addEventListener('click', () => {
+                    currentBlogPage = i;
+                    renderBlogList();
+                });
+                paginationNumbers.appendChild(button);
+            }
+        } else {
+            const firstBtn = document.createElement('button');
+            firstBtn.className = 'pagination-btn';
+            firstBtn.textContent = 1;
+            firstBtn.addEventListener('click', () => {
+                currentBlogPage = 1;
+                renderBlogList();
+                
+            });
+            paginationNumbers.appendChild(firstBtn);
+            paginationNumbers.appendChild(document.createTextNode('...'));
+            
+            for (let i = currentBlogPage - 1; i <= currentBlogPage + 1; i++) {
+                const button = document.createElement('button');
+                button.className = `pagination-btn${i === currentBlogPage ? ' active' : ''}`;
+                button.textContent = i;
+                button.addEventListener('click', () => {
+                    currentBlogPage = i;
+                    renderBlogList();
+                });
+                paginationNumbers.appendChild(button);
+            }
+            
+            paginationNumbers.appendChild(document.createTextNode('...'));
+            const lastBtn = document.createElement('button');
+            lastBtn.className = 'pagination-btn';
+            lastBtn.textContent = totalPages;
+            lastBtn.addEventListener('click', () => {
+                currentBlogPage = totalPages;
+                renderBlogList();
+                
+            });
+            paginationNumbers.appendChild(lastBtn);
+        }
+    }
+
+    const startItem = (currentBlogPage - 1) * BLOG_ITEMS_PER_PAGE + 1;
+    const endItem = Math.min(currentBlogPage * BLOG_ITEMS_PER_PAGE, filteredBlogPosts.length);
+    paginationInfo.textContent = `共 ${filteredBlogPosts.length} 篇文章，当前显示 ${startItem}-${endItem} 篇`;
+}
+
+function handleBlogJumpInput() {
+    const input = document.getElementById('jumpInput');
+    const totalPages = Math.ceil(filteredBlogPosts.length / BLOG_ITEMS_PER_PAGE);
+    const pageNum = parseInt(input.value);
+    
+    if (!isNaN(pageNum) && pageNum >= 1 && pageNum <= totalPages) {
+        currentBlogPage = pageNum;
+        renderBlogList();
+        
+    }
+    
+    input.value = '';
+}
+
+function goToPrevBlogPage() {
+    if (currentBlogPage > 1) {
+        currentBlogPage--;
+        renderBlogList();
+        
+    }
+}
+
+function goToNextBlogPage() {
+    const totalPages = Math.ceil(filteredBlogPosts.length / BLOG_ITEMS_PER_PAGE);
+    if (currentBlogPage < totalPages) {
+        currentBlogPage++;
+        renderBlogList();
+        
+    }
 }
 
 document.addEventListener('DOMContentLoaded', function() {
     renderBlogFilters();
     renderBlogList();
+
+    document.getElementById('prevPageBtn').addEventListener('click', goToPrevBlogPage);
+    document.getElementById('nextPageBtn').addEventListener('click', goToNextBlogPage);
+    
+    document.getElementById('jumpInput').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            handleBlogJumpInput();
+        }
+    });
 
     document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
         this.classList.toggle('active');
