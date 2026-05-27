@@ -43,8 +43,21 @@
 </div>
 <div class="portfolio-grid" id="portfolioGrid">
 </div>
-<div class="load-more-container">
-<button class="btn btn-outline" id="loadMoreBtn" style="display: none;">加载更多</button>
+<div class="pagination-container" id="paginationContainer" style="display: none;">
+    <div class="pagination">
+        <button class="pagination-btn arrow" id="prevPageBtn" disabled>
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <div id="paginationNumbers" class="pagination-numbers"></div>
+        <button class="pagination-btn arrow" id="nextPageBtn" disabled>
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+    <span class="pagination-info" id="paginationInfo"></span>
+    <div class="pagination-jump">
+        <span class="pagination-jump-label">跳转到:</span>
+        <input type="number" class="pagination-jump-input" id="jumpInput" placeholder="e.g. 10" min="1">
+    </div>
 </div>
 </div>
 </section>
@@ -90,7 +103,7 @@
 
 <script src="js/data.js"></script>
 <script>
-const ITEMS_PER_PAGE = 6;
+const ITEMS_PER_PAGE = 8;
 let currentPage = 1;
 let currentFilter = 'all';
 let currentSearch = '';
@@ -129,7 +142,8 @@ function applyFilters() {
         btn.classList.toggle('active', btn.dataset.filter === currentFilter);
     });
 
-    renderWorks(true);
+    renderWorks();
+    renderPagination();
 }
 
 function clearSearch() {
@@ -137,20 +151,22 @@ function clearSearch() {
     searchWorks('');
 }
 
-function renderWorks(reset = false) {
+function renderWorks() {
     const container = document.getElementById('portfolioGrid');
-    const start = 0;
-    const end = currentPage * ITEMS_PER_PAGE;
+    const start = (currentPage - 1) * ITEMS_PER_PAGE;
+    const end = start + ITEMS_PER_PAGE;
     const worksToShow = displayedWorks.slice(start, end);
+    
+    const scrollTop = window.pageYOffset;
 
-    if (reset) {
-        container.innerHTML = '';
+    container.innerHTML = '';
+
+    if (worksToShow.length === 0) {
+        container.innerHTML = '<div style="color: white; text-align: center; padding: 50px;"><h3>暂无符合条件的案例</h3></div>';
+        return;
     }
 
     worksToShow.forEach((work, index) => {
-        const existingCard = container.querySelector(`[data-id="${work.id}"]`);
-        if (existingCard) return;
-
         const card = document.createElement('a');
         card.href = `project.html?id=${work.id}`;
         card.className = 'portfolio-item';
@@ -175,12 +191,158 @@ function renderWorks(reset = false) {
 
         container.appendChild(card);
     });
+    
+    requestAnimationFrame(() => {
+        window.scrollTo(0, scrollTop);
+    });
+}
 
-    const loadMoreBtn = document.getElementById('loadMoreBtn');
-    if (end < displayedWorks.length) {
-        loadMoreBtn.style.display = 'inline-flex';
+function renderPagination() {
+    const totalPages = Math.ceil(displayedWorks.length / ITEMS_PER_PAGE);
+    const paginationContainer = document.getElementById('paginationContainer');
+    const paginationNumbers = document.getElementById('paginationNumbers');
+    const paginationInfo = document.getElementById('paginationInfo');
+    const prevBtn = document.getElementById('prevPageBtn');
+    const nextBtn = document.getElementById('nextPageBtn');
+
+    if (totalPages <= 1) {
+        paginationContainer.style.display = 'none';
+        return;
+    }
+
+    paginationContainer.style.display = 'flex';
+
+    prevBtn.disabled = currentPage === 1;
+    nextBtn.disabled = currentPage === totalPages;
+
+    paginationNumbers.innerHTML = '';
+
+    const maxVisible = 5;
+    
+    if (totalPages <= maxVisible) {
+        for (let i = 1; i <= totalPages; i++) {
+            const button = document.createElement('button');
+            button.className = `pagination-btn${i === currentPage ? ' active' : ''}`;
+            button.textContent = i;
+            button.addEventListener('click', () => {
+                currentPage = i;
+                applyFilters();
+                
+            });
+            paginationNumbers.appendChild(button);
+        }
     } else {
-        loadMoreBtn.style.display = 'none';
+        if (currentPage <= Math.floor(maxVisible / 2) + 1) {
+            for (let i = 1; i <= maxVisible - 1; i++) {
+                const button = document.createElement('button');
+                button.className = `pagination-btn${i === currentPage ? ' active' : ''}`;
+                button.textContent = i;
+                button.addEventListener('click', () => {
+                    currentPage = i;
+                    applyFilters();
+                });
+                paginationNumbers.appendChild(button);
+            }
+            paginationNumbers.appendChild(document.createTextNode('...'));
+            const lastBtn = document.createElement('button');
+            lastBtn.className = 'pagination-btn';
+            lastBtn.textContent = totalPages;
+            lastBtn.addEventListener('click', () => {
+                currentPage = totalPages;
+                applyFilters();
+                
+            });
+            paginationNumbers.appendChild(lastBtn);
+        } else if (currentPage >= totalPages - Math.floor(maxVisible / 2)) {
+            const firstBtn = document.createElement('button');
+            firstBtn.className = 'pagination-btn';
+            firstBtn.textContent = 1;
+            firstBtn.addEventListener('click', () => {
+                currentPage = 1;
+                applyFilters();
+                
+            });
+            paginationNumbers.appendChild(firstBtn);
+            paginationNumbers.appendChild(document.createTextNode('...'));
+            for (let i = totalPages - maxVisible + 2; i <= totalPages; i++) {
+                const button = document.createElement('button');
+                button.className = `pagination-btn${i === currentPage ? ' active' : ''}`;
+                button.textContent = i;
+                button.addEventListener('click', () => {
+                    currentPage = i;
+                    applyFilters();
+                });
+                paginationNumbers.appendChild(button);
+            }
+        } else {
+            const firstBtn = document.createElement('button');
+            firstBtn.className = 'pagination-btn';
+            firstBtn.textContent = 1;
+            firstBtn.addEventListener('click', () => {
+                currentPage = 1;
+                applyFilters();
+                
+            });
+            paginationNumbers.appendChild(firstBtn);
+            paginationNumbers.appendChild(document.createTextNode('...'));
+            
+            for (let i = currentPage - 1; i <= currentPage + 1; i++) {
+                const button = document.createElement('button');
+                button.className = `pagination-btn${i === currentPage ? ' active' : ''}`;
+                button.textContent = i;
+                button.addEventListener('click', () => {
+                    currentPage = i;
+                    applyFilters();
+                });
+                paginationNumbers.appendChild(button);
+            }
+            
+            paginationNumbers.appendChild(document.createTextNode('...'));
+            const lastBtn = document.createElement('button');
+            lastBtn.className = 'pagination-btn';
+            lastBtn.textContent = totalPages;
+            lastBtn.addEventListener('click', () => {
+                currentPage = totalPages;
+                applyFilters();
+                
+            });
+            paginationNumbers.appendChild(lastBtn);
+        }
+    }
+
+    const startItem = (currentPage - 1) * ITEMS_PER_PAGE + 1;
+    const endItem = Math.min(currentPage * ITEMS_PER_PAGE, displayedWorks.length);
+    paginationInfo.textContent = `共 ${displayedWorks.length} 个案例，当前显示 ${startItem}-${endItem} 个`;
+}
+
+function handleJumpInput() {
+    const input = document.getElementById('jumpInput');
+    const totalPages = Math.ceil(displayedWorks.length / ITEMS_PER_PAGE);
+    const pageNum = parseInt(input.value);
+    
+    if (!isNaN(pageNum) && pageNum >= 1 && pageNum <= totalPages) {
+        currentPage = pageNum;
+        applyFilters();
+        
+    }
+    
+    input.value = '';
+}
+
+function goToPrevPage() {
+    if (currentPage > 1) {
+        currentPage--;
+        applyFilters();
+        
+    }
+}
+
+function goToNextPage() {
+    const totalPages = Math.ceil(displayedWorks.length / ITEMS_PER_PAGE);
+    if (currentPage < totalPages) {
+        currentPage++;
+        applyFilters();
+        
     }
 }
 
@@ -207,9 +369,13 @@ document.addEventListener('DOMContentLoaded', function() {
         searchWorks(this.value);
     });
 
-    document.getElementById('loadMoreBtn').addEventListener('click', function() {
-        currentPage++;
-        renderWorks();
+    document.getElementById('prevPageBtn').addEventListener('click', goToPrevPage);
+    document.getElementById('nextPageBtn').addEventListener('click', goToNextPage);
+    
+    document.getElementById('jumpInput').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            handleJumpInput();
+        }
     });
 
     document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
