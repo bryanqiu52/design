@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title id="page-title">城南设计工作室 | Chengnan Design Studio</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="styles.css" rel="stylesheet"/>
+</head>
+<body>
+<canvas id="particles-canvas"></canvas>
+
+<nav class="nav">
+<div class="nav-container">
+<a href="index.html" class="logo">
+<img src="CN_logo.svg" alt="城南设计工作室" class="logo-img" id="site-logo-alt">
+</a>
+<div class="nav-links">
+<a href="index.html" class="active">首页</a>
+<a href="cases.html">案例</a>
+<a href="blog.html">博客</a>
+<a href="chengnan.html">城南</a>
+<a href="about.html">关于</a>
+<a href="contact.html">联系</a>
+</div>
+<button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+</div>
+</nav>
+
+<section class="hero">
+<div class="hero-bg">
+<div class="hero-gradient"></div>
+</div>
+<div class="hero-content">
+<div class="hero-badge">
+<span class="badge-dot"></span>
+<span>开放接单中</span>
+</div>
+<h1 class="hero-title">
+<span class="title-line">用设计</span>
+<span class="title-line accent">定义品牌</span>
+</h1>
+<p class="hero-subtitle" id="hero-subtitle">专注品牌视觉 · UI设计 · 包装设计 · 电商设计</p>
+<div class="hero-cta">
+<a href="cases.html" class="btn btn-primary">
+<span>浏览案例</span>
+<i class="fas fa-arrow-right"></i>
+</a>
+<a href="contact.html" class="btn btn-outline">立即咨询</a>
+</div>
+</div>
+<div class="scroll-indicator">
+<span>Scroll</span>
+<div class="scroll-line"></div>
+</div>
+</section>
+
+<section class="services">
+<div class="container">
+<div class="section-header">
+<span class="section-tag">Services</span>
+<h2 class="section-title">我们的服务</h2>
+</div>
+<div class="services-grid">
+<div class="service-card" data-animate>
+<div class="service-icon"><i class="fas fa-palette"></i></div>
+<h3>品牌设计</h3>
+<p>LOGO设计、VI系统、品牌视觉升级，打造独特品牌形象</p>
+</div>
+<div class="service-card" data-animate>
+<div class="service-icon"><i class="fas fa-mobile-alt"></i></div>
+<h3>UI/UX设计</h3>
+<p>移动端APP、Web界面设计，注重用户体验与交互</p>
+</div>
+<div class="service-card" data-animate>
+<div class="service-icon"><i class="fas fa-box"></i></div>
+<h3>包装设计</h3>
+<p>产品包装、标签设计，让产品在货架上脱颖而出</p>
+</div>
+<div class="service-card" data-animate>
+<div class="service-icon"><i class="fas fa-shopping-cart"></i></div>
+<h3>电商设计</h3>
+<p>店铺装修、主图详情页，提升转化率</p>
+</div>
+</div>
+</div>
+</section>
+
+<section class="horizontal-scroll-section" id="horizontalSection">
+<div class="hs-sticky">
+<div class="hs-header">
+<span class="hs-tag">Showcase</span>
+<h2 class="hs-title">用创意为品牌赋能</h2>
+<p class="hs-subtitle">每一个案例都是用心之作</p>
+</div>
+<div class="hs-slider-container">
+<div class="hs-track" id="hsTrack">
+</div>
+</div>
+</div>
+</section>
+
+<section class="featured-works">
+<div class="container">
+<div class="section-header">
+<span class="section-tag">Portfolio</span>
+<h2 class="section-title">精选案例</h2>
+<a href="cases.html" class="view-all">查看全部 <i class="fas fa-arrow-right"></i></a>
+</div>
+<div class="works-grid" id="featuredWorks">
+</div>
+</div>
+</section>
+
+<section class="stats">
+<div class="container">
+<div class="stats-grid">
+<div class="stat-item" data-animate>
+<div class="stat-number" id="stat-projects" data-count="120">0</div>
+<div class="stat-label">完成项目</div>
+</div>
+<div class="stat-item" data-animate>
+<div class="stat-number" id="stat-clients" data-count="80">0</div>
+<div class="stat-label">合作客户</div>
+</div>
+<div class="stat-item" data-animate>
+<div class="stat-number" id="stat-years" data-count="8">0</div>
+<div class="stat-label">年经验</div>
+</div>
+<div class="stat-item" data-animate>
+<div class="stat-number" id="stat-satisfaction" data-count="100">0</div>
+<div class="stat-label">客户好评</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="process">
+<div class="container">
+<div class="section-header center">
+<span class="section-tag">Process</span>
+<h2 class="section-title">合作流程</h2>
+</div>
+<div class="process-steps">
+<div class="step" data-animate>
+<div class="step-number">01</div>
+<div class="step-content">
+<h3>需求沟通</h3>
+<p>深入了解项目背景、目标与期望</p>
+</div>
+</div>
+<div class="step" data-animate>
+<div class="step-number">02</div>
+<div class="step-content">
+<h3>方案设计</h3>
+<p>提供多方案创意方向供选择</p>
+</div>
+</div>
+<div class="step" data-animate>
+<div class="step-number">03</div>
+<div class="step-content">
+<h3>设计执行</h3>
+<p>精细打磨，确保高品质交付</p>
+</div>
+</div>
+<div class="step" data-animate>
+<div class="step-number">04</div>
+<div class="step-content">
+<h3>售后支持</h3>
+<p>提供文件及后续调整支持</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="blog-section">
+<div class="container">
+<div class="section-header">
+<span class="section-tag">Blog</span>
+<h2 class="section-title">最新动态</h2>
+<a href="blog.html" class="view-all">查看全部 <i class="fas fa-arrow-right"></i></a>
+</div>
+<div class="blog-grid" id="blogPosts">
+</div>
+</div>
+</section>
+
+<section class="cta-section">
+<div class="container">
+<div class="cta-content" data-animate>
+<h2>有设计需求？</h2>
+<p>无论是品牌重塑还是全新项目，我们都能为你提供专业的设计方案</p>
+<a href="contact.html" class="btn btn-primary btn-lg">
+<span>开始合作</span>
+<i class="fas fa-arrow-right"></i>
+</a>
+</div>
+</div>
+</section>
+
+<footer class="footer">
+<div class="container">
+<div class="footer-grid">
+<div class="footer-brand">
+<img src="CN_logo.svg" alt="城南设计工作室" class="footer-brand-logo" id="footer-logo-alt">
+<p id="footer-tagline">专注品牌视觉与数字设计，用创意为品牌赋能</p>
+</div>
+<div class="footer-links">
+<h4>快速链接</h4>
+<ul>
+<li><a href="index.html">首页</a></li>
+<li><a href="cases.html">案例</a></li>
+<li><a href="blog.html">博客</a></li>
+<li><a href="chengnan.html">城南</a></li>
+<li><a href="about.html">关于</a></li>
+<li><a href="contact.html">联系</a></li>
+</ul>
+</div>
+<div class="footer-contact">
+<h4>联系方式</h4>
+<ul>
+<li><i class="fas fa-envelope"></i> <span id="footer-email">bryanqiu52@gmail.com</span></li>
+<li><i class="fab fa-weixin"></i> <span id="footer-wechat">poke1883</span></li>
+</ul>
+</div>
+<div class="footer-social">
+<h4>关注我们</h4>
+<div class="social-links">
+<a href="#" id="behance-link" target="_blank"><i class="fab fa-behance"></i></a>
+<a href="#" id="dribbble-link" target="_blank"><i class="fab fa-dribbble"></i></a>
+<a href="#" id="instagram-link" target="_blank"><i class="fab fa-instagram"></i></a>
+</div>
+</div>
+<div class="footer-qrcode">
+<h4>扫码关注</h4>
+<img src="" alt="微信二维码" class="qrcode-img" id="qrcode-img">
+<p>微信公众号</p>
+</div>
+</div>
+<div class="footer-bottom">
+<p id="footer-copyright">© 2025 城南设计工作室 Chengnan Design Studio. All rights reserved.</p>
+</div>
+</div>
+</footer>
+
+<script src="js/config.js"></script>
+<script src="js/data.js"></script>
+<script>
+
+function loadFeaturedWorks() {
+    const container = document.getElementById('featuredWorks');
+    container.innerHTML = featuredWorks.map((work, index) => `
+        <a href="project.html?id=${work.id}" class="work-item" data-animate style="animation-delay: ${index * 0.1}s">
+            <div class="work-image">
+                <img src="${work.image}" alt="${work.title}" loading="lazy">
+                <div class="work-overlay">
+                    <span class="work-category">${getCategoryName(work.category)}</span>
+                    <div class="work-arrow"><i class="fas fa-arrow-right"></i></div>
+                </div>
+            </div>
+            <div class="work-info">
+                <h3>${work.title}</h3>
+            </div>
+        </a>
+    `).join('');
+}
+
+function loadBlogPosts() {
+    console.log('loadBlogPosts called');
+    const container = document.getElementById('blogPosts');
+    
+    if (!container) {
+        console.log('blogPosts container not found');
+        return;
+    }
+    
+    console.log('window.blogPosts:', window.blogPosts);
+    console.log('window.blogPosts length:', window.blogPosts ? window.blogPosts.length : 'undefined');
+    
+    if (!window.blogPosts || !Array.isArray(window.blogPosts) || window.blogPosts.length === 0) {
+        container.innerHTML = '<div style="text-align: center; padding: 40px; color: rgba(255,255,255,0.6);"><i class="fas fa-file-alt" style="font-size: 48px; margin-bottom: 16px; display: block;"></i><h3 style="margin-bottom: 8px;">暂无博客文章</h3></div>';
+        return;
+    }
+    
+    const posts = window.blogPosts;
+        
+        const latestPosts = posts.slice(0, 4);
+        const featuredPost = latestPosts[0];
+        const miniPosts = latestPosts.slice(1);
+        
+        container.innerHTML = `
+            <article class="blog-card-featured" data-animate style="animation-delay: 0s">
+                <a href="blog-detail.html?slug=${featuredPost.slug}" class="blog-image-link">
+                    <div class="blog-image">
+                        <img src="${featuredPost.cover}" alt="${featuredPost.title}" loading="lazy">
+                    </div>
+                </a>
+                <div class="blog-content">
+                    <span class="blog-category">${featuredPost.category}</span>
+                    <h3><a href="blog-detail.html?slug=${featuredPost.slug}">${featuredPost.title}</a></h3>
+                    <p>${featuredPost.excerpt}</p>
+                    <div class="blog-meta">
+                        <span class="blog-author"><i class="fas fa-user"></i> ${featuredPost.author}</span>
+                        <span class="blog-date"><i class="far fa-calendar"></i> ${featuredPost.date}</span>
+                    </div>
+                </div>
+            </article>
+            
+            <div class="blog-card-list">
+                ${miniPosts.map((post, index) => `
+                    <article class="blog-card-mini" data-animate style="animation-delay: ${(index + 1) * 0.1}s" onclick="location.href='blog-detail.html?slug=${post.slug}'">
+                        <div class="blog-mini-image">
+                            <img src="${post.cover}" alt="${post.title}" loading="lazy">
+                        </div>
+                        <div class="blog-mini-content">
+                            <span class="blog-mini-category">${post.category}</span>
+                            <div class="blog-mini-title">${post.title}</div>
+                            <div class="blog-mini-meta">
+                                <span><i class="fas fa-user"></i> ${post.author}</span>
+                                <span><i class="far fa-calendar"></i> ${post.date}</span>
+                            </div>
+                        </div>
+                    </article>
+                `).join('')}
+            </div>
+        `;
+}
+
+function loadSiteImages() {
+    const sliderTrack = document.getElementById('hsTrack');
+    const sliderData = [
+        { category: '品牌设计', title: '品牌视觉升级', desc: '从品牌策略到视觉落地，我们帮助企业打造独特的品牌形象，提升市场竞争力。包括LOGO设计、VI系统、品牌手册等全案服务。', year: '2024' },
+        { category: 'UI/UX设计', title: '用户体验优化', desc: '以用户为中心的设计理念，通过深入的用户研究和数据分析，打造流畅自然的交互体验，提升产品使用率和用户满意度。', year: '2024' },
+        { category: '包装设计', title: '创意包装方案', desc: '让产品在货架上脱颖而出！我们的包装设计不仅美观，更注重功能性和品牌传达，帮助产品在众多竞品中抓住消费者眼球。', year: '2023' },
+        { category: '电商设计', title: '电商视觉转化', desc: '科学的页面布局与精美的视觉设计相结合，通过优化用户购物路径和提升视觉吸引力，有效提升产品转化率和销售额。', year: '2023' }
+    ];
+    
+    const images = typeof siteImages !== 'undefined' ? siteImages : {
+        featured: [
+            'images/featured1.jpg',
+            'images/featured2.jpg',
+            'images/featured3.jpg',
+            'images/featured4.jpg'
+        ],
+        qrcode: 'images/qrcode.png'
+    };
+    
+    sliderTrack.innerHTML = images.featured.map((img, index) => {
+        const data = sliderData[index] || sliderData[0];
+        const num = String(index + 1).padStart(2, '0');
+        return `
+        <div class="hs-slide">
+            <img src="${img}" alt="${data.category}">
+            <div class="hs-slide-content">
+            <div class="hs-slide-header">
+                <span class="hs-slide-category">${data.category}</span>
+                <span class="hs-slide-number">${num}</span>
+            </div>
+            <h3>${data.title}</h3>
+            <p>${data.desc}</p>
+            <div class="hs-slide-meta">
+                <span class="hs-slide-year">${data.year}</span>
+                <span class="hs-slide-arrow"><i class="fas fa-arrow-right"></i></span>
+            </div>
+            </div>
+        </div>
+        `;
+    }).join('');
+    
+    if (images.qrcode) {
+        document.getElementById('qrcode-img').src = images.qrcode;
+    }
+}
+
+function animateOnScroll() {
+    const elements = document.querySelectorAll('[data-animate]');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-in');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+    elements.forEach(el => observer.observe(el));
+}
+
+function animateCounters() {
+    const counters = document.querySelectorAll('.stat-number');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const target = parseInt(entry.target.dataset.count);
+                animateCounter(entry.target, target);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+    counters.forEach(counter => observer.observe(counter));
+}
+
+function animateCounter(element, target) {
+    let current = 0;
+    const step = target / 40;
+    const timer = setInterval(() => {
+        current += step;
+        if (current >= target) {
+            element.textContent = target + '+';
+            clearInterval(timer);
+        } else {
+            element.textContent = Math.floor(current);
+        }
+    }, 30);
+}
+
+function initScrollHorizontal() {
+    const section = document.getElementById('horizontalSection');
+    const track = document.getElementById('hsTrack');
+    const slides = track.querySelectorAll('.hs-slide');
+
+    if (!section || !track || slides.length === 0) return;
+
+    let currentTranslate = 0;
+    let targetTranslate = 0;
+    let isScrolling = false;
+    let scrollTimeout = null;
+
+    function getMaxTranslate() {
+        const slideWidth = slides[0].offsetWidth;
+        const gap = parseInt(window.getComputedStyle(track).gap) || 40;
+        const totalWidth = slides.length * (slideWidth + gap) - gap;
+        const containerWidth = window.innerWidth * 0.9;
+        const maxScroll = Math.max(0, totalWidth - containerWidth);
+        return maxScroll;
+    }
+
+    function calculateSectionHeight() {
+        const maxTranslate = getMaxTranslate();
+        const windowHeight = window.innerHeight;
+        const extraHeight = maxTranslate + windowHeight;
+        return Math.max(windowHeight * 3, extraHeight);
+    }
+
+    function lerp(start, end, factor) {
+        return start + (end - start) * factor;
+    }
+
+    function updatePosition() {
+        const rect = section.getBoundingClientRect();
+        const sectionHeight = section.offsetHeight;
+        const windowHeight = window.innerHeight;
+        const scrollableDistance = sectionHeight - windowHeight;
+
+        if (scrollableDistance <= 0) {
+            targetTranslate = 0;
+            return;
+        }
+
+        if (rect.bottom <= windowHeight) {
+            const maxTranslate = getMaxTranslate();
+            targetTranslate = maxTranslate;
+            return;
+        }
+
+        if (rect.top >= 0) {
+            targetTranslate = 0;
+            return;
+        }
+
+        const scrolled = Math.abs(rect.top);
+        const scrollProgress = Math.max(0, Math.min(1, scrolled / scrollableDistance));
+        const maxTranslate = getMaxTranslate();
+        targetTranslate = scrollProgress * maxTranslate;
+
+        isScrolling = true;
+        if (scrollTimeout) clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+            isScrolling = false;
+        }, 150);
+    }
+
+    function animate() {
+        const factor = isScrolling ? 0.12 : 0.08;
+        currentTranslate = lerp(currentTranslate, targetTranslate, factor);
+        track.style.transform = `translateX(-${currentTranslate}px)`;
+        requestAnimationFrame(animate);
+    }
+
+    function handleResize() {
+        const newHeight = calculateSectionHeight();
+        section.style.height = newHeight + 'px';
+        targetTranslate = Math.min(targetTranslate, getMaxTranslate());
+        updatePosition();
+    }
+
+    function init() {
+        const initialHeight = calculateSectionHeight();
+        section.style.height = initialHeight + 'px';
+        updatePosition();
+        animate();
+    }
+
+    window.addEventListener('scroll', updatePosition, { passive: true });
+    window.addEventListener('resize', handleResize);
+
+    init();
+}
+
+function initParticles() {
+    const canvas = document.getElementById('particles-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    const particleCount = 25;
+
+    function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    class Particle {
+        constructor() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.size = Math.random() * 2 + 0.5;
+            this.speedX = (Math.random() - 0.5) * 0.2;
+            this.speedY = (Math.random() - 0.5) * 0.2;
+            this.opacity = Math.random() * 0.3 + 0.1;
+            this.color = Math.random() > 0.5 ? '255, 51, 102' : '0, 212, 170';
+        }
+        update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+            if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+            if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+        }
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(${this.color}, ${this.opacity})`;
+            ctx.fill();
+        }
+    }
+
+    for (let i = 0; i < particleCount; i++) {
+        particles.push(new Particle());
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => { p.update(); p.draw(); });
+        requestAnimationFrame(animate);
+    }
+    animate();
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    if (typeof siteConfig !== 'undefined') {
+        document.getElementById('page-title').textContent = siteConfig.siteTitle + ' | Chengnan Design Studio';
+        document.getElementById('site-logo-alt').alt = siteConfig.siteTitle;
+        document.getElementById('hero-subtitle').textContent = siteConfig.siteSubtitle;
+        document.getElementById('footer-logo-alt').alt = siteConfig.siteTitle;
+        document.getElementById('footer-tagline').textContent = siteConfig.siteSubtitle;
+        document.getElementById('footer-email').textContent = siteConfig.email;
+        document.getElementById('footer-wechat').textContent = siteConfig.wechat;
+        document.getElementById('footer-copyright').textContent = '© 2025 ' + siteConfig.siteTitle + '. All rights reserved.';
+
+        if (siteConfig.behance) document.getElementById('behance-link').href = siteConfig.behance;
+        if (siteConfig.dribbble) document.getElementById('dribbble-link').href = siteConfig.dribbble;
+        if (siteConfig.instagram) document.getElementById('instagram-link').href = siteConfig.instagram;
+
+        if (siteConfig.stats) {
+            if (siteConfig.stats.projects) document.getElementById('stat-projects').setAttribute('data-count', siteConfig.stats.projects);
+            if (siteConfig.stats.clients) document.getElementById('stat-clients').setAttribute('data-count', siteConfig.stats.clients);
+            if (siteConfig.stats.years) document.getElementById('stat-years').setAttribute('data-count', siteConfig.stats.years);
+            if (siteConfig.stats.satisfaction) document.getElementById('stat-satisfaction').setAttribute('data-count', siteConfig.stats.satisfaction);
+        }
+    }
+
+    loadFeaturedWorks();
+    loadBlogPosts();
+    loadSiteImages();
+    animateOnScroll();
+    animateCounters();
+    initParticles();
+    initScrollHorizontal();
+
+    document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+        this.classList.toggle('active');
+        document.querySelector('.nav-links').classList.toggle('active');
+        document.body.classList.toggle('no-scroll');
+    });
+
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            document.querySelector('.mobile-menu-btn').classList.remove('active');
+            document.querySelector('.nav-links').classList.remove('active');
+            document.body.classList.remove('no-scroll');
+        });
+    });
+});
+</script>
+</body>
+</html>
