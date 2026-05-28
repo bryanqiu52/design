@@ -1,6 +1,8 @@
 const projectsData = [
     {
         id: 1,
+        sortOrder: 12,
+        isTop: false,
         title: "科技品牌重塑",
         category: "branding",
         categoryName: "品牌设计",
@@ -32,6 +34,8 @@ const projectsData = [
     },
     {
         id: 2,
+        sortOrder: 11,
+        isTop: false,
         title: "移动APP界面设计",
         category: "ui",
         categoryName: "UI设计",
@@ -63,6 +67,8 @@ const projectsData = [
     },
     {
         id: 3,
+        sortOrder: 10,
+        isTop: false,
         title: "精品咖啡包装",
         category: "packaging",
         categoryName: "包装设计",
@@ -92,6 +98,8 @@ const projectsData = [
     },
     {
         id: 4,
+        sortOrder: 9,
+        isTop: false,
         title: "美妆电商设计",
         category: "dianshang",
         categoryName: "电商设计",
@@ -122,6 +130,8 @@ const projectsData = [
     },
     {
         id: 5,
+        sortOrder: 8,
+        isTop: false,
         title: "连锁品牌VI设计",
         category: "branding",
         categoryName: "品牌设计",
@@ -150,6 +160,8 @@ const projectsData = [
     },
     {
         id: 6,
+        sortOrder: 7,
+        isTop: false,
         title: "金融APP界面",
         category: "ui",
         categoryName: "UI设计",
@@ -178,6 +190,8 @@ const projectsData = [
     },
     {
         id: 7,
+        sortOrder: 6,
+        isTop: false,
         title: "有机食品包装",
         category: "packaging",
         categoryName: "包装设计",
@@ -206,6 +220,8 @@ const projectsData = [
     },
     {
         id: 8,
+        sortOrder: 5,
+        isTop: false,
         title: "家居电商设计",
         category: "dianshang",
         categoryName: "电商设计",
@@ -234,6 +250,8 @@ const projectsData = [
     },
     {
         id: 9,
+        sortOrder: 4,
+        isTop: false,
         title: "餐饮品牌设计",
         category: "branding",
         categoryName: "品牌设计",
@@ -262,6 +280,8 @@ const projectsData = [
     },
     {
         id: 10,
+        sortOrder: 3,
+        isTop: false,
         title: "社交App UI",
         category: "ui",
         categoryName: "UI设计",
@@ -290,6 +310,8 @@ const projectsData = [
     },
     {
         id: 11,
+        sortOrder: 2,
+        isTop: false,
         title: "茶叶礼盒包装",
         category: "packaging",
         categoryName: "包装设计",
@@ -318,6 +340,8 @@ const projectsData = [
     },
     {
         id: 12,
+        sortOrder: 1,
+        isTop: false,
         title: "数码电商设计",
         category: "dianshang",
         categoryName: "电商设计",
@@ -346,13 +370,31 @@ const projectsData = [
     }
 ];
 
-const featuredWorks = projectsData.slice(0, 4);
+function sortProjects(projects) {
+    return [...projects].sort((a, b) => {
+        if (a.isTop && !b.isTop) return -1;
+        if (!a.isTop && b.isTop) return 1;
+        return (b.sortOrder || 0) - (a.sortOrder || 0);
+    });
+}
+
+const sortedProjects = sortProjects(projectsData);
+const featuredWorks = sortedProjects.slice(0, 4);
 
 const categories = {
     branding: '品牌设计',
     ui: 'UI设计',
     packaging: '包装设计',
     dianshang: '电商设计'
+};
+
+const blogCategories = {
+    'design-trends': '设计趋势',
+    'ui-design': 'UI设计',
+    'packaging': '包装设计',
+    'ecommerce': '电商设计',
+    'branding': '品牌设计',
+    'tips': '设计技巧'
 };
 
 const siteImages = {
@@ -373,7 +415,7 @@ function getProjectById(id) {
     return projectsData.find(project => project.id === parseInt(id));
 }
 
-const defaultBlogPosts = [
+window.blogPosts = window.blogPosts || [
     {
         id: 1,
         title: "2024年品牌设计趋势分析",
@@ -382,7 +424,7 @@ const defaultBlogPosts = [
         author: "城南设计",
         cover: "images/work1.jpg",
         slug: "2024-brand-trends",
-        excerpt: "探讨新一年品牌设计的主流趋势，从色彩运用到视觉风格的演变"
+        excerpt: "探讨新一年品牌设计的主流趋势，从色彩运用到视觉风格的演变。极简主义回归、大胆色彩搭配和动态视觉元素成为今年的关键词。"
     },
     {
         id: 2,
@@ -392,7 +434,7 @@ const defaultBlogPosts = [
         author: "城南设计",
         cover: "images/work2.jpg",
         slug: "ui-ux-tips",
-        excerpt: "分享提升用户体验的实用技巧，让你的界面设计更加人性化"
+        excerpt: "分享提升用户体验的实用技巧，让你的界面设计更加人性化。直观的导航设计、响应式布局和微交互设计是关键。"
     },
     {
         id: 3,
@@ -402,7 +444,7 @@ const defaultBlogPosts = [
         author: "城南设计",
         cover: "images/work3.jpg",
         slug: "packaging-design",
-        excerpt: "探讨包装设计在产品营销中的重要作用"
+        excerpt: "探讨包装设计在产品营销中的重要作用。好的包装设计能够在货架上脱颖而出，讲述品牌故事。"
     },
     {
         id: 4,
@@ -412,7 +454,7 @@ const defaultBlogPosts = [
         author: "城南设计",
         cover: "images/work4.jpg",
         slug: "ecommerce-design",
-        excerpt: "揭秘高转化电商页面的设计秘诀"
+        excerpt: "揭秘高转化电商页面的设计秘诀。视觉层级分明、高质量产品图片和营造紧迫感是关键要素。"
     },
     {
         id: 5,
@@ -422,7 +464,7 @@ const defaultBlogPosts = [
         author: "城南设计",
         cover: "images/work5.jpg",
         slug: "brand-vi-guide",
-        excerpt: "从零开始建立完整的品牌视觉识别系统"
+        excerpt: "从零开始建立完整的品牌视觉识别系统。品牌定位分析、核心元素设计和应用规范制定是三大核心步骤。"
     },
     {
         id: 6,
@@ -432,29 +474,18 @@ const defaultBlogPosts = [
         author: "城南设计",
         cover: "images/work6.jpg",
         slug: "color-theory",
-        excerpt: "掌握这些配色原则，让你的设计更加专业"
+        excerpt: "掌握这些配色原则，让你的设计更加专业。色彩心理学、配色比例和色彩对比是设计师必备的知识。"
     }
 ];
 
 async function loadBlogPostsData() {
-    try {
-        const localStorageData = localStorage.getItem('blogPosts');
-        if (localStorageData) {
-            console.log('使用 localStorage 数据');
-            return JSON.parse(localStorageData);
-        }
-        
-        const response = await fetch('blog/metadata.json');
-        if (!response.ok) throw new Error('Network response was not ok');
-        return await response.json();
-    } catch (error) {
-        console.log('使用默认数据');
-        return [...defaultBlogPosts];
-    }
+    console.log('loadBlogPostsData called');
+    console.log('博客数据数量:', window.blogPosts.length);
+    return [...window.blogPosts];
 }
 
 function getBlogPostById(id) {
-    return window.blogPosts ? window.blogPosts.find(post => post.id === parseInt(id)) : defaultBlogPosts.find(post => post.id === parseInt(id));
+    return window.blogPosts.find(post => post.id === parseInt(id));
 }
 
 async function getBlogPostBySlug(slug) {
@@ -462,7 +493,7 @@ async function getBlogPostBySlug(slug) {
         const posts = await loadBlogPostsData();
         return posts.find(post => post.slug === slug);
     } catch {
-        return blogPosts.find(post => post.slug === slug);
+        return window.blogPosts.find(post => post.slug === slug);
     }
 }
 
@@ -471,14 +502,15 @@ async function loadBlogContent(slug) {
     try {
         const response = await fetch(filename);
         if (!response.ok) throw new Error('File not found');
-        return await response.text();
+        const content = await response.text();
+        return content.replace(/^---[\s\S]*?---\n*/m, '').trim();
     } catch (error) {
         console.log(`加载 ${filename} 失败，使用默认内容`);
         const defaultContent = {
-            "2024-brand-trends": "# 2024年品牌设计趋势分析\n\n探讨新一年品牌设计的主流趋势，从色彩运用到视觉风格的演变。\n\n## 1. 极简主义的回归\n\n在经历了几年的复杂设计风潮后，极简主义重新成为主流。\n\n## 2. 大胆的色彩搭配\n\n品牌开始使用更具冲击力的色彩组合。\n\n## 3. 动态视觉元素\n\n动画和交互效果成为品牌设计的重要组成部分。",
-            "ui-ux-tips": "# UI设计中的用户体验优化技巧\n\n分享提升用户体验的实用技巧。\n\n## 1. 直观的导航设计\n\n清晰的导航结构是良好用户体验的基础。\n\n## 2. 响应式布局\n\n确保你的设计在各种设备上都能提供良好的体验。\n\n## 3. 微交互设计\n\n精心设计的微交互可以让用户感受到产品的精致。",
-            "packaging-design": "# 包装设计如何提升产品价值\n\n探讨包装设计在产品营销中的重要作用。\n\n## 1. 视觉吸引力\n\n好的包装设计能够在货架上脱颖而出。\n\n## 2. 品牌故事传递\n\n包装可以讲述品牌故事，传递品牌价值观。\n\n## 3. 功能性与美观的平衡\n\n优秀的包装设计既要美观大方，也要考虑实用性。",
-            "ecommerce-design": "# 电商视觉设计的转化密码\n\n揭秘高转化电商页面的设计秘诀。\n\n## 1. 视觉层级分明\n\n通过合理的视觉层次引导用户视线。\n\n## 2. 高质量产品图片\n\n清晰、专业的产品图片是电商设计的核心。\n\n## 3. 营造紧迫感\n\n巧妙运用倒计时、库存提示等元素促进用户决策。",
+            "2024-brand-trends": "# 2024年品牌设计趋势分析\n\n探讨新一年品牌设计的主流趋势，从色彩运用到视觉风格的演变。\n\n## 1. 极简主义的回归\n\n在经历了几年的复杂设计风潮后，极简主义重新成为主流。简洁的线条、留白的运用让品牌更加优雅大方。\n\n## 2. 大胆的色彩搭配\n\n品牌开始使用更具冲击力的色彩组合，打破传统的配色规则，创造出令人难忘的视觉效果。\n\n## 3. 动态视觉元素\n\n动画和交互效果成为品牌设计的重要组成部分，为用户带来更加丰富的体验。",
+            "ui-ux-tips": "# UI设计中的用户体验优化技巧\n\n分享提升用户体验的实用技巧，让你的界面设计更加人性化。\n\n## 1. 直观的导航设计\n\n清晰的导航结构是良好用户体验的基础。用户应该能够在3秒内找到他们需要的功能。\n\n## 2. 响应式布局\n\n确保你的设计在各种设备上都能提供良好的体验。\n\n## 3. 微交互设计\n\n精心设计的微交互可以让用户感受到产品的精致。",
+            "packaging-design": "# 包装设计如何提升产品价值\n\n探讨包装设计在产品营销中的重要作用。\n\n## 1. 视觉吸引力\n\n好的包装设计能够在货架上脱颖而出，吸引消费者的注意力。\n\n## 2. 品牌故事传递\n\n包装可以讲述品牌故事，传递品牌价值观。\n\n## 3. 功能性与美观的平衡\n\n优秀的包装设计既要美观大方，也要考虑实用性。",
+            "ecommerce-design": "# 电商视觉设计的转化密码\n\n揭秘高转化电商页面的设计秘诀。\n\n## 1. 视觉层级分明\n\n通过合理的视觉层次引导用户视线，突出重要信息。\n\n## 2. 高质量产品图片\n\n清晰、专业的产品图片是电商设计的核心。\n\n## 3. 营造紧迫感\n\n巧妙运用倒计时、库存提示等元素促进用户决策。",
             "brand-vi-guide": "# 品牌VI系统建设指南\n\n从零开始建立完整的品牌视觉识别系统。\n\n## 1. 品牌定位分析\n\n深入了解品牌定位和目标受众是成功的关键。\n\n## 2. 核心元素设计\n\nLOGO、标准色、标准字体是VI系统的核心要素。\n\n## 3. 应用规范制定\n\n制定详细的应用规范，确保品牌在各种场景下的一致性。",
             "color-theory": "# 设计师必备的配色技巧\n\n掌握这些配色原则，让你的设计更加专业。\n\n## 1. 色彩心理学\n\n了解不同颜色传递的情感和意义。\n\n## 2. 配色比例\n\n掌握60-30-10等经典配色比例。\n\n## 3. 色彩对比\n\n合理运用对比色和邻近色，增强视觉层次。"
         };
