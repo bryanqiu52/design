@@ -679,6 +679,33 @@ const projectsData = [
         "results": [],
         "features": [],
         "tags": []
+    },
+    {
+        "id": 1779964958235,
+        "sortOrder": 14,
+        "isTop": false,
+        "title": "377美白洁面乳",
+        "category": "branding",
+        "categoryName": "品牌设计",
+        "subtitle": "",
+        "client": "",
+        "year": "2026",
+        "duration": "",
+        "services": [
+            "品牌策略",
+            "视觉设计",
+            "VI系统"
+        ],
+        "image": "images/PixPin_2026-05-28_13-47-08.jpg",
+        "gallery": [
+            "images/PixPin_2026-05-28_13-47-08.jpg"
+        ],
+        "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": []
     }
 ];
 
