@@ -1,3 +1,13 @@
+const siteImages = {
+    featured: [
+        'images/featured1.jpg',
+        'images/featured2.jpg',
+        'images/featured3.jpg',
+        'images/featured4.jpg'
+    ],
+    qrcode: 'images/qrcode.png'
+};
+
 const projectsData = [
     {
         "id": 1,
@@ -6,6 +16,7 @@ const projectsData = [
         "title": "科技品牌重塑",
         "category": "branding",
         "categoryName": "品牌设计",
+        "displayStyle": "B",
         "image": "images/work1.jpg",
         "gallery": [
             "images/work1.jpg",
@@ -69,6 +80,7 @@ const projectsData = [
         "title": "移动APP界面设计",
         "category": "ui",
         "categoryName": "UI设计",
+        "displayStyle": "B",
         "image": "images/work2.jpg",
         "gallery": [
             "images/work2.jpg",
@@ -132,6 +144,7 @@ const projectsData = [
         "title": "精品咖啡包装",
         "category": "packaging",
         "categoryName": "包装设计",
+        "displayStyle": "B",
         "image": "images/work3.jpg",
         "gallery": [
             "images/work3.jpg",
@@ -185,6 +198,7 @@ const projectsData = [
         "title": "美妆电商设计",
         "category": "dianshang",
         "categoryName": "电商设计",
+        "displayStyle": "B",
         "image": "images/work4.jpg",
         "gallery": [
             "images/work4.jpg",
@@ -243,6 +257,7 @@ const projectsData = [
         "title": "连锁品牌VI设计",
         "category": "branding",
         "categoryName": "品牌设计",
+        "displayStyle": "B",
         "image": "images/work5.jpg",
         "gallery": [
             "images/work5.jpg",
@@ -295,6 +310,7 @@ const projectsData = [
         "title": "金融APP界面",
         "category": "ui",
         "categoryName": "UI设计",
+        "displayStyle": "B",
         "image": "images/work6.jpg",
         "gallery": [
             "images/work6.jpg",
@@ -347,6 +363,7 @@ const projectsData = [
         "title": "有机食品包装",
         "category": "packaging",
         "categoryName": "包装设计",
+        "displayStyle": "B",
         "image": "images/work7.jpg",
         "gallery": [
             "images/work7.jpg",
@@ -399,6 +416,7 @@ const projectsData = [
         "title": "家居电商设计",
         "category": "dianshang",
         "categoryName": "电商设计",
+        "displayStyle": "B",
         "image": "images/work8.jpg",
         "gallery": [
             "images/work8.jpg",
@@ -451,6 +469,7 @@ const projectsData = [
         "title": "餐饮品牌设计",
         "category": "branding",
         "categoryName": "品牌设计",
+        "displayStyle": "B",
         "image": "images/work9.jpg",
         "gallery": [
             "images/work9.jpg",
@@ -503,6 +522,7 @@ const projectsData = [
         "title": "社交App UI",
         "category": "ui",
         "categoryName": "UI设计",
+        "displayStyle": "B",
         "image": "images/work10.jpg",
         "gallery": [
             "images/work10.jpg",
@@ -555,6 +575,7 @@ const projectsData = [
         "title": "茶叶礼盒包装",
         "category": "packaging",
         "categoryName": "包装设计",
+        "displayStyle": "B",
         "image": "images/work11.jpg",
         "gallery": [
             "images/work11.jpg",
@@ -607,6 +628,7 @@ const projectsData = [
         "title": "数码电商设计",
         "category": "dianshang",
         "categoryName": "电商设计",
+        "displayStyle": "B",
         "image": "images/work12.jpg",
         "gallery": [
             "images/work12.jpg",
@@ -659,6 +681,7 @@ const projectsData = [
         "title": "377美白",
         "category": "branding",
         "categoryName": "品牌设计",
+        "displayStyle": "B",
         "subtitle": "",
         "client": "",
         "year": "2026",
@@ -681,31 +704,99 @@ const projectsData = [
         "tags": []
     },
     {
-        "id": 1779964958235,
+        "id": 1781174572613,
         "sortOrder": 14,
         "isTop": false,
-        "title": "377美白洁面乳",
+        "title": "3D打印耗材",
         "category": "branding",
         "categoryName": "品牌设计",
-        "subtitle": "",
-        "client": "",
-        "year": "2026",
-        "duration": "",
-        "services": [
-            "品牌策略",
-            "视觉设计",
-            "VI系统"
-        ],
-        "image": "images/PixPin_2026-05-28_13-47-08.jpg",
+        "displayStyle": "B",
+        "image": "images/3d dayin_1.jpg",
         "gallery": [
-            "images/PixPin_2026-05-28_13-47-08.jpg"
+            "images/3d dayin_1.jpg",
+            "images/3d dayin_2.jpg",
+            "images/3d dayin_3.jpg",
+            "images/3d dayin_4.jpg",
+            "images/3d dayin_5.jpg"
         ],
-        "description": "",
+        "subtitle": "3D打印耗材",
+        "client": "",
+        "year": "2022",
+        "duration": "",
+        "services": [],
+        "description": "这是一个品牌重塑案例，展示了我们如何为客户打造全新的品牌视觉系统。",
         "challenge": "",
         "solution": "",
         "results": [],
         "features": [],
-        "tags": []
+        "tags": [
+            "产品实拍"
+        ]
+    },
+    {
+        "id": 1781174572614,
+        "sortOrder": 16,
+        "isTop": false,
+        "title": "灯具照明",
+        "category": "branding",
+        "categoryName": "品牌设计",
+        "displayStyle": "B",
+        "image": "images/dengjuzhaomign_1_b5d932f1.jpg",
+        "gallery": [
+            "images/dengjuzhaomign_1_b5d932f1.jpg",
+            "images/dengjuzhaomign_1_f2b8ecd5.jpg",
+            "images/dengjuzhaomign_1.jpg",
+            "images/dengjuzhaomign_3.jpg",
+            "images/dengjuzhaomign_4_9a4e924f.jpg",
+            "images/dengjuzhaomign_5_d5f7bc69.jpg",
+            "images/dengjuzhaomign_7.jpg",
+            "images/dengjuzhaomign_Main_02.jpg"
+        ],
+        "subtitle": "灯具照明",
+        "client": "",
+        "year": "2022",
+        "duration": "",
+        "services": [],
+        "description": "专注用户体验的移动应用设计，打造直观易用的界面体验。",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": [
+            "产品实拍"
+        ]
+    },
+    {
+        "id": 1781174572615,
+        "sortOrder": 18,
+        "isTop": false,
+        "title": "防水灯",
+        "category": "branding",
+        "categoryName": "品牌设计",
+        "displayStyle": "B",
+        "image": "images/fangsshuideng_1.jpg",
+        "gallery": [
+            "images/fangsshuideng_1.jpg",
+            "images/fangsshuideng_11.jpg",
+            "images/fangsshuideng_12.jpg",
+            "images/fangsshuideng_2_18772230.jpg",
+            "images/fangsshuideng_2.jpg",
+            "images/fangsshuideng_4.jpg",
+            "images/fangsshuideng_5.jpg"
+        ],
+        "subtitle": "防水灯",
+        "client": "",
+        "year": "2022",
+        "duration": "",
+        "services": [],
+        "description": "创意与功能并重的产品包装设计，提升产品市场竞争力。",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": [
+            "产品实拍"
+        ]
     }
 ];
 
@@ -760,7 +851,8 @@ const presetTags = [
     "营销设计",
     "信息架构",
     "响应式设计",
-    "场景化设计"
+    "场景化设计",
+    "产品实拍"
 ];
 
 function getCategoryName(category) {
