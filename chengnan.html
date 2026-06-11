@@ -611,6 +611,9 @@ body {
 <a href="about.html">关于</a>
 <a href="contact.html">联系</a>
 </div>
+<button class="theme-toggle" id="themeToggle" aria-label="切换主题">
+<i class="fas fa-sun"></i>
+</button>
 <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
 </div>
 </nav>
@@ -791,6 +794,20 @@ document.querySelectorAll('.nav-links a').forEach(link => {
         document.querySelector('.nav-links').classList.remove('active');
         document.body.classList.remove('no-scroll');
     });
+});
+
+const themeToggle = document.getElementById('themeToggle');
+const isLightTheme = localStorage.getItem('theme') === 'light';
+
+if (isLightTheme) {
+    document.body.classList.add('theme-light');
+    themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+}
+
+themeToggle.addEventListener('click', function() {
+    const isLight = document.body.classList.toggle('theme-light');
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    themeToggle.innerHTML = isLight ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
 });
 
 function animateOnScroll() {
