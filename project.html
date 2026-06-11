@@ -21,11 +21,28 @@
 <a href="about.html">关于</a>
 <a href="contact.html">联系</a>
 </div>
+<button class="theme-toggle" id="themeToggle" aria-label="切换主题">
+<i class="fas fa-sun"></i>
+</button>
 <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
 </div>
 </nav>
 
 <div id="projectContent"></div>
+
+<!-- 大图弹窗 -->
+<div class="lightbox-overlay" id="lightbox-overlay" onclick="closeLightbox()">
+    <div class="lightbox-content" onclick="event.stopPropagation()">
+        <button class="lightbox-close" onclick="closeLightbox()"><i class="fas fa-times"></i></button>
+        <button class="lightbox-prev" onclick="prevLightboxImage()"><i class="fas fa-chevron-left"></i></button>
+        <button class="lightbox-next" onclick="nextLightboxImage()"><i class="fas fa-chevron-right"></i></button>
+        <img id="lightbox-image" src="" alt="大图展示">
+        <div class="lightbox-thumbnails">
+            <div id="lightbox-thumbnails-container"></div>
+        </div>
+        <div class="lightbox-counter" id="lightbox-counter"></div>
+    </div>
+</div>
 
 <footer class="footer">
 <div class="container">
@@ -68,6 +85,10 @@
 
 <script src="js/data.js"></script>
 <script>
+let currentGalleryImages = [];
+let currentMainImageIndex = 0;
+let currentLightboxIndex = 0;
+
 function getUrlParam(name) {
     const params = new URLSearchParams(window.location.search);
     return params.get(name);
@@ -79,6 +100,11 @@ function renderProject(project) {
     const nextProject = currentIndex < projectsData.length - 1 ? projectsData[currentIndex + 1] : null;
 
     document.title = `${project.title} | 城南设计工作室`;
+
+    const displayStyle = project.displayStyle || 'A';
+    currentGalleryImages = project.gallery || [project.image];
+
+    const galleryHtml = displayStyle === 'A' ? renderGalleryStyleA(project) : renderGalleryStyleB(project);
 
     const html = `
         <section class="project-hero">
@@ -93,19 +119,19 @@ function renderProject(project) {
         <div class="project-meta">
             <div class="project-meta-item">
                 <span>客户</span>
-                <span>${project.client}</span>
+                <span>${project.client || '-'}</span>
             </div>
             <div class="project-meta-item">
                 <span>时间</span>
-                <span>${project.year}</span>
+                <span>${project.year || '-'}</span>
             </div>
             <div class="project-meta-item">
                 <span>周期</span>
-                <span>${project.duration}</span>
+                <span>${project.duration || '-'}</span>
             </div>
             <div class="project-meta-item">
                 <span>服务</span>
-                <span>${project.services.join(' / ')}</span>
+                <span>${project.services ? project.services.join(' / ') : '-'}</span>
             </div>
         </div>
 
@@ -113,64 +139,27 @@ function renderProject(project) {
             <div class="project-content">
                 <div class="project-section" data-animate>
                     <h2>项目概述</h2>
-                    <p>${project.description}</p>
+                    <p>${project.description || '暂无描述'}</p>
                 </div>
 
-                <div class="project-section" data-animate>
+                <div class="project-section" data-animate">
                     <h2>案例展示</h2>
-                    <div class="project-gallery">
-                        ${project.gallery.map((img, i) => `
-                            <img src="${img}" alt="${project.title}" loading="lazy">
-                        `).join('')}
-                    </div>
+                    ${galleryHtml}
                 </div>
 
-                <div class="project-section" data-animate>
-                    <h2>挑战与解决方案</h2>
-                    <p><strong>项目挑战：</strong>${project.challenge}</p>
-                    <p style="margin-top: 1rem;"><strong>解决方案：</strong>${project.solution}</p>
-                </div>
-
-                <div class="project-section" data-animate>
-                    <h2>核心亮点</h2>
-                    <div class="project-features">
-                        ${project.features.map(f => `
-                            <div class="project-feature">
-                                <i class="fas ${f.icon}"></i>
-                                <h4>${f.title}</h4>
-                                <p>${f.description}</p>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-
-                <div class="project-section" data-animate>
-                    <h2>项目成果</h2>
-                    <div class="project-results">
-                        ${project.results.map(r => `
-                            <div class="project-result">
-                                <div class="project-result-number">${r.number}</div>
-                                <div class="project-result-label">${r.label}</div>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-
-                <div class="project-section" data-animate>
-                    <h2>技术标签</h2>
-                    <div style="display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1rem;">
-                        ${project.tags.map(tag => `<span class="skill-tag">${tag}</span>`).join('')}
-                    </div>
-                </div>
-
-                <div class="project-nav">
+                <div class="project-nav-card">
                     ${prevProject ? `
                         <a href="project.html?id=${prevProject.id}" class="project-nav-link">
                             <i class="fas fa-arrow-left"></i>
                             <span>上一个</span>
                             <span>${prevProject.title}</span>
                         </a>
-                    ` : '<div></div>'}
+                    ` : '<div class="project-nav-placeholder"></div>'}
+
+                    <a href="cases.html" class="back-btn">
+                        <i class="fas fa-arrow-left"></i>
+                        <span>返回案例</span>
+                    </a>
 
                     ${nextProject ? `
                         <a href="project.html?id=${nextProject.id}" class="project-nav-link next">
@@ -178,13 +167,8 @@ function renderProject(project) {
                             <span>${nextProject.title}</span>
                             <i class="fas fa-arrow-right"></i>
                         </a>
-                    ` : '<div></div>'}
+                    ` : '<div class="project-nav-placeholder"></div>'}
                 </div>
-
-                <a href="cases.html" class="back-btn">
-                    <i class="fas fa-arrow-left"></i>
-                    <span>返回案例</span>
-                </a>
             </div>
         </section>
     `;
@@ -203,7 +187,152 @@ function renderProject(project) {
         }, { threshold: 0.1 });
         elements.forEach(el => observer.observe(el));
     }, 100);
+
+    initGalleryEvents(displayStyle);
 }
+
+function renderGalleryStyleA(project) {
+    const images = project.gallery || [project.image];
+    return `
+        <div class="project-gallery gallery-style-a">
+            ${images.map((img, index) => `
+                <img src="${img}" alt="${project.title}" loading="lazy" data-index="${index}">
+            `).join('')}
+        </div>
+    `;
+}
+
+function renderGalleryStyleB(project) {
+    const images = project.gallery || [project.image];
+    const mainImage = images[0];
+    const tags = project.tags || [];
+    return `
+        <div class="project-gallery gallery-style-b">
+            <div class="gallery-main" onclick="openLightbox(currentMainImageIndex)">
+                <div class="gallery-main-inner">
+                    <img src="${mainImage}" alt="${project.title}" id="gallery-main-image">
+                </div>
+                <div class="gallery-click-hint">
+                    <i class="fas fa-search-plus"></i>
+                    <span>点击查看大图</span>
+                </div>
+            </div>
+            <div class="gallery-sidebar">
+                <div class="gallery-thumbs">
+                    ${images.map((img, index) => `
+                        <div class="gallery-thumb-item ${index === 0 ? 'active' : ''}" data-index="${index}" onclick="changeMainImage(${index})">
+                            <img src="${img}" alt="${project.title}" loading="lazy">
+                        </div>
+                    `).join('')}
+                </div>
+                ${tags.length > 0 ? `
+                    <div class="gallery-tags">
+                        <div class="gallery-tags-title">标签</div>
+                        <div class="gallery-tags-list">
+                            ${tags.map(tag => `<span class="gallery-tag">${tag}</span>`).join('')}
+                        </div>
+                    </div>
+                ` : ''}
+            </div>
+        </div>
+    `;
+}
+
+function initGalleryEvents(displayStyle) {
+    if (displayStyle === 'B') {
+        document.querySelectorAll('.gallery-thumb-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const index = parseInt(this.dataset.index);
+                changeMainImage(index);
+            });
+        });
+    }
+}
+
+function changeMainImage(index) {
+    const images = currentGalleryImages;
+    if (index >= 0 && index < images.length) {
+        currentMainImageIndex = index;
+        const mainImage = document.getElementById('gallery-main-image');
+        mainImage.src = images[index];
+        
+        document.querySelectorAll('.gallery-thumb-item').forEach((item, i) => {
+            item.classList.toggle('active', i === index);
+        });
+    }
+}
+
+function openLightbox(index) {
+    currentLightboxIndex = index;
+    const overlay = document.getElementById('lightbox-overlay');
+    const image = document.getElementById('lightbox-image');
+    const thumbnailsContainer = document.getElementById('lightbox-thumbnails-container');
+    const counter = document.getElementById('lightbox-counter');
+
+    image.src = currentGalleryImages[index];
+    counter.textContent = `${index + 1} / ${currentGalleryImages.length}`;
+
+    thumbnailsContainer.innerHTML = currentGalleryImages.map((img, i) => `
+        <div class="lightbox-thumbnail-item ${i === index ? 'active' : ''}" data-index="${i}" onclick="setLightboxImage(${i})">
+            <img src="${img}" alt="">
+        </div>
+    `).join('');
+
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+    const overlay = document.getElementById('lightbox-overlay');
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+function setLightboxImage(index) {
+    currentLightboxIndex = index;
+    currentMainImageIndex = index;
+    const image = document.getElementById('lightbox-image');
+    const counter = document.getElementById('lightbox-counter');
+    
+    image.src = currentGalleryImages[index];
+    counter.textContent = `${index + 1} / ${currentGalleryImages.length}`;
+    
+    document.querySelectorAll('.lightbox-thumbnail-item').forEach((item, i) => {
+        item.classList.toggle('active', i === index);
+    });
+    
+    const mainImage = document.getElementById('gallery-main-image');
+    if (mainImage) {
+        mainImage.src = currentGalleryImages[index];
+    }
+    
+    document.querySelectorAll('.gallery-thumb-item').forEach((item, i) => {
+        item.classList.toggle('active', i === index);
+    });
+}
+
+function prevLightboxImage() {
+    const newIndex = currentLightboxIndex > 0 ? currentLightboxIndex - 1 : currentGalleryImages.length - 1;
+    setLightboxImage(newIndex);
+}
+
+function nextLightboxImage() {
+    const newIndex = currentLightboxIndex < currentGalleryImages.length - 1 ? currentLightboxIndex + 1 : 0;
+    setLightboxImage(newIndex);
+}
+
+document.addEventListener('keydown', function(e) {
+    const overlay = document.getElementById('lightbox-overlay');
+    if (overlay.classList.contains('active')) {
+        if (e.key === 'Escape') {
+            closeLightbox();
+        } else if (e.key === 'ArrowLeft') {
+            prevLightboxImage();
+        } else if (e.key === 'ArrowRight') {
+            nextLightboxImage();
+        }
+    }
+});
 
 document.addEventListener('DOMContentLoaded', function() {
     const projectId = parseInt(getUrlParam('id'));
@@ -222,6 +351,20 @@ document.addEventListener('DOMContentLoaded', function() {
             document.querySelector('.nav-links').classList.remove('active');
             document.body.classList.remove('no-scroll');
         });
+    });
+
+    const themeToggle = document.getElementById('themeToggle');
+    const isLightTheme = localStorage.getItem('theme') === 'light';
+    
+    if (isLightTheme) {
+        document.body.classList.add('theme-light');
+        themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+    }
+    
+    themeToggle.addEventListener('click', function() {
+        const isLight = document.body.classList.toggle('theme-light');
+        localStorage.setItem('theme', isLight ? 'light' : 'dark');
+        themeToggle.innerHTML = isLight ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
     });
 });
 </script>
