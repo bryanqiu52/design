@@ -6,6 +6,7 @@ const siteConfig = {
     "favicon": "images/favicon.ico",
     "heroEyebrow": "XIFOFLY · 溪风设计工作室",
     "heroDesc": "专注品牌视觉 · UI设计 · 包装设计 · 电商设计",
+    "heroImage": "images/hero.png",
     "email": "bryanqiu52@gmail.com",
     "wechat": "poke1883",
     "qrcodeWechat": "images/qrcode.png",

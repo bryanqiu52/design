@@ -86,7 +86,7 @@
     // 统一按钮镜面高光：边缘高光沿按钮描边流动，光向跟随鼠标
     // 参考 specular-button（WebGL）效果：rAF 每帧指数插值，让角度/亮度平滑过渡
     function initSpecularShine() {
-        const SELECTOR = '.btn, .nav-cta, .filter-btn, .cta-btn, .nav-links a, .hero-scroll, .back-btn, .pagination-btn, .cases-prev-btn, .cases-next-btn';
+        const SELECTOR = '.btn, .nav-cta, .filter-btn, .cta-btn, .nav-links a, .back-btn, .pagination-btn, .cases-prev-btn, .cases-next-btn';
         const els = Array.prototype.slice.call(document.querySelectorAll(SELECTOR));
         if (!els.length) return;
 

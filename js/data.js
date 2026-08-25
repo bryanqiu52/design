@@ -810,7 +810,7 @@ function sortProjects(projects) {
 }
 
 const sortedProjects = sortProjects(projectsData);
-const featuredWorks = sortedProjects.slice(0, 4);
+const featuredWorks = sortedProjects.slice(0, 8);
 
 const categories = {
     "branding": "品牌设计",

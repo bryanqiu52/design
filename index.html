@@ -5,7 +5,7 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title id="page-title">溪风设计 | XIFOFLY</title>
 <link href="vendor/fontawesome/css/all.min.css" rel="stylesheet"/>
-<link href="styles.css" rel="stylesheet"/>
+<link href="styles.css?v=20260825" rel="stylesheet"/>
 <link rel="icon" id="site-favicon"/>
 </head>
 <body>
@@ -19,6 +19,7 @@
 <canvas id="hero-grid" class="hero-grid-canvas"></canvas>
 <div class="hero-glow"></div>
 </div>
+<div class="hero-container">
 <div class="hero-inner">
 <p class="hero-eyebrow">XIFOFLY · 溪风设计设计工作室</p>
 <h1 class="hero-title">
@@ -34,6 +35,10 @@
 <a href="contact.html" class="btn btn-outline">立即咨询</a>
 </div>
 <div class="hero-brand"><span class="dot"></span>Brand · Visual · Digital Studio</div>
+</div>
+<div class="hero-visual">
+<img id="hero-image" src="images/hero.png" alt="溪风设计工作室" />
+</div>
 </div>
 <div class="marquee" aria-hidden="true">
     <div class="marquee-track" id="marqueeTrack">
@@ -256,7 +261,7 @@
 function loadFeaturedWorks() {
     const container = document.getElementById('featuredWorks');
     container.innerHTML = featuredWorks.map((work, index) => `
-        <a href="project.html?id=${work.id}" class="work-item" data-animate style="animation-delay: ${index * 0.1}s">
+        <a href="project.html?id=${work.id}" class="work-item" data-animate style="transition-delay: ${index * 0.1}s">
             <div class="work-image">
                 <img src="${work.image}" alt="${work.title}" loading="lazy">
                 <div class="work-overlay">
@@ -527,6 +532,8 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             document.getElementById('hero-subtitle').textContent = siteConfig.siteSubtitle;
         }
+        var heroImg = document.querySelector('.hero-visual img');
+        if (heroImg && siteConfig.heroImage) heroImg.src = siteConfig.heroImage;
     }
 
     loadFeaturedWorks();
@@ -535,6 +542,25 @@ document.addEventListener('DOMContentLoaded', function() {
     initScrollHorizontal();
     initSplitTitle();
     initMarquee();
+
+    /* 服务卡片入场动画：进入视口逐个淡入（不依赖 fullpage.js 的 .fp-active） */
+    var serviceCards = document.querySelectorAll('.service-card[data-animate]');
+    serviceCards.forEach(function(card, i) {
+        card.style.animationDelay = (i * 0.1) + 's';
+    });
+    if ('IntersectionObserver' in window) {
+        var serviceIO = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                    serviceIO.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+        serviceCards.forEach(function(card) { serviceIO.observe(card); });
+    } else {
+        serviceCards.forEach(function(card) { card.classList.add('animate-in'); });
+    }
 });
 </script>
 <script src="js/hero-grid.js"></script>

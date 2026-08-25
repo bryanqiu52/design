@@ -386,14 +386,44 @@ ul {
     align-items: flex-start;
     justify-content: safe center;
     position: relative;
-    padding: 90px 8vw 0;
+    padding: 90px 24px 0;
     overflow: hidden;
 }
 
-@media (min-width: 1680px) {
-    .hero-inner {
-        margin-left: calc((100vw - 1600px) / 2);
-    }
+/* 安全区域：整体内容最大 1400px 居中，左文右图合并为一张卡片 */
+.hero-container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto 96px;
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    align-items: stretch;
+    overflow: hidden;
+    border-radius: 32px;
+    background: rgba(255,255,255,0.03);
+    backdrop-filter: blur(18px) saturate(1.5);
+    -webkit-backdrop-filter: blur(18px) saturate(1.5);
+    border: 1px solid #ffffff1c;
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.18),
+        inset 0 -1px 0 rgba(255,255,255,0.06),
+        0 8px 28px rgba(0,0,0,0.22);
+    transition: box-shadow 0.1s ease, border-color 0.35s ease;
+}
+
+.hero-visual {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+}
+
+.hero-visual img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .hero-bg {
@@ -427,18 +457,10 @@ ul {
     position: relative;
     z-index: 2;
     text-align: left;
-    max-width: 750px;
-    width: 100%;
-    padding: 64px 72px;
-    border-radius: 32px;
-    backdrop-filter: blur(18px) saturate(1.5);
-    -webkit-backdrop-filter: blur(18px) saturate(1.5);
-    border: 1px solid #ffffff1c;
-    box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.18),
-        inset 0 -1px 0 rgba(255,255,255,0.06),
-        0 8px 28px rgba(0,0,0,0.22);
-    transition: box-shadow 0.1s ease, border-color 0.35s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 64px 56px 64px 72px;
 }
 
 /* ==================== */
@@ -450,7 +472,7 @@ ul {
     initial-value: 0deg;
 }
 
-.hero-inner::before {
+.hero-container::before {
     content: '';
     position: absolute;
     inset: 0;
@@ -480,7 +502,7 @@ ul {
 }
 
 @supports not (mask-composite: exclude) {
-    .hero-inner::before {
+    .hero-container::before {
         display: none;
     }
 }
@@ -491,7 +513,7 @@ ul {
 }
 
 /* 保证卡片内容浮在高光边框之上 */
-.hero-inner > * {
+.hero-container > * {
     position: relative;
     z-index: 1;
 }
@@ -623,7 +645,7 @@ ul {
 /* ==================== */
 .hero .marquee {
     position: absolute;
-    bottom: 0;
+    bottom: 0px;
     left: 0;
     width: 100vw;
     padding: 18px 0;
@@ -829,9 +851,9 @@ html {
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    /* 覆盖全局 [data-animate] 的 0.8s 慢过渡：transform 用 0.25s 快过渡，入场淡入 opacity 仍走 0.8s 保持优雅 */
-    transition: transform 0.25s ease, opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
-                border-color 0.25s ease, box-shadow 0.25s ease;
+    /* hover 快过渡：transform/边框/阴影走 0.25s，与关于页卡片一致、回落对称自然；
+       入场淡入由下方 @keyframes 独立实现，不受此 transition 影响 */
+    transition: transform 0.25s ease, opacity 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .services .service-card:hover {
@@ -840,6 +862,15 @@ html {
     box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 30px var(--secondary-5);
     /* 首页卡片带 data-animate，被全局 0.8s 过渡拖慢；悬停时改用快过渡，入场动画不受影响 */
     transition: transform 0.25s cubic-bezier(0.4,0,0.2,1), border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* 首页服务卡片入场动画：用 @keyframes 播放（不占用 transition，避免影响 hover 回落速度，效果与案例卡片一致） */
+@keyframes serviceCardIn {
+    from { opacity: 0; transform: translateY(40px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.services .service-card[data-animate].animate-in {
+    animation: serviceCardIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
 .services .service-image {
@@ -899,10 +930,26 @@ html {
     justify-content: safe center;
 }
 
+/* 强制统一板块容器宽度 */
+.featured-works .container,
+.brand-story .container,
+.process .container {
+    max-width: 1600px;
+    width: 100%;
+    margin: 0 auto;
+}
+
 .works-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+    .works-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
 }
 
 .work-item {
@@ -986,30 +1033,14 @@ html {
     font-weight: 600;
 }
 
-/* Stats Section */
+/* Brand Story Section - 与 .featured-works / .process 实现一致，container/header/desc 走全局 */
 .brand-story {
     padding: 8rem 0;
     background: var(--secondary-2);
-    position: relative;
-    overflow: hidden;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: safe center;
-}
-
-.brand-story .section-desc {
-    font-size: 1.1rem;
-    line-height: 1.7;
-    max-width: 560px;
-}
-
-/* 内容本身较少，收窄这两个区块容器，让文字和卡片更聚焦、更好认 */
-.brand-story .container {
-    max-width: 1400px;
-}
-.featured-works .container {
-    max-width: 1400px;
 }
 
 .story-grid {
@@ -1091,9 +1122,9 @@ html {
 .process {
     padding: 8rem 0;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: safe center;
+    /* 不用 flex 布局：flex 下 .container 的 margin:auto 会吸收空间，
+       把容器压缩到内容宽度，导致时间线只有 508px、Z 字形看不出交错。
+       改用普通块级，让 .container 的 width:100% + max-width 正常撑满 */
 }
 
 /* Z 字形交错时间线：中央竖线 + 左右交替大卡片，撑满整屏更有层次 */
@@ -1453,6 +1484,16 @@ html {
     }
 }
 
+@media (max-width: 1080px) {
+    .hero-container {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 24px;
+    }
+    .hero-visual {
+        display: none;
+    }
+}
+
 @media (max-width: 768px) {
     .hero {
         padding: 100px 20px 0;
@@ -1462,8 +1503,6 @@ html {
     .hero-inner {
         text-align: center;
         padding: 40px 26px;
-        border-radius: 24px;
-        max-width: 100%;
     }
 
     .hero-eyebrow {
@@ -1485,9 +1524,9 @@ html {
         justify-content: center;
     }
 
-    .hero-scroll {
+    .hero-brand {
         font-size: 11px;
-        padding: 12px 24px;
+        letter-spacing: 0.25em;
     }
 
     .hero .marquee {
@@ -2481,18 +2520,15 @@ html {
 [data-animate]:nth-child(6) { transition-delay: 0.5s; }
 
 /* ==================== */
-/* 整页切换：每屏底部的"向下滑动"提示（绿渐变下滑条 + 箭头） */
+/* 整页切换："向下滑动"提示（绿渐变下滑条 + 箭头），挂在右侧导航 .fp-dots 下方 */
 /* ==================== */
 .fp-scroll-hint {
-    position: fixed;
-    left: 50%;
-    bottom: 26px;
-    transform: translateX(-50%);
+    position: relative;
+    margin-top: 14px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 5px;
-    z-index: 999;
     pointer-events: none;
     opacity: 0;
     transition: opacity .35s ease;
@@ -2868,7 +2904,7 @@ img.loaded {
     max-width: 1600px;
     width: 100%;
     margin: 0 auto;
-    padding: 0 40px;
+    margin-bottom: 3rem;
 }
 
 .hs-slider-container {
@@ -4330,7 +4366,7 @@ img.loaded {
         transform: none !important;
         opacity: 1 !important;
     }
-    .hero-inner::before {
+    .hero-container::before {
         animation: none;
     }
 }

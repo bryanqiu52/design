@@ -238,13 +238,18 @@
         sections = getSections();
         if (sections.length === 0) return;
 
-        /* 每屏底部的"向下滑动"提示（绿渐变下滑条 + 箭头），仅在还有下一屏时显示 */
+        buildDots();
+
+        /* "向下滑动"提示（绿渐变下滑条 + 箭头）：挂在右侧导航 .fp-dots 下方，仅在还有下一屏时显示 */
         scrollHint = document.createElement('div');
         scrollHint.className = 'fp-scroll-hint';
         scrollHint.innerHTML = '<span class="bar"></span><i class="fas fa-chevron-down arrow"></i>';
-        document.body.appendChild(scrollHint);
+        if (dotWrap) {
+            dotWrap.appendChild(scrollHint);
+        } else {
+            document.body.appendChild(scrollHint);
+        }
 
-        buildDots();
         setActive(detectIndex());
 
         /* 横向卡片进度条：监听原生滚动 + 窗口尺寸变化，实时更新 */
