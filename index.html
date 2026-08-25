@@ -1,75 +1,582 @@
 <!DOCTYPE html>
-
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Design BRYAN</title>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet"/>
-<link href="css/styles.css" rel="stylesheet"/>
-<!-- 首页特有样式保留在此 -->
+<title id="page-title">溪风设计 | XIFOFLY</title>
+<link href="vendor/fontawesome/css/all.min.css" rel="stylesheet"/>
+<link href="styles.css" rel="stylesheet"/>
+<link rel="icon" id="site-favicon"/>
 </head>
-<body class="home-page">
+<body>
+<canvas id="spark-canvas"></canvas>
+<script src="js/spark.js"></script>
 
-<div class="particle-bg"></div>
-<!-- 直接写入导航代码 -->
-<nav class="nav-container"><div class="nav-menu"><span class="logo-text" id="site-logo" style="font-size: 1.5rem; font-weight: bold; letter-spacing: 2px;">BRYAN</span>
-<button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
-<div class="nav-links">
-<a class="active" href="index.html">首页</a>
-<a href="portfolio.html">作品</a>
-<a href="about.html">关于</a>
-<a href="contact.html">联系</a>
-</div>
-</div>
-</nav>
-<!-- 全屏Hero -->
+<div id="site-nav"></div>
+
 <section class="hero">
-<div class="hero-content">
-<div class="header-lang">
+<div class="hero-bg">
+<canvas id="hero-grid" class="hero-grid-canvas"></canvas>
+<div class="hero-glow"></div>
 </div>
-<h1 class="hero-title">创意无界限</h1>
-<p class="hero-subtitle">数字设计解决方案专家</p>
-<div class="hero-buttons">
-<a class="cta-btn" href="portfolio.html">查看作品集</a>
-<a class="cta-btn outline" href="contact.html">立即联系</a>
+<div class="hero-inner">
+<p class="hero-eyebrow">XIFOFLY · 溪风设计设计工作室</p>
+<h1 class="hero-title">
+<span class="title-line">用设计</span>
+<span class="title-line accent">定义品牌</span>
+</h1>
+<p class="hero-desc" id="hero-subtitle">专注品牌视觉 · UI设计 · 包装设计 · 电商设计</p>
+<div class="hero-cta">
+<a href="cases.html" class="btn btn-primary">
+<span>浏览案例</span>
+<i class="fas fa-arrow-right"></i>
+</a>
+<a href="contact.html" class="btn btn-outline">立即咨询</a>
+</div>
+<a class="hero-scroll" href="#services">开始浏览 <span>↓</span></a>
+</div>
+<div class="marquee" aria-hidden="true">
+    <div class="marquee-track" id="marqueeTrack">
+        <span>品牌设计</span><span>UI · UX 设计</span><span>包装设计</span><span>电商设计</span><span>品牌策略</span><span>视觉升级</span>
+    </div>
+</div>
+</section>
+
+<section class="services" id="services">
+<div class="container">
+<div class="section-header">
+<span class="section-tag">Services</span>
+<h2 class="section-title">我们的服务</h2>
+</div>
+<div class="services-grid">
+<div class="service-card" data-animate>
+<div class="service-icon"><i class="fas fa-palette"></i></div>
+<h3>品牌设计</h3>
+<p>LOGO设计、VI系统、品牌视觉升级，打造独特品牌形象</p>
+</div>
+<div class="service-card" data-animate>
+<div class="service-icon"><i class="fas fa-mobile-alt"></i></div>
+<h3>UI/UX设计</h3>
+<p>移动端APP、Web界面设计，注重用户体验与交互</p>
+</div>
+<div class="service-card" data-animate>
+<div class="service-icon"><i class="fas fa-box"></i></div>
+<h3>包装设计</h3>
+<p>产品包装、标签设计，让产品在货架上脱颖而出</p>
+</div>
+<div class="service-card" data-animate>
+<div class="service-icon"><i class="fas fa-shopping-cart"></i></div>
+<h3>电商设计</h3>
+<p>店铺装修、主图详情页，提升转化率</p>
+</div>
 </div>
 </div>
 </section>
-<main class="main-content">
-<!-- 首页其他内容 -->
-</main>
-<footer class="site-footer">
-<div class="footer-content">
-<div class="social-links">
-<a aria-label="Behance" href="https://www.behance.net" rel="noopener" target="_blank">
-<i class="fab fa-behance"></i>
-</a>
-<a aria-label="Dribbble" href="https://dribbble.com" rel="noopener" target="_blank">
-<i class="fab fa-dribbble"></i>
-</a>
-<a aria-label="Instagram" href="https://www.instagram.com" rel="noopener" target="_blank">
-<i class="fab fa-instagram"></i>
-</a>
-<a aria-label="微信" class="wechat-link" href="#wechat-modal">
-<i class="fab fa-weixin"></i>
-<div class="wechat-qr">
-<img alt="微信二维码" src="images/qrcode.png"/>
+
+<section class="horizontal-scroll-section" id="horizontalSection">
+<div class="hs-sticky">
+<div class="hs-header">
+<span class="hs-tag">Showcase</span>
+<h2 class="hs-title">用创意为品牌赋能</h2>
+<p class="hs-subtitle">每一个案例都是用心之作</p>
 </div>
-</a>
-</div>
-<div class="footer-info">
-<p>© 2025 Design Bryan. All rights reserved</p>
-<p>bryanqiu52@gmail.com</p>
+<div class="hs-slider-container">
+<div class="hs-track" id="hsTrack">
 </div>
 </div>
-</footer>
-<!-- 移除内联菜单脚本，使用外部menu.js -->
-<script src="js/star_background.js"></script>
-<script src="js/fluid_cursor.js"></script>
-<script src="js/data-service.js"></script>
-<script src="js/menu.js"></script>
-<script src="scripts/back-to-top.js"></script>
+</div>
+</section>
+
+<section class="featured-works">
+<div class="container">
+<div class="section-header">
+<span class="section-tag">Portfolio</span>
+<h2 class="section-title">精选案例</h2>
+<a href="cases.html" class="view-all">查看全部 <i class="fas fa-arrow-right"></i></a>
+</div>
+<div class="works-grid" id="featuredWorks">
+</div>
+</div>
+</section>
+
+<section class="brand-story">
+<div class="container">
+<div class="section-header center">
+<span class="section-tag">Brand Story</span>
+<h2 class="section-title">溪 · 风 · 飞行</h2>
+<p class="section-desc">XIFOFLY 由三个音节组成，每个音节都承载着品牌的核心理念。</p>
+</div>
+<div class="story-grid">
+<div class="story-card glass" data-animate>
+<span class="story-phon">XI<small>溪水般流动</small></span>
+<h3>流动</h3>
+<p>设计不是静止的，它像溪水一样不断流动、探索、发现新的可能。</p>
+</div>
+<div class="story-card glass" data-animate style="animation-delay: 0.1s">
+<span class="story-phon">FO<small>风拂过自由</small></span>
+<h3>自由</h3>
+<p>呼吸般的节奏，自由而自然，不做沉重的装饰，只做精准的表达。</p>
+</div>
+<div class="story-card glass" data-animate style="animation-delay: 0.2s">
+<span class="story-phon">FLY<small>蜻蜓起飞</small></span>
+<h3>轻盈</h3>
+<p>轻盈、敏捷，掠过生活水面的一个轻吻，精准、安静，却能漾开层层涟漪。</p>
+</div>
+</div>
+</div>
+</section>
+
+<section class="process">
+<div class="container">
+<div class="section-header center">
+<span class="section-tag">Process</span>
+<h2 class="section-title">合作流程</h2>
+</div>
+<div class="process-steps">
+<div class="step" data-animate>
+<div class="step-number">01</div>
+<div class="step-content">
+<h3>需求沟通</h3>
+<p>深入了解项目背景、目标与期望</p>
+</div>
+</div>
+<div class="step" data-animate>
+<div class="step-number">02</div>
+<div class="step-content">
+<h3>方案设计</h3>
+<p>提供多方案创意方向供选择</p>
+</div>
+</div>
+<div class="step" data-animate>
+<div class="step-number">03</div>
+<div class="step-content">
+<h3>设计执行</h3>
+<p>精细打磨，确保高品质交付</p>
+</div>
+</div>
+<div class="step" data-animate>
+<div class="step-number">04</div>
+<div class="step-content">
+<h3>售后支持</h3>
+<p>提供文件及后续调整支持</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="blog-section">
+<div class="container">
+<div class="section-header">
+<span class="section-tag">Blog</span>
+<h2 class="section-title">最新动态</h2>
+<a href="blog.html" class="view-all">查看全部 <i class="fas fa-arrow-right"></i></a>
+</div>
+<div class="blog-grid" id="blogPosts">
+</div>
+</div>
+</section>
+
+<section class="cta-section">
+<div class="container">
+<div class="cta-content" data-animate>
+<h2>有设计需求？</h2>
+<p>无论是品牌重塑还是全新项目，我们都能为你提供专业的设计方案</p>
+<a href="contact.html" class="btn btn-primary btn-lg">
+<span>开始合作</span>
+<i class="fas fa-arrow-right"></i>
+</a>
+</div>
+</div>
+</section>
+
+<div id="site-footer"></div>
+
+<script src="js/config.js"></script>
+<script src="js/data.js"></script>
+<script>
+
+function loadFeaturedWorks() {
+    const container = document.getElementById('featuredWorks');
+    container.innerHTML = featuredWorks.map((work, index) => `
+        <a href="project.html?id=${work.id}" class="work-item" data-animate style="animation-delay: ${index * 0.1}s">
+            <div class="work-image">
+                <img src="${work.image}" alt="${work.title}" loading="lazy">
+                <div class="work-overlay">
+                    <span class="work-category">${getCategoryName(work.category)}</span>
+                    <div class="work-arrow"><i class="fas fa-arrow-right"></i></div>
+                </div>
+            </div>
+            <div class="work-info">
+                <h3>${work.title}</h3>
+            </div>
+        </a>
+    `).join('');
+}
+
+function loadBlogPosts() {
+    console.log('loadBlogPosts called');
+    const container = document.getElementById('blogPosts');
+    
+    if (!container) {
+        console.log('blogPosts container not found');
+        return;
+    }
+    
+    console.log('window.blogPosts:', window.blogPosts);
+    console.log('window.blogPosts length:', window.blogPosts ? window.blogPosts.length : 'undefined');
+    
+    if (!window.blogPosts || !Array.isArray(window.blogPosts) || window.blogPosts.length === 0) {
+        container.innerHTML = '<div style="text-align: center; padding: 40px; color: rgba(255,255,255,0.6);"><i class="fas fa-file-alt" style="font-size: 48px; margin-bottom: 16px; display: block;"></i><h3 style="margin-bottom: 8px;">暂无博客文章</h3></div>';
+        return;
+    }
+    
+    const posts = window.blogPosts;
+        
+        const latestPosts = posts.slice(0, 4);
+        const featuredPost = latestPosts[0];
+        const miniPosts = latestPosts.slice(1);
+        
+        container.innerHTML = `
+            <article class="blog-card-featured" data-animate style="animation-delay: 0s">
+                <a href="blog-detail.html?slug=${featuredPost.slug}" class="blog-image-link">
+                    <div class="blog-image">
+                        <img src="${featuredPost.cover}" alt="${featuredPost.title}" loading="lazy">
+                    </div>
+                </a>
+                <div class="blog-content">
+                    <span class="blog-category">${featuredPost.category}</span>
+                    <h3><a href="blog-detail.html?slug=${featuredPost.slug}">${featuredPost.title}</a></h3>
+                    <p>${featuredPost.excerpt}</p>
+                    <div class="blog-meta">
+                        <span class="blog-author"><i class="fas fa-user"></i> ${featuredPost.author}</span>
+                        <span class="blog-date"><i class="far fa-calendar"></i> ${featuredPost.date}</span>
+                    </div>
+                </div>
+            </article>
+            
+            <div class="blog-card-list">
+                ${miniPosts.map((post, index) => `
+                    <article class="blog-card-mini" data-animate style="animation-delay: ${(index + 1) * 0.1}s" onclick="location.href='blog-detail.html?slug=${post.slug}'">
+                        <div class="blog-mini-image">
+                            <img src="${post.cover}" alt="${post.title}" loading="lazy">
+                        </div>
+                        <div class="blog-mini-content">
+                            <span class="blog-mini-category">${post.category}</span>
+                            <div class="blog-mini-title">${post.title}</div>
+                            <div class="blog-mini-meta">
+                                <span><i class="fas fa-user"></i> ${post.author}</span>
+                                <span><i class="far fa-calendar"></i> ${post.date}</span>
+                            </div>
+                        </div>
+                    </article>
+                `).join('')}
+            </div>
+        `;
+}
+
+function loadSiteImages() {
+    const sliderTrack = document.getElementById('hsTrack');
+    const sliderData = [
+        { category: '品牌设计', title: '品牌视觉升级', desc: '从品牌策略到视觉落地，我们帮助企业打造独特的品牌形象，提升市场竞争力。包括LOGO设计、VI系统、品牌手册等全案服务。', year: '2024' },
+        { category: 'UI/UX设计', title: '用户体验优化', desc: '以用户为中心的设计理念，通过深入的用户研究和数据分析，打造流畅自然的交互体验，提升产品使用率和用户满意度。', year: '2024' },
+        { category: '包装设计', title: '创意包装方案', desc: '让产品在货架上脱颖而出！我们的包装设计不仅美观，更注重功能性和品牌传达，帮助产品在众多竞品中抓住消费者眼球。', year: '2023' },
+        { category: '电商设计', title: '电商视觉转化', desc: '科学的页面布局与精美的视觉设计相结合，通过优化用户购物路径和提升视觉吸引力，有效提升产品转化率和销售额。', year: '2023' }
+    ];
+    
+    const images = typeof siteImages !== 'undefined' ? siteImages : {
+        featured: [
+            'images/featured1.jpg',
+            'images/featured2.jpg',
+            'images/featured3.jpg',
+            'images/featured4.jpg'
+        ],
+        qrcodeWechat: 'images/qrcode.png',
+        qrcodeWorkwechat: 'images/qrcode.png'
+    };
+    
+    sliderTrack.innerHTML = images.featured.map((img, index) => {
+        const data = sliderData[index] || sliderData[0];
+        const num = String(index + 1).padStart(2, '0');
+        return `
+        <div class="hs-slide">
+            <img src="${img}" alt="${data.category}">
+            <div class="hs-slide-content">
+            <div class="hs-slide-header">
+                <span class="hs-slide-category">${data.category}</span>
+                <span class="hs-slide-number">${num}</span>
+            </div>
+            <h3>${data.title}</h3>
+            <p>${data.desc}</p>
+            <div class="hs-slide-meta">
+                <span class="hs-slide-year">${data.year}</span>
+                <span class="hs-slide-arrow"><i class="fas fa-arrow-right"></i></span>
+            </div>
+            </div>
+        </div>
+        `;
+    }).join('');
+    
+    /* 聚光灯效果：鼠标在整个横向滚动区域移动时，对每张卡片的图片计算相对坐标并更新圆孔（仅图片受影响） */
+    const stickyWrap = sliderTrack.closest('.hs-sticky');
+    const slides = sliderTrack.querySelectorAll('.hs-slide');
+    if (stickyWrap && slides.length) {
+        stickyWrap.addEventListener('mousemove', function(e) {
+            slides.forEach(function(card) {
+                var r = card.getBoundingClientRect();
+                card.style.setProperty('--card-mouse-x', (e.clientX - r.left) + 'px');
+                card.style.setProperty('--card-mouse-y', (e.clientY - r.top) + 'px');
+            });
+        });
+        stickyWrap.addEventListener('mouseleave', function() {
+            slides.forEach(function(card) {
+                card.style.setProperty('--card-mouse-x', '-9999px');
+                card.style.setProperty('--card-mouse-y', '-9999px');
+            });
+        });
+    }
+}
+
+function animateOnScroll() {
+    const elements = document.querySelectorAll('[data-animate]');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-in');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+    elements.forEach(el => observer.observe(el));
+}
+
+function initScrollHorizontal() {
+    const section = document.getElementById('horizontalSection');
+    const track = document.getElementById('hsTrack');
+    const slides = track.querySelectorAll('.hs-slide');
+
+    if (!section || !track || slides.length === 0) return;
+
+    let currentTranslate = 0;
+    let targetTranslate = 0;
+    let isScrolling = false;
+    let scrollTimeout = null;
+
+    function getMaxTranslate() {
+        const slideWidth = slides[0].offsetWidth;
+        const gap = parseInt(window.getComputedStyle(track).gap) || 40;
+        const totalWidth = slides.length * (slideWidth + gap) - gap;
+        const containerWidth = window.innerWidth * 0.9;
+        const maxScroll = Math.max(0, totalWidth - containerWidth);
+        return maxScroll;
+    }
+
+    function calculateSectionHeight() {
+        const maxTranslate = getMaxTranslate();
+        const windowHeight = window.innerHeight;
+        const extraHeight = maxTranslate + windowHeight;
+        return Math.max(windowHeight * 3, extraHeight);
+    }
+
+    function lerp(start, end, factor) {
+        return start + (end - start) * factor;
+    }
+
+    function updatePosition() {
+        const rect = section.getBoundingClientRect();
+        const sectionHeight = section.offsetHeight;
+        const windowHeight = window.innerHeight;
+        const scrollableDistance = sectionHeight - windowHeight;
+
+        if (scrollableDistance <= 0) {
+            targetTranslate = 0;
+            return;
+        }
+
+        if (rect.bottom <= windowHeight) {
+            const maxTranslate = getMaxTranslate();
+            targetTranslate = maxTranslate;
+            return;
+        }
+
+        if (rect.top >= 0) {
+            targetTranslate = 0;
+            return;
+        }
+
+        const scrolled = Math.abs(rect.top);
+        const scrollProgress = Math.max(0, Math.min(1, scrolled / scrollableDistance));
+        const maxTranslate = getMaxTranslate();
+        targetTranslate = scrollProgress * maxTranslate;
+
+        isScrolling = true;
+        if (scrollTimeout) clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+            isScrolling = false;
+        }, 150);
+    }
+
+    function animate() {
+        const factor = isScrolling ? 0.12 : 0.08;
+        currentTranslate = lerp(currentTranslate, targetTranslate, factor);
+        track.style.transform = `translateX(-${currentTranslate}px)`;
+        requestAnimationFrame(animate);
+    }
+
+    function handleResize() {
+        const newHeight = calculateSectionHeight();
+        section.style.height = newHeight + 'px';
+        targetTranslate = Math.min(targetTranslate, getMaxTranslate());
+        updatePosition();
+    }
+
+    function init() {
+        const initialHeight = calculateSectionHeight();
+        section.style.height = initialHeight + 'px';
+        updatePosition();
+        animate();
+    }
+
+    window.addEventListener('scroll', updatePosition, { passive: true });
+    window.addEventListener('resize', handleResize);
+
+    init();
+}
+
+
+
+function initMarquee() {
+    var track = document.getElementById('marqueeTrack');
+    if (!track) return;
+    
+    var children = track.querySelectorAll('span');
+    if (children.length === 0) return;
+    
+    // 复制内容以实现无缝循环（至少4份确保够用）
+    var html = track.innerHTML;
+    track.innerHTML = html + html + html + html;
+    
+    var spanSetWidth = 0;
+    var offset = 0;
+    var speed = 0.6;
+    var paused = false;
+    
+    track.addEventListener('mouseenter', function() { paused = true; });
+    track.addEventListener('mouseleave', function() { paused = false; });
+    
+    function measure() {
+        var spans = track.querySelectorAll('span');
+        var setCount = children.length;
+        if (spans.length < setCount) return;
+        
+        // 测量第一组的起始位置
+        var firstRect = spans[0].getBoundingClientRect();
+        var setEndRect = spans[setCount - 1].getBoundingClientRect();
+        // 计算一组的总宽度：最后一个span右边缘 - 第一个span左边缘 + 最后一个span后面的gap
+        spanSetWidth = setEndRect.right - firstRect.left;
+        
+        // 如果offset超出了新测量值，拉回来
+        if (offset > spanSetWidth) {
+            offset = offset % spanSetWidth;
+        }
+    }
+    
+    measure();
+    window.addEventListener('resize', measure);
+    
+    function loop() {
+        if (!paused) {
+            offset -= speed;
+        }
+        var totalWidth = spanSetWidth;
+        if (totalWidth > 0) {
+            offset = ((offset % totalWidth) + totalWidth) % totalWidth;
+            track.style.transform = 'translateX(' + (-offset).toFixed(2) + 'px)';
+        }
+        requestAnimationFrame(loop);
+    }
+    loop();
+}
+
+function initSplitTitle() {
+    const lines = document.querySelectorAll('.hero-title .title-line');
+    if (!lines.length) return;
+
+    // 把每一行文字拆成单个字符
+    lines.forEach((line) => {
+        const text = line.textContent;
+        line.textContent = '';
+        const frag = document.createDocumentFragment();
+        for (const ch of text) {
+            const span = document.createElement('span');
+            span.className = 'char';
+            span.textContent = ch === ' ' ? '\u00A0' : ch;
+            span.style.transform = 'translateY(130%) rotate(8deg)';
+            span.style.opacity = '0';
+            frag.appendChild(span);
+        }
+        line.appendChild(frag);
+    });
+
+    const chars = document.querySelectorAll('.hero-title .char');
+    let started = false;
+
+    // 字符从下方滑入（缓动 + 错峰延迟），效果对齐 MOTION STUDIO 标题
+    function run() {
+        if (started) return;
+        started = true;
+        const t0 = performance.now();
+        const TOTAL = 2200;
+        const DELAY = 0.04;
+        function step(now) {
+            const t = Math.min(Math.max((now - t0) / TOTAL, 0), 1);
+            let allDone = true;
+            chars.forEach((c, i) => {
+                const p = Math.min(Math.max((t - i * DELAY) / 0.78, 0), 1);
+                const e = 1 - Math.pow(1 - p, 3);
+                c.style.transform = 'translateY(' + ((1 - e) * 130).toFixed(2) + '%) rotate(' + ((1 - e) * 8).toFixed(2) + 'deg)';
+                c.style.opacity = e > 0.03 ? '1' : '0';
+                if (p < 1) allDone = false;
+            });
+            if (t < 1 && !allDone) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+    }
+
+    // 标题进入视口才播放：在首屏刷新会立即播；若刷新时滚动条在页面下方，
+    // 滚回顶部看到标题时仍会播放（避免动画在看不见的地方悄悄播完）
+    const title = document.querySelector('.hero-title');
+    if (window.IntersectionObserver && title) {
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => { if (entry.isIntersecting) run(); });
+        }, { threshold: 0.3 });
+        io.observe(title);
+    } else {
+        setTimeout(run, 400);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    if (typeof siteConfig !== 'undefined') {
+        document.getElementById('page-title').textContent = siteConfig.siteTitle + ' | XIFOFLY';
+        if (siteConfig.heroEyebrow) document.querySelector('.hero-eyebrow').textContent = siteConfig.heroEyebrow;
+        if (siteConfig.heroDesc) {
+            document.getElementById('hero-subtitle').textContent = siteConfig.heroDesc;
+        } else {
+            document.getElementById('hero-subtitle').textContent = siteConfig.siteSubtitle;
+        }
+    }
+
+    loadFeaturedWorks();
+    loadBlogPosts();
+    loadSiteImages();
+    animateOnScroll();
+    initScrollHorizontal();
+    initSplitTitle();
+    initMarquee();
+});
+</script>
+<script src="js/hero-grid.js"></script>
+<script src="js/site-ui.js"></script>
 </body>
 </html>

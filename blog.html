@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>博客 | 溪风设计</title>
+<link href="vendor/fontawesome/css/all.min.css" rel="stylesheet"/>
+<link href="styles.css" rel="stylesheet"/>
+<link rel="icon" id="site-favicon"/>
+</head>
+<body>
+<canvas id="spark-canvas"></canvas>
+<script src="js/spark.js"></script>
+
+<div id="site-nav"></div>
+
+<header class="page-header">
+<h1>博客</h1>
+<p>分享设计灵感与行业洞察</p>
+</header>
+
+<section class="blog-list-section">
+<div class="container">
+<div class="section-header">
+<span class="section-tag">Blog</span>
+<h2 class="section-title">设计洞察</h2>
+</div>
+
+<div class="blog-filters" id="blogFilters">
+</div>
+
+<div class="news-list" id="blogList">
+</div>
+
+<div class="pagination-container" id="paginationContainer" style="display: none;">
+    <div class="pagination">
+        <button class="pagination-btn arrow" id="prevPageBtn" disabled>
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <div id="paginationNumbers" class="pagination-numbers"></div>
+        <button class="pagination-btn arrow" id="nextPageBtn" disabled>
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+    <span class="pagination-info" id="paginationInfo"></span>
+    <div class="pagination-jump">
+        <span class="pagination-jump-label">跳转到:</span>
+        <input type="number" class="pagination-jump-input" id="jumpInput" placeholder="e.g. 10" min="1">
+    </div>
+</div>
+</div>
+</section>
+
+<div id="site-footer"></div>
+
+<script src="js/data.js"></script>
+<script>
+const BLOG_ITEMS_PER_PAGE = 3;
+let currentBlogFilter = 'all';
+let currentBlogPage = 1;
+let filteredBlogPosts = [];
+
+function filterBlogPosts(category) {
+    currentBlogFilter = category;
+    currentBlogPage = 1;
+    renderBlogList();
+}
+
+function renderBlogFilters() {
+    const container = document.getElementById('blogFilters');
+    let html = '<button class="filter-btn active" data-filter="all">全部文章</button>';
+    for (const [key, value] of Object.entries(blogCategories)) {
+        html += `<button class="filter-btn" data-filter="${value}">${value}</button>`;
+    }
+    container.innerHTML = html;
+    
+    container.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            filterBlogPosts(this.dataset.filter);
+        });
+    });
+}
+
+async function renderBlogList() {
+    const container = document.getElementById('blogList');
+    const scrollTop = window.pageYOffset;
+    
+    const posts = await loadBlogPostsData();
+    window.blogPosts = posts;
+    
+    filteredBlogPosts = window.blogPosts;
+    if (currentBlogFilter !== 'all') {
+        filteredBlogPosts = filteredBlogPosts.filter(post => post.category === currentBlogFilter);
+    }
+    
+    if (!filteredBlogPosts || filteredBlogPosts.length === 0) {
+        container.innerHTML = '<div style="color: white; text-align: center; padding: 50px;"><h3>暂无博客文章</h3></div>';
+        document.getElementById('paginationContainer').style.display = 'none';
+        requestAnimationFrame(() => {
+            window.scrollTo(0, scrollTop);
+        });
+        return;
+    }
+    
+    const start = (currentBlogPage - 1) * BLOG_ITEMS_PER_PAGE;
+    const end = start + BLOG_ITEMS_PER_PAGE;
+    const postsToShow = filteredBlogPosts.slice(start, end);
+    
+    container.innerHTML = postsToShow.map((post, index) => `
+        <article class="news-item">
+            <div class="news-image">
+                <a href="blog-detail.html?slug=${post.slug}">
+                    <img src="${post.cover}" alt="${post.title}" loading="lazy">
+                </a>
+            </div>
+            <div class="news-content">
+                <h3><a href="blog-detail.html?slug=${post.slug}">${post.title}</a></h3>
+                <p>${post.excerpt}</p>
+                <div class="news-meta">
+                    <span class="news-author"><i class="fas fa-user"></i> ${post.author}</span>
+                    <span class="news-date"><i class="far fa-calendar"></i> ${post.date}</span>
+                    <span class="news-category">${post.category}</span>
+                </div>
+            </div>
+            <div class="news-action">
+                <a href="blog-detail.html?slug=${post.slug}" class="btn btn-primary btn-sm">阅读全文</a>
+            </div>
+        </article>
+    `).join('');
+    
+    renderBlogPagination();
+    
+    requestAnimationFrame(() => {
+        window.scrollTo(0, scrollTop);
+    });
+}
+
+function renderBlogPagination() {
+    const totalPages = Math.ceil(filteredBlogPosts.length / BLOG_ITEMS_PER_PAGE);
+    const paginationContainer = document.getElementById('paginationContainer');
+    const paginationNumbers = document.getElementById('paginationNumbers');
+    const paginationInfo = document.getElementById('paginationInfo');
+    const prevBtn = document.getElementById('prevPageBtn');
+    const nextBtn = document.getElementById('nextPageBtn');
+
+    if (totalPages <= 1) {
+        paginationContainer.style.display = 'none';
+        return;
+    }
+
+    paginationContainer.style.display = 'flex';
+
+    prevBtn.disabled = currentBlogPage === 1;
+    nextBtn.disabled = currentBlogPage === totalPages;
+
+    paginationNumbers.innerHTML = '';
+
+    const maxVisible = 5;
+    
+    if (totalPages <= maxVisible) {
+        for (let i = 1; i <= totalPages; i++) {
+            const button = document.createElement('button');
+            button.className = `pagination-btn${i === currentBlogPage ? ' active' : ''}`;
+            button.textContent = i;
+            button.addEventListener('click', () => {
+                currentBlogPage = i;
+                renderBlogList();
+                
+            });
+            paginationNumbers.appendChild(button);
+        }
+    } else {
+        if (currentBlogPage <= Math.floor(maxVisible / 2) + 1) {
+            for (let i = 1; i <= maxVisible - 1; i++) {
+                const button = document.createElement('button');
+                button.className = `pagination-btn${i === currentBlogPage ? ' active' : ''}`;
+                button.textContent = i;
+                button.addEventListener('click', () => {
+                    currentBlogPage = i;
+                    renderBlogList();
+                });
+                paginationNumbers.appendChild(button);
+            }
+            paginationNumbers.appendChild(document.createTextNode('...'));
+            const lastBtn = document.createElement('button');
+            lastBtn.className = 'pagination-btn';
+            lastBtn.textContent = totalPages;
+            lastBtn.addEventListener('click', () => {
+                currentBlogPage = totalPages;
+                renderBlogList();
+                
+            });
+            paginationNumbers.appendChild(lastBtn);
+        } else if (currentBlogPage >= totalPages - Math.floor(maxVisible / 2)) {
+            const firstBtn = document.createElement('button');
+            firstBtn.className = 'pagination-btn';
+            firstBtn.textContent = 1;
+            firstBtn.addEventListener('click', () => {
+                currentBlogPage = 1;
+                renderBlogList();
+                
+            });
+            paginationNumbers.appendChild(firstBtn);
+            paginationNumbers.appendChild(document.createTextNode('...'));
+            for (let i = totalPages - maxVisible + 2; i <= totalPages; i++) {
+                const button = document.createElement('button');
+                button.className = `pagination-btn${i === currentBlogPage ? ' active' : ''}`;
+                button.textContent = i;
+                button.addEventListener('click', () => {
+                    currentBlogPage = i;
+                    renderBlogList();
+                });
+                paginationNumbers.appendChild(button);
+            }
+        } else {
+            const firstBtn = document.createElement('button');
+            firstBtn.className = 'pagination-btn';
+            firstBtn.textContent = 1;
+            firstBtn.addEventListener('click', () => {
+                currentBlogPage = 1;
+                renderBlogList();
+                
+            });
+            paginationNumbers.appendChild(firstBtn);
+            paginationNumbers.appendChild(document.createTextNode('...'));
+            
+            for (let i = currentBlogPage - 1; i <= currentBlogPage + 1; i++) {
+                const button = document.createElement('button');
+                button.className = `pagination-btn${i === currentBlogPage ? ' active' : ''}`;
+                button.textContent = i;
+                button.addEventListener('click', () => {
+                    currentBlogPage = i;
+                    renderBlogList();
+                });
+                paginationNumbers.appendChild(button);
+            }
+            
+            paginationNumbers.appendChild(document.createTextNode('...'));
+            const lastBtn = document.createElement('button');
+            lastBtn.className = 'pagination-btn';
+            lastBtn.textContent = totalPages;
+            lastBtn.addEventListener('click', () => {
+                currentBlogPage = totalPages;
+                renderBlogList();
+                
+            });
+            paginationNumbers.appendChild(lastBtn);
+        }
+    }
+
+    const startItem = (currentBlogPage - 1) * BLOG_ITEMS_PER_PAGE + 1;
+    const endItem = Math.min(currentBlogPage * BLOG_ITEMS_PER_PAGE, filteredBlogPosts.length);
+    paginationInfo.textContent = `共 ${filteredBlogPosts.length} 篇文章，当前显示 ${startItem}-${endItem} 篇`;
+}
+
+function handleBlogJumpInput() {
+    const input = document.getElementById('jumpInput');
+    const totalPages = Math.ceil(filteredBlogPosts.length / BLOG_ITEMS_PER_PAGE);
+    const pageNum = parseInt(input.value);
+    
+    if (!isNaN(pageNum) && pageNum >= 1 && pageNum <= totalPages) {
+        currentBlogPage = pageNum;
+        renderBlogList();
+        
+    }
+    
+    input.value = '';
+}
+
+function goToPrevBlogPage() {
+    if (currentBlogPage > 1) {
+        currentBlogPage--;
+        renderBlogList();
+        
+    }
+}
+
+function goToNextBlogPage() {
+    const totalPages = Math.ceil(filteredBlogPosts.length / BLOG_ITEMS_PER_PAGE);
+    if (currentBlogPage < totalPages) {
+        currentBlogPage++;
+        renderBlogList();
+        
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    renderBlogFilters();
+    renderBlogList();
+
+    document.getElementById('prevPageBtn').addEventListener('click', goToPrevBlogPage);
+    document.getElementById('nextPageBtn').addEventListener('click', goToNextBlogPage);
+    
+    document.getElementById('jumpInput').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            handleBlogJumpInput();
+        }
+    });
+});
+</script>
+<script src="js/config.js"></script>
+<script src="js/site-ui.js"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+const blogPosts = [
+    {
+        "id": 1,
+        "title": "2024年品牌设计趋势分析",
+        "date": "2024-01-15",
+        "category": "设计趋势",
+        "author": "溪风",
+        "cover": "images/work1.jpg",
+        "slug": "2024-brand-trends",
+        "excerpt": "探讨新一年品牌设计的主流趋势，从色彩运用到视觉风格的演变。极简主义回归、大胆色彩搭配和动态视觉元素成为今年的关键词。"
+    },
+    {
+        "id": 2,
+        "title": "UI设计中的用户体验优化技巧",
+        "date": "2024-01-10",
+        "category": "UI设计",
+        "author": "溪风",
+        "cover": "images/work2.jpg",
+        "slug": "ui-ux-tips",
+        "excerpt": "分享提升用户体验的实用技巧，让你的界面设计更加人性化。直观的导航设计、响应式布局和微交互设计是关键。"
+    },
+    {
+        "id": 3,
+        "title": "包装设计如何提升产品价值",
+        "date": "2024-01-05",
+        "category": "包装设计",
+        "author": "溪风",
+        "cover": "images/work3.jpg",
+        "slug": "packaging-design",
+        "excerpt": "探讨包装设计在产品营销中的重要作用。好的包装设计能够在货架上脱颖而出，讲述品牌故事。"
+    },
+    {
+        "id": 4,
+        "title": "电商视觉设计的转化密码",
+        "date": "2024-01-01",
+        "category": "电商设计",
+        "author": "溪风",
+        "cover": "images/work4.jpg",
+        "slug": "ecommerce-design",
+        "excerpt": "揭秘高转化电商页面的设计秘诀。视觉层级分明、高质量产品图片和营造紧迫感是关键要素。"
+    },
+    {
+        "id": 5,
+        "title": "品牌VI系统建设指南",
+        "date": "2023-12-28",
+        "category": "品牌设计",
+        "author": "溪风",
+        "cover": "images/work5.jpg",
+        "slug": "brand-vi-guide",
+        "excerpt": "从零开始建立完整的品牌视觉识别系统。品牌定位分析、核心元素设计和应用规范制定是三大核心步骤。"
+    },
+    {
+        "id": 6,
+        "title": "设计师必备的配色技巧",
+        "date": "2023-12-20",
+        "category": "设计技巧",
+        "author": "溪风",
+        "cover": "images/work6.jpg",
+        "slug": "color-theory",
+        "excerpt": "掌握这些配色原则，让你的设计更加专业。色彩心理学、配色比例和色彩对比是设计师必备的知识。"
+    }
+];
+
+if (!window.blogPosts) {
+    window.blogPosts = [...blogPosts];
+}

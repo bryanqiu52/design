@@ -1,170 +1,141 @@
 <!DOCTYPE html>
-
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>联系我 | Design BRYAN</title>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet"/>
-<link href="css/styles.css" rel="stylesheet"/>
+<title id="contact-title">联系 | 溪风设计</title>
+<link href="vendor/fontawesome/css/all.min.css" rel="stylesheet"/>
+<link href="styles.css" rel="stylesheet"/>
+<link rel="icon" id="site-favicon"/>
 </head>
-<body class="sub-page">
-<!-- 导航（当前页为联系） -->
-<nav class="nav-container"><div class="nav-menu"><span class="logo-text" id="site-logo" style="font-size: 1.5rem; font-weight: bold; letter-spacing: 2px;">BRYAN</span>
-<button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
-<div class="nav-links">
-<a href="index.html">首页</a>
-<a href="portfolio.html">作品</a>
-<a href="about.html">关于</a>
-<a class="active" href="contact.html">联系</a>
+<body>
+<canvas id="spark-canvas"></canvas>
+<script src="js/spark.js"></script>
+
+<div id="site-nav"></div>
+
+<header class="page-header">
+<h1>联系我们</h1>
+<p>期待与您的合作</p>
+</header>
+
+<section class="container">
+<section class="contact-section">
+<div class="contact-grid">
+<div class="contact-info">
+<h2>开始合作</h2>
+<p>无论是品牌重塑还是全新项目，我们都能为你提供专业的设计方案。欢迎通过以下方式联系我们，聊聊你的项目需求。</p>
+<div class="contact-methods">
+<div class="contact-method">
+<div class="contact-method-icon"><i class="fas fa-envelope"></i></div>
+<div class="contact-method-info">
+<h4>电子邮件</h4>
+<a href="#" id="contact-email-link">bryanqiu52@gmail.com</a>
 </div>
 </div>
-</nav>
-<!-- 全屏Banner（移到main外部） -->
-<section class="page-banner" style="background-image: url(images/20250728000720_banner.png);">
-<div class="banner-content">
-<h1 class="page-title">联系我<span>Contact</span></h1>
+<div class="contact-method">
+<div class="contact-method-icon"><i class="fab fa-weixin"></i></div>
+<div class="contact-method-info">
+<h4>微信</h4>
+<p id="contact-wechat">poke1883</p>
+</div>
+</div>
+<div class="contact-method">
+<div class="contact-method-icon"><i class="fas fa-clock"></i></div>
+<div class="contact-method-info">
+<h4>响应时间</h4>
+<p>24小时内回复</p>
+</div>
+</div>
+</div>
+</div>
+<div class="contact-form">
+<form id="contactForm">
+<div class="form-group">
+<label for="name">您的姓名</label>
+<input type="text" id="name" name="name" placeholder="请输入您的姓名" required>
+</div>
+<div class="form-group">
+<label for="email">邮箱地址</label>
+<input type="email" id="email" name="email" placeholder="请输入您的邮箱" required>
+</div>
+<div class="form-group">
+<label for="project">项目类型</label>
+<input type="text" id="project" name="project" placeholder="如：品牌设计、UI设计等">
+</div>
+<div class="form-group">
+<label for="message">项目描述</label>
+<textarea id="message" name="message" placeholder="请简要描述您的项目需求..." required></textarea>
+</div>
+<button type="submit" class="btn btn-primary" style="width: 100%;">
+<span>发送消息</span>
+<i class="fas fa-paper-plane"></i>
+</button>
+</form>
+</div>
 </div>
 </section>
-<main class="main-content">
-<div class="contact-content">
-<h2 class="contact-heading">立即联系</h2>
-<div class="contact-methods">
-<!-- 电子邮件 -->
-<div class="contact-card">
-<i class="fas fa-envelope"></i>
-<h3>电子邮件</h3>
-<a class="contact-link" href="mailto:bryanqiu52@gmail.com">
-                        bryanqiu52@gmail.com
-                    </a>
-</div>
-<!-- 社交媒体 -->
-<div class="contact-card">
-<i class="fas fa-hashtag"></i>
-<h3>社交媒体</h3>
-<div class="social-buttons">
-<a class="social-btn behance" href="https://www.behance.net">
-<i class="fab fa-behance"></i> Behance
-                        </a>
-<a class="social-btn dribbble" href="https://dribbble.com">
-<i class="fab fa-dribbble"></i> Dribbble
-                        </a>
-</div>
-</div>
-<!-- 在线聊天 -->
-<div class="contact-card">
-<i class="fas fa-comment-dots"></i>
-<h3>在线沟通</h3>
-<div class="qr-section">
-<div class="qr-item">
-<img alt="微信二维码" src="images/qrcode.png"/>
-<p>微信扫码添加</p>
-</div>
-</div>
-</div>
-</div>
 
-<!-- 留言表单 -->
-<button class="open-message-btn">给我留言</button>
+<section class="about-section">
+<div class="section-header center">
+<span class="section-tag">Social</span>
+<h2 class="section-title">关注我们</h2>
+</div>
+<div class="services-grid">
+<div class="service-card">
+<div class="service-icon"><i class="fab fa-behance"></i></div>
+<h3>Behance</h3>
+<p>查看我们的设计作品集</p>
+<a href="#" id="contact-behance-link" target="_blank" class="btn btn-outline" style="margin-top: 1rem;">访问主页</a>
+</div>
+<div class="service-card">
+<div class="service-icon"><i class="fab fa-dribbble"></i></div>
+<h3>Dribbble</h3>
+<p>探索创意设计作品</p>
+<a href="#" id="contact-dribbble-link" target="_blank" class="btn btn-outline" style="margin-top: 1rem;">访问主页</a>
+</div>
+<div class="service-card">
+<div class="service-icon"><i class="fab fa-instagram"></i></div>
+<h3>Instagram</h3>
+<p>关注我们的日常创作</p>
+<a href="#" id="contact-instagram-link" target="_blank" class="btn btn-outline" style="margin-top: 1rem;">访问主页</a>
+</div>
+</div>
+</section>
+</section>
 
-        <!-- 简化版浮窗 -->
-        <div id="formModal" class="simple-modal" style="display: none;">
-            <div class="modal-inner">
-                <button class="modal-close"><i class="fa fa-times"></i></button>
-                <iframe src="https://kihjouvpr9a.feishu.cn/share/base/form/shrcns1kv4OBh2gKGqjAyD4qWAd" width="100%" height="600px" frameborder="0"></iframe>
-            </div>
-        </div>
+<div id="site-footer"></div>
 
-</div>
-</main>
-<footer class="site-footer">
-<div class="footer-content">
-<div class="social-links">
-<a aria-label="Behance" href="https://www.behance.net" rel="noopener" target="_blank">
-<i class="fab fa-behance"></i>
-</a>
-<a aria-label="Dribbble" href="https://dribbble.com" rel="noopener" target="_blank">
-<i class="fab fa-dribbble"></i>
-</a>
-<a aria-label="Instagram" href="https://www.instagram.com" rel="noopener" target="_blank">
-<i class="fab fa-instagram"></i>
-</a>
-<a aria-label="微信" class="wechat-link" href="#wechat-modal">
-<i class="fab fa-weixin"></i>
-<div class="wechat-qr">
-<img alt="微信二维码" src="images/qrcode.png"/>
-</div>
-</a>
-</div>
-<div class="footer-info">
-<p>© 2025 Design Bryan. All rights reserved</p>
-<p>bryanqiu52@gmail.com</p>
-</div>
-</div>
-</footer>
-<script src="js/data-service.js"></script>
-<script src="js/menu.js"></script>
-<script src="scripts/back-to-top.js"></script>
+<script src="js/config.js"></script>
 <script>
-    // 初始化数据服务并应用联系信息
-    document.addEventListener('DOMContentLoaded', async function() {
-        await DataService.init();
-        applyContactInfo();
-        applySiteSettings();
+document.addEventListener('DOMContentLoaded', function() {
+    if (typeof siteConfig !== 'undefined') {
+        document.getElementById('contact-title').textContent = '联系 | ' + siteConfig.siteTitle;
+        document.getElementById('contact-email-link').textContent = siteConfig.email;
+        document.getElementById('contact-email-link').href = 'mailto:' + siteConfig.email;
+        document.getElementById('contact-wechat').textContent = siteConfig.wechat;
+        
+        if (siteConfig.behance) {
+            document.getElementById('contact-behance-link').href = siteConfig.behance;
+        }
+        if (siteConfig.dribbble) {
+            document.getElementById('contact-dribbble-link').href = siteConfig.dribbble;
+        }
+        if (siteConfig.instagram) {
+            document.getElementById('contact-instagram-link').href = siteConfig.instagram;
+        }
+    }
+    
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        const data = Object.fromEntries(formData);
+        console.log('表单提交:', data);
+        alert('感谢您的留言！我们会尽快回复您。');
+        this.reset();
     });
-
-    // 应用联系信息到页面
-    function applyContactInfo() {
-        const profile = DataService.getProfile();
-        if (!profile || !profile.contact) return;
-
-        // 设置电子邮件
-        const emailLink = document.querySelector('.contact-card:nth-child(1) .contact-link');
-        if (emailLink && profile.contact.email) {
-            emailLink.href = `mailto:${profile.contact.email}`;
-            emailLink.textContent = profile.contact.email;
-        }
-
-        // 设置社交媒体链接
-        const socialButtons = document.querySelectorAll('.social-btn');
-        socialButtons.forEach(button => {
-            const platform = button.classList[1]; // 获取平台类名 (behance, dribbble等)
-            if (profile.social && profile.social[platform]) {
-                button.href = profile.social[platform];
-            }
-        });
-
-        // 设置微信二维码
-        const wechatQr = document.querySelector('.qr-item img');
-        if (wechatQr && profile.social && profile.social.wechat) {
-            wechatQr.src = profile.social.wechat;
-        }
-
-        // 更新页脚联系信息
-        const footerInfo = document.querySelector('.footer-info');
-        if (footerInfo) {
-            const emailElement = footerInfo.querySelector('p:nth-child(2)');
-            if (emailElement && profile.contact.email) {
-                emailElement.textContent = profile.contact.email;
-            }
-        }
-    }
-
-    // 应用网站设置到页面
-    function applySiteSettings() {
-        const settings = DataService.getSettings();
-        if (!settings || !settings.site) return;
-
-        // 设置网站标题
-        document.title = settings.site.title ? `${settings.site.title} | 联系我` : document.title;
-
-        // 设置网站Logo
-        const logo = document.getElementById('site-logo');
-        if (logo) {
-            logo.textContent = settings.site.title ? settings.site.title.split(' ')[0] : logo.textContent;
-        }
-    }
+});
 </script>
+<script src="js/site-ui.js"></script>
 </body>
 </html>
