@@ -434,13 +434,14 @@ function initMarquee() {
     function measure() {
         var spans = track.querySelectorAll('span');
         var setCount = children.length;
-        if (spans.length < setCount) return;
+        if (spans.length < setCount + 1) return;
         
-        // 测量第一组的起始位置
+        // 测量一组内容的完整周期宽度：第二组第一个span左边缘 - 第一组第一个span左边缘。
+        // 该差值天然包含所有 span 宽度、span 内部的 gap/✦ 以及 track 的 gap，
+        // 避免此前用「最后一个span右边缘」测量时漏掉最后一组之间的 gap 导致取模回跳、无法无缝循环。
         var firstRect = spans[0].getBoundingClientRect();
-        var setEndRect = spans[setCount - 1].getBoundingClientRect();
-        // 计算一组的总宽度：最后一个span右边缘 - 第一个span左边缘 + 最后一个span后面的gap
-        spanSetWidth = setEndRect.right - firstRect.left;
+        var nextSetFirstRect = spans[setCount].getBoundingClientRect();
+        spanSetWidth = nextSetFirstRect.left - firstRect.left;
         
         // 如果offset超出了新测量值，拉回来
         if (offset > spanSetWidth) {
@@ -450,6 +451,10 @@ function initMarquee() {
     
     measure();
     window.addEventListener('resize', measure);
+    // 字体加载完成后再测一次，避免 Inter 等字体未就绪导致宽度测量偏差
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(measure);
+    }
     
     function loop() {
         if (!paused) {

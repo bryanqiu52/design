@@ -333,6 +333,11 @@ function initNavCardScroll() {
     
     if (!navCard || !anchor) return;
     
+    // 移动端不做浮窗：保持文档流展示，避免遮挡页面内容
+    if (window.matchMedia && window.matchMedia('(max-width: 768px)').matches) {
+        return;
+    }
+    
     const updateNavPosition = function() {
         const anchorOffsetTop = anchor.offsetTop;
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;

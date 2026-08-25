@@ -30,7 +30,6 @@
         { href: 'index.html', text: '首页' },
         { href: 'cases.html', text: '案例' },
         { href: 'blog.html', text: '博客' },
-        { href: 'chengnan.html', text: '城南' },
         { href: 'about.html', text: '关于' },
         { href: 'contact.html', text: '联系' }
     ];
@@ -125,7 +124,9 @@
             '<div class="container">' +
             '<div class="footer-grid">' +
             '<div class="footer-brand">' +
+            '<a href="index.html" class="footer-brand-link">' +
             '<img src="' + val('logoFooter', 'images/xifofly-logo.png') + '" alt="' + siteTitle + '" class="footer-brand-logo">' +
+            '</a>' +
             '<p>' + siteSubtitle + '</p>' +
             '</div>' +
             '<div class="footer-links">' +

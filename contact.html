@@ -51,7 +51,15 @@
 </div>
 </div>
 <div class="contact-form">
-<form id="contactForm">
+<form id="contactForm" action="https://api.web3forms.com/submit" method="POST">
+<!-- Web3Forms 邮件中转配置：
+     提交后由 Web3Forms 将表单内容以邮件发送到站长邮箱（无需自建后端）。
+     access_key 在 https://web3forms.com 注册邮箱后生成，对应站长收件邮箱。 -->
+<input type="hidden" name="access_key" value="a76d1a6a-52bc-441e-9e35-ab12927b0805">
+<input type="hidden" name="subject" id="wf-subject" value="网站联系表单新留言">
+<input type="hidden" name="from_name" id="wf-from-name" value="网站访客">
+<!-- 蜜罐字段：对用户不可见，机器人自动填写后将被拦截 -->
+<input type="text" name="botcheck" id="wf-botcheck" style="display:none !important; visibility:hidden; position:absolute; left:-9999px; width:0; height:0; opacity:0;" tabindex="-1" autocomplete="off" aria-hidden="true">
 <div class="form-group">
 <label for="name">您的姓名</label>
 <input type="text" id="name" name="name" placeholder="请输入您的姓名" required>
@@ -130,13 +138,108 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
+    var contactForm = document.getElementById('contactForm');
+    var submitBtn = contactForm.querySelector('button[type="submit"]');
+    var btnText = submitBtn.querySelector('span');
+    var btnIcon = submitBtn.querySelector('i');
+    
+    /* 提示消息容器：展示校验/成功/失败/限流信息 */
+    var msgBox = document.createElement('div');
+    msgBox.id = 'wf-form-message';
+    msgBox.style.cssText = 'display:none;margin-top:14px;padding:12px 16px;border-radius:12px;font-size:14px;line-height:1.6;text-align:left;transition:opacity 0.25s ease;';
+    contactForm.appendChild(msgBox);
+    
+    function showMsg(text, ok) {
+        msgBox.textContent = text;
+        msgBox.style.display = 'block';
+        msgBox.style.background = ok ? 'rgba(200,255,62,0.08)' : 'rgba(255,110,110,0.1)';
+        msgBox.style.color = ok ? 'var(--secondary)' : '#ff9d9d';
+        msgBox.style.border = ok ? '1px solid rgba(200,255,62,0.3)' : '1px solid rgba(255,110,110,0.4)';
+    }
+    
+    /* 基础限流：同一浏览器 60 秒内只允许提交一次 */
+    var RATE_LIMIT_KEY = 'wf_last_submit_ts';
+    function getRateLimitWait() {
+        var last = parseInt(localStorage.getItem(RATE_LIMIT_KEY) || '0', 10);
+        if (last && Date.now() - last < 60000) {
+            return Math.ceil((60000 - (Date.now() - last)) / 1000);
+        }
+        return 0;
+    }
+    
+    function setSubmitting(submitting) {
+        submitBtn.disabled = submitting;
+        if (submitting) {
+            btnText.textContent = '发送中...';
+            if (btnIcon) btnIcon.style.display = 'none';
+        } else {
+            btnText.textContent = '发送消息';
+            if (btnIcon) btnIcon.style.display = '';
+        }
+    }
+    
+    contactForm.addEventListener('submit', function(e) {
         e.preventDefault();
-        const formData = new FormData(this);
-        const data = Object.fromEntries(formData);
-        console.log('表单提交:', data);
-        alert('感谢您的留言！我们会尽快回复您。');
-        this.reset();
+        msgBox.style.display = 'none';
+        
+        /* 蜜罐检测：隐藏字段被填写（机器人所为）→ 静默假装成功，不发送 */
+        var bot = document.getElementById('wf-botcheck');
+        if (bot && bot.value.trim() !== '') {
+            showMsg('消息已发送，我们会尽快回复', true);
+            contactForm.reset();
+            return;
+        }
+        
+        /* 限流检测 */
+        var wait = getRateLimitWait();
+        if (wait > 0) {
+            showMsg('发送过于频繁，请稍后再试（' + wait + ' 秒后重试）', false);
+            return;
+        }
+        
+        /* 基础校验：必填项非空 + 邮箱格式 */
+        var nameVal = document.getElementById('name').value.trim();
+        var emailVal = document.getElementById('email').value.trim();
+        var projectVal = document.getElementById('project').value.trim();
+        var messageVal = document.getElementById('message').value.trim();
+        if (!nameVal || !emailVal || !messageVal) {
+            showMsg('请填写姓名、邮箱和项目描述', false);
+            return;
+        }
+        var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRe.test(emailVal)) {
+            showMsg('请输入有效的邮箱地址', false);
+            return;
+        }
+        
+        /* 组装提交数据 */
+        var fd = new FormData(contactForm);
+        fd.set('subject', '网站联系表单：' + nameVal + (projectVal ? ' - ' + projectVal : ''));
+        fd.set('from_name', nameVal);
+        
+        /* 发送中状态 */
+        setSubmitting(true);
+        
+        fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            body: fd
+        })
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+            if (data && data.success) {
+                localStorage.setItem(RATE_LIMIT_KEY, String(Date.now()));
+                showMsg('消息已发送，我们会尽快回复', true);
+                contactForm.reset();
+            } else {
+                showMsg('发送失败：' + ((data && data.message) || '请稍后重试'), false);
+            }
+        })
+        .catch(function() {
+            showMsg('网络异常，发送失败，请稍后重试', false);
+        })
+        .finally(function() {
+            setSubmitting(false);
+        });
     });
 });
 </script>

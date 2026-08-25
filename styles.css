@@ -92,7 +92,7 @@ ul {
 .container {
     max-width: 1600px;
     margin: 0 auto;
-
+    padding: 0 40px;
 }
 
 /* Navigation - Liquid Glass */
@@ -292,23 +292,45 @@ ul {
     transform: translateX(3px);
 }
 
-/* Burger */
+/* Burger（移动端菜单按钮：视觉语言与 PC 端 nav-cta / nav-links 保持一致） */
 .burger {
     display: none;
-    width: 40px;
+    width: 44px;
     height: 40px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.1);
+    border-radius: 999px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.14);
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.05),
+        0 4px 14px rgba(0,0,0,0.12);
     align-items: center;
     justify-content: center;
     flex-direction: column;
     gap: 4px;
-    transition: background 0.22s ease;
+    transition: background 0.22s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.16s cubic-bezier(0.4,0,0.2,1);
     cursor: pointer;
 }
 
 .burger:hover {
-    background: rgba(255,255,255,0.18);
+    background: rgba(255,255,255,0.08);
+    border-color: var(--secondary);
+    box-shadow:
+        0 0 0 1px var(--secondary-25),
+        0 0 24px var(--secondary-12),
+        inset 0 1px 0 rgba(255,255,255,0.1);
+    transform: translateY(-1px);
+}
+
+.burger:active {
+    transform: scale(0.97);
+}
+
+.burger.open {
+    border-color: var(--secondary-25);
+    box-shadow:
+        0 0 0 1px var(--secondary-20),
+        0 0 24px var(--secondary-12),
+        inset 0 1px 0 rgba(255,255,255,0.1);
 }
 
 .burger i {
@@ -316,7 +338,12 @@ ul {
     height: 1.8px;
     background: var(--text);
     border-radius: 2px;
-    transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), opacity 0.25s ease;
+    transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), opacity 0.25s ease, background 0.25s ease;
+}
+
+.burger:hover i,
+.burger.open i {
+    background: var(--secondary);
 }
 
 .burger.open i:nth-child(1) {
@@ -370,6 +397,15 @@ ul {
     font-family: var(--font-mono, 'SF Mono', monospace);
     font-size: 12px;
     color: var(--secondary);
+}
+
+.footer-brand-link {
+    display: inline-block;
+    transition: opacity 0.3s ease;
+}
+
+.footer-brand-link:hover {
+    opacity: 0.8;
 }
 
 .footer-brand-logo {
@@ -1120,29 +1156,56 @@ html {
 
 /* Process Section */
 .process {
-    padding: 8rem 0;
+    padding: 2.5rem 0;
     min-height: 100vh;
-    /* 不用 flex 布局：flex 下 .container 的 margin:auto 会吸收空间，
-       把容器压缩到内容宽度，导致时间线只有 508px、Z 字形看不出交错。
-       改用普通块级，让 .container 的 width:100% + max-width 正常撑满 */
+    display: flex;
+    flex-direction: column;
+    justify-content: safe center;
+    /* .container 已由下方统一规则强制 width:100% + max-width，flex 不会压缩宽度；
+       垂直居中保证一屏内完整显示且不被固定导航遮挡 */
 }
 
-/* Z 字形交错时间线：中央竖线 + 左右交替大卡片，撑满整屏更有层次 */
+/* 一屏内完整显示：压缩本板块标题区间距与字号（全局 section-header 为 3rem 间距） */
+.process .section-header {
+    margin-bottom: 1.1rem;
+    gap: 16px;
+}
+.process .section-tag {
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+}
+.process .section-tag::before {
+    bottom: -5px;
+    width: 36px;
+}
+.process .section-title {
+    font-size: 1.7rem;
+}
+.process .section-desc {
+    font-size: 0.88rem;
+    max-width: 340px;
+}
+
+/* Z 字形交错时间线：桌面端两列栅格（3行×2列）+ 中央竖线，压缩垂直高度保证一屏内完整显示 */
 .process-timeline {
     position: relative;
     max-width: 980px;
+    width: 100%;
     margin: 0 auto;
-    padding: 1rem 0 2rem;
-    display: flex;
-    flex-direction: column;
+    padding: 0.2rem 0 0.6rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 2.4rem;
+    row-gap: 0.6rem;
 }
 
 /* 中央渐变竖线 */
 .process-timeline::before {
     content: '';
     position: absolute;
-    top: 24px;
-    bottom: 24px;
+    top: 18px;
+    bottom: 18px;
     left: 50%;
     width: 1px;
     background: linear-gradient(180deg, transparent, var(--secondary-20) 10%, var(--secondary-25) 90%, transparent);
@@ -1150,22 +1213,19 @@ html {
 
 .process-item {
     position: relative;
-    width: 50%;
-    padding: 1rem 2.6rem;
+    padding: 0.25rem 0;
 }
 
-/* 用 flex 的 align-self 实现左右交替，比 position:relative + left 更可靠 */
-.process-item:nth-child(odd) { align-self: flex-start; }
-.process-item:nth-child(even) { align-self: flex-end; }
+/* 栅格自动排列：奇数项落在左列、偶数项落在右列，保留左右交错的时间线感 */
 
 /* 中央节点圆点 */
 .process-item::before {
     content: '';
     position: absolute;
-    top: 2.4rem;
+    top: 2.05rem;
     right: -7px;
-    width: 14px;
-    height: 14px;
+    width: 13px;
+    height: 13px;
     border-radius: 50%;
     background: var(--secondary);
     box-shadow: 0 0 0 4px rgba(200,255,62,0.12), 0 0 14px var(--glow);
@@ -1181,9 +1241,9 @@ html {
 .process-item::after {
     content: '';
     position: absolute;
-    top: calc(2.4rem + 7px);
+    top: calc(2.05rem + 6.5px);
     right: 0;
-    width: 2.6rem;
+    width: 1.2rem;
     height: 1px;
     background: var(--secondary-20);
 }
@@ -1196,8 +1256,8 @@ html {
 .process-card {
     background: var(--card-bg);
     border: 1px solid var(--card-border);
-    border-radius: 18px;
-    padding: 1.9rem 2rem 2rem;
+    border-radius: 14px;
+    padding: 1rem 1.5rem 1.2rem;
     position: relative;
     overflow: hidden;
     transition: transform 0.25s ease, opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
@@ -1230,14 +1290,14 @@ html {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 46px;
-    height: 46px;
-    border-radius: 14px;
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
     background: var(--secondary-10);
     border: 1px solid var(--secondary-20);
     color: var(--secondary);
-    font-size: 1.15rem;
-    margin-bottom: 1.1rem;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
     transition: all 0.3s ease;
 }
 
@@ -1255,9 +1315,9 @@ html {
 /* 大号渐变编号，作为装饰性背景元素 */
 .process-num {
     position: absolute;
-    top: -0.6rem;
+    top: -0.35rem;
     right: 0;
-    font-size: 3.2rem;
+    font-size: 1.9rem;
     font-weight: 800;
     line-height: 1;
     color: transparent;
@@ -1270,35 +1330,41 @@ html {
 }
 
 .process-body h3 {
-    font-size: 1.35rem;
-    margin-bottom: 0.55rem;
+    font-size: 1.02rem;
+    margin-bottom: 0.28rem;
 }
 
 .process-body p {
     color: var(--text-secondary);
-    font-size: 0.95rem;
-    line-height: 1.7;
-    max-width: 320px;
+    font-size: 0.8rem;
+    line-height: 1.55;
+    max-width: 300px;
 }
 
 /* 移动端：退化为左侧竖线 + 单列，更易读 */
 @media (max-width: 768px) {
+    .process-timeline {
+        display: flex;
+        flex-direction: column;
+        row-gap: 0;
+        column-gap: 0;
+    }
     .process-timeline::before { left: 20px; }
     .process-item {
         width: 100%;
         align-self: stretch !important;
-        padding: 1rem 0 1rem 52px;
+        padding: 0.6rem 0 0.6rem 52px;
     }
     .process-item::before {
         right: auto !important;
         left: 13px;
-        top: 2.4rem;
+        top: 2.05rem;
     }
     .process-item::after {
         right: auto !important;
         left: 20px;
-        width: 26px;
-        top: calc(2.4rem + 7px);
+        width: 22px;
+        top: calc(2.05rem + 6.5px);
     }
     .process-body p { max-width: none; }
 }
@@ -2433,7 +2499,13 @@ html {
         grid-template-columns: 1fr;
     }
 
+    /* 手机端导航卡片改为文档流展示，收窄原为 PC 浮窗预留的底部留白 */
+    .project-content {
+        padding: 3rem 0 2rem;
+    }
+
     .project-nav-card {
+        position: static;
         flex-direction: column;
         gap: 0.8rem;
         padding: 1rem;
@@ -2441,18 +2513,15 @@ html {
         backdrop-filter: none;
         opacity: 1;
         border: 1px solid var(--card-border);
-        width: calc(100% - 2rem);
-        left: 1rem;
-        right: 1rem;
+        width: 100%;
+        margin: 1.5rem 0 0;
         transform: none;
-        margin: 0;
     }
     
     .project-nav-card.fixed-at-anchor {
-        left: auto;
-        right: auto;
-        margin: 2rem auto 0;
-        width: calc(100% - 2rem);
+        position: static;
+        margin: 1.5rem 0 0;
+        width: 100%;
     }
     
     .project-nav-card:hover {
@@ -2905,6 +2974,8 @@ img.loaded {
     width: 100%;
     margin: 0 auto;
     margin-bottom: 3rem;
+    padding: 0 40px;
+    box-sizing: border-box;
 }
 
 .hs-slider-container {
@@ -4366,9 +4437,8 @@ img.loaded {
         transform: none !important;
         opacity: 1 !important;
     }
-    .hero-container::before {
-        animation: none;
-    }
+    /* 注：不在 reduce 下禁用 .hero-container::before 动画，
+       与 .nav::before 行为保持一致，保证 PC 端 hero 卡片光效扫描边正常显示 */
 }
 
 /* ==================== */
@@ -4434,6 +4504,19 @@ img.loaded {
 @media (max-width: 768px) {
     .fp-dots {
         display: none;
+    }
+
+    /* 移动端统一内容边距（此处位于所有组件样式之后，确保覆盖生效） */
+    .container {
+        padding: 0 20px;
+    }
+    .horizontal-scroll-section .section-header {
+        padding: 0 20px;
+    }
+    .hs-track,
+    .hs-progress {
+        padding-left: 20px;
+        padding-right: 20px;
     }
 }
 
