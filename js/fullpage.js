@@ -238,6 +238,9 @@
         sections = getSections();
         if (sections.length === 0) return;
 
+        /* 移动端(≤768px)解除整屏吸附翻页：滚轮/方向键/触摸翻页均不启用，恢复原生自由滚动 */
+        var isMobile = window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
+
         buildDots();
 
         /* "向下滑动"提示（绿渐变下滑条 + 箭头）：挂在右侧导航 .fp-dots 下方，仅在还有下一屏时显示 */
@@ -273,11 +276,14 @@
         }, { passive: true });
 
         var wheelOpt = { passive: false };
-        window.addEventListener('wheel', onWheel, wheelOpt);
-        window.addEventListener('keydown', onKey);
+        if (!isMobile) {
+            window.addEventListener('wheel', onWheel, wheelOpt);
+            window.addEventListener('keydown', onKey);
+        }
 
-        /* 移动端触摸：记录起始坐标与是否落在卡片区。
-           横滑手势交给原生横向滚卡片；纵滑手势正常翻页（避免卡片区占满屏幕导致无法向下翻页） */
+        /* 触摸翻页：桌面/平板触屏设备保留原逻辑（横滑交给原生横向滚卡片、纵滑翻页）；
+           移动端(≤768px)不启用，恢复原生自由滚动 */
+        if (!isMobile) {
         var touchStartY = null;
         var touchStartX = null;
         var touchInHs = false;
@@ -308,6 +314,7 @@
             if (Math.abs(dy) > 60) { if (dy > 0) goNext(); else goPrev(); }
             touchStartY = null;
         }, { passive: true });
+        }
     }
 
     if (document.readyState === 'loading') {

@@ -158,10 +158,10 @@ body {
 .avatar-main .avatar-brand {
     position: relative;
     z-index: 1;
-    font-size: 7rem;
-    font-weight: 900;
-    letter-spacing: 2px;
-    text-shadow: 0 6px 24px rgba(0,0,0,0.25);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
 /* 头像装饰环 */
@@ -805,10 +805,6 @@ body {
         height: 220px;
     }
 
-    .avatar-main .avatar-brand {
-        font-size: 5.5rem;
-    }
-
     .hero-stats {
         gap: 48px;
     }
@@ -853,10 +849,6 @@ body {
     .avatar-main {
         width: 180px;
         height: 180px;
-    }
-
-    .avatar-main .avatar-brand {
-        font-size: 4.5rem;
     }
 
     .hero-name {
@@ -992,7 +984,7 @@ body {
         <div class="hero-avatar-section" data-animate>
             <div class="avatar-container">
                 <div class="avatar-main">
-                    <span class="avatar-brand">溪</span>
+                    <img src="images/XIFOFLY%20logo.jpg" alt="XIFOFLY" class="avatar-brand">
                 </div>
                 <div class="avatar-ring"></div>
                 <div class="avatar-ring-outer"></div>

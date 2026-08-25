@@ -64,6 +64,7 @@ let filteredBlogPosts = [];
 function filterBlogPosts(category) {
     currentBlogFilter = category;
     currentBlogPage = 1;
+    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.filter === category));
     renderBlogList();
 }
 

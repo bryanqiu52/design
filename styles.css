@@ -1156,7 +1156,7 @@ html {
 
 /* Process Section */
 .process {
-    padding: 2.5rem 0;
+    padding: 3rem 0;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -1165,208 +1165,226 @@ html {
        垂直居中保证一屏内完整显示且不被固定导航遮挡 */
 }
 
-/* 一屏内完整显示：压缩本板块标题区间距与字号（全局 section-header 为 3rem 间距） */
+/* 一屏内完整显示：本板块标题区间距与字号（全局 section-header 为 3rem 间距） */
 .process .section-header {
-    margin-bottom: 1.1rem;
-    gap: 16px;
+    margin-bottom: 1.4rem;
+    gap: 18px;
 }
 .process .section-tag {
-    font-size: 0.7rem;
-    letter-spacing: 2px;
-    margin-bottom: 8px;
+    font-size: 0.75rem;
+    letter-spacing: 2.5px;
+    margin-bottom: 10px;
 }
 .process .section-tag::before {
     bottom: -5px;
-    width: 36px;
+    width: 38px;
 }
 .process .section-title {
-    font-size: 1.7rem;
+    font-size: 1.9rem;
 }
 .process .section-desc {
-    font-size: 0.88rem;
+    font-size: 0.95rem;
     max-width: 340px;
 }
 
-/* Z 字形交错时间线：桌面端两列栅格（3行×2列）+ 中央竖线，压缩垂直高度保证一屏内完整显示 */
-.process-timeline {
+/* 蛇形渐变流程线：3列×2行之字路径（1→2→3 → 折返 4→5→6），无卡片、强顺序、流动感 */
+.process-steps {
+    --node: 76px;
+    --col-gap: 3.2rem;
+    --row-gap: 2.6rem;
+    --pad-y: 0.3rem;
+    --step-pad: 0.25rem;
     position: relative;
     max-width: 980px;
     width: 100%;
     margin: 0 auto;
-    padding: 0.2rem 0 0.6rem;
+    padding: var(--pad-y) 0;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    column-gap: 2.4rem;
-    row-gap: 0.6rem;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas:
+        "s1 s2 s3"
+        "s6 s5 s4";
+    column-gap: var(--col-gap);
+    row-gap: var(--row-gap);
 }
 
-/* 中央渐变竖线 */
-.process-timeline::before {
-    content: '';
-    position: absolute;
-    top: 18px;
-    bottom: 18px;
-    left: 50%;
-    width: 1px;
-    background: linear-gradient(180deg, transparent, var(--secondary-20) 10%, var(--secondary-25) 90%, transparent);
-}
-
-.process-item {
+.process-step {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
     padding: 0.25rem 0;
 }
+.process-step:nth-child(1) { grid-area: s1; }
+.process-step:nth-child(2) { grid-area: s2; }
+.process-step:nth-child(3) { grid-area: s3; }
+.process-step:nth-child(4) { grid-area: s4; }
+.process-step:nth-child(5) { grid-area: s5; }
+.process-step:nth-child(6) { grid-area: s6; }
 
-/* 栅格自动排列：奇数项落在左列、偶数项落在右列，保留左右交错的时间线感 */
-
-/* 中央节点圆点 */
-.process-item::before {
+/* 行内流动渐变线：行1 左→右、行2 右→左，方向由渐变与蛇形布局共同表达 */
+/* 水平端点 = 首/尾列节点圆心：(100% - 2*col-gap)/6 即第 1 列与第 3 列中心 */
+/* 垂直位置 = 行内节点圆心：容器 padding + step padding + 节点半径 */
+.process-steps::before,
+.process-steps::after {
     content: '';
     position: absolute;
-    top: 2.05rem;
-    right: -7px;
-    width: 13px;
-    height: 13px;
-    border-radius: 50%;
-    background: var(--secondary);
-    box-shadow: 0 0 0 4px rgba(200,255,62,0.12), 0 0 14px var(--glow);
-    z-index: 2;
-}
-
-.process-item:nth-child(even)::before {
-    right: auto;
-    left: -7px;
-}
-
-/* 节点与卡片之间的连接线 */
-.process-item::after {
-    content: '';
-    position: absolute;
-    top: calc(2.05rem + 6.5px);
-    right: 0;
-    width: 1.2rem;
-    height: 1px;
-    background: var(--secondary-20);
-}
-
-.process-item:nth-child(even)::after {
-    right: auto;
-    left: 0;
-}
-
-.process-card {
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    border-radius: 14px;
-    padding: 1rem 1.5rem 1.2rem;
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.25s ease, opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
-                border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
-}
-
-/* 卡片顶部的主题色亮线 */
-.process-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
+    left: calc((100% - 2 * var(--col-gap)) / 6);
+    right: calc((100% - 2 * var(--col-gap)) / 6);
     height: 2px;
-    background: linear-gradient(90deg, var(--secondary), transparent 70%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    border-radius: 2px;
+    z-index: 0;
+    opacity: 0.85;
+}
+.process-steps::before {
+    top: calc(var(--node) / 2 + var(--pad-y) + var(--step-pad));
+    background: linear-gradient(90deg, transparent 4%, var(--secondary-35) 18%, var(--secondary-30) 82%, transparent 96%);
+}
+.process-steps::after {
+    top: auto;
+    bottom: calc(var(--node) / 2 + var(--pad-y) + var(--step-pad));
+    background: linear-gradient(270deg, transparent 4%, var(--secondary-35) 18%, var(--secondary-30) 82%, transparent 96%);
 }
 
-.process-card:hover {
-    border-color: var(--secondary-25);
-    background: rgba(200,255,62,0.06);
-    box-shadow: 0 18px 46px rgba(0,0,0,0.4), 0 0 26px var(--glow);
-    transform: translateY(-6px);
+/* 3→4 同列折返：从 03 节点圆心垂直向下，精确到达 04 节点圆心 */
+/* top = 节点圆心距 step 顶(step-pad + node/2)；height = step 高 + row-gap（grid item 拉伸至行高） */
+.process-step:nth-child(3)::after {
+    content: '';
+    position: absolute;
+    top: calc(var(--node) / 2 + var(--step-pad));
+    left: 50%;
+    width: 2px;
+    height: calc(100% + var(--row-gap));
+    background: linear-gradient(180deg, var(--secondary-25), var(--secondary-15));
+    z-index: 0;
 }
 
-.process-card:hover::before { opacity: 1; }
-
-.process-icon {
+/* 大号圆形渐变编号节点：顺序感核心 */
+.step-node {
+    position: relative;
+    z-index: 1;
+    flex: 0 0 auto;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 34px;
-    height: 34px;
-    border-radius: 10px;
+    width: var(--node);
+    height: var(--node);
+    border-radius: 50%;
+    font-size: 1.45rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    color: var(--secondary);
+    background: linear-gradient(160deg, var(--secondary-15), rgba(198,244,50,0.03));
+    border: 1px solid var(--secondary-30);
+    box-shadow: 0 0 0 6px rgba(200,255,62,0.05), 0 0 22px rgba(200,255,62,0.18),
+                inset 0 1px 0 rgba(255,255,255,0.10);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.process-step:hover .step-node {
+    transform: translateY(-3px);
+    box-shadow: 0 0 0 8px rgba(200,255,62,0.09), 0 0 32px var(--glow),
+                inset 0 1px 0 rgba(255,255,255,0.12);
+}
+
+/* 步骤正文：无卡片背景，轻量文字悬浮 */
+.step-body {
+    margin-top: 0.9rem;
+    position: relative;
+    z-index: 1;
+}
+
+.step-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
     background: var(--secondary-10);
     border: 1px solid var(--secondary-20);
     color: var(--secondary);
-    font-size: 0.9rem;
-    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    margin-bottom: 0.55rem;
     transition: all 0.3s ease;
 }
 
-.process-card:hover .process-icon {
+.process-step:hover .step-icon {
     background: var(--secondary);
     border-color: var(--secondary);
     color: #000;
     transform: scale(1.08) rotate(-5deg);
 }
 
-.process-body {
-    position: relative;
+.step-body h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.35rem;
 }
 
-/* 大号渐变编号，作为装饰性背景元素 */
-.process-num {
-    position: absolute;
-    top: -0.35rem;
-    right: 0;
-    font-size: 1.9rem;
-    font-weight: 800;
-    line-height: 1;
-    color: transparent;
-    background: linear-gradient(180deg, var(--secondary-45), rgba(200,255,62,0.01));
-    -webkit-background-clip: text;
-    background-clip: text;
-    pointer-events: none;
-    -webkit-user-select: none;
-    user-select: none;
-}
-
-.process-body h3 {
-    font-size: 1.02rem;
-    margin-bottom: 0.28rem;
-}
-
-.process-body p {
+.step-body p {
     color: var(--text-secondary);
-    font-size: 0.8rem;
-    line-height: 1.55;
-    max-width: 300px;
+    font-size: 0.92rem;
+    line-height: 1.6;
+    max-width: 270px;
+    margin: 0 auto;
 }
 
-/* 移动端：退化为左侧竖线 + 单列，更易读 */
+/* 移动端：降为单列步骤条 + 左侧渐变竖线，顺序自上而下清晰可读 */
 @media (max-width: 768px) {
-    .process-timeline {
+    .process-steps {
+        --node: 44px;
+        --step-pad: 0;
         display: flex;
         flex-direction: column;
-        row-gap: 0;
-        column-gap: 0;
+        row-gap: 1.1rem;
+        max-width: 420px;
     }
-    .process-timeline::before { left: 20px; }
-    .process-item {
-        width: 100%;
-        align-self: stretch !important;
-        padding: 0.6rem 0 0.6rem 52px;
+    .process-steps::before,
+    .process-steps::after {
+        left: calc(var(--node) / 2);
+        right: auto;
+        top: calc(var(--node) / 2 + var(--pad-y) + var(--step-pad));
+        bottom: calc(var(--node) / 2 + var(--pad-y) + var(--step-pad));
+        width: 2px;
+        height: auto;
+        background: linear-gradient(180deg, transparent, var(--secondary-30) 10%, var(--secondary-30) 90%, transparent);
     }
-    .process-item::before {
-        right: auto !important;
-        left: 13px;
-        top: 2.05rem;
+    .process-steps::after { display: none; }
+    .process-step:nth-child(3)::after { display: none; }
+    .process-step {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 1rem;
+        text-align: left;
+        padding: 0;
     }
-    .process-item::after {
-        right: auto !important;
-        left: 20px;
-        width: 22px;
-        top: calc(2.05rem + 6.5px);
+    .process-step .step-node {
+        flex: 0 0 auto;
+        width: 44px;
+        height: 44px;
+        font-size: 0.95rem;
+        margin-left: calc(0px);
     }
-    .process-body p { max-width: none; }
+    .process-step .step-body {
+        margin-top: 0.15rem;
+        padding-bottom: 0.2rem;
+        text-align: left;
+    }
+    .process-step .step-icon {
+        display: none;
+    }
+    .step-body h3 {
+        font-size: 1.05rem;
+        margin-bottom: 0.2rem;
+    }
+    .step-body p {
+        font-size: 0.85rem;
+        line-height: 1.55;
+        max-width: none;
+        margin: 0;
+    }
 }
 
 /* CTA Section */
@@ -4517,6 +4535,23 @@ img.loaded {
     .hs-progress {
         padding-left: 20px;
         padding-right: 20px;
+    }
+
+    /* 移动端解除整屏(PPT式)限制：区块按内容自然高度排列，避免一屏一页滑过头 */
+    .hero,
+    .services,
+    .featured-works,
+    .brand-story,
+    .process,
+    .cta-section,
+    .blog-section {
+        min-height: auto;
+    }
+
+    /* 横向滚动区移动端不再吸顶占满整屏 */
+    .hs-sticky {
+        height: auto;
+        position: static;
     }
 }
 
