@@ -9,6 +9,7 @@ const siteConfig = {
     "heroImage": "images/hero.png",
     "email": "bryanqiu52@gmail.com",
     "wechat": "poke1883",
+    "company": "深圳市溪风设计工作室",
     "qrcodeWechat": "images/qrcode.png",
     "qrcodeWorkwechat": "images/qrcode.png",
     "aboutIntro": "溪风相信最好的设计没有多余的重量，而是掠过生活水面的一个轻吻——精准、安静，却能漾开层层涟漪。我们不做沉重的装饰，只做那些能让品牌被看见、被记住、被选择的精准设计。",

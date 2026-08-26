@@ -18,20 +18,11 @@
 
     /* 导航菜单配置 */
     var menu = [
-        { href: 'index.html', text: '首页' },
-        { href: 'cases.html', text: '案例' },
-        { href: 'blog.html', text: '博客' },
-        { href: 'about.html', text: '关于' },
-        { href: 'contact.html', text: '联系' }
-    ];
-
-    /* 页脚快速链接配置 */
-    var footerLinks = [
-        { href: 'index.html', text: '首页' },
-        { href: 'cases.html', text: '案例' },
-        { href: 'blog.html', text: '博客' },
-        { href: 'about.html', text: '关于' },
-        { href: 'contact.html', text: '联系' }
+        { href: 'index.html', text: '首页', en: 'HOME' },
+        { href: 'cases.html', text: '案例', en: 'CASES' },
+        { href: 'blog.html', text: '博客', en: 'BLOG' },
+        { href: 'about.html', text: '关于', en: 'ABOUT' },
+        { href: 'contact.html', text: '联系', en: 'CONTACT' }
     ];
 
     var siteTitle = val('siteTitle', '溪风');
@@ -64,7 +55,7 @@
         var mmenuHtml = menu.map(function (item, i) {
             var num = String(i + 1);
             if (num.length < 2) num = '0' + num;
-            return '<a href="' + item.href + '"><span>' + num + '</span>' + item.text + '</a>';
+            return '<a href="' + item.href + '"><span>' + num + '</span>' + item.text + '<em class="mm-en">' + item.en + '</em></a>';
         }).join('');
 
         navBox.innerHTML =
@@ -115,34 +106,62 @@
     var footerBox = document.getElementById('site-footer');
     if (footerBox) {
         var year = new Date().getFullYear();
-        var footerLinksHtml = footerLinks.map(function (item) {
-            return '<li><a href="' + item.href + '">' + item.text + '</a></li>';
-        }).join('');
 
         footerBox.innerHTML =
-            '<footer class="footer">' +
+            '<footer class="footer footer-v2">' +
             '<div class="container">' +
-            '<div class="footer-grid">' +
-            '<div class="footer-brand">' +
+            '<div class="footer-head">' +
             '<a href="index.html" class="footer-brand-link">' +
             '<img src="' + val('logoFooter', 'images/xifofly-logo.png') + '" alt="' + siteTitle + '" class="footer-brand-logo">' +
             '</a>' +
-            '<p>' + siteSubtitle + '</p>' +
+            '<p class="footer-tagline">' + siteSubtitle + ' <span>Lightness echoes.</span></p>' +
             '</div>' +
-            '<div class="footer-links">' +
-            '<h4>快速链接</h4>' +
-            '<ul>' + footerLinksHtml + '</ul>' +
-            '</div>' +
+            '<div class="footer-grid">' +
+            '<div class="footer-col footer-col-left">' +
             '<div class="footer-contact">' +
             '<h4>联系方式</h4>' +
             '<ul>' +
+            '<li><i class="fas fa-building"></i> <span>' + val('company', '') + '</span></li>' +
             '<li><i class="fas fa-envelope"></i> <span>' + val('email', '') + '</span></li>' +
             '<li><i class="fab fa-weixin"></i> <span>' + val('wechat', '') + '</span></li>' +
             '</ul>' +
             '</div>' +
+            '<div class="footer-social">' +
+            '<div class="social-rings">' +
+            '<a href="#" title="视频号" class="social-ring">视</a>' +
+            '<a href="#" title="抖音" class="social-ring">抖</a>' +
+            '<a href="#" title="bilibili" class="social-ring">B</a>' +
+            '<a href="#" title="小红书" class="social-ring">红</a>' +
+            '</div>' +
+            '</div>' +
+            '<div class="footer-copyright">' +
+            '<p>© ' + year + ' ' + siteTitle + ' (XIFOFLY). All rights reserved.</p>' +
+            '</div>' +
+            '</div>' +
+            '<div class="footer-col footer-col-center">' +
+            '<div class="footer-form">' +
+            '<h4>留言</h4>' +
+            '<form id="footerContactForm" action="https://api.web3forms.com/submit" method="POST">' +
+            '<input type="hidden" name="access_key" value="a76d1a6a-52bc-441e-9e35-ab12927b0805">' +
+            '<input type="hidden" name="subject" value="网站页脚快速咨询留言">' +
+            '<input type="hidden" name="from_name" value="网站访客">' +
+            '<input type="text" name="botcheck" style="display:none !important;visibility:hidden;position:absolute;left:-9999px;width:0;height:0;opacity:0;" tabindex="-1" autocomplete="off" aria-hidden="true">' +
+            '<input type="text" name="name" placeholder="您的姓名" required>' +
+            '<input type="email" name="email" placeholder="邮箱地址" required>' +
+            '<textarea name="message" placeholder="简单描述您的需求..." required></textarea>' +
+            '<button type="submit" class="btn btn-primary footer-form-btn">' +
+            '<span>发送咨询</span>' +
+            '<i class="fas fa-paper-plane"></i>' +
+            '</button>' +
+            '</form>' +
+            '</div>' +
+            '</div>' +
+            '<div class="footer-col footer-col-right">' +
+            '<div class="footer-qrcode-card">' +
+            '<div class="footer-qrcodes">' +
             '<div class="footer-qrcode">' +
-            '<h4>微信公众号</h4>' +
-            '<img src="' + val('qrcodeWechat', 'images/qrcode.png') + '" alt="微信公众号" class="qrcode-img">' +
+            '<h4>公众号</h4>' +
+            '<img src="' + val('qrcodeWechat', 'images/qrcode.png') + '" alt="公众号" class="qrcode-img">' +
             '<p>扫码关注</p>' +
             '</div>' +
             '<div class="footer-qrcode">' +
@@ -151,10 +170,34 @@
             '<p>扫码联系</p>' +
             '</div>' +
             '</div>' +
-            '<div class="footer-bottom">' +
-            '<p>© ' + year + ' ' + siteTitle + ' (XIFOFLY). All rights reserved.</p>' +
+            '</div>' +
+            '</div>' +
             '</div>' +
             '</div>' +
             '</footer>';
+
+        /* 页脚快速咨询表单：AJAX 提交 Web3Forms，成功后在原位显示反馈，不跳转 */
+        var footerForm = document.getElementById('footerContactForm');
+        if (footerForm) {
+            footerForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                var fd = new FormData(footerForm);
+                var btn = footerForm.querySelector('.footer-form-btn');
+                if (btn) { btn.disabled = true; btn.querySelector('span').textContent = '发送中...'; }
+                fetch(footerForm.action, { method: 'POST', body: fd, headers: { 'Accept': 'application/json' } })
+                    .then(function (res) { return res.json(); })
+                    .then(function (data) {
+                        if (data && data.success) {
+                            footerForm.innerHTML = '<p class="footer-form-success">已收到您的留言，我们会尽快回复！</p>';
+                        } else {
+                            throw new Error('submit failed');
+                        }
+                    })
+                    .catch(function () {
+                        if (btn) { btn.disabled = false; btn.querySelector('span').textContent = '发送咨询'; }
+                        footerForm.insertAdjacentHTML('beforeend', '<p class="footer-form-error">发送失败，请稍后再试或直接邮件联系</p>');
+                    });
+            });
+        }
     }
 })();
