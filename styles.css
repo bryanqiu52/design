@@ -1896,7 +1896,8 @@ html {
         padding: 3.5rem 0 2rem;
     }
 
-    .footer-grid {
+    /* 必须用 .footer-v2 .footer-grid 覆盖桌面三列（特异性需≥桌面定义），否则移动端仍被挤压成三列 */
+    .footer-v2 .footer-grid {
         grid-template-columns: 1fr;
         gap: 2rem;
     }
@@ -1908,7 +1909,7 @@ html {
 
     /* 左列内部不再重复加分隔线：社媒并入联系方式一体，版权保留分割线 */
     .footer-col-left {
-        gap: 1.6rem;
+        gap: 1.2rem;
     }
 
     .footer-v2 .footer-qrcodes {
@@ -1926,9 +1927,49 @@ html {
     }
 
     .social-ring {
-        width: 40px;
-        height: 40px;
-        font-size: 0.8rem;
+        width: 38px;
+        height: 38px;
+        font-size: 0.78rem;
+    }
+
+    .social-rings {
+        gap: 0.65rem;
+    }
+
+    /* 表单卡片：去等高撑高、收紧内边距，标题与输入框间距协调 */
+    .footer-form {
+        height: auto;
+        padding: 1.15rem;
+    }
+
+    .footer-form h4 {
+        margin-bottom: 1.25rem;
+    }
+
+    .footer-form textarea {
+        min-height: 72px;
+    }
+
+    /* 按钮：全宽居中，避免贴边裁切 */
+    .footer-form .footer-form-btn {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* 右列二维码卡片：收紧内边距、取消等高撑高 */
+    .footer-qrcode-card {
+        padding: 1.15rem;
+        height: auto;
+    }
+
+    /* 顶部品牌区与标语：小屏缩小字号 */
+    .footer-tagline {
+        font-size: 1.15rem;
+    }
+
+    .footer-tagline span {
+        font-size: 0.85rem;
     }
 }
 

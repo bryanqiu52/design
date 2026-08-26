@@ -148,7 +148,7 @@
             '<input type="text" name="botcheck" style="display:none !important;visibility:hidden;position:absolute;left:-9999px;width:0;height:0;opacity:0;" tabindex="-1" autocomplete="off" aria-hidden="true">' +
             '<input type="text" name="name" placeholder="您的姓名" required>' +
             '<input type="email" name="email" placeholder="邮箱地址" required>' +
-            '<textarea name="message" placeholder="简单描述您的需求..." required></textarea>' +
+            '<textarea name="message" placeholder="简单描述您的需求" required></textarea>' +
             '<button type="submit" class="btn btn-primary footer-form-btn">' +
             '<span>发送咨询</span>' +
             '<i class="fas fa-paper-plane"></i>' +
