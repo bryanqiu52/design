@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>案例 | 溪风设计</title>
+<link href="vendor/fontawesome/css/all.min.css" rel="stylesheet"/>
+<link href="styles.css" rel="stylesheet"/>
+<link rel="icon" id="site-favicon"/>
+</head>
+<body>
+<canvas id="spark-canvas"></canvas>
+<script src="js/spark.js"></script>
+
+<div id="site-nav"></div>
+
+<header class="page-header">
+<div class="page-aurora"></div>
+<h1>案例</h1>
+<p>探索我们的创意世界，每一个案例都是用心之作</p>
+</header>
+
+<section class="portfolio-section">
+<div class="container">
+<div style="margin-bottom: 20px;">
+    <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" id="searchInput" placeholder="搜索案例关键词...">
+        <button class="search-clear" onclick="clearSearch()">×</button>
+    </div>
+</div>
+<div class="portfolio-filters" id="portfolioFilters">
+</div>
+<div class="portfolio-grid" id="portfolioGrid">
+</div>
+<div class="pagination-container" id="paginationContainer" style="display: none;">
+    <div class="pagination">
+        <button class="pagination-btn arrow" id="prevPageBtn" disabled>
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <div id="paginationNumbers" class="pagination-numbers"></div>
+        <button class="pagination-btn arrow" id="nextPageBtn" disabled>
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+    <span class="pagination-info" id="paginationInfo"></span>
+    <div class="pagination-jump">
+        <span class="pagination-jump-label">跳转到:</span>
+        <input type="number" class="pagination-jump-input" id="jumpInput" placeholder="e.g. 10" min="1">
+    </div>
+</div>
+</div>
+</section>
+
+<div id="site-footer"></div>
+
+<script src="js/data.js"></script>
+<script>
+const ITEMS_PER_PAGE = 8;
+let currentPage = 1;
+let currentFilter = 'all';
+let currentSearch = '';
+let displayedWorks = [];
+
+function filterWorks(category) {
+    currentFilter = category;
+    currentPage = 1;
+    applyFilters();
+}
+
+function searchWorks(keyword) {
+    currentSearch = keyword.toLowerCase().trim();
+    currentPage = 1;
+    applyFilters();
+}
+
+function applyFilters() {
+    let filtered = typeof sortProjects === 'function' ? sortProjects(projectsData) : [...projectsData];
+    
+    if (currentFilter !== 'all') {
+        filtered = filtered.filter(work => work.category === currentFilter);
+    }
+    
+    if (currentSearch) {
+        filtered = filtered.filter(work => 
+            work.title.toLowerCase().includes(currentSearch) ||
+            work.description.toLowerCase().includes(currentSearch) ||
+            work.tags.some(tag => tag.toLowerCase().includes(currentSearch))
+        );
+    }
+    
+    displayedWorks = filtered;
+    
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.filter === currentFilter);
+    });
+
+    renderWorks();
+    renderPagination();
+}
+
+function clearSearch() {
+    document.getElementById('searchInput').value = '';
+    searchWorks('');
+}
+
+function renderWorks() {
+    const container = document.getElementById('portfolioGrid');
+    const start = (currentPage - 1) * ITEMS_PER_PAGE;
+    const end = start + ITEMS_PER_PAGE;
+    const worksToShow = displayedWorks.slice(start, end);
+    
+    const scrollTop = window.pageYOffset;
+
+    container.innerHTML = '';
+
+    if (worksToShow.length === 0) {
+        container.innerHTML = '<div style="color: white; text-align: center; padding: 50px;"><h3>暂无符合条件的案例</h3></div>';
+        return;
+    }
+
+    worksToShow.forEach((work, index) => {
+        const card = document.createElement('a');
+        card.href = `project.html?id=${work.id}`;
+        card.className = 'portfolio-item';
+        card.dataset.id = work.id;
+        card.style.animationDelay = `${index * 0.05}s`;
+
+        card.innerHTML = `
+            <div class="portfolio-item-image">
+                <img src="${work.image}" alt="${work.title}" loading="lazy">
+                <div class="portfolio-item-overlay">
+                    <span class="portfolio-item-category">${getCategoryName(work.category)}</span>
+                </div>
+            </div>
+            <div class="portfolio-item-info">
+                <h3>${work.title}</h3>
+                <p>${work.description}</p>
+                <span class="portfolio-item-link">
+                    查看详情 <i class="fas fa-arrow-right"></i>
+                </span>
+            </div>
+        `;
+
+        container.appendChild(card);
+    });
+    
+    requestAnimationFrame(() => {
+        window.scrollTo(0, scrollTop);
+    });
+}
+
+function renderPagination() {
+    const totalPages = Math.ceil(displayedWorks.length / ITEMS_PER_PAGE);
+    const paginationContainer = document.getElementById('paginationContainer');
+    const paginationNumbers = document.getElementById('paginationNumbers');
+    const paginationInfo = document.getElementById('paginationInfo');
+    const prevBtn = document.getElementById('prevPageBtn');
+    const nextBtn = document.getElementById('nextPageBtn');
+
+    if (totalPages <= 1) {
+        paginationContainer.style.display = 'none';
+        return;
+    }
+
+    paginationContainer.style.display = 'flex';
+
+    prevBtn.disabled = currentPage === 1;
+    nextBtn.disabled = currentPage === totalPages;
+
+    paginationNumbers.innerHTML = '';
+
+    const maxVisible = 5;
+    
+    if (totalPages <= maxVisible) {
+        for (let i = 1; i <= totalPages; i++) {
+            const button = document.createElement('button');
+            button.className = `pagination-btn${i === currentPage ? ' active' : ''}`;
+            button.textContent = i;
+            button.addEventListener('click', () => {
+                currentPage = i;
+                applyFilters();
+                
+            });
+            paginationNumbers.appendChild(button);
+        }
+    } else {
+        if (currentPage <= Math.floor(maxVisible / 2) + 1) {
+            for (let i = 1; i <= maxVisible - 1; i++) {
+                const button = document.createElement('button');
+                button.className = `pagination-btn${i === currentPage ? ' active' : ''}`;
+                button.textContent = i;
+                button.addEventListener('click', () => {
+                    currentPage = i;
+                    applyFilters();
+                });
+                paginationNumbers.appendChild(button);
+            }
+            paginationNumbers.appendChild(document.createTextNode('...'));
+            const lastBtn = document.createElement('button');
+            lastBtn.className = 'pagination-btn';
+            lastBtn.textContent = totalPages;
+            lastBtn.addEventListener('click', () => {
+                currentPage = totalPages;
+                applyFilters();
+                
+            });
+            paginationNumbers.appendChild(lastBtn);
+        } else if (currentPage >= totalPages - Math.floor(maxVisible / 2)) {
+            const firstBtn = document.createElement('button');
+            firstBtn.className = 'pagination-btn';
+            firstBtn.textContent = 1;
+            firstBtn.addEventListener('click', () => {
+                currentPage = 1;
+                applyFilters();
+                
+            });
+            paginationNumbers.appendChild(firstBtn);
+            paginationNumbers.appendChild(document.createTextNode('...'));
+            for (let i = totalPages - maxVisible + 2; i <= totalPages; i++) {
+                const button = document.createElement('button');
+                button.className = `pagination-btn${i === currentPage ? ' active' : ''}`;
+                button.textContent = i;
+                button.addEventListener('click', () => {
+                    currentPage = i;
+                    applyFilters();
+                });
+                paginationNumbers.appendChild(button);
+            }
+        } else {
+            const firstBtn = document.createElement('button');
+            firstBtn.className = 'pagination-btn';
+            firstBtn.textContent = 1;
+            firstBtn.addEventListener('click', () => {
+                currentPage = 1;
+                applyFilters();
+                
+            });
+            paginationNumbers.appendChild(firstBtn);
+            paginationNumbers.appendChild(document.createTextNode('...'));
+            
+            for (let i = currentPage - 1; i <= currentPage + 1; i++) {
+                const button = document.createElement('button');
+                button.className = `pagination-btn${i === currentPage ? ' active' : ''}`;
+                button.textContent = i;
+                button.addEventListener('click', () => {
+                    currentPage = i;
+                    applyFilters();
+                });
+                paginationNumbers.appendChild(button);
+            }
+            
+            paginationNumbers.appendChild(document.createTextNode('...'));
+            const lastBtn = document.createElement('button');
+            lastBtn.className = 'pagination-btn';
+            lastBtn.textContent = totalPages;
+            lastBtn.addEventListener('click', () => {
+                currentPage = totalPages;
+                applyFilters();
+                
+            });
+            paginationNumbers.appendChild(lastBtn);
+        }
+    }
+
+    const startItem = (currentPage - 1) * ITEMS_PER_PAGE + 1;
+    const endItem = Math.min(currentPage * ITEMS_PER_PAGE, displayedWorks.length);
+    paginationInfo.textContent = `共 ${displayedWorks.length} 个案例，当前显示 ${startItem}-${endItem} 个`;
+}
+
+function handleJumpInput() {
+    const input = document.getElementById('jumpInput');
+    const totalPages = Math.ceil(displayedWorks.length / ITEMS_PER_PAGE);
+    const pageNum = parseInt(input.value);
+    
+    if (!isNaN(pageNum) && pageNum >= 1 && pageNum <= totalPages) {
+        currentPage = pageNum;
+        applyFilters();
+        
+    }
+    
+    input.value = '';
+}
+
+function goToPrevPage() {
+    if (currentPage > 1) {
+        currentPage--;
+        applyFilters();
+        
+    }
+}
+
+function goToNextPage() {
+    const totalPages = Math.ceil(displayedWorks.length / ITEMS_PER_PAGE);
+    if (currentPage < totalPages) {
+        currentPage++;
+        applyFilters();
+        
+    }
+}
+
+function renderCategoryFilters() {
+    const container = document.getElementById('portfolioFilters');
+    let html = '<button class="filter-btn active" data-filter="all">全部案例</button>';
+    for (const [key, value] of Object.entries(categories)) {
+        html += `<button class="filter-btn" data-filter="${key}">${value}</button>`;
+    }
+    container.innerHTML = html;
+    
+    container.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            filterWorks(this.dataset.filter);
+        });
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    renderCategoryFilters();
+    filterWorks('all');
+
+    document.getElementById('searchInput').addEventListener('input', function() {
+        searchWorks(this.value);
+    });
+
+    document.getElementById('prevPageBtn').addEventListener('click', goToPrevPage);
+    document.getElementById('nextPageBtn').addEventListener('click', goToNextPage);
+    
+    document.getElementById('jumpInput').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            handleJumpInput();
+        }
+    });
+
+});
+</script>
+<script src="js/config.js"></script>
+<script src="js/site-ui.js"></script>
+<script src="js/aurora.js"></script>
+</body>
+</html>

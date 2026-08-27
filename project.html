@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>项目详情 | 溪风设计</title>
+<link href="vendor/fontawesome/css/all.min.css" rel="stylesheet"/>
+<link href="styles.css" rel="stylesheet"/>
+<link rel="icon" id="site-favicon"/>
+</head>
+<body>
+<canvas id="spark-canvas"></canvas>
+<script src="js/spark.js"></script>
+
+<div id="site-nav"></div>
+
+<div id="projectContent"></div>
+
+<!-- 大图弹窗 -->
+<div class="lightbox-overlay" id="lightbox-overlay" onclick="closeLightbox()">
+    <div class="lightbox-content" onclick="event.stopPropagation()">
+        <button class="lightbox-close" onclick="closeLightbox()"><i class="fas fa-times"></i></button>
+        <button class="lightbox-prev" onclick="prevLightboxImage()"><i class="fas fa-chevron-left"></i></button>
+        <button class="lightbox-next" onclick="nextLightboxImage()"><i class="fas fa-chevron-right"></i></button>
+        <img id="lightbox-image" src="" alt="大图展示">
+        <div class="lightbox-thumbnails">
+            <div id="lightbox-thumbnails-container"></div>
+        </div>
+        <div class="lightbox-counter" id="lightbox-counter"></div>
+    </div>
+</div>
+
+<div id="site-footer"></div>
+
+<script src="js/data.js"></script>
+<script>
+let currentGalleryImages = [];
+let currentMainImageIndex = 0;
+let currentLightboxIndex = 0;
+
+function getUrlParam(name) {
+    const params = new URLSearchParams(window.location.search);
+    return params.get(name);
+}
+
+function renderProject(project) {
+    const currentIndex = projectsData.findIndex(p => p.id === project.id);
+    const prevProject = currentIndex < projectsData.length - 1 ? projectsData[currentIndex + 1] : null;
+    const nextProject = currentIndex > 0 ? projectsData[currentIndex - 1] : null;
+
+    const relatedProjects = getRelatedProjects(project);
+    const relatedProjectsHtml = relatedProjects.map(p => `
+        <a href="project.html?id=${p.id}" class="case-item">
+            <div class="case-image">
+                <img src="${p.image}" alt="${p.title}">
+            </div>
+            <div class="case-info">
+                <span class="case-category">${p.categoryName}</span>
+                <h3>${p.title}</h3>
+            </div>
+        </a>
+    `).join('');
+
+    document.title = `${project.title} | 溪风设计`;
+
+    const displayStyle = project.displayStyle || 'A';
+    currentGalleryImages = project.gallery || [project.image];
+
+    const galleryHtml = displayStyle === 'A' ? renderGalleryStyleA(project) : renderGalleryStyleB(project);
+
+    const html = `
+        <section class="project-hero">
+            <div class="page-aurora"></div>
+            <div class="project-hero-container">
+                <div class="project-hero-left">
+                    <div class="project-hero-top">
+                        <span class="project-category">${project.categoryName}</span>
+                        <h1>${project.title}</h1>
+                        <p class="project-subtitle">${project.subtitle}</p>
+                    </div>
+                    <div class="project-meta">
+                        <span class="project-meta-item">
+                            <span class="meta-label">客户</span>
+                            <span class="meta-value">${project.client || '-'}</span>
+                        </span>
+                        <span class="meta-divider">|</span>
+                        <span class="project-meta-item">
+                            <span class="meta-label">时间</span>
+                            <span class="meta-value">${project.year || '-'}</span>
+                        </span>
+                        <span class="meta-divider">|</span>
+                        <span class="project-meta-item">
+                            <span class="meta-label">服务</span>
+                            <span class="meta-value">${project.services ? project.services.join(' / ') : '-'}</span>
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="project-hero-right">
+                    <div class="project-overview">
+                        <h2>项目概述</h2>
+                        <p>${project.description || '暂无描述'}</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container">
+            <div class="project-content">
+                <div class="project-section" data-animate>
+                    <h2>案例展示</h2>
+                    ${galleryHtml}
+                </div>
+
+                <div class="project-nav-anchor"></div>
+                <div class="project-nav-card">
+                    <a href="${prevProject ? `project.html?id=${prevProject.id}` : '#'}" 
+                       class="project-nav-link${prevProject ? '' : ' disabled'}">
+                        <i class="fas fa-arrow-left"></i>
+                        <span>上一个</span>
+                        <span>${prevProject ? prevProject.title : '--'}</span>
+                    </a>
+
+                    <a href="cases.html" class="back-btn">
+                        <i class="fas fa-arrow-left"></i>
+                        <span>返回案例</span>
+                    </a>
+
+                    <a href="${nextProject ? `project.html?id=${nextProject.id}` : '#'}" 
+                       class="project-nav-link next${nextProject ? '' : ' disabled'}">
+                        <span>下一个</span>
+                        <span>${nextProject ? nextProject.title : '--'}</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="other-cases-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>其他案例</h2>
+                    <div class="cases-nav">
+                        <button class="cases-prev-btn" onclick="scrollCases(-1)">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="cases-next-btn" onclick="scrollCases(1)">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="cases-scroll-container" id="casesScrollContainer">
+                    <div class="cases-list" id="casesList">
+                        ${relatedProjectsHtml}
+                    </div>
+                </div>
+            </div>
+        </section>
+    `;
+
+    document.getElementById('projectContent').innerHTML = html;
+
+    if (window.AuroraHeader) {
+        window.AuroraHeader.init();
+    }
+
+    setTimeout(() => {
+        const elements = document.querySelectorAll('[data-animate]');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        elements.forEach(el => observer.observe(el));
+    }, 100);
+
+    initGalleryEvents(displayStyle);
+}
+
+function renderGalleryStyleA(project) {
+    const images = project.gallery || [project.image];
+    return `
+        <div class="project-gallery gallery-style-a">
+            ${images.map((img, index) => `
+                <img src="${img}" alt="${project.title}" loading="lazy" data-index="${index}">
+            `).join('')}
+        </div>
+    `;
+}
+
+function renderGalleryStyleB(project) {
+    const images = project.gallery || [project.image];
+    const mainImage = images[0];
+    const tags = project.tags || [];
+    return `
+        <div class="project-gallery gallery-style-b">
+            <div class="gallery-main" onclick="openLightbox(currentMainImageIndex)">
+                <div class="gallery-main-inner">
+                    <img src="${mainImage}" alt="${project.title}" id="gallery-main-image">
+                </div>
+                <div class="gallery-click-hint">
+                    <i class="fas fa-search-plus"></i>
+                    <span>点击查看大图</span>
+                </div>
+            </div>
+            <div class="gallery-sidebar">
+                <div class="gallery-thumbs">
+                    ${images.map((img, index) => `
+                        <div class="gallery-thumb-item ${index === 0 ? 'active' : ''}" data-index="${index}" onclick="changeMainImage(${index})">
+                            <img src="${img}" alt="${project.title}" loading="lazy">
+                        </div>
+                    `).join('')}
+                </div>
+                ${tags.length > 0 ? `
+                    <div class="gallery-tags">
+                        <div class="gallery-tags-title">标签</div>
+                        <div class="gallery-tags-list">
+                            ${tags.map(tag => `<span class="gallery-tag">${tag}</span>`).join('')}
+                        </div>
+                    </div>
+                ` : ''}
+            </div>
+        </div>
+    `;
+}
+
+function initGalleryEvents(displayStyle) {
+    if (displayStyle === 'B') {
+        document.querySelectorAll('.gallery-thumb-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const index = parseInt(this.dataset.index);
+                changeMainImage(index);
+            });
+        });
+    }
+}
+
+function changeMainImage(index) {
+    const images = currentGalleryImages;
+    if (index >= 0 && index < images.length) {
+        currentMainImageIndex = index;
+        const mainImage = document.getElementById('gallery-main-image');
+        mainImage.src = images[index];
+        
+        document.querySelectorAll('.gallery-thumb-item').forEach((item, i) => {
+            item.classList.toggle('active', i === index);
+        });
+    }
+}
+
+function openLightbox(index) {
+    currentLightboxIndex = index;
+    const overlay = document.getElementById('lightbox-overlay');
+    const image = document.getElementById('lightbox-image');
+    const thumbnailsContainer = document.getElementById('lightbox-thumbnails-container');
+    const counter = document.getElementById('lightbox-counter');
+
+    image.src = currentGalleryImages[index];
+    counter.textContent = `${index + 1} / ${currentGalleryImages.length}`;
+
+    thumbnailsContainer.innerHTML = currentGalleryImages.map((img, i) => `
+        <div class="lightbox-thumbnail-item ${i === index ? 'active' : ''}" data-index="${i}" onclick="setLightboxImage(${i})">
+            <img src="${img}" alt="">
+        </div>
+    `).join('');
+
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+    const overlay = document.getElementById('lightbox-overlay');
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+function setLightboxImage(index) {
+    currentLightboxIndex = index;
+    currentMainImageIndex = index;
+    const image = document.getElementById('lightbox-image');
+    const counter = document.getElementById('lightbox-counter');
+    
+    image.src = currentGalleryImages[index];
+    counter.textContent = `${index + 1} / ${currentGalleryImages.length}`;
+    
+    document.querySelectorAll('.lightbox-thumbnail-item').forEach((item, i) => {
+        item.classList.toggle('active', i === index);
+    });
+    
+    const mainImage = document.getElementById('gallery-main-image');
+    if (mainImage) {
+        mainImage.src = currentGalleryImages[index];
+    }
+    
+    document.querySelectorAll('.gallery-thumb-item').forEach((item, i) => {
+        item.classList.toggle('active', i === index);
+    });
+}
+
+function prevLightboxImage() {
+    const newIndex = currentLightboxIndex > 0 ? currentLightboxIndex - 1 : currentGalleryImages.length - 1;
+    setLightboxImage(newIndex);
+}
+
+function nextLightboxImage() {
+    const newIndex = currentLightboxIndex < currentGalleryImages.length - 1 ? currentLightboxIndex + 1 : 0;
+    setLightboxImage(newIndex);
+}
+
+document.addEventListener('keydown', function(e) {
+    const overlay = document.getElementById('lightbox-overlay');
+    if (overlay.classList.contains('active')) {
+        if (e.key === 'Escape') {
+            closeLightbox();
+        } else if (e.key === 'ArrowLeft') {
+            prevLightboxImage();
+        } else if (e.key === 'ArrowRight') {
+            nextLightboxImage();
+        }
+    }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const projectId = parseInt(getUrlParam('id'));
+    const project = projectsData.find(p => p.id === projectId) || projectsData[0];
+    renderProject(project);
+
+    initNavCardScroll();
+});
+
+function initNavCardScroll() {
+    const navCard = document.querySelector('.project-nav-card');
+    const anchor = document.querySelector('.project-nav-anchor');
+    
+    if (!navCard || !anchor) return;
+    
+    // 移动端不做浮窗：保持文档流展示，避免遮挡页面内容
+    if (window.matchMedia && window.matchMedia('(max-width: 768px)').matches) {
+        return;
+    }
+    
+    const updateNavPosition = function() {
+        const anchorOffsetTop = anchor.offsetTop;
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const windowHeight = window.innerHeight;
+        
+        if (scrollTop >= anchorOffsetTop - 800) {
+            navCard.classList.add('fixed-at-anchor');
+        } else {
+            navCard.classList.remove('fixed-at-anchor');
+        }
+    };
+    
+    window.addEventListener('scroll', updateNavPosition, { passive: true });
+    updateNavPosition();
+}
+
+function getRelatedProjects(currentProject) {
+    const allProjects = projectsData.filter(p => p.id !== currentProject.id);
+    
+    const scoredProjects = allProjects.map(project => {
+        let score = 0;
+        
+        if (project.category === currentProject.category) {
+            score += 3;
+        }
+        
+        if (project.tags && currentProject.tags) {
+            const commonTags = project.tags.filter(tag => currentProject.tags.includes(tag));
+            score += commonTags.length * 2;
+        }
+        
+        return { project, score };
+    });
+    
+    scoredProjects.sort((a, b) => b.score - a.score);
+    
+    return scoredProjects.slice(0, 8).map(item => item.project);
+}
+
+let scrollPosition = 0;
+
+function scrollCases(direction) {
+    const container = document.getElementById('casesScrollContainer');
+    const list = document.getElementById('casesList');
+    
+    if (!container || !list) return;
+    
+    const itemWidth = 280;
+    const maxScroll = Math.max(0, list.scrollWidth - container.clientWidth);
+    
+    scrollPosition += direction * itemWidth;
+    scrollPosition = Math.max(0, Math.min(scrollPosition, maxScroll));
+    
+    list.style.transform = `translateX(-${scrollPosition}px)`;
+}
+</script>
+<script src="js/config.js"></script>
+<script src="js/site-ui.js"></script>
+<script src="js/aurora.js"></script>
+</body>
+</html>
