@@ -20,51 +20,37 @@
 <div id="site-footer"></div>
 
 <script src="js/data.js"></script>
+<script src="vendor/marked/marked.min.js"></script>
 <script>
 function getUrlParam(name) {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get(name);
 }
 
-function parseMarkdown(md) {
-    let html = md;
-    
-    html = html.replace(/^---[\s\S]*?---$/m, '');
-    
-    html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
-    html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
-    html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>');
-    
-    html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-    html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
-    
-    html = html.replace(/!\[(.*?)\]\((.*?)\)/g, function(match, alt, src) {
-        if (src.startsWith('http') || src.startsWith('/')) {
-            return '<img src="' + src + '" alt="' + alt + '" class="blog-detail-img">';
-        }
-        return '<img src="../' + src + '" alt="' + alt + '" class="blog-detail-img">';
+// 配置 marked.js：启用 GitHub 风格 markdown（表格、删除线、嵌套列表）
+// 关闭 marked 自带的 headerIds/mangle，由 buildToc 统一加锚点 id
+if (typeof marked !== 'undefined' && marked.setOptions) {
+    marked.setOptions({
+        breaks: true,
+        gfm: true,
+        headerIds: false,
+        mangle: false
     });
-    
-    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
-    
-    html = html.replace(/^> (.*$)/gim, '<blockquote>$1</blockquote>');
-    
-    html = html.replace(/^(\d+)\. (.*$)/gim, '<li>$2</li>');
-    html = html.replace(/(<li>[\s\S]*?<\/li>)/g, '<ol>$1</ol>');
-    
-    html = html.replace(/^- (.*$)/gim, '<li>$1</li>');
-    html = html.replace(/(<li>[\s\S]*?<\/li>)/g, '<ul>$1</ul>');
-    
-    html = html.replace(/```(\w+)?\n([\s\S]*?)```/g, '<pre><code class="language-$1">$2</code></pre>');
-    html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
-    
-    html = html.replace(/^\s*$/gm, '</p><p>');
-    html = '<p>' + html + '</p>';
-    html = html.replace(/<\/p><p>\s*<\/p><p>\s*/g, '</p><p>');
-    html = html.replace(/<\/p>\s*<p>/g, '</p><p>');
-    html = html.replace(/<p><\/p>/g, '');
-    
-    return html.trim();
+}
+
+// 解析 markdown：先剥掉 front matter（--- ... ---），再用 marked.js 渲染
+// marked 支持完整语法：表格、嵌套列表、代码块、引用、脚注等，AI 写的复杂 md 也能正常显示
+function parseMarkdown(md) {
+    let body = md.replace(/^---\s*\n[\s\S]*?\n---\s*\n?/, '').trim();
+    if (typeof marked !== 'undefined') {
+        try {
+            return marked.parse(body);
+        } catch (e) {
+            console.error('marked 解析失败，回退纯文本:', e);
+        }
+    }
+    // 回退：转义后用 pre 包裹，至少不会渲染崩
+    return '<pre>' + body.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</pre>';
 }
 
 async function renderBlogDetail() {
@@ -97,13 +83,26 @@ async function renderBlogDetail() {
     }
 
     const content = await loadBlogContent(slug);
-    const htmlContent = parseMarkdown(content);
+    const parsedHtml = parseMarkdown(content);
+    const toc = buildToc(parsedHtml);
+    const htmlContent = toc.html;
+    const readMinutes = estimateReadMinutes(parsedHtml);
 
     document.title = `${post.title} | 溪风设计`;
 
-    const otherPosts = blogPosts.filter(p => p.slug !== slug).slice(0, 3);
-    const otherPostsHtml = otherPosts.map(p => `
-        <a href="blog-detail.html?slug=${p.slug}" class="sidebar-post-item">
+    // 上一篇 / 下一篇：按日期降序排列取相邻文章
+    const byDate = [...blogPosts].sort((a, b) => (Date.parse(b.date) || 0) - (Date.parse(a.date) || 0));
+    const currentIdx = byDate.findIndex(p => p.slug === slug);
+    const prevPost = currentIdx >= 0 && currentIdx < byDate.length - 1 ? byDate[currentIdx + 1] : null;
+    const nextPost = currentIdx > 0 ? byDate[currentIdx - 1] : null;
+
+    // 相关文章：同分类优先，取 3 篇
+    const relatedPosts = [
+        ...blogPosts.filter(p => p.slug !== slug && p.category === post.category),
+        ...blogPosts.filter(p => p.slug !== slug && p.category !== post.category)
+    ].slice(0, 3);
+    const relatedPostsHtml = relatedPosts.map(p => `
+        <a href="blog-detail.html?slug=${p.slug}" class="sidebar-post-item related-post">
             <div class="sidebar-post-image">
                 <img src="${p.cover}" alt="${p.title}">
             </div>
@@ -114,14 +113,36 @@ async function renderBlogDetail() {
         </a>
     `).join('');
 
+    const tocHtml = toc.items.length ? `
+        <nav class="sidebar-section toc" id="blogToc">
+            <h3><i class="fas fa-list-ul"></i> 文章目录</h3>
+            <ul>
+                ${toc.items.map(it => `<li class="toc-${it.tag}"><a href="#${it.id}">${it.text}</a></li>`).join('')}
+            </ul>
+        </nav>
+    ` : '';
+
     document.getElementById('blogDetail').innerHTML = `
         <header class="blog-detail-header">
             <div class="container">
+                <nav class="breadcrumb" aria-label="面包屑导航">
+                    <a href="index.html">首页</a>
+                    <span class="breadcrumb-sep">›</span>
+                    <a href="blog.html">博客</a>
+                    <span class="breadcrumb-sep">›</span>
+                    <span class="breadcrumb-current">${post.title}</span>
+                </nav>
                 <span class="blog-detail-category">${post.category}</span>
                 <h1>${post.title}</h1>
                 <div class="blog-detail-meta">
-                    <span class="blog-detail-author">${post.author}</span>
-                    <span class="blog-detail-date">${post.date}</span>
+                    <span class="blog-detail-author">
+                        <span class="author-avatar">${(post.author || '设').charAt(0)}</span>
+                        ${post.author}
+                    </span>
+                    <span class="meta-dot">·</span>
+                    <span class="blog-detail-date"><i class="far fa-calendar-alt"></i> ${post.date}</span>
+                    <span class="meta-dot">·</span>
+                    <span class="blog-detail-readtime"><i class="far fa-clock"></i> ${readMinutes} 分钟阅读</span>
                 </div>
             </div>
         </header>
@@ -130,31 +151,115 @@ async function renderBlogDetail() {
             <img src="${post.cover}" alt="${post.title}">
         </div>
         
-        <div class="container">
+        <div class="container article-container">
             <div class="blog-detail-wrapper">
                 <section class="blog-detail-content">
                     ${htmlContent}
                 </section>
                 
                 <aside class="blog-sidebar">
-                    <div class="sidebar-section">
-                        <h3><i class="fas fa-file-alt"></i> 其他文章</h3>
-                        <div class="sidebar-posts">
-                            ${otherPostsHtml}
-                        </div>
-                    </div>
+                    ${tocHtml}
                 </aside>
             </div>
         </div>
         
-        <section class="blog-detail-nav">
+        <section class="blog-detail-end">
             <div class="container">
-                <a href="blog.html" class="back-btn">
-                    <i class="fas fa-arrow-left"></i> 返回博客列表
-                </a>
+                <nav class="blog-pager" aria-label="上一篇 / 下一篇">
+                    ${prevPost ? `
+                    <a class="blog-pager-link prev" href="blog-detail.html?slug=${prevPost.slug}">
+                        <span class="pager-label"><i class="fas fa-arrow-left"></i> 上一篇</span>
+                        <span class="pager-title">${prevPost.title}</span>
+                    </a>` : '<span class="blog-pager-link placeholder"></span>'}
+                    ${nextPost ? `
+                    <a class="blog-pager-link next" href="blog-detail.html?slug=${nextPost.slug}">
+                        <span class="pager-label">下一篇 <i class="fas fa-arrow-right"></i></span>
+                        <span class="pager-title">${nextPost.title}</span>
+                    </a>` : '<span class="blog-pager-link placeholder"></span>'}
+                </nav>
+                ${relatedPostsHtml ? `
+                <div class="related-posts">
+                    <h3 class="related-posts-title"><i class="fas fa-file-alt"></i> 相关文章</h3>
+                    <div class="related-posts-grid">
+                        ${relatedPostsHtml}
+                    </div>
+                </div>` : ''}
+                <div class="blog-end-back">
+                    <a href="blog.html" class="btn btn-outline">
+                        <i class="fas fa-arrow-left"></i> 返回博客列表
+                    </a>
+                </div>
             </div>
         </section>
     `;
+
+    initToc();
+}
+
+// 从正文 HTML 提取 h2/h3 生成目录（并给标题加锚点 id）
+function buildToc(html) {
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    const headings = doc.querySelectorAll('h2, h3');
+    const items = [];
+    headings.forEach((h, idx) => {
+        const id = 'blog-sec-' + idx;
+        h.id = id;
+        items.push({ id: id, tag: h.tagName.toLowerCase(), text: (h.textContent || '').trim() });
+    });
+    // 标记正文首个非空段落为 lead（引言样式）
+    const paras = doc.querySelectorAll('p');
+    for (let i = 0; i < paras.length; i++) {
+        if (paras[i].textContent.trim()) {
+            paras[i].classList.add('blog-lead');
+            break;
+        }
+    }
+    return { items: items, html: doc.body.innerHTML };
+}
+
+// 估算阅读时长（约 300 字/分钟）
+function estimateReadMinutes(html) {
+    const text = html.replace(/<[^>]+>/g, '').replace(/\s+/g, '');
+    return Math.max(1, Math.round(text.length / 300));
+}
+
+// 目录交互：点击平滑滚动 + 滚动高亮当前章节
+function initToc() {
+    const toc = document.getElementById('blogToc');
+    if (!toc) return;
+    const links = Array.prototype.slice.call(toc.querySelectorAll('a'));
+    const headings = links.map(a => document.getElementById(a.getAttribute('href').slice(1))).filter(Boolean);
+    if (!headings.length) return;
+
+    links.forEach(a => {
+        a.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.getElementById(a.getAttribute('href').slice(1));
+            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            links.forEach(l => l.classList.remove('active'));
+            a.classList.add('active');
+        });
+    });
+
+    var ticking = false;
+    function update() {
+        ticking = false;
+        const probe = window.innerHeight * 0.25;
+        let currentId = null;
+        headings.forEach(h => {
+            if (h.getBoundingClientRect().top <= probe) currentId = h.id;
+        });
+        if (!currentId && headings.length) currentId = headings[0].id;
+        links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + currentId));
+    }
+    function onScroll() {
+        if (!ticking) {
+            ticking = true;
+            requestAnimationFrame(update);
+        }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    update();
 }
 
 document.addEventListener('DOMContentLoaded', function() {

@@ -419,6 +419,18 @@ body {
     margin-bottom: 24px;
 }
 
+/* 三个音节卡片：在 about-section 内独立成块，突破 about-content 860px 宽度限制 */
+.about-section .story-grid {
+    max-width: 1200px;
+    margin: 5rem auto 0;
+}
+
+@media (max-width: 768px) {
+    .about-section .story-grid {
+        margin-top: 3rem;
+    }
+}
+
 /* ==================== */
 /* 服务区域 */
 /* ==================== */
@@ -671,119 +683,6 @@ body {
 }
 
 /* ==================== */
-/* 联系区域 CTA */
-/* ==================== */
-.contact-cta {
-    padding: 140px 40px 180px;
-    position: relative;
-}
-
-.contact-cta::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.04) 50%, transparent);
-}
-
-.cta-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 120px 80px;
-    background: linear-gradient(
-        160deg,
-        rgba(127,182,155,0.05) 0%,
-        rgba(127,182,155,0.02) 30%,
-        rgba(212,166,86,0.01) 60%,
-        rgba(127,182,155,0.04) 100%
-    );
-    border: 1px solid rgba(127,182,155,0.12);
-    border-radius: 32px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    box-shadow: inset 0 1px 0 rgba(127,182,155,0.04);
-}
-
-.cta-content::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-        radial-gradient(circle at 25% 15%, rgba(127,182,155,0.08) 0%, transparent 45%),
-        radial-gradient(circle at 75% 85%, rgba(212,166,86,0.05) 0%, transparent 45%),
-        radial-gradient(circle at 50% 50%, rgba(127,182,155,0.03) 0%, transparent 60%);
-}
-
-.cta-content > * {
-    position: relative;
-    z-index: 1;
-}
-
-.cta-title {
-    font-size: 4.5rem;
-    font-weight: 900;
-    margin-bottom: 24px;
-    letter-spacing: -1px;
-}
-
-.cta-text {
-    font-size: 1.25rem;
-    color: var(--text-secondary);
-    margin-bottom: 56px;
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.cta-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 16px;
-    padding: 28px 56px;
-    background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
-    color: #131512;
-    font-size: 1.1rem;
-    font-weight: 700;
-    border-radius: 60px;
-    text-decoration: none;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-}
-
-.cta-btn::before {
-    content: '';
-    position: absolute;
-    inset: -2px;
-    border-radius: 62px;
-    background: linear-gradient(135deg, rgba(127,182,155,0.3), rgba(212,166,86,0.1));
-    z-index: -1;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    filter: blur(8px);
-}
-
-.cta-btn:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 24px 56px rgba(127,182,155,0.35), 0 0 80px rgba(127,182,155,0.12);
-}
-
-.cta-btn:hover::before {
-    opacity: 1;
-}
-
-.cta-btn i {
-    transition: transform 0.3s ease;
-}
-
-.cta-btn:hover i {
-    transform: translateX(6px);
-}
-
-/* ==================== */
 /* 响应式设计 */
 /* ==================== */
 @media (max-width: 1024px) {
@@ -811,10 +710,6 @@ body {
 
     .stat-item + .stat-item::before {
         left: -24px;
-    }
-
-    .cta-title {
-        font-size: 3.2rem;
     }
 
     .quote-text {
@@ -927,19 +822,6 @@ body {
         font-size: 6rem;
     }
 
-    .cta-content {
-        padding: 72px 32px;
-        border-radius: 24px;
-    }
-
-    .cta-title {
-        font-size: 2.5rem;
-    }
-
-    .cta-btn {
-        padding: 22px 44px;
-    }
-
     .decorative-text {
         display: none;
     }
@@ -1006,20 +888,7 @@ body {
                 精准、安静，却能漾开层层涟漪。<br><br>
                 轻盈自有回响。
             </p>
-            <div class="hero-stats">
-                <div class="stat-item" data-animate>
-                    <div class="stat-number">XI</div>
-                    <div class="stat-label">溪水般流动的探索</div>
-                </div>
-                <div class="stat-item" data-animate>
-                    <div class="stat-number">FO</div>
-                    <div class="stat-label">风拂过时的自由</div>
-                </div>
-                <div class="stat-item" data-animate>
-                    <div class="stat-number">FLY</div>
-                    <div class="stat-label">灵感升空的姿态</div>
-                </div>
-            </div>
+            <div class="hero-stats" id="heroStats"></div>
         </div>
     </div>
 
@@ -1041,41 +910,25 @@ body {
     <div class="about-content" data-animate>
         <p class="about-lead">XIFOFLY 由三个音节组成，每个音节都承载着品牌的核心理念。</p>
         <div class="about-text">
-            <p>溪，是灵感最初的形状——不急不缓，沿着自己的轨迹流淌；风，是创作时自由的状态——不设边界，让想法自然生长；FLY，是作品最终的姿态——轻盈地抵达人心。</p>
             <p>我们是一家专注品牌视觉与数字体验的设计工作室。不为装饰而装饰，不为炫技而炫技。溪风做的，是那些能让品牌"被看见、被记住、被选择"的精准设计。</p>
             <p>从品牌策略到视觉落地，从数字界面到产品包装，我们用轻盈的方式，为每一个品牌找到属于自己的回响。</p>
         </div>
     </div>
-</section>
-
-<div class="section-divider"><div class="section-divider-line"></div></div>
-
-<!-- 品牌故事：三个音节 -->
-<section class="brand-story">
-    <div class="container">
-        <div class="section-header">
-            <div class="head-title">
-                <span class="section-tag">Brand Story</span>
-                <h2 class="section-title">溪 · 风 · 飞行</h2>
-            </div>
-            <p class="section-desc">XIFOFLY 由三个音节组成，每个音节都承载着品牌的核心理念。</p>
+    <div class="story-grid" data-animate>
+        <div class="story-card glass">
+            <span class="story-phon">XI<small>溪水般流动</small></span>
+            <h3>流动</h3>
+            <p>设计不是静止的，它像溪水一样不断流动、探索、发现新的可能。</p>
         </div>
-        <div class="story-grid">
-            <div class="story-card glass" data-animate>
-                <span class="story-phon">XI<small>溪水般流动</small></span>
-                <h3>流动</h3>
-                <p>设计不是静止的，它像溪水一样不断流动、探索、发现新的可能。</p>
-            </div>
-            <div class="story-card glass" data-animate style="animation-delay: 0.1s">
-                <span class="story-phon">FO<small>风拂过自由</small></span>
-                <h3>自由</h3>
-                <p>呼吸般的节奏，自由而自然，不做沉重的装饰，只做精准的表达。</p>
-            </div>
-            <div class="story-card glass" data-animate style="animation-delay: 0.2s">
-                <span class="story-phon">FLY<small>蜻蜓起飞</small></span>
-                <h3>轻盈</h3>
-                <p>轻盈、敏捷，掠过生活水面的一个轻吻，精准、安静，却能漾开层层涟漪。</p>
-            </div>
+        <div class="story-card glass" style="animation-delay: 0.1s">
+            <span class="story-phon">FO<small>风拂过自由</small></span>
+            <h3>自由</h3>
+            <p>呼吸般的节奏，自由而自然，不做沉重的装饰，只做精准的表达。</p>
+        </div>
+        <div class="story-card glass" style="animation-delay: 0.2s">
+            <span class="story-phon">FLY<small>蜻蜓起飞</small></span>
+            <h3>轻盈</h3>
+            <p>轻盈、敏捷，掠过生活水面的一个轻吻，精准、安静，却能漾开层层涟漪。</p>
         </div>
     </div>
 </section>
@@ -1162,19 +1015,6 @@ body {
 
 <div class="section-divider"><div class="section-divider-line"></div></div>
 
-<section class="contact-cta">
-    <div class="cta-content" data-animate>
-        <h2 class="cta-title">想了解溪风设计？</h2>
-        <p class="cta-text">无论是品牌视觉还是数字体验，欢迎与我们聊聊</p>
-        <a href="contact.html" class="cta-btn">
-            <span>联系我们</span>
-            <i class="fas fa-arrow-right"></i>
-        </a>
-    </div>
-</section>
-
-<div class="section-divider"><div class="section-divider-line"></div></div>
-
 <div id="site-footer"></div>
 
 <script>
@@ -1197,6 +1037,26 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 <script src="js/aurora.js"></script>
 <script src="js/config.js"></script>
+<script>
+// 渲染 hero 区统计数字（数据来源：js/config.js 的 siteConfig.stats）
+// 改数据请改 config.js 的 stats 字段，不要改这里
+(function loadHeroStats() {
+    const container = document.getElementById('heroStats');
+    if (!container || typeof siteConfig === 'undefined' || !siteConfig.stats) return;
+    const s = siteConfig.stats;
+    const items = [
+        { number: s.years + '+', label: '设计年限' },
+        { number: s.projects + '+', label: '完成项目' },
+        { number: s.clients + '+', label: '合作客户' }
+    ];
+    container.innerHTML = items.map(item => `
+        <div class="stat-item" data-animate>
+            <div class="stat-number">${item.number}</div>
+            <div class="stat-label">${item.label}</div>
+        </div>
+    `).join('');
+})();
+</script>
 <script src="js/site-ui.js"></script>
 </body>
 </html>
