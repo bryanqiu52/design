@@ -1,28 +1,277 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>项目详情 | 溪风设计</title>
-<link href="vendor/fontawesome/css/all.min.css" rel="stylesheet"/>
-<link href="styles.css" rel="stylesheet"/>
-<link rel="icon" id="site-favicon"/>
-</head>
+<html lang="zh-CN"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>详情页 | 溪风设计</title>
+<link href="vendor/fontawesome/css/all.min.css" rel="stylesheet">
+<link href="styles.css" rel="stylesheet">
+
+<link rel="icon" href="images/favicon.ico" type="image/x-icon"></head>
 <body>
-<canvas id="spark-canvas"></canvas>
+<canvas id="spark-canvas" width="1409" height="849"></canvas>
 <script src="js/spark.js"></script>
 
-<div id="site-nav"></div>
+<div id="site-nav"><nav class="nav scrolled" id="nav"><a href="index.html" class="logo"><img src="images/xifofly-logo.png" alt="溪风" class="logo-img"></a><div class="nav-links" id="navLinks"><a href="index.html" style="--shine-angle: 4.0099rad; --shine-t: 0;">首页<span class="specular-shine" aria-hidden="true"></span></a><a href="cases.html" style="--shine-angle: 5.2748rad; --shine-t: 0;">案例<span class="specular-shine" aria-hidden="true"></span></a><a href="blog.html" style="--shine-angle: 5.2802rad; --shine-t: 0;">博客<span class="specular-shine" aria-hidden="true"></span></a><a href="about.html" style="--shine-angle: 5.9314rad; --shine-t: 0;">关于<span class="specular-shine" aria-hidden="true"></span></a><a href="contact.html" style="--shine-angle: 5.1791rad; --shine-t: 0;">联系<span class="specular-shine" aria-hidden="true"></span></a></div><div class="nav-actions"><a href="contact.html" class="nav-cta" style="--shine-angle: 6.9003rad; --shine-t: 0;">开始合作 <span>→</span><span class="specular-shine" aria-hidden="true"></span></a><button class="burger" id="burger" aria-label="打开菜单"><i></i><i></i><i></i></button></div></nav><div class="mmenu" id="mmenu"><a href="index.html"><span>01</span>首页<em class="mm-en">HOME</em></a><a href="cases.html"><span>02</span>案例<em class="mm-en">CASES</em></a><a href="blog.html"><span>03</span>博客<em class="mm-en">BLOG</em></a><a href="about.html"><span>04</span>关于<em class="mm-en">ABOUT</em></a><a href="contact.html"><span>05</span>联系<em class="mm-en">CONTACT</em></a></div></div>
 
-<div id="projectContent"></div>
+<div id="projectContent">
+        <section class="project-hero">
+            <div class="page-aurora" data-aurora-init="1"><canvas class="page-aurora-canvas" width="1394" height="369" style="display: block; width: 100%; height: 100%; background-color: transparent;"></canvas></div>
+            <div class="project-hero-container">
+                <div class="project-hero-left">
+                    <div class="project-hero-top">
+                        <span class="project-category">电商设计</span>
+                        <h1>详情页</h1>
+                        <p class="project-subtitle"></p>
+                    </div>
+                    <div class="project-tags">
+                        <span class="project-tag">电商设计</span><span class="project-tag">详情页</span>
+                    </div>
+                </div>
+                
+                <div class="project-hero-right">
+                    <div class="project-overview">
+                        <h2>项目概述</h2>
+                        <p>暂无描述</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container">
+            <div class="project-content">
+                <div class="project-section animate-in" data-animate="">
+                    <h2>案例展示</h2>
+                    
+        <div class="project-gallery gallery-style-b has-long-image">
+            <!-- 左：主图 -->
+            <div class="gallery-main long-image-mode" id="gallery-main" style="cursor: grab;">
+                <div class="gallery-main-viewer" id="gallery-main-viewer">
+                    <div class="gallery-main-wrapper" id="gallery-main-wrapper">
+                        <img src="images/dianshang/详情页/E12PLUS详情页英文.jpg" alt="详情页" id="gallery-main-image">
+                    </div>
+                </div>
+                <div class="gallery-click-hint" style="display: none;">
+                    <i class="fas fa-search-plus"></i>
+                    <span>点击查看大图</span>
+                </div>
+            </div>
+
+            <!-- 中：minimap 小地图（独立一栏，长图模式显示） -->
+            <div class="gallery-minimap" id="gallery-minimap">
+                <img class="minimap-base" src="images/dianshang/详情页/E12PLUS详情页英文.jpg" alt="">
+                <div class="minimap-dim"></div>
+                <div class="minimap-viewport" id="minimap-viewport">
+                    <img class="minimap-viewport-img" src="images/dianshang/详情页/E12PLUS详情页英文.jpg" alt="">
+                </div>
+            </div>
+
+            <!-- 右：缩略图 + 标签 -->
+            <div class="gallery-sidebar">
+                <div class="gallery-thumbs">
+                    
+                        <div class="gallery-thumb-item active" data-index="0" onclick="changeMainImage(0)">
+                            <img src="images/dianshang/详情页/E12PLUS详情页英文.jpg" alt="详情页" loading="lazy">
+                        </div>
+                    
+                        <div class="gallery-thumb-item " data-index="1" onclick="changeMainImage(1)">
+                            <img src="images/dianshang/详情页/N4详情页.jpg" alt="详情页" loading="lazy">
+                        </div>
+                    
+                        <div class="gallery-thumb-item " data-index="2" onclick="changeMainImage(2)">
+                            <img src="images/dianshang/详情页/N7详情页1000.jpg" alt="详情页" loading="lazy">
+                        </div>
+                    
+                        <div class="gallery-thumb-item " data-index="3" onclick="changeMainImage(3)">
+                            <img src="images/dianshang/详情页/N7详情页英文版.jpg" alt="详情页" loading="lazy">
+                        </div>
+                    
+                        <div class="gallery-thumb-item " data-index="4" onclick="changeMainImage(4)">
+                            <img src="images/dianshang/详情页/射灯详情页.jpg" alt="详情页" loading="lazy">
+                        </div>
+                    
+                        <div class="gallery-thumb-item " data-index="5" onclick="changeMainImage(5)">
+                            <img src="images/dianshang/详情页/琢光企业详情页.jpg" alt="详情页" loading="lazy">
+                        </div>
+                    
+                        <div class="gallery-thumb-item " data-index="6" onclick="changeMainImage(6)">
+                            <img src="images/dianshang/详情页/电脑主机详情页.jpg" alt="详情页" loading="lazy">
+                        </div>
+                    
+                        <div class="gallery-thumb-item " data-index="7" onclick="changeMainImage(7)">
+                            <img src="images/dianshang/详情页/音响详情页.jpg" alt="详情页" loading="lazy">
+                        </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+    
+                </div>
+
+                <div class="project-nav-anchor"></div>
+                <div class="project-nav-card">
+                    <a href="project.html?id=35" class="project-nav-link">
+                        <i class="fas fa-arrow-left"></i>
+                        <span>上一个</span>
+                        <span>线下海报易拉宝等 作品集</span>
+                    </a>
+
+                    <a href="cases.html" class="back-btn">
+                        <i class="fas fa-arrow-left"></i>
+                        <span>返回案例</span>
+                    </a>
+
+                    <a href="project.html?id=33" class="project-nav-link next">
+                        <span>下一个</span>
+                        <span>主图</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="other-cases-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>其他案例</h2>
+                    <div class="cases-nav">
+                        <button class="cases-prev-btn" onclick="scrollCases(-1)">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="cases-next-btn" onclick="scrollCases(1)">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="cases-scroll-container" id="casesScrollContainer">
+                    <div class="cases-list" id="casesList">
+                        
+        <a href="project.html?id=32" class="case-item">
+            <div class="case-image">
+                <img src="images/dianshang/Banner/首页.jpg" alt="Banner">
+            </div>
+            <div class="case-info">
+                <span class="case-category">电商设计</span>
+                <h3>Banner</h3>
+            </div>
+        </a>
+    
+        <a href="project.html?id=33" class="case-item">
+            <div class="case-image">
+                <img src="images/dianshang/主图/H射灯-主图2.jpg" alt="主图">
+            </div>
+            <div class="case-info">
+                <span class="case-category">电商设计</span>
+                <h3>主图</h3>
+            </div>
+        </a>
+    
+        <a href="project.html?id=1" class="case-item">
+            <div class="case-image">
+                <img src="images/3d/3D打印其他/A1.jpg" alt="3D打印其他">
+            </div>
+            <div class="case-info">
+                <span class="case-category">3D渲染</span>
+                <h3>3D打印其他</h3>
+            </div>
+        </a>
+    
+        <a href="project.html?id=2" class="case-item">
+            <div class="case-image">
+                <img src="images/3d/A10/主图1.jpg" alt="A10">
+            </div>
+            <div class="case-info">
+                <span class="case-category">3D渲染</span>
+                <h3>A10</h3>
+            </div>
+        </a>
+    
+        <a href="project.html?id=3" class="case-item">
+            <div class="case-image">
+                <img src="images/3d/A5/A1.jpg" alt="A5">
+            </div>
+            <div class="case-info">
+                <span class="case-category">3D渲染</span>
+                <h3>A5</h3>
+            </div>
+        </a>
+    
+        <a href="project.html?id=4" class="case-item">
+            <div class="case-image">
+                <img src="images/3d/A8Plus/A8-Plus-1.jpg" alt="A8Plus">
+            </div>
+            <div class="case-info">
+                <span class="case-category">3D渲染</span>
+                <h3>A8Plus</h3>
+            </div>
+        </a>
+    
+        <a href="project.html?id=5" class="case-item">
+            <div class="case-image">
+                <img src="images/3d/DLP/A1 拷贝.jpg" alt="DLP">
+            </div>
+            <div class="case-info">
+                <span class="case-category">3D渲染</span>
+                <h3>DLP</h3>
+            </div>
+        </a>
+    
+        <a href="project.html?id=6" class="case-item">
+            <div class="case-image">
+                <img src="images/3d/E12PLUS/A1_0001.jpg" alt="E12PLUS">
+            </div>
+            <div class="case-info">
+                <span class="case-category">3D渲染</span>
+                <h3>E12PLUS</h3>
+            </div>
+        </a>
+    
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 
 <!-- 大图弹窗 -->
-<div class="lightbox-overlay" id="lightbox-overlay" onclick="closeLightbox()">
-    <div class="lightbox-content" onclick="event.stopPropagation()">
+<div class="lightbox-overlay" id="lightbox-overlay">
+    <div class="lightbox-content">
         <button class="lightbox-close" onclick="closeLightbox()"><i class="fas fa-times"></i></button>
         <button class="lightbox-prev" onclick="prevLightboxImage()"><i class="fas fa-chevron-left"></i></button>
         <button class="lightbox-next" onclick="nextLightboxImage()"><i class="fas fa-chevron-right"></i></button>
-        <img id="lightbox-image" src="" alt="大图展示">
+
+        <!-- 长图查看器：包一层 viewer 容器，内含可平移的 wrapper -->
+        <div class="lightbox-image-viewer" id="lightbox-image-viewer">
+            <div class="lightbox-image-wrapper" id="lightbox-image-wrapper">
+                <img id="lightbox-image" src="" alt="大图展示">
+            </div>
+        </div>
+
+        <!-- 长图小地图（minimap）：仅在长图模式显示 -->
+        <div class="lightbox-minimap" id="lightbox-minimap">
+            <img class="minimap-base" src="" alt="">
+            <div class="minimap-dim"></div>
+            <div class="minimap-viewport" id="minimap-viewport">
+                <img class="minimap-viewport-img" src="" alt="">
+            </div>
+        </div>
+
+        <!-- 缩放控件栏 -->
+        <div class="lightbox-zoom-controls" id="lightbox-zoom-controls">
+            <button class="zoom-btn" id="zoom-out-btn" data-tooltip="缩小 [滚轮]">
+                <i class="fas fa-minus"></i>
+            </button>
+            <span class="zoom-level" id="zoom-level-display">fit</span>
+            <button class="zoom-btn" id="zoom-in-btn" data-tooltip="放大 [滚轮]">
+                <i class="fas fa-plus"></i>
+            </button>
+            <button class="zoom-btn" id="zoom-reset-btn" data-tooltip="适应屏幕">
+                <i class="fas fa-expand"></i>
+            </button>
+            <button class="zoom-btn" id="bg-toggle-btn" data-tooltip="切换背景">
+                <i class="fas fa-palette"></i>
+            </button>
+        </div>
+
         <div class="lightbox-thumbnails">
             <div id="lightbox-thumbnails-container"></div>
         </div>
@@ -30,7 +279,7 @@
     </div>
 </div>
 
-<div id="site-footer"></div>
+<div id="site-footer"><footer class="footer footer-v2"><div class="container"><div class="footer-head"><a href="index.html" class="footer-brand-link"><img src="images/xifofly-logo.png" alt="溪风" class="footer-brand-logo"></a><p class="footer-tagline">轻盈自有回响 <span>Lightness echoes.</span></p></div><div class="footer-grid"><div class="footer-col footer-col-left"><div class="footer-contact"><h4>联系方式</h4><ul><li><i class="fas fa-building"></i> <span>深圳市溪风设计工作室</span></li><li><i class="fas fa-envelope"></i> <span>xifofly@163.com</span></li><li><i class="fab fa-weixin"></i> <span>xifofly</span></li></ul></div><div class="footer-social"><div class="social-rings"><a href="#" title="视频号" class="social-ring">视</a><a href="#" title="抖音" class="social-ring">抖</a><a href="#" title="bilibili" class="social-ring">B</a><a href="#" title="小红书" class="social-ring">红</a></div></div><div class="footer-copyright"><p>© 2026 溪风 (XIFOFLY). All rights reserved.</p></div></div><div class="footer-col footer-col-center"><div class="footer-form"><h4>留言</h4><form id="footerContactForm" action="https://api.web3forms.com/submit" method="POST"><input type="hidden" name="access_key" value="5fd8d711-8dc6-4e9c-955f-82a14dd48f24"><input type="hidden" name="subject" value="网站页脚快速咨询留言"><input type="hidden" name="from_name" value="网站访客"><input type="text" name="botcheck" style="display:none !important;visibility:hidden;position:absolute;left:-9999px;width:0;height:0;opacity:0;" tabindex="-1" autocomplete="off" aria-hidden="true"><input type="text" name="name" placeholder="您的姓名" required=""><input type="email" name="email" placeholder="邮箱地址" required=""><textarea name="message" placeholder="简单描述您的需求..." required=""></textarea><button type="submit" class="btn btn-primary footer-form-btn"><span>发送</span><i class="fas fa-paper-plane"></i><span class="specular-shine" aria-hidden="true"></span></button></form></div></div><div class="footer-col footer-col-right"><div class="footer-qrcode-card"><div class="footer-qrcodes"><div class="footer-qrcode"><h4>公众号</h4><img src="images/qrcode.png" alt="公众号" class="qrcode-img"><p>扫码关注</p></div><div class="footer-qrcode"><h4>企业微信</h4><img src="images/qrcode.png" alt="企业微信" class="qrcode-img"><p>扫码联系</p></div></div></div></div></div></div></footer></div>
 
 <script src="js/data.js"></script>
 <script>
@@ -78,21 +327,8 @@ function renderProject(project) {
                         <h1>${project.title}</h1>
                         <p class="project-subtitle">${project.subtitle}</p>
                     </div>
-                    <div class="project-meta">
-                        <span class="project-meta-item">
-                            <span class="meta-label">客户</span>
-                            <span class="meta-value">${project.client || '-'}</span>
-                        </span>
-                        <span class="meta-divider">|</span>
-                        <span class="project-meta-item">
-                            <span class="meta-label">时间</span>
-                            <span class="meta-value">${project.year || '-'}</span>
-                        </span>
-                        <span class="meta-divider">|</span>
-                        <span class="project-meta-item">
-                            <span class="meta-label">服务</span>
-                            <span class="meta-value">${project.services ? project.services.join(' / ') : '-'}</span>
-                        </span>
+                    <div class="project-tags">
+                        ${(project.tags || []).map(tag => `<span class="project-tag">${tag}</span>`).join('')}
                     </div>
                 </div>
                 
@@ -194,18 +430,31 @@ function renderGalleryStyleA(project) {
 function renderGalleryStyleB(project) {
     const images = project.gallery || [project.image];
     const mainImage = images[0];
-    const tags = project.tags || [];
     return `
         <div class="project-gallery gallery-style-b">
-            <div class="gallery-main" onclick="openLightbox(currentMainImageIndex)">
-                <div class="gallery-main-inner">
-                    <img src="${mainImage}" alt="${project.title}" id="gallery-main-image">
+            <!-- 左：主图 -->
+            <div class="gallery-main" id="gallery-main">
+                <div class="gallery-main-viewer" id="gallery-main-viewer">
+                    <div class="gallery-main-wrapper" id="gallery-main-wrapper">
+                        <img src="${mainImage}" alt="${project.title}" id="gallery-main-image">
+                    </div>
                 </div>
                 <div class="gallery-click-hint">
                     <i class="fas fa-search-plus"></i>
                     <span>点击查看大图</span>
                 </div>
             </div>
+
+            <!-- 中：minimap 小地图（独立一栏，长图模式显示） -->
+            <div class="gallery-minimap" id="gallery-minimap">
+                <img class="minimap-base" src="${mainImage}" alt="">
+                <div class="minimap-dim"></div>
+                <div class="minimap-viewport" id="minimap-viewport">
+                    <img class="minimap-viewport-img" src="${mainImage}" alt="">
+                </div>
+            </div>
+
+            <!-- 右：缩略图 + 标签 -->
             <div class="gallery-sidebar">
                 <div class="gallery-thumbs">
                     ${images.map((img, index) => `
@@ -214,14 +463,6 @@ function renderGalleryStyleB(project) {
                         </div>
                     `).join('')}
                 </div>
-                ${tags.length > 0 ? `
-                    <div class="gallery-tags">
-                        <div class="gallery-tags-title">标签</div>
-                        <div class="gallery-tags-list">
-                            ${tags.map(tag => `<span class="gallery-tag">${tag}</span>`).join('')}
-                        </div>
-                    </div>
-                ` : ''}
             </div>
         </div>
     `;
@@ -235,7 +476,51 @@ function initGalleryEvents(displayStyle) {
                 changeMainImage(index);
             });
         });
+        // 项目级长图扫描：只要项目里有任意一张长图，整个项目永久启用 minimap 模式
+        // 避免切换图片时 minimap 反复显示/隐藏导致 UI 抖动和卡顿
+        scanProjectHasLongImage();
+        // 初始化主图长图查看器（检测当前图片 + 绑定交互）
+        initMainLongViewer();
     }
+}
+
+// 项目级长图判断：扫描项目所有图片，有任何一张长图就标记 has-long-image（永久保持）
+let projectHasLongImage = false;
+function scanProjectHasLongImage() {
+    const images = currentGalleryImages;
+    const gallery = document.querySelector('.project-gallery.gallery-style-b');
+    if (!gallery || !images || images.length === 0) return;
+
+    let checked = 0;
+    const total = images.length;
+    let foundLong = false;
+
+    function finish() {
+        projectHasLongImage = foundLong;
+        if (foundLong) {
+            gallery.classList.add('has-long-image');
+            // 刷新 minimap 视口框状态（当前图可能是非长图，需要让视口框占满）
+            requestAnimationFrame(() => {
+                updateMainMinimap();
+            });
+        }
+    }
+
+    images.forEach(src => {
+        const probe = new Image();
+        probe.onload = function() {
+            if (isLongEnough(probe.naturalWidth, probe.naturalHeight)) {
+                foundLong = true;
+            }
+            checked++;
+            if (checked === total) finish();
+        };
+        probe.onerror = function() {
+            checked++;
+            if (checked === total) finish();
+        };
+        probe.src = src;
+    });
 }
 
 function changeMainImage(index) {
@@ -243,23 +528,548 @@ function changeMainImage(index) {
     if (index >= 0 && index < images.length) {
         currentMainImageIndex = index;
         const mainImage = document.getElementById('gallery-main-image');
+        const minimapImg = document.querySelector('#gallery-minimap .minimap-base');
+        const viewportImg = document.querySelector('#gallery-minimap .minimap-viewport-img');
         mainImage.src = images[index];
-        
+        if (minimapImg) minimapImg.src = images[index];
+        if (viewportImg) viewportImg.src = images[index];
+
         document.querySelectorAll('.gallery-thumb-item').forEach((item, i) => {
             item.classList.toggle('active', i === index);
         });
+
+        // 切换图片后重新检测长图模式
+        scanMainLongImage(images[index]);
     }
+}
+
+// ==================== */
+/* 主图区域长图查看器（花瓣风格） */
+/* ==================== */
+
+// 长图判定：只看宽高比，移动端由 CSS 媒体查询接管
+function isLongEnough(naturalWidth, naturalHeight) {
+    if (!naturalWidth || !naturalHeight) return false;
+    return naturalHeight / naturalWidth > 1.5;
+}
+
+// 长图模式状态（用原生 scrollTop）
+let mainLongState = {
+    isLongImage: false,
+    isDragging: false,
+    _dragDistance: 0,
+    _skipNextClick: false,
+};
+
+// 扫描并决定是否进入长图模式
+function scanMainLongImage(src) {
+    const main = document.getElementById('gallery-main');
+    const viewer = document.getElementById('gallery-main-viewer');
+    const wrapper = document.getElementById('gallery-main-wrapper');
+    const hint = main ? main.querySelector('.gallery-click-hint') : null;
+    const gallery = main ? main.closest('.project-gallery') : null;
+
+    // 不先退出长图模式，避免切换图片时"先退出再进入"导致闪烁
+    mainLongState.isLongImage = false;
+    mainLongState.isDragging = false;
+
+    // 统一绑定点击放大（长图/非长图都支持）
+    if (main) {
+        main.style.cursor = 'pointer';
+        main.onclick = function() {
+            if (mainLongState._skipNextClick) {
+                mainLongState._skipNextClick = false;
+                return;
+            }
+            openLightbox(currentMainImageIndex);
+        };
+    }
+
+    // 用临时 Image 探测尺寸
+    const probe = new Image();
+    probe.onload = function() {
+        if (!isLongEnough(probe.naturalWidth, probe.naturalHeight)) {
+            // 不是长图，退出单图滚动模式
+            if (main) main.classList.remove('long-image-mode');
+            // 项目级 minimap 显示由 scanProjectHasLongImage 控制：
+            // 若项目里有任意一张长图，has-long-image 保持不变，避免切换图片时 UI 抖动
+            if (!projectHasLongImage && gallery) {
+                gallery.classList.remove('has-long-image');
+            }
+            // 项目有长图但当前图非长图：让 minimap 视口框覆盖整个 minimap（表示当前图片全部可见）
+            requestAnimationFrame(() => {
+                updateMainMinimap();
+            });
+            return;
+        }
+
+        // 是长图，进入长图滚动模式
+        main.classList.add('long-image-mode');
+        if (gallery) gallery.classList.add('has-long-image');
+        mainLongState.isLongImage = true;
+        main.style.cursor = 'zoom-in';
+        if (hint) hint.style.display = 'none';
+
+        // 等一帧让浏览器渲染完，wrapper 高度正确后再更新 minimap
+        requestAnimationFrame(() => {
+            viewer.scrollTop = 0;
+            updateMainMinimap();
+        });
+    };
+    probe.src = src;
+}
+
+// 更新主图 minimap（全部用原生 scrollTop 比例）
+function updateMainMinimap() {
+    const viewer = document.getElementById('gallery-main-viewer');
+    const viewportBox = document.querySelector('#gallery-minimap .minimap-viewport');
+    const minimapImg = document.querySelector('#gallery-minimap .minimap-base');
+    const viewportImg = document.querySelector('#gallery-minimap .minimap-viewport-img');
+
+    if (!viewer || !viewportBox) return;
+
+    const viewerHeight = viewer.clientHeight;
+    const scrollHeight = viewer.scrollHeight;
+    const scrollTop = viewer.scrollTop;
+    const minimapDisplayedH = minimapImg ? minimapImg.offsetHeight : 0;
+    const scrollRange = scrollHeight - viewerHeight;
+
+    // 非长图模式（无滚动空间）：视口框覆盖整个 minimap，表示当前图片全部可见
+    // 适用于项目里有长图但当前切换到非长图的场景，minimap 保持显示但视口框占满
+    if (!mainLongState.isLongImage || scrollRange <= 0) {
+        viewportBox.style.height = minimapDisplayedH + 'px';
+        viewportBox.style.top = '0px';
+        viewportBox.style.display = 'block';
+        if (viewportImg) viewportImg.style.top = '0px';
+        return;
+    }
+
+    // 长图正常逻辑
+    // 视口框高度 = minimap 高度 × (viewerHeight / scrollHeight)
+    const viewRatio = Math.min(1, viewerHeight / scrollHeight);
+    const boxHeight = Math.max(20, minimapDisplayedH * viewRatio);
+
+    // 滚动进度 → 视口框 top（0~1 之间）
+    const scrollProgress = scrollRange > 0 ? scrollTop / scrollRange : 0;
+    const boxTop = scrollProgress * (minimapDisplayedH - boxHeight);
+
+    viewportBox.style.height = boxHeight + 'px';
+    viewportBox.style.top = boxTop + 'px';
+    viewportBox.style.display = 'block';
+
+    // 花瓣核心：viewport 内部第二张缩略图，用负 top 对齐滚动位置
+    if (viewportImg) {
+        viewportImg.style.top = (-boxTop) + 'px';
+    }
+}
+
+// 主图长图交互（只绑一次）
+let mainLongBound = false;
+function initMainLongViewer() {
+    if (mainLongBound) return;
+    mainLongBound = true;
+
+    const viewer = document.getElementById('gallery-main-viewer');
+    const wrapper = document.getElementById('gallery-main-wrapper');
+    const minimap = document.getElementById('gallery-minimap');
+
+    // 原生 scroll 事件 → 更新 minimap
+    viewer.addEventListener('scroll', function() {
+        if (!mainLongState.isLongImage) return;
+        updateMainMinimap();
+    }, { passive: true });
+
+    // 滚轮（原生 scroll 已自动处理，这里只拦截让它滚得更顺）
+    viewer.addEventListener('wheel', function(e) {
+        if (!mainLongState.isLongImage) return;
+        if (viewer.scrollHeight <= viewer.clientHeight) return;
+        // 不 preventDefault，让浏览器原生滚动处理
+        // 我们只更新 minimap（scroll 事件会触发）
+    }, { passive: true });
+
+    // 触摸拖拽
+    let tStartY = 0, tStartTop = 0;
+    viewer.addEventListener('touchstart', function(e) {
+        if (!mainLongState.isLongImage || mainLongState.isDragging) return;
+        if (viewer.scrollHeight <= viewer.clientHeight) return;
+        if (e.touches.length !== 1) return;
+        tStartY = e.touches[0].clientY;
+        tStartTop = viewer.scrollTop;
+    }, { passive: true });
+
+    viewer.addEventListener('touchmove', function(e) {
+        if (!mainLongState.isLongImage || mainLongState.isDragging) return;
+        if (e.touches.length !== 1) return;
+        const dY = e.touches[0].clientY - tStartY;
+        viewer.scrollTop = tStartTop - dY;
+    }, { passive: true });
+
+    // minimap 悬停/拖拽跟随（花瓣 scrubber：鼠标在 minimap 上滑动，亮框跟随并联动主图滚动）
+    let mDragging = false;
+    function scrubMinimap(clientY) {
+        const box = document.querySelector('#gallery-minimap .minimap-base');
+        const vbox = document.querySelector('#gallery-minimap .minimap-viewport');
+        if (!box || !vbox) return;
+        const rect = box.getBoundingClientRect();
+        const mouseY = Math.max(0, Math.min(rect.height, clientY - rect.top));
+        const boxH = vbox.offsetHeight;
+        const minimapH = rect.height;
+        // 亮框中心锁定鼠标（夹在合法范围内）
+        const boxTop = Math.max(0, Math.min(minimapH - boxH, mouseY - boxH / 2));
+        vbox.style.top = boxTop + 'px';
+        const vimg = document.querySelector('#gallery-minimap .minimap-viewport-img');
+        if (vimg) vimg.style.top = (-boxTop) + 'px';
+        // 联动主图滚动到对应位置
+        const range = viewer.scrollHeight - viewer.clientHeight;
+        if (range > 0 && minimapH - boxH > 0) {
+            viewer.scrollTop = (boxTop / (minimapH - boxH)) * range;
+        }
+    }
+
+    // 鼠标悬停在 minimap 上 → 不点击即跟随（花瓣「不用自己点击」）
+    minimap.addEventListener('mousemove', function(e) {
+        if (!mainLongState.isLongImage) return;
+        if (viewer.scrollHeight <= viewer.clientHeight) return;
+        scrubMinimap(e.clientY);
+    });
+
+    minimap.addEventListener('mousedown', function(e) {
+        if (!mainLongState.isLongImage) return;
+        mDragging = true;
+        scrubMinimap(e.clientY);
+        e.preventDefault();
+        e.stopPropagation();
+    });
+
+    document.addEventListener('mousemove', function(e) {
+        if (!mDragging) return;
+        scrubMinimap(e.clientY);
+    });
+
+    document.addEventListener('mouseup', function() {
+        mDragging = false;
+    });
+
+    // 初始检测
+    const mainImg = document.getElementById('gallery-main-image');
+    if (mainImg && mainImg.src) {
+        scanMainLongImage(mainImg.src);
+    }
+}
+
+// 灯箱缩放/平移状态
+let lightboxZoom = {
+    level: 1,         // 缩放倍数（1 = 适应）
+    panX: 0,          // 水平平移（px）
+    panY: 0,          // 垂直平移（px）
+    isLongImage: false,
+    isDragging: false,
+    startX: 0,
+    startY: 0,
+    startPanX: 0,
+    startPanY: 0,
+    bgMode: 0,        // 0=黑, 1=白, 2=棋盘
+};
+
+// 长图判定阈值：宽高比 > 1.5 且高度超过视口 1.2 倍
+function isLongImage(naturalWidth, naturalHeight) {
+    if (!naturalWidth || !naturalHeight) return false;
+    const aspectRatio = naturalHeight / naturalWidth;
+    const viewportHeight = window.innerHeight;
+    return aspectRatio > 1.5 && naturalHeight > viewportHeight * 1.2;
+}
+
+// 应用 transform 到 wrapper
+function applyLightboxTransform() {
+    const wrapper = document.getElementById('lightbox-image-wrapper');
+    if (!wrapper) return;
+    wrapper.style.transform =
+        'translate(' + lightboxZoom.panX + 'px, ' + lightboxZoom.panY + 'px) scale(' + lightboxZoom.level + ')';
+}
+
+// 设置缩放级别
+function setLightboxZoom(level) {
+    const display = document.getElementById('zoom-level-display');
+    level = Math.max(0.1, Math.min(5, level));
+    lightboxZoom.level = level;
+    clampLightboxPan();
+    applyLightboxTransform();
+    updateLightboxMinimap();
+    if (display) {
+        display.textContent = Math.round(level * 100) + '%';
+    }
+}
+
+// 重置为适应
+function resetLightboxZoom() {
+    lightboxZoom.level = 1;
+    lightboxZoom.panX = 0;
+    lightboxZoom.panY = 0;
+    applyLightboxTransform();
+    updateLightboxMinimap();
+    const display = document.getElementById('zoom-level-display');
+    if (display) display.textContent = 'fit';
+}
+
+// 夹取 pan 范围（防止拖出可视区）
+function clampLightboxPan() {
+    const img = document.getElementById('lightbox-image');
+    const viewer = document.getElementById('lightbox-image-viewer');
+    if (!img || !viewer) return;
+    var dispW = img.offsetWidth;
+    var dispH = img.offsetHeight;
+    var scaledW = dispW * lightboxZoom.level;
+    var scaledH = dispH * lightboxZoom.level;
+    var maxX = Math.max(0, (scaledW - viewer.clientWidth) / 2);
+    var maxY = Math.max(0, (scaledH - viewer.clientHeight) / 2);
+    lightboxZoom.panX = Math.max(-maxX, Math.min(maxX, lightboxZoom.panX));
+    lightboxZoom.panY = Math.max(-maxY, Math.min(maxY, lightboxZoom.panY));
+}
+
+// 重置灯箱状态（切换图片时调用）
+function resetLongImageState() {
+    const overlay = document.getElementById('lightbox-overlay');
+    overlay.classList.remove('long-image-mode');
+    lightboxZoom.isLongImage = false;
+    lightboxZoom.level = 1;
+    lightboxZoom.panX = 0;
+    lightboxZoom.panY = 0;
+    applyLightboxTransform();
+    const display = document.getElementById('zoom-level-display');
+    if (display) display.textContent = 'fit';
+}
+
+// 加载图片并检测长图
+function loadLightboxImage(index) {
+    const image = document.getElementById('lightbox-image');
+    const counter = document.getElementById('lightbox-counter');
+    const src = currentGalleryImages[index];
+
+    resetLongImageState();
+    image.src = src;
+    counter.textContent = (index + 1) + ' / ' + currentGalleryImages.length;
+
+    const probe = new Image();
+    probe.onload = function() {
+        if (!isLongImage(probe.naturalWidth, probe.naturalHeight)) return;
+
+        const overlay = document.getElementById('lightbox-overlay');
+        const minimapBase = document.querySelector('#lightbox-minimap .minimap-base');
+        const viewportImg = document.querySelector('#lightbox-minimap .minimap-viewport-img');
+
+        overlay.classList.add('long-image-mode');
+        lightboxZoom.isLongImage = true;
+
+        if (minimapBase) minimapBase.src = src;
+        if (viewportImg) viewportImg.src = src;
+
+        requestAnimationFrame(() => {
+            updateLightboxMinimap();
+        });
+    };
+    probe.src = src;
+}
+
+// 更新灯箱 minimap（基于 transform，不再基于 scrollTop）
+function updateLightboxMinimap() {
+    if (!lightboxZoom.isLongImage) return;
+
+    const img = document.getElementById('lightbox-image');
+    const viewer = document.getElementById('lightbox-image-viewer');
+    const viewportBox = document.querySelector('#lightbox-minimap .minimap-viewport');
+    const minimapImg = document.querySelector('#lightbox-minimap .minimap-base');
+    const viewportImg = document.querySelector('#lightbox-minimap .minimap-viewport-img');
+    if (!img || !viewer || !minimapImg || !viewportBox) return;
+
+    // 图片在 zoom=1 时的显示高度
+    var dispH = img.offsetHeight;
+    // 缩放后高度
+    var scaledH = dispH * lightboxZoom.level;
+    // viewer 高度
+    var viewerH = viewer.clientHeight;
+    // minimap 底层图显示高度
+    var minimapH = minimapImg.offsetHeight;
+
+    // 视口框高度
+    var viewRatio = Math.min(1, viewerH / scaledH);
+    var boxHeight = Math.max(20, minimapH * viewRatio);
+
+    // pan 进度（0=顶, 0.5=中, 1=底）
+    var panProgress = 0.5;
+    var panRange = scaledH - viewerH;
+    if (panRange > 0) {
+        panProgress = 0.5 - lightboxZoom.panY / panRange;
+        panProgress = Math.max(0, Math.min(1, panProgress));
+    }
+
+    var boxTop = panProgress * (minimapH - boxHeight);
+
+    viewportBox.style.height = boxHeight + 'px';
+    viewportBox.style.top = boxTop + 'px';
+    viewportBox.style.display = 'block';
+    if (viewportImg) viewportImg.style.top = (-boxTop) + 'px';
+}
+
+// minimap 悬停/拖拽联动（基于 transform）
+function scrubLightboxMinimap(clientY) {
+    const box = document.querySelector('#lightbox-minimap .minimap-base');
+    const vbox = document.querySelector('#lightbox-minimap .minimap-viewport');
+    if (!box || !vbox) return;
+    var rect = box.getBoundingClientRect();
+    var mouseY = Math.max(0, Math.min(rect.height, clientY - rect.top));
+    var boxH = vbox.offsetHeight;
+    var minimapH = rect.height;
+    var boxTop = Math.max(0, Math.min(minimapH - boxH, mouseY - boxH / 2));
+    vbox.style.top = boxTop + 'px';
+    var vimg = document.querySelector('#lightbox-minimap .minimap-viewport-img');
+    if (vimg) vimg.style.top = (-boxTop) + 'px';
+
+    // 联动：计算对应的 panY
+    var img = document.getElementById('lightbox-image');
+    var viewer = document.getElementById('lightbox-image-viewer');
+    if (!img || !viewer) return;
+    var dispH = img.offsetHeight;
+    var scaledH = dispH * lightboxZoom.level;
+    var viewerH = viewer.clientHeight;
+    var panRange = scaledH - viewerH;
+    if (panRange > 0 && minimapH - boxH > 0) {
+        var progress = boxTop / (minimapH - boxH);
+        lightboxZoom.panY = (0.5 - progress) * panRange;
+        applyLightboxTransform();
+    }
+}
+
+// 初始化灯箱交互事件（只绑一次）
+let longImageEventsBound = false;
+function initLongImageEvents() {
+    if (longImageEventsBound) return;
+    longImageEventsBound = true;
+
+    const viewer = document.getElementById('lightbox-image-viewer');
+    const minimap = document.getElementById('lightbox-minimap');
+
+    // 滚轮 = 缩放
+    viewer.addEventListener('wheel', function(e) {
+        e.preventDefault();
+        var step = e.deltaY < 0 ? 0.15 : -0.15;
+        setLightboxZoom(lightboxZoom.level + step);
+    }, { passive: false });
+
+    // 鼠标拖拽 = 平移
+    viewer.addEventListener('mousedown', function(e) {
+        lightboxZoom.isDragging = true;
+        lightboxZoom.startX = e.clientX;
+        lightboxZoom.startY = e.clientY;
+        lightboxZoom.startPanX = lightboxZoom.panX;
+        lightboxZoom.startPanY = lightboxZoom.panY;
+        viewer.classList.add('dragging');
+        e.preventDefault();
+    });
+
+    document.addEventListener('mousemove', function(e) {
+        if (!lightboxZoom.isDragging) return;
+        lightboxZoom.panX = lightboxZoom.startPanX + (e.clientX - lightboxZoom.startX);
+        lightboxZoom.panY = lightboxZoom.startPanY + (e.clientY - lightboxZoom.startY);
+        clampLightboxPan();
+        applyLightboxTransform();
+        updateLightboxMinimap();
+    });
+
+    document.addEventListener('mouseup', function() {
+        if (!lightboxZoom.isDragging) return;
+        lightboxZoom.isDragging = false;
+        viewer.classList.remove('dragging');
+    });
+
+    // 触摸拖拽（移动端）
+    viewer.addEventListener('touchstart', function(e) {
+        if (e.touches.length !== 1) return;
+        lightboxZoom.isDragging = true;
+        lightboxZoom.startX = e.touches[0].clientX;
+        lightboxZoom.startY = e.touches[0].clientY;
+        lightboxZoom.startPanX = lightboxZoom.panX;
+        lightboxZoom.startPanY = lightboxZoom.panY;
+    }, { passive: true });
+
+    viewer.addEventListener('touchmove', function(e) {
+        if (!lightboxZoom.isDragging || e.touches.length !== 1) return;
+        e.preventDefault();
+        lightboxZoom.panX = lightboxZoom.startPanX + (e.touches[0].clientX - lightboxZoom.startX);
+        lightboxZoom.panY = lightboxZoom.startPanY + (e.touches[0].clientY - lightboxZoom.startY);
+        clampLightboxPan();
+        applyLightboxTransform();
+        updateLightboxMinimap();
+    }, { passive: false });
+
+    viewer.addEventListener('touchend', function() {
+        lightboxZoom.isDragging = false;
+    });
+
+    // minimap 悬停 + 拖拽
+    let mDragging = false;
+
+    minimap.addEventListener('mousemove', function(e) {
+        if (!lightboxZoom.isLongImage) return;
+        scrubLightboxMinimap(e.clientY);
+    });
+
+    minimap.addEventListener('mousedown', function(e) {
+        if (!lightboxZoom.isLongImage) return;
+        mDragging = true;
+        scrubLightboxMinimap(e.clientY);
+        e.preventDefault();
+        e.stopPropagation();
+    });
+
+    document.addEventListener('mousemove', function(e) {
+        if (!mDragging) return;
+        scrubLightboxMinimap(e.clientY);
+    });
+
+    document.addEventListener('mouseup', function() {
+        mDragging = false;
+    });
+
+    // 窗口大小变化
+    window.addEventListener('resize', function() {
+        clampLightboxPan();
+        applyLightboxTransform();
+        updateLightboxMinimap();
+    });
+
+    // 缩放按钮
+    document.getElementById('zoom-in-btn').onclick = function() {
+        setLightboxZoom(lightboxZoom.level + 0.2);
+    };
+    document.getElementById('zoom-out-btn').onclick = function() {
+        setLightboxZoom(lightboxZoom.level - 0.2);
+    };
+    document.getElementById('zoom-reset-btn').onclick = function() {
+        resetLightboxZoom();
+    };
+    document.getElementById('zoom-level-display').onclick = function() {
+        resetLightboxZoom();
+    };
+
+    // 背景切换
+    document.getElementById('bg-toggle-btn').onclick = function() {
+        var overlay = document.getElementById('lightbox-overlay');
+        var modes = ['', 'bg-white', 'bg-checker'];
+        lightboxZoom.bgMode = (lightboxZoom.bgMode + 1) % 3;
+        overlay.classList.remove('bg-white', 'bg-checker');
+        if (modes[lightboxZoom.bgMode]) {
+            overlay.classList.add(modes[lightboxZoom.bgMode]);
+        }
+    };
 }
 
 function openLightbox(index) {
     currentLightboxIndex = index;
     const overlay = document.getElementById('lightbox-overlay');
-    const image = document.getElementById('lightbox-image');
     const thumbnailsContainer = document.getElementById('lightbox-thumbnails-container');
-    const counter = document.getElementById('lightbox-counter');
 
-    image.src = currentGalleryImages[index];
-    counter.textContent = `${index + 1} / ${currentGalleryImages.length}`;
+    initLongImageEvents();
+    loadLightboxImage(index);
 
     thumbnailsContainer.innerHTML = currentGalleryImages.map((img, i) => `
         <div class="lightbox-thumbnail-item ${i === index ? 'active' : ''}" data-index="${i}" onclick="setLightboxImage(${i})">
@@ -275,26 +1085,24 @@ function closeLightbox() {
     const overlay = document.getElementById('lightbox-overlay');
     overlay.classList.remove('active');
     document.body.style.overflow = '';
+    resetLongImageState();
 }
 
 function setLightboxImage(index) {
     currentLightboxIndex = index;
     currentMainImageIndex = index;
-    const image = document.getElementById('lightbox-image');
-    const counter = document.getElementById('lightbox-counter');
-    
-    image.src = currentGalleryImages[index];
-    counter.textContent = `${index + 1} / ${currentGalleryImages.length}`;
-    
+
+    loadLightboxImage(index);
+
     document.querySelectorAll('.lightbox-thumbnail-item').forEach((item, i) => {
         item.classList.toggle('active', i === index);
     });
-    
+
     const mainImage = document.getElementById('gallery-main-image');
     if (mainImage) {
         mainImage.src = currentGalleryImages[index];
     }
-    
+
     document.querySelectorAll('.gallery-thumb-item').forEach((item, i) => {
         item.classList.toggle('active', i === index);
     });
@@ -401,5 +1209,6 @@ function scrollCases(direction) {
 <script src="js/config.js"></script>
 <script src="js/site-ui.js"></script>
 <script src="js/aurora.js"></script>
-</body>
-</html>
+<script src="js/image-protect.js"></script>
+
+</body></html>

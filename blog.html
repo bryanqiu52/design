@@ -50,6 +50,7 @@
 
 <div id="site-footer"></div>
 
+<script src="blog/index-data.js"></script>
 <script src="js/data.js"></script>
 <script>
 const BLOG_ITEMS_PER_PAGE = 3;
@@ -108,16 +109,17 @@ async function renderBlogList() {
         <article class="news-item">
             <div class="news-image">
                 <a href="blog-detail.html?slug=${post.slug}">
-                    <img src="${post.cover}" alt="${post.title}" loading="lazy">
+                    <img src="${post.cover || ''}" alt="${post.title || ''}" loading="lazy"
+                         onerror="this.style.display='none'; if(this.parentElement) this.parentElement.classList.add('img-placeholder');">
                 </a>
             </div>
             <div class="news-content">
-                <h3><a href="blog-detail.html?slug=${post.slug}">${post.title}</a></h3>
-                <p>${post.excerpt}</p>
+                <h3><a href="blog-detail.html?slug=${post.slug}">${post.title || '未命名文章'}</a></h3>
+                <p>${post.excerpt || ''}</p>
                 <div class="news-meta">
-                    <span class="news-author"><i class="fas fa-user"></i> ${post.author}</span>
-                    <span class="news-date"><i class="far fa-calendar"></i> ${post.date}</span>
-                    <span class="news-category">${post.category}</span>
+                    <span class="news-author"><i class="fas fa-user"></i> ${post.author || ''}</span>
+                    <span class="news-date"><i class="far fa-calendar"></i> ${post.date || ''}</span>
+                    <span class="news-category">${post.category || ''}</span>
                 </div>
             </div>
             <div class="news-action">
@@ -299,5 +301,6 @@ document.addEventListener('DOMContentLoaded', function() {
 <script src="js/config.js"></script>
 <script src="js/site-ui.js"></script>
 <script src="js/aurora.js"></script>
+<script src="js/image-protect.js"></script>
 </body>
 </html>

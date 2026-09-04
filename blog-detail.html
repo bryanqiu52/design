@@ -19,6 +19,8 @@
 
 <div id="site-footer"></div>
 
+<script src="blog/index-data.js"></script>
+<script src="blog/posts-data.js"></script>
 <script src="js/data.js"></script>
 <script src="vendor/marked/marked.min.js"></script>
 <script>
@@ -148,7 +150,8 @@ async function renderBlogDetail() {
         </header>
         
         <div class="blog-detail-image">
-            <img src="${post.cover}" alt="${post.title}">
+            <img src="${post.cover || ''}" alt="${post.title || ''}"
+                 onerror="this.style.display='none'; let p=this.closest('.blog-detail-image'); if(p) p.classList.add('img-placeholder');">
         </div>
         
         <div class="container article-container">
@@ -270,5 +273,6 @@ document.addEventListener('DOMContentLoaded', function() {
 <script src="js/config.js"></script>
 <script src="js/site-ui.js"></script>
 <script src="js/aurora.js"></script>
+<script src="js/image-protect.js"></script>
 </body>
 </html>
