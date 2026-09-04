@@ -9,7 +9,7 @@
     --text: #ffffff;
     --text-secondary: rgba(255,255,255,0.6);
     --card-bg: rgba(255,255,255,0.04);
-    --card-border: rgba(255,255,255,0.06);
+    --card-border: rgba(255,255,255,0.1);
     --surface-dark: #0D0F0C;
     
     /* 主题色渐变 */
@@ -1210,8 +1210,8 @@ html {
 
 /* 一屏内完整显示：本板块标题区间距与字号（全局 section-header 为 3rem 间距） */
 .process .section-header {
-    margin-bottom: 1.4rem;
-    gap: 18px;
+    margin-bottom: 1.8rem;
+    gap: 20px;
 }
 .process .section-tag {
     font-size: 0.75rem;
@@ -1223,24 +1223,23 @@ html {
     width: 38px;
 }
 .process .section-title {
-    font-size: 1.9rem;
+    font-size: 2.15rem;
 }
 .process .section-desc {
-    font-size: 0.95rem;
-    max-width: 340px;
+    font-size: 1rem;
+    max-width: 460px;
 }
 
-/* 4 步单向流程线：4 列等宽单向网格（1→2→3→4），顶部渐变连接线，弱化卡片感 */
+/* 4 步玻璃卡片流：4 列等高玻璃卡片（1→2→3→4），单向顺序由 01~04 序号 + 左→右排布承担 */
 .process-steps {
-    --node: 56px;
-    --col-gap: 3.2rem;
-    --pad-y: 0.3rem;
-    --step-pad: 0.25rem;
+    --node: 64px;
+    --col-gap: 2rem;
+    --pad-y: 0;
+    --step-pad: 0;
     position: relative;
-    max-width: 1080px;
+    /* 去掉原 max-width:1180px，改为与 .works-grid 等板块一致满宽，消除左右留白过大、卡片偏窄的问题 */
     width: 100%;
     margin: 0 auto;
-    padding: var(--pad-y) 0;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-areas:
@@ -1248,36 +1247,32 @@ html {
     column-gap: var(--col-gap);
 }
 
+/* 玻璃卡片：渐变半透明背景 + 细边框 + 大圆角，等高由 grid 单行 stretch + min-height 保证 */
 .process-step {
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     text-align: center;
-    padding: 0.25rem 0;
+    min-height: 340px;
+    padding: 2.4rem 1.9rem;
+    border-radius: 20px;
+    background: linear-gradient(160deg, var(--secondary-8), rgba(198,244,50,0.015) 75%);
+    border: 1px solid var(--secondary-15);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+    backdrop-filter: blur(8px);
+    transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
 }
 .process-step:nth-child(1) { grid-area: s1; }
 .process-step:nth-child(2) { grid-area: s2; }
 .process-step:nth-child(3) { grid-area: s3; }
 .process-step:nth-child(4) { grid-area: s4; }
 
-/* 顶部单向渐变连接线：行内左→右，贯穿全部 4 个节点圆心 */
-/* 水平端点 = 首/尾列节点圆心：(100% - 3*col-gap)/8 即第 1 列与第 4 列中心 */
-/* 垂直位置 = 行内节点圆心：容器 padding + step padding + 节点半径 */
-.process-steps::before {
-    content: '';
-    position: absolute;
-    left: calc((100% - 3 * var(--col-gap)) / 8);
-    right: calc((100% - 3 * var(--col-gap)) / 8);
-    top: calc(var(--node) / 2 + var(--pad-y) + var(--step-pad));
-    height: 3px;
-    border-radius: 3px;
-    z-index: 0;
-    opacity: 1;
-    background: linear-gradient(90deg, transparent 2%, var(--secondary-50) 18%, var(--secondary) 50%, var(--secondary-50) 82%, transparent 98%);
-}
+/* 顶部单向渐变细线已移除：玻璃卡片自带边框/背景，细线穿行会割裂卡片观感 */
+/* 顺序单向感由 01~04 序号 + 卡片从左到右排布承担 */
 
-/* 圆形图标节点：承载步骤图标的小圆环，弱化发光，图标语义即步骤 */
+/* 大号圆形图标节点：玻璃卡片内承载步骤图标 */
 .step-node {
     position: relative;
     z-index: 1;
@@ -1289,70 +1284,81 @@ html {
     height: var(--node);
     border-radius: 50%;
     color: var(--secondary);
-    background: linear-gradient(160deg, var(--secondary-15), rgba(198,244,50,0.03));
+    background: linear-gradient(160deg, var(--secondary-20), rgba(198,244,50,0.04));
     border: 1px solid var(--secondary-30);
-    box-shadow: 0 0 0 5px rgba(200,255,62,0.04), 0 0 14px rgba(200,255,62,0.12),
-                inset 0 1px 0 rgba(255,255,255,0.10);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0 0 6px rgba(200,255,62,0.05), 0 0 18px rgba(200,255,62,0.16),
+                inset 0 1px 0 rgba(255,255,255,0.12);
+    transition: box-shadow 0.2s ease;
 }
 .step-node i {
-    font-size: 1.35rem;
+    font-size: 1.5rem;
     line-height: 1;
 }
 
+/* hover：去掉上浮位移，仅保留边框/背景/辉光的颜色反馈 */
+.process-steps .process-step:hover {
+    border-color: var(--secondary-35);
+    background: linear-gradient(160deg, var(--secondary-12), rgba(198,244,50,0.03) 78%);
+    box-shadow: 0 20px 46px rgba(0,0,0,0.30), inset 0 1px 0 rgba(255,255,255,0.10);
+}
 .process-step:hover .step-node {
-    transform: translateY(-3px);
-    box-shadow: 0 0 0 7px rgba(200,255,62,0.08), 0 0 26px var(--glow),
-                inset 0 1px 0 rgba(255,255,255,0.12);
+    box-shadow: 0 0 0 8px rgba(200,255,62,0.10), 0 0 30px var(--glow),
+                inset 0 1px 0 rgba(255,255,255,0.14);
 }
 
-/* 步骤正文：序号小号次要 → 标题视觉主角 → 描述次级色 2 行内 */
+/* 步骤正文：卡片内内容整体垂直居中，序号次要 → 标题主角 → 描述次级 */
 .step-body {
-    margin-top: 0.7rem;
     position: relative;
     z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1.5rem;
 }
 
 .step-index {
     display: block;
-    font-size: 0.72rem;
+    font-size: 0.74rem;
     font-weight: 600;
-    letter-spacing: 0.22em;
+    letter-spacing: 0.3em;
     color: var(--secondary);
-    opacity: 0.75;
-    margin-bottom: 0.35rem;
+    opacity: 0.8;
+    margin-bottom: 0.55rem;
 }
 
 .step-body h3 {
-    font-size: 1.22rem;
-    margin-bottom: 0.45rem;
+    font-size: 1.36rem;
+    margin-bottom: 0.6rem;
     letter-spacing: 0.02em;
 }
 
 .step-body p {
     color: var(--text-secondary);
-    font-size: 0.86rem;
-    line-height: 1.6;
-    max-width: 270px;
+    font-size: 0.93rem;
+    line-height: 1.7;
+    max-width: 280px;
     margin: 0 auto;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    min-height: 2.75em;
 }
 
 /* 流程出口 CTA：居中主按钮引导下一动作 */
 .process-cta {
-    margin-top: 1.7rem;
+    margin-top: 2.3rem;
     text-align: center;
     position: relative;
     z-index: 1;
 }
 .process-cta .btn {
     display: inline-flex;
+    padding: 1.05rem 2.6rem;
+    font-size: 1.02rem;
 }
 
+/* 合作流程：去掉入场动画，卡片直接静态显示（覆盖全局 [data-animate] 的淡入+上移，不再依次浮现） */
+.process .process-steps .process-step[data-animate],
+.process .process-cta[data-animate] {
+    opacity: 1;
+    transform: none;
+}
 
 /* 移动端：降为纵向单列时间轴，左侧圆点+竖线，节点圆点承载图标 */
 @media (max-width: 768px) {
@@ -1366,11 +1372,9 @@ html {
         /* 竖线改为容器背景绘制：不依赖伪元素拉伸，避免绝对定位下 height 塌陷为 0 */
         background-image: linear-gradient(180deg, transparent, var(--secondary) 12%, var(--secondary) 88%, transparent);
         background-repeat: no-repeat;
-        background-position: 22px calc(22px + var(--pad-y));
-        background-size: 3px calc(100% - 44px - var(--pad-y) - var(--pad-y));
+        background-position: 22px 22px;
+        background-size: 3px calc(100% - 44px);
     }
-    /* 原伪元素竖线已废弃：绝对定位高度塌陷导致移动端不渲染，改为容器背景绘制 */
-    .process-steps::before { display: none; }
     .process-step {
         display: flex;
         flex-direction: row;
@@ -1378,6 +1382,20 @@ html {
         gap: 1.1rem;
         text-align: left;
         padding: 0;
+        min-height: 0;
+        background: none;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+        backdrop-filter: none;
+    }
+    /* 桌面玻璃卡片 hover 效果在移动端重置，避免触控残留上浮/辉光 */
+    /* 同提特异性至 (0,3,0) 并位于桌面 hover 规则之后，确保移动端重置仍生效 */
+    .process-steps .process-step:hover {
+        transform: none;
+        border-color: transparent;
+        background: none;
+        box-shadow: none;
     }
     .process-step .step-node {
         flex: 0 0 auto;
@@ -1395,6 +1413,8 @@ html {
         padding-bottom: 0.3rem;
         text-align: left;
         flex: 1;
+        display: block;
+        align-items: initial;
     }
     .step-index {
         margin-bottom: 0.5rem;
@@ -2631,6 +2651,22 @@ html {
     opacity: 0.4;
 }
 
+.project-tags {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.project-tag {
+    padding: 0.3rem 0.6rem;
+    background: var(--secondary-15);
+    border: 1px solid var(--secondary-30);
+    border-radius: 12px;
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.8);
+}
+
 .project-hero-right {
     display: flex;
     align-items: stretch;
@@ -2698,6 +2734,11 @@ html {
 
 .project-gallery img:hover {
     transform: scale(1.02);
+}
+
+/* style-b minimap 小地图：不放大（跟随滚动，仅上下移动） */
+.project-gallery.gallery-style-b .gallery-minimap img:hover {
+    transform: none;
 }
 
 .project-features {
@@ -2791,6 +2832,8 @@ html {
     transform: none;
     margin: 3rem auto 0;
     width: calc(100% - 2rem);
+    /* 进入锚点（文档流）模式后降低层级，避免盖住顶部固定导航 .nav (z-index:950) */
+    z-index: 900;
 }
 
 .project-nav-anchor {
@@ -3414,7 +3457,10 @@ img.loaded {
 .hs-track {
     display: flex;
     gap: 2.5rem;
-    /* 左右缓冲：把边距放在轨道上，滚动到最右时第4个卡片也不会贴窗口边 */
+    /* 轨道宽度按内容撑开：否则卡片会从轨道右缘溢出，
+       右侧 padding 缓冲落不到最后一张卡片之外，导致04号卡片滚动到最右时贴屏幕边 */
+    width: max-content;
+    min-width: 100%;
     padding: 0 40px;
     will-change: transform;
 }
@@ -3706,6 +3752,38 @@ img.loaded {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
+}
+
+/* 首页/详情页图片容器：默认不画渐变，真实图加载成功就完全干净不扎眼；
+   只有 img onerror 触发后加 .img-placeholder 才显示渐变+图标。 */
+.blog-card-featured .blog-image,
+.blog-card-mini .blog-mini-image,
+.blog-detail-image {
+    position: relative;
+    background: rgba(255, 255, 255, 0.02);
+}
+.blog-card-featured .blog-image.img-placeholder,
+.blog-card-mini .blog-mini-image.img-placeholder,
+.blog-detail-image.img-placeholder {
+    background: linear-gradient(135deg, #00cec9 0%, #0984e3 50%, #6c5ce7 100%);
+}
+.blog-card-featured .blog-image.img-placeholder::before,
+.blog-card-mini .blog-mini-image.img-placeholder::before,
+.blog-detail-image.img-placeholder::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>') center center / 48px no-repeat;
+    opacity: 1;
+    z-index: 0;
+}
+.blog-card-featured .blog-image img,
+.blog-card-mini .blog-mini-image img,
+.blog-detail-image img {
+    position: relative;
+    z-index: 1;
+    display: block; /* 取消 img 内联默认的 3-4px 下边距间隙 */
 }
 
 .blog-card-mini .blog-mini-content {
@@ -3968,13 +4046,14 @@ img.loaded {
 }
 
 .blog-detail-image {
-    width: 100%;
+    width: calc(100% - 80px); /* 原来的 padding:0 40px 改成宽度扣掉 80，这样 img 能填满整个容器而不会在两侧露 padding 区域 */
     max-width: 1200px;
     margin: 2.5rem auto 0;
-    padding: 0 40px;
     max-height: 500px;
     overflow: hidden;
     border-radius: 20px;
+    /* 强制 aspect-ratio 保持宽高比例一致，避免图片因尺寸不匹配 object-fit 导致两侧露背景 */
+    aspect-ratio: 1200 / 500;
 }
 
 .blog-detail-image img {
@@ -4464,6 +4543,33 @@ img.loaded {
     min-height: 150px;
     object-fit: cover;
     transition: transform 0.4s ease;
+    display: block; /* 取消 img 的内联元素默认下边距间隙 */
+}
+
+/* 图片容器默认不画渐变/图标（避免真实图加载成功后还露边）。
+   只有图片 onerror 时，父容器加 .img-placeholder 才显示渐变占位。 */
+.news-image {
+    min-height: 150px;
+    aspect-ratio: 220 / 150;
+    position: relative;
+    overflow: hidden; /* 防止 object-fit 溢出超出圆角 */
+    border-radius: inherit;
+    background: rgba(255, 255, 255, 0.02); /* 真实图加载前只有极淡的背景，不会露渐变边 */
+}
+.news-image.img-placeholder {
+    background: linear-gradient(135deg, #00cec9 0%, #0984e3 50%, #6c5ce7 100%);
+}
+.news-image.img-placeholder::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>') center center / 48px no-repeat;
+    opacity: 1;
+    z-index: 0;
+}
+.news-image img {
+    position: relative;
+    z-index: 1;
 }
 
 .news-item:hover .news-image img {
@@ -4737,6 +4843,7 @@ img.loaded {
 /* ==================== */
 .project-gallery.gallery-style-b {
     display: flex;
+    align-items: stretch;   /* 强制子项跟随最高项的高度（主图 1000px），不再依赖侧栏自己写 height */
     gap: 2rem;
     margin-top: 2rem;
 }
@@ -4744,28 +4851,205 @@ img.loaded {
 .gallery-main {
     width: 750px;
     height: 1000px;
+    flex-shrink: 0;        /* 主图尺寸不压缩 */
     background: var(--primary);
     border-radius: 16px;
-    overflow: hidden;
+    overflow: hidden !important;
     position: relative;
     cursor: pointer;
 }
 
-.gallery-main-inner {
+/* ===== viewer/wrapper：始终 block，不切换 display ===== */
+.gallery-main-viewer {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.gallery-main-wrapper {
     width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     background: var(--primary);
+    transition: transform 0.2s ease-out;
+    position: relative;
 }
 
-.gallery-main-inner img {
+/* 非长图模式：图片 object-fit contain */
+#gallery-main-image {
     width: 100%;
     height: 100%;
     object-fit: contain;
     background: var(--primary);
     transition: opacity 0.3s ease;
+}
+
+/* ===== 长图模式 ===== */
+.gallery-main.long-image-mode {
+    cursor: grab;
+}
+
+.gallery-main.long-image-mode .gallery-main-viewer {
+    overflow-y: scroll !important;
+    overflow-x: hidden !important;
+    scroll-behavior: auto;
+    scrollbar-width: none;
+}
+
+.gallery-main.long-image-mode .gallery-main-viewer::-webkit-scrollbar {
+    display: none;
+}
+
+/* ============ 图片防下载模块 image-protect ============
+ * 全局禁用图片选择、长按菜单、拖拽行为
+ * 透明遮罩物理隔离：父容器 relative + 透明 overlay 拦截所有鼠标操作
+ * JS 端会自动给 <img> 添加 draggable=false 并在合适容器中插入 .img-protect-overlay
+ * 标记 data-no-protect="1" 可跳过遮罩（如二维码、需要长按识别的图片）
+ * ==================================================== */
+img {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none; /* 禁止 iOS 长按弹出菜单 */
+    -webkit-user-drag: none; /* 禁止 Safari 拖拽 */
+    user-drag: none;
+}
+
+/* 单图容器自动 relative（由 JS 标记 .img-protect-host） */
+.img-protect-host {
+    position: relative;
+}
+
+/* 透明遮罩：绝对定位铺满父容器，拦截所有鼠标操作 */
+.img-protect-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    pointer-events: auto; /* 遮罩本身接收事件，阻止事件穿透到图片 */
+    z-index: 9;
+    cursor: default;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+}
+
+/* 包装容器（由 JS 在需要时将单张 <img> 包装到 span.img-protect-wrap 内）
+   用于父容器包含多元素或需要 inline-block 包裹的场景 */
+.img-protect-wrap {
+    position: relative;
+    display: inline-block;
+    line-height: 0;
+    vertical-align: top;
+    max-width: 100%;
+}
+
+.img-protect-wrap > img {
+    display: block;
+    pointer-events: none; /* 图片不接收事件，全部交给 overlay */
+}
+
+/* 响应式图片：wrap 撑满父容器，避免包装破坏 width:100% 布局 */
+.img-protect-wrap.img-protect-fluid {
+    display: block;
+    width: 100%;
+}
+
+.gallery-main.long-image-mode .gallery-main-wrapper {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    position: static !important;
+    transform: none !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+}
+
+.gallery-main.long-image-mode #gallery-main-image {
+    width: 100%;
+    height: auto;
+    max-height: none;
+    display: block;
+    object-fit: contain;
+    pointer-events: none;
+}
+
+.gallery-main.long-image-mode .gallery-click-hint {
+    display: none !important;
+}
+
+/* ===== minimap 小地图（独立 flex item）——花瓣三层叠加 ===== */
+.gallery-minimap {
+    position: relative;
+    flex-shrink: 0;
+    align-self: flex-end;
+    width: 40px;
+    height: auto;
+    max-height: 1000px;
+    background: rgba(20, 20, 20, 0.85);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 6px;
+    display: none;
+    overflow: hidden;
+    cursor: pointer;
+    z-index: 5;
+}
+
+/* 长图模式下：minimap 显示 */
+.gallery-style-b.has-long-image .gallery-minimap {
+    display: block;
+}
+
+/* Layer 1: 底层缩略图（完整亮） */
+.gallery-minimap .minimap-base {
+    display: block;
+    width: 100%;
+    height: auto;
+    position: relative;
+    z-index: 0;
+}
+
+/* Layer 2: 暗色遮罩（全暗） */
+.gallery-minimap .minimap-dim {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.35);
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Layer 3: 视口框（overflow:hidden 裁出亮窗口） */
+.gallery-minimap .minimap-viewport {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    overflow: hidden;
+    z-index: 2;
+    pointer-events: none;
+    outline: 2px solid var(--secondary);
+    box-sizing: border-box;
+    border-radius: 2px;
+}
+
+/* 视口内部：第二张缩略图（负 top 对齐滚动位置） */
+.gallery-minimap .minimap-viewport-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    position: absolute;
+    left: 0;
+    top: 0;
+    /* top 由 JS 动态设置为负值 */
 }
 
 .gallery-click-hint {
@@ -4792,21 +5076,29 @@ img.loaded {
 .gallery-sidebar {
     flex: 1;
     min-width: 180px;
-    height: 1000px;
+    /* 不再写死 height:1000px：由父级 .gallery-style-b 的 align-items:stretch 自动匹配主图高度 */
+    align-self: stretch;
+    min-height: 0;          /* stretch + min-height:0 是「溢出时截断而不撑开」的黄金组合 */
+    max-height: 1000px;     /* 上限还是 1000px，配合下面的 overflow:hidden 终极安全网 */
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    box-sizing: border-box;
 }
 
 .gallery-thumbs {
     flex: 1;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    height: 0;             /* 配合 flex:1 让容器从 0 高度扩展，彻底触发 overflow-y 滚动条 */
+    min-height: 0;
+    display: flex;
+    flex-wrap: wrap;
     gap: 0.6rem;
     overflow-y: auto;
-    align-content: start;
+    align-content: flex-start;
     padding: 3px;
     padding-right: 6px;
+    box-sizing: border-box;
 }
 
 .gallery-tags {
@@ -4856,8 +5148,8 @@ img.loaded {
 }
 
 .gallery-thumb-item {
-    width: 100%;
-    aspect-ratio: 3/4;
+    flex: 0 0 calc(25% - 0.45rem);
+    aspect-ratio: 1/1;
     border-radius: 6px;
     overflow: hidden;
     cursor: pointer;
@@ -4888,7 +5180,7 @@ img.loaded {
 .lightbox-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.95);
+    background: #000;
     z-index: 10000;
     display: flex;
     align-items: center;
@@ -4921,17 +5213,22 @@ img.loaded {
     right: 0;
     width: 44px;
     height: 44px;
-    background: rgba(255,255,255,0.1);
+    background: var(--secondary);
     border: none;
-    border-radius: 50%;
-    color: white;
+    border-radius: 25px;
+    color: #000;
     font-size: 1.2rem;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
     transition: all 0.3s ease;
 }
 
 .lightbox-close:hover {
-    background: rgba(255,255,255,0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px var(--acid-40);
 }
 
 .lightbox-prev,
@@ -4966,14 +5263,6 @@ img.loaded {
 .lightbox-next:hover {
     background: rgba(255,255,255,0.2);
     border-color: rgba(255,255,255,0.4);
-}
-
-#lightbox-image {
-    max-width: 100%;
-    max-height: 70vh;
-    object-fit: contain;
-    border-radius: 8px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
 }
 
 .lightbox-thumbnails {
@@ -5042,6 +5331,200 @@ img.loaded {
     font-size: 0.9rem;
 }
 
+/* ==================== */
+/* 长图查看器（花瓣风格） */
+/* ==================== */
+/* viewer 始终是 flex 居中 + overflow:hidden 容器（滚轮缩放 + 拖拽平移） */
+.lightbox-image-viewer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    max-width: 90vw;
+    height: 75vh;
+    border-radius: 8px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    background: transparent;
+    cursor: grab;
+    user-select: none;
+    -webkit-overflow-scrolling: touch;
+}
+
+.lightbox-image-viewer.dragging {
+    cursor: grabbing;
+}
+
+/* wrapper：JS 设置 transform: translate(panX,panY) scale(zoom) */
+.lightbox-image-wrapper {
+    display: block;
+    transform-origin: center center;
+    will-change: transform;
+    line-height: 0;
+}
+
+#lightbox-image {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 0;
+    box-shadow: none;
+    pointer-events: none;
+}
+
+/* 小地图（minimap）——花瓣三层叠加 */
+.lightbox-minimap {
+    position: absolute;
+    right: -110px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 52px;
+    background: #1a1a1a;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 6px;
+    padding: 0;
+    display: none;
+    z-index: 5;
+    overflow: hidden;
+}
+
+.lightbox-overlay.long-image-mode .lightbox-minimap {
+    display: block;
+}
+
+/* Layer 1: 底层缩略图 */
+.lightbox-minimap .minimap-base {
+    display: block;
+    width: 100%;
+    height: auto;
+    position: relative;
+    z-index: 0;
+}
+
+/* Layer 2: 暗色遮罩 */
+.lightbox-minimap .minimap-dim {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.35);
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Layer 3: 视口框 */
+.lightbox-minimap .minimap-viewport {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    overflow: hidden;
+    z-index: 2;
+    pointer-events: none;
+    outline: 2px solid var(--secondary);
+    box-sizing: border-box;
+    border-radius: 2px;
+    background: transparent;
+    border: none;
+}
+
+/* 视口内部第二张缩略图 */
+.lightbox-minimap .minimap-viewport-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+/* ==================== */
+/* 缩放控件栏 */
+/* ==================== */
+.lightbox-zoom-controls {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0;
+    margin-top: 0.5rem;
+    background: #1a1a1a;
+    border-radius: 20px;
+    padding: 4px 8px;
+    z-index: 10;
+}
+
+.zoom-btn {
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: none;
+    color: rgba(255,255,255,0.8);
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.zoom-btn::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 4px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #000;
+    color: #fff;
+    font-size: 0.7rem;
+    padding: 3px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.1s ease;
+}
+
+.zoom-btn:hover::after {
+    opacity: 1;
+}
+
+.zoom-btn:hover {
+    background: rgba(255,255,255,0.15);
+    color: white;
+}
+
+.zoom-level {
+    min-width: 55px;
+    text-align: center;
+    color: rgba(255,255,255,0.8);
+    font-size: 0.85rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* 背景切换 */
+.lightbox-overlay.bg-white {
+    background: #fff;
+}
+
+.lightbox-overlay.bg-checker {
+    background-color: #2a2a2a;
+    background-image:
+        linear-gradient(45deg, #555 25%, transparent 25%),
+        linear-gradient(-45deg, #555 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #555 75%),
+        linear-gradient(-45deg, transparent 75%, #555 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+}
+
 /* 移动端适配 */
 @media (max-width: 768px) {
     .project-gallery.gallery-style-b {
@@ -5056,39 +5539,61 @@ img.loaded {
         aspect-ratio: 3/4;
     }
 
+    /* 移动端：不进长图模式，minimap 始终隐藏 */
+    .gallery-style-b .gallery-minimap {
+        display: none !important;
+    }
+
+    .gallery-main.long-image-mode {
+        aspect-ratio: 3/4;
+        height: auto;
+        cursor: pointer;
+    }
+
     .gallery-sidebar {
         width: 100%;
         max-width: 300px;
     }
 
     .gallery-thumbs {
-        grid-template-columns: repeat(4, 1fr);
-        max-height: auto;
+        max-height: none;
     }
 
     .gallery-thumb-item {
-        aspect-ratio: 3/4;
+        aspect-ratio: 1/1;
     }
 
     .lightbox-prev {
         left: 10px;
+        z-index: 20;
     }
 
     .lightbox-next {
         right: 10px;
+        z-index: 20;
     }
 
     .lightbox-close {
         top: -45px;
         right: 10px;
+        z-index: 20;
     }
 
     .lightbox-counter {
         bottom: -35px;
     }
 
+    .lightbox-image-viewer {
+        height: 55vh;
+    }
+
     #lightbox-image {
-        max-height: 60vh;
+        max-height: 55vh;
+    }
+
+    /* 移动端：灯箱 minimap 始终隐藏 */
+    .lightbox-minimap {
+        display: none !important;
     }
 }
 

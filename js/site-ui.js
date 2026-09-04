@@ -143,7 +143,7 @@
             '<div class="footer-form">' +
             '<h4>留言</h4>' +
             '<form id="footerContactForm" action="https://api.web3forms.com/submit" method="POST">' +
-            '<input type="hidden" name="access_key" value="a76d1a6a-52bc-441e-9e35-ab12927b0805">' +
+            '<input type="hidden" name="access_key" value="5fd8d711-8dc6-4e9c-955f-82a14dd48f24">' +
             '<input type="hidden" name="subject" value="网站页脚快速咨询留言">' +
             '<input type="hidden" name="from_name" value="网站访客">' +
             '<input type="text" name="botcheck" style="display:none !important;visibility:hidden;position:absolute;left:-9999px;width:0;height:0;opacity:0;" tabindex="-1" autocomplete="off" aria-hidden="true">' +
@@ -203,5 +203,28 @@
                     });
             });
         }
+    }
+
+    /* ========== data-animate 兜底：防止 IntersectionObserver 漏观察导致卡片永远透明 ==========
+       CSS 里 [data-animate]{opacity:0}，如果 Observer 没 observe 或 没进入视口就永远不显示。
+       这里在 window.onload 后 800ms 强制所有仍未 animate-in 的 [data-animate] 显示出来。 */
+    function forceAnimateInFallback() {
+        try {
+            var list = document.querySelectorAll('[data-animate]:not(.animate-in)');
+            if (list && list.length) {
+                list.forEach(function (el, idx) {
+                    // 略延迟，避免页面一打开就一堆动画挤在一起
+                    setTimeout(function () { el.classList.add('animate-in'); }, idx * 60);
+                });
+            }
+        } catch (e) {}
+    }
+    if (window.addEventListener) {
+        window.addEventListener('load', function () {
+            setTimeout(forceAnimateInFallback, 800);
+        });
+    } else {
+        // IE8 兜底
+        window.attachEvent('onload', function () { setTimeout(forceAnimateInFallback, 1000); });
     }
 })();
