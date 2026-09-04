@@ -5400,19 +5400,29 @@ img {
 /* ==================== */
 /* 长图查看器（花瓣风格） */
 /* ==================== */
+<<<<<<< HEAD
 /* 灯箱图片区：默认随图片自适应大小（要么限制高、要么限制宽），保证打开时整图可见、
    箱体紧贴图片无空白；缩放/平移时 overflow:hidden 负责裁剪 */
+=======
+/* viewer 始终是 flex 居中 + overflow:hidden 容器（滚轮缩放 + 拖拽平移） */
+>>>>>>> e90794502f7c0121defcbf4c89663650fcc212e1
 .lightbox-image-viewer {
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
     position: relative;
+<<<<<<< HEAD
     flex: 1 1 auto;   /* 图片区占满剩余纵向空间，底部工具栏固定在下方 */
     min-height: 0;
     width: 100%;
     height: auto;
     max-width: 100%;
+=======
+    width: 100%;
+    max-width: 90vw;
+    height: 75vh;
+>>>>>>> e90794502f7c0121defcbf4c89663650fcc212e1
     border-radius: 8px;
     box-shadow: 0 20px 60px rgba(0,0,0,0.5);
     background: transparent;
@@ -5425,6 +5435,7 @@ img {
     cursor: grabbing;
 }
 
+<<<<<<< HEAD
 /* wrapper：JS 设置 transform: translate(panX,panY) scale(zoom)，默认铺满 viewer，图片在其中完整居中 */
 .lightbox-image-wrapper {
     display: flex;
@@ -5437,6 +5448,14 @@ img {
     line-height: 0;
     max-width: 100%;
     max-height: 100%;
+=======
+/* wrapper：JS 设置 transform: translate(panX,panY) scale(zoom) */
+.lightbox-image-wrapper {
+    display: block;
+    transform-origin: center center;
+    will-change: transform;
+    line-height: 0;
+>>>>>>> e90794502f7c0121defcbf4c89663650fcc212e1
 }
 
 #lightbox-image {
@@ -5451,6 +5470,7 @@ img {
     pointer-events: none;
 }
 
+<<<<<<< HEAD
 /* 长图模式（minimap 出现）：图片按宽度铺满 viewer，高度自内容，可上下平移 */
 .lightbox-overlay.long-image-mode .lightbox-image-viewer {
     width: 100%;
@@ -5470,6 +5490,8 @@ img {
     height: auto;
 }
 
+=======
+>>>>>>> e90794502f7c0121defcbf4c89663650fcc212e1
 /* 小地图（minimap）——花瓣三层叠加 */
 .lightbox-minimap {
     position: absolute;
@@ -5550,7 +5572,10 @@ img {
     border-radius: 20px;
     padding: 4px 8px;
     z-index: 10;
+<<<<<<< HEAD
     flex-shrink: 0;   /* 不被图片区压缩，始终固定在底部 */
+=======
+>>>>>>> e90794502f7c0121defcbf4c89663650fcc212e1
 }
 
 .zoom-btn {
@@ -5679,6 +5704,7 @@ img {
     }
 
     .lightbox-image-viewer {
+<<<<<<< HEAD
         width: 100%;
         height: auto;
         max-width: 100%;
@@ -5701,6 +5727,13 @@ img {
         max-width: 100%;
         max-height: none;
         height: auto;
+=======
+        height: 55vh;
+    }
+
+    #lightbox-image {
+        max-height: 55vh;
+>>>>>>> e90794502f7c0121defcbf4c89663650fcc212e1
     }
 
     /* 移动端：灯箱 minimap 始终隐藏 */
