@@ -8,7 +8,7 @@
 
 <link rel="icon" href="images/favicon.ico" type="image/x-icon"></head>
 <body>
-<canvas id="spark-canvas" width="1409" height="849"></canvas>
+<canvas id="spark-canvas"></canvas>
 <script src="js/spark.js"></script>
 
 <div id="site-nav"><nav class="nav scrolled" id="nav"><a href="index.html" class="logo"><img src="images/xifofly-logo.png" alt="溪风" class="logo-img"></a><div class="nav-links" id="navLinks"><a href="index.html" style="--shine-angle: 4.0099rad; --shine-t: 0;">首页<span class="specular-shine" aria-hidden="true"></span></a><a href="cases.html" style="--shine-angle: 5.2748rad; --shine-t: 0;">案例<span class="specular-shine" aria-hidden="true"></span></a><a href="blog.html" style="--shine-angle: 5.2802rad; --shine-t: 0;">博客<span class="specular-shine" aria-hidden="true"></span></a><a href="about.html" style="--shine-angle: 5.9314rad; --shine-t: 0;">关于<span class="specular-shine" aria-hidden="true"></span></a><a href="contact.html" style="--shine-angle: 5.1791rad; --shine-t: 0;">联系<span class="specular-shine" aria-hidden="true"></span></a></div><div class="nav-actions"><a href="contact.html" class="nav-cta" style="--shine-angle: 6.9003rad; --shine-t: 0;">开始合作 <span>→</span><span class="specular-shine" aria-hidden="true"></span></a><button class="burger" id="burger" aria-label="打开菜单"><i></i><i></i><i></i></button></div></nav><div class="mmenu" id="mmenu"><a href="index.html"><span>01</span>首页<em class="mm-en">HOME</em></a><a href="cases.html"><span>02</span>案例<em class="mm-en">CASES</em></a><a href="blog.html"><span>03</span>博客<em class="mm-en">BLOG</em></a><a href="about.html"><span>04</span>关于<em class="mm-en">ABOUT</em></a><a href="contact.html"><span>05</span>联系<em class="mm-en">CONTACT</em></a></div></div>
@@ -131,104 +131,7 @@
         </section>
 
         <section class="other-cases-section">
-            <div class="container">
-                <div class="section-header">
-                    <h2>其他案例</h2>
-                    <div class="cases-nav">
-                        <button class="cases-prev-btn" onclick="scrollCases(-1)">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <button class="cases-next-btn" onclick="scrollCases(1)">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="cases-scroll-container" id="casesScrollContainer">
-                    <div class="cases-list" id="casesList">
-                        
-        <a href="project.html?id=32" class="case-item">
-            <div class="case-image">
-                <img src="images/dianshang/Banner/首页.jpg" alt="Banner">
-            </div>
-            <div class="case-info">
-                <span class="case-category">电商设计</span>
-                <h3>Banner</h3>
-            </div>
-        </a>
-    
-        <a href="project.html?id=33" class="case-item">
-            <div class="case-image">
-                <img src="images/dianshang/主图/H射灯-主图2.jpg" alt="主图">
-            </div>
-            <div class="case-info">
-                <span class="case-category">电商设计</span>
-                <h3>主图</h3>
-            </div>
-        </a>
-    
-        <a href="project.html?id=1" class="case-item">
-            <div class="case-image">
-                <img src="images/3d/3D打印其他/A1.jpg" alt="3D打印其他">
-            </div>
-            <div class="case-info">
-                <span class="case-category">3D渲染</span>
-                <h3>3D打印其他</h3>
-            </div>
-        </a>
-    
-        <a href="project.html?id=2" class="case-item">
-            <div class="case-image">
-                <img src="images/3d/A10/主图1.jpg" alt="A10">
-            </div>
-            <div class="case-info">
-                <span class="case-category">3D渲染</span>
-                <h3>A10</h3>
-            </div>
-        </a>
-    
-        <a href="project.html?id=3" class="case-item">
-            <div class="case-image">
-                <img src="images/3d/A5/A1.jpg" alt="A5">
-            </div>
-            <div class="case-info">
-                <span class="case-category">3D渲染</span>
-                <h3>A5</h3>
-            </div>
-        </a>
-    
-        <a href="project.html?id=4" class="case-item">
-            <div class="case-image">
-                <img src="images/3d/A8Plus/A8-Plus-1.jpg" alt="A8Plus">
-            </div>
-            <div class="case-info">
-                <span class="case-category">3D渲染</span>
-                <h3>A8Plus</h3>
-            </div>
-        </a>
-    
-        <a href="project.html?id=5" class="case-item">
-            <div class="case-image">
-                <img src="images/3d/DLP/A1 拷贝.jpg" alt="DLP">
-            </div>
-            <div class="case-info">
-                <span class="case-category">3D渲染</span>
-                <h3>DLP</h3>
-            </div>
-        </a>
-    
-        <a href="project.html?id=6" class="case-item">
-            <div class="case-image">
-                <img src="images/3d/E12PLUS/A1_0001.jpg" alt="E12PLUS">
-            </div>
-            <div class="case-info">
-                <span class="case-category">3D渲染</span>
-                <h3>E12PLUS</h3>
-            </div>
-        </a>
-    
-                    </div>
-                </div>
-            </div>
+            <!-- 此板块由 JS 渲染（renderProject 内用 data.js 真实数据重新生成），此处静态占位会被 #projectContent 的 innerHTML 整体替换，不再保留硬编码案例 -->
         </section>
     </div>
 
