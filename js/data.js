@@ -5,698 +5,23 @@ const siteImages = {
         'images/featured3.jpg',
         'images/featured4.jpg'
     ],
-    qrcodeWechat: 'images/qrcode.png',
-    qrcodeWorkwechat: 'images/qrcode.png'
+    qrcode: 'images/qrcode.png'
 };
 
 const projectsData = [
     {
-        "id": 1,
-        "sortOrder": 12,
-        "isTop": false,
-        "title": "科技品牌重塑",
-        "category": "branding",
-        "categoryName": "品牌设计",
-        "displayStyle": "B",
-        "image": "images/work1.jpg",
-        "gallery": [
-            "images/work1.jpg",
-            "images/work13.jpg",
-            "images/work14.jpg"
-        ],
-        "subtitle": "为新兴科技公司打造全新的品牌形象系统",
-        "client": "某科技公司",
-        "year": "2024",
-        "duration": "3个月",
-        "services": [
-            "品牌策略",
-            "视觉设计",
-            "VI系统"
-        ],
-        "description": "这是一个品牌重塑的完整案例，从品牌策略到视觉落地全方位打造。我们深入分析了目标市场的需求和竞争环境，为客户打造了一个既现代又富有科技感的品牌形象。",
-        "challenge": "需要在保持品牌辨识度的同时，展现创新和前瞻性，吸引年轻化的目标用户群体。",
-        "solution": "通过深入的市场调研和用户洞察，重新定义品牌核心价值，打造全新的视觉语言和品牌体验。",
-        "results": [
-            {
-                "number": "150%",
-                "label": "品牌认知度提升"
-            },
-            {
-                "number": "40%",
-                "label": "用户满意度提升"
-            },
-            {
-                "number": "3x",
-                "label": "社交媒体互动增长"
-            }
-        ],
-        "features": [
-            {
-                "icon": "fa-lightbulb",
-                "title": "创新策略",
-                "description": "深入分析市场趋势和竞争环境，制定差异化的品牌策略。"
-            },
-            {
-                "icon": "fa-palette",
-                "title": "视觉系统",
-                "description": "创建完整的VI系统，确保品牌在各个触点的一致性。"
-            },
-            {
-                "icon": "fa-rocket",
-                "title": "落地执行",
-                "description": "从线上到线下，全方位落地品牌视觉形象。"
-            }
-        ],
-        "tags": [
-            "品牌策略",
-            "VI设计",
-            "视觉系统",
-            "数字营销"
-        ]
-    },
-    {
-        "id": 2,
-        "sortOrder": 11,
-        "isTop": false,
-        "title": "移动APP界面设计",
-        "category": "ui",
-        "categoryName": "UI设计",
-        "displayStyle": "B",
-        "image": "images/work2.jpg",
-        "gallery": [
-            "images/work2.jpg",
-            "images/work15.jpg",
-            "images/work16.jpg"
-        ],
-        "subtitle": "用户体验至上的移动应用界面设计",
-        "client": "某移动互联网公司",
-        "year": "2024",
-        "duration": "4个月",
-        "services": [
-            "用户研究",
-            "交互设计",
-            "UI设计"
-        ],
-        "description": "专注于用户体验的移动应用设计，打造流畅自然的使用体验。通过用户研究和迭代设计，我们创造了一个既美观又实用的移动应用界面。",
-        "challenge": "在复杂功能和简洁界面之间找到平衡点，确保用户能够高效完成任务。",
-        "solution": "通过用户旅程地图和原型测试，不断优化交互流程，打造极致的用户体验。",
-        "results": [
-            {
-                "number": "85%",
-                "label": "用户留存率"
-            },
-            {
-                "number": "4.8",
-                "label": "应用商店评分"
-            },
-            {
-                "number": "60%",
-                "label": "任务完成率提升"
-            }
-        ],
-        "features": [
-            {
-                "icon": "fa-users",
-                "title": "用户研究",
-                "description": "通过问卷、访谈等方式深入了解目标用户需求。"
-            },
-            {
-                "icon": "fa-sitemap",
-                "title": "信息架构",
-                "description": "清晰的信息架构，让用户轻松找到所需功能。"
-            },
-            {
-                "icon": "fa-mobile-alt",
-                "title": "响应式设计",
-                "description": "适配各种屏幕尺寸，保证一致的体验。"
-            }
-        ],
-        "tags": [
-            "UI设计",
-            "UX设计",
-            "移动端",
-            "交互设计"
-        ]
-    },
-    {
-        "id": 3,
-        "sortOrder": 10,
-        "isTop": false,
-        "title": "精品咖啡包装",
-        "category": "packaging",
-        "categoryName": "包装设计",
-        "displayStyle": "B",
-        "image": "images/work3.jpg",
-        "gallery": [
-            "images/work3.jpg",
-            "images/work7.jpg",
-            "images/work11.jpg"
-        ],
-        "subtitle": "精品咖啡产品包装设计",
-        "client": "某咖啡品牌",
-        "year": "2024",
-        "duration": "2个月",
-        "services": [
-            "包装设计",
-            "结构设计",
-            "生产指导"
-        ],
-        "description": "创意与功能并重的产品包装设计。我们注重每一个细节，从材料选择到结构设计，打造令人印象深刻的包装体验。",
-        "challenge": "在有限的成本内实现差异化的包装设计，同时保证环保可持续。",
-        "solution": "创新结构设计结合环保材料，打造独特的开箱体验，提升产品价值感。",
-        "results": [
-            {
-                "number": "200%",
-                "label": "货架吸引力提升"
-            },
-            {
-                "number": "30%",
-                "label": "购买转化率提升"
-            }
-        ],
-        "features": [
-            {
-                "icon": "fa-box",
-                "title": "结构创新",
-                "description": "独特的包装结构设计，提升产品价值感。"
-            },
-            {
-                "icon": "fa-leaf",
-                "title": "环保理念",
-                "description": "采用可回收材料，践行可持续发展理念。"
-            }
-        ],
-        "tags": [
-            "包装设计",
-            "结构设计",
-            "环保包装"
-        ]
-    },
-    {
-        "id": 4,
-        "sortOrder": 9,
-        "isTop": false,
-        "title": "美妆电商设计",
-        "category": "dianshang",
-        "categoryName": "电商设计",
-        "displayStyle": "B",
-        "image": "images/work4.jpg",
-        "gallery": [
-            "images/work4.jpg",
-            "images/work1.jpg",
-            "images/work2.jpg"
-        ],
-        "subtitle": "高端美妆电商店铺视觉设计",
-        "client": "某美妆品牌",
-        "year": "2024",
-        "duration": "6个月",
-        "services": [
-            "视觉设计",
-            "页面优化",
-            "营销设计"
-        ],
-        "description": "以数据驱动的电商视觉设计，有效提升转化率。通过科学的布局和精美的视觉设计，打造高转化的购物体验。",
-        "challenge": "在众多商品中脱颖而出，抓住用户注意力，提升页面的整体转化率。",
-        "solution": "通过A/B测试和数据分析，持续优化视觉呈现，找到最佳的设计方案。",
-        "results": [
-            {
-                "number": "45%",
-                "label": "页面转化率提升"
-            },
-            {
-                "number": "35%",
-                "label": "客单价提升"
-            },
-            {
-                "number": "50%",
-                "label": "加购率提升"
-            }
-        ],
-        "features": [
-            {
-                "icon": "fa-chart-line",
-                "title": "数据驱动",
-                "description": "基于数据分析优化视觉设计决策。"
-            },
-            {
-                "icon": "fa-image",
-                "title": "视觉统一",
-                "description": "建立统一的视觉语言，提升品牌识别度。"
-            }
-        ],
-        "tags": [
-            "电商设计",
-            "视觉营销",
-            "UI设计",
-            "数据分析"
-        ]
-    },
-    {
-        "id": 5,
-        "sortOrder": 8,
-        "isTop": false,
-        "title": "连锁品牌VI设计",
-        "category": "branding",
-        "categoryName": "品牌设计",
-        "displayStyle": "B",
-        "image": "images/work5.jpg",
-        "gallery": [
-            "images/work5.jpg",
-            "images/work1.jpg"
-        ],
-        "subtitle": "统一品牌形象，提升品牌认知度",
-        "client": "某连锁企业",
-        "year": "2023",
-        "duration": "4个月",
-        "services": [
-            "VI设计",
-            "品牌规范",
-            "应用设计"
-        ],
-        "description": "为连锁品牌打造完整的视觉识别系统，确保全国门店的统一形象。",
-        "challenge": "需要在不同门店、不同媒介上保持一致的视觉呈现。",
-        "solution": "建立完整的VI手册，涵盖所有应用场景，确保品牌一致性。",
-        "results": [
-            {
-                "number": "100%",
-                "label": "门店形象统一"
-            },
-            {
-                "number": "50%",
-                "label": "品牌认知度提升"
-            }
-        ],
-        "features": [
-            {
-                "icon": "fa-book",
-                "title": "VI手册",
-                "description": "建立完整的品牌视觉规范手册。"
-            },
-            {
-                "icon": "fa-store",
-                "title": "门店应用",
-                "description": "涵盖招牌、店内物料等所有应用。"
-            }
-        ],
-        "tags": [
-            "VI设计",
-            "品牌规范",
-            "连锁品牌"
-        ]
-    },
-    {
-        "id": 6,
-        "sortOrder": 7,
-        "isTop": false,
-        "title": "金融APP界面",
-        "category": "ui",
-        "categoryName": "UI设计",
-        "displayStyle": "B",
-        "image": "images/work6.jpg",
-        "gallery": [
-            "images/work6.jpg",
-            "images/work2.jpg"
-        ],
-        "subtitle": "安全易用的金融类应用设计",
-        "client": "某金融机构",
-        "year": "2023",
-        "duration": "5个月",
-        "services": [
-            "UI设计",
-            "交互设计",
-            "用户体验"
-        ],
-        "description": "为金融应用打造专业、可信赖的界面设计，注重安全感和易用性的平衡。",
-        "challenge": "金融产品需要极强的安全感，同时又要保持操作的便捷性。",
-        "solution": "通过精心设计的视觉层次和交互流程，让复杂的金融操作变得简单直观。",
-        "results": [
-            {
-                "number": "90%",
-                "label": "用户满意度"
-            },
-            {
-                "number": "40%",
-                "label": "操作效率提升"
-            }
-        ],
-        "features": [
-            {
-                "icon": "fa-shield-alt",
-                "title": "安全保障",
-                "description": "通过视觉设计传递安全可信赖的品牌感受。"
-            },
-            {
-                "icon": "fa-sync",
-                "title": "操作简化",
-                "description": "优化操作流程，减少用户决策负担。"
-            }
-        ],
-        "tags": [
-            "UI设计",
-            "金融",
-            "移动端"
-        ]
-    },
-    {
-        "id": 7,
-        "sortOrder": 6,
-        "isTop": false,
-        "title": "有机食品包装",
-        "category": "packaging",
-        "categoryName": "包装设计",
-        "displayStyle": "B",
-        "image": "images/work7.jpg",
-        "gallery": [
-            "images/work7.jpg",
-            "images/work3.jpg"
-        ],
-        "subtitle": "有机食品包装系列",
-        "client": "某食品企业",
-        "year": "2023",
-        "duration": "3个月",
-        "services": [
-            "包装设计",
-            "标签设计",
-            "陈列设计"
-        ],
-        "description": "为食品品牌打造健康、时尚的包装形象，突出产品特点吸引目标消费者。",
-        "challenge": "在众多同类产品中脱颖而出，传递健康、美味的品牌理念。",
-        "solution": "采用明亮的色彩搭配和清新的视觉风格，打造差异化的包装形象。",
-        "results": [
-            {
-                "number": "180%",
-                "label": "货架吸引力提升"
-            },
-            {
-                "number": "25%",
-                "label": "销量增长"
-            }
-        ],
-        "features": [
-            {
-                "icon": "fa-apple-alt",
-                "title": "健康理念",
-                "description": "通过设计传递健康、新鲜的产品特点。"
-            },
-            {
-                "icon": "fa-tags",
-                "title": "信息清晰",
-                "description": "清晰展示产品信息，方便消费者决策。"
-            }
-        ],
-        "tags": [
-            "包装设计",
-            "食品",
-            "标签设计"
-        ]
-    },
-    {
-        "id": 8,
-        "sortOrder": 5,
-        "isTop": false,
-        "title": "家居电商设计",
-        "category": "dianshang",
-        "categoryName": "电商设计",
-        "displayStyle": "B",
-        "image": "images/work8.jpg",
-        "gallery": [
-            "images/work8.jpg",
-            "images/work3.jpg"
-        ],
-        "subtitle": "家居电商平台视觉升级",
-        "client": "某家居电商",
-        "year": "2023",
-        "duration": "5个月",
-        "services": [
-            "视觉设计",
-            "页面优化",
-            "移动端适配"
-        ],
-        "description": "为家居电商平台进行全面的视觉升级，打造温馨、品质的购物体验。",
-        "challenge": "家居产品需要营造温馨、舒适的视觉氛围，帮助用户想象产品在自己的家中呈现的效果。",
-        "solution": "采用暖色调和精致的排版，打造有温度的家居购物体验。",
-        "results": [
-            {
-                "number": "50%",
-                "label": "页面转化率提升"
-            },
-            {
-                "number": "35%",
-                "label": "客单价提升"
-            }
-        ],
-        "features": [
-            {
-                "icon": "fa-home",
-                "title": "场景化设计",
-                "description": "通过场景图帮助用户想象产品效果。"
-            },
-            {
-                "icon": "fa-mobile-alt",
-                "title": "移动端优化",
-                "description": "专注移动端用户体验优化。"
-            }
-        ],
-        "tags": [
-            "电商设计",
-            "家居",
-            "移动端"
-        ]
-    },
-    {
-        "id": 9,
-        "sortOrder": 4,
-        "isTop": false,
-        "title": "餐饮品牌设计",
-        "category": "branding",
-        "categoryName": "品牌设计",
-        "displayStyle": "B",
-        "image": "images/work9.jpg",
-        "gallery": [
-            "images/work9.jpg",
-            "images/work4.jpg"
-        ],
-        "subtitle": "餐饮品牌全套视觉设计",
-        "client": "某餐饮连锁",
-        "year": "2022",
-        "duration": "3个月",
-        "services": [
-            "品牌设计",
-            "空间设计",
-            "物料设计"
-        ],
-        "description": "为餐饮品牌打造从线上到线下的完整视觉系统，包括LOGO、空间、餐具等全方位设计。",
-        "challenge": "餐饮品牌需要在视觉上传递美味、新鲜的品牌感受，同时保持识别度。",
-        "solution": "融合品牌故事和美食文化，打造独特的品牌视觉体验。",
-        "results": [
-            {
-                "number": "200%",
-                "label": "社交媒体曝光增长"
-            },
-            {
-                "number": "40%",
-                "label": "顾客好评率提升"
-            }
-        ],
-        "features": [
-            {
-                "icon": "fa-utensils",
-                "title": "全套设计",
-                "description": "涵盖LOGO、空间、餐具等全套视觉。"
-            },
-            {
-                "icon": "fa-camera",
-                "title": "拍照友好",
-                "description": "设计适合社交媒体传播的视觉元素。"
-            }
-        ],
-        "tags": [
-            "品牌设计",
-            "餐饮",
-            "空间设计"
-        ]
-    },
-    {
-        "id": 10,
-        "sortOrder": 3,
-        "isTop": false,
-        "title": "社交App UI",
-        "category": "ui",
-        "categoryName": "UI设计",
-        "displayStyle": "B",
-        "image": "images/work10.jpg",
-        "gallery": [
-            "images/work10.jpg",
-            "images/work16.jpg"
-        ],
-        "subtitle": "社交类移动应用界面设计",
-        "client": "某社交平台",
-        "year": "2022",
-        "duration": "4个月",
-        "services": [
-            "UI设计",
-            "交互设计",
-            "动效设计"
-        ],
-        "description": "为年轻用户打造有趣的社交应用界面，注重个性表达和互动体验。",
-        "challenge": "社交应用需要有趣的交互体验，同时保持界面的清晰易用。",
-        "solution": "通过创新的交互设计和活泼的视觉风格，打造独特的社交体验。",
-        "results": [
-            {
-                "number": "120%",
-                "label": "用户活跃度提升"
-            },
-            {
-                "number": "4.6",
-                "label": "应用评分"
-            }
-        ],
-        "features": [
-            {
-                "icon": "fa-comments",
-                "title": "互动设计",
-                "description": "丰富的互动元素提升用户参与度。"
-            },
-            {
-                "icon": "fa-smile",
-                "title": "个性化",
-                "description": "丰富的自定义选项满足用户个性表达。"
-            }
-        ],
-        "tags": [
-            "UI设计",
-            "社交",
-            "动效设计"
-        ]
-    },
-    {
-        "id": 11,
-        "sortOrder": 2,
-        "isTop": false,
-        "title": "茶叶礼盒包装",
-        "category": "packaging",
-        "categoryName": "包装设计",
-        "displayStyle": "B",
-        "image": "images/work11.jpg",
-        "gallery": [
-            "images/work11.jpg",
-            "images/work3.jpg"
-        ],
-        "subtitle": "茶叶产品包装，融入传统文化元素",
-        "client": "某茶叶品牌",
-        "year": "2022",
-        "duration": "2个月",
-        "services": [
-            "包装设计",
-            "标签设计",
-            "礼盒设计"
-        ],
-        "description": "为茶叶品牌打造融合传统文化的包装设计，突出产品的品质感和文化底蕴。",
-        "challenge": "需要在现代审美和传统文化之间找到平衡点。",
-        "solution": "运用传统元素结合现代设计手法，打造既有文化内涵又符合现代审美的包装。",
-        "results": [
-            {
-                "number": "150%",
-                "label": "礼盒销量增长"
-            },
-            {
-                "number": "80%",
-                "label": "顾客满意度"
-            }
-        ],
-        "features": [
-            {
-                "icon": "fa-leaf",
-                "title": "文化融入",
-                "description": "将传统文化元素融入现代包装设计。"
-            },
-            {
-                "icon": "fa-gift",
-                "title": "礼盒设计",
-                "description": "精致的礼盒设计适合馈赠亲友。"
-            }
-        ],
-        "tags": [
-            "包装设计",
-            "茶叶",
-            "传统文化"
-        ]
-    },
-    {
-        "id": 12,
+        "id": 1788513859922,
         "sortOrder": 1,
         "isTop": false,
-        "title": "数码电商设计",
-        "category": "dianshang",
-        "categoryName": "电商设计",
+        "title": "AIGC",
+        "category": "aigc",
+        "categoryName": "AIGC",
         "displayStyle": "B",
-        "image": "images/work12.jpg",
+        "image": "images/cases/AIGC/00023-725325415.jpg",
         "gallery": [
-            "images/work12.jpg",
-            "images/work5.jpg"
+            "images/cases/AIGC/00023-725325415.jpg"
         ],
-        "subtitle": "数码产品电商视觉设计",
-        "client": "某数码品牌",
-        "year": "2022",
-        "duration": "5个月",
-        "services": [
-            "视觉设计",
-            "页面优化",
-            "移动端适配"
-        ],
-        "description": "为数码产品电商平台进行全面的视觉升级，突出科技感与专业性。",
-        "challenge": "数码产品需要传递科技感和专业性，同时又要让普通消费者容易理解。",
-        "solution": "采用科技感的视觉元素和清晰的产品展示，打造专业的数码购物体验。",
-        "results": [
-            {
-                "number": "50%",
-                "label": "页面转化率提升"
-            },
-            {
-                "number": "40%",
-                "label": "客单价提升"
-            }
-        ],
-        "features": [
-            {
-                "icon": "fa-microchip",
-                "title": "科技感",
-                "description": "通过视觉元素传递产品的科技属性。"
-            },
-            {
-                "icon": "fa-mobile-alt",
-                "title": "移动端优化",
-                "description": "专注移动端用户体验优化。"
-            }
-        ],
-        "tags": [
-            "电商设计",
-            "数码",
-            "移动端"
-        ]
-    },
-    {
-        "id": 1779960073710,
-        "sortOrder": 13,
-        "isTop": false,
-        "title": "377美白",
-        "category": "branding",
-        "categoryName": "品牌设计",
-        "displayStyle": "B",
         "subtitle": "",
-        "client": "",
-        "year": "2026",
-        "duration": "",
-        "services": [
-            "品牌策略",
-            "视觉设计",
-            "VI系统"
-        ],
-        "image": "images/PixPin_2026-05-18_11-35-57.jpg",
-        "gallery": [
-            "images/PixPin_2026-05-18_11-35-57.jpg",
-            "images/PixPin_2026-05-11_15-10-03.jpg"
-        ],
         "description": "",
         "challenge": "",
         "solution": "",
@@ -705,99 +30,1313 @@ const projectsData = [
         "tags": []
     },
     {
-        "id": 1781236130508,
-        "sortOrder": 14,
+        "id": 1788513859923,
+        "sortOrder": 3,
+        "isTop": false,
+        "title": "UI动画",
+        "category": "ui",
+        "categoryName": "UI设计",
+        "displayStyle": "B",
+        "image": "images/cases/UI动画/3gif-icons-menu-transition-animations-shortlist.gif",
+        "gallery": [
+            "images/cases/UI动画/3gif-icons-menu-transition-animations-shortlist.gif",
+            "images/cases/UI动画/0147fe56d92d066ac7252ce67cc81a.gif",
+            "images/cases/UI动画/加载动画.gif",
+            "images/cases/UI动画/gif-icons-menu-transition-animations-distant-audio-recordings.gif",
+            "images/cases/UI动画/gif-icons-menu-transition-animations-play.gif",
+            "images/cases/UI动画/iPhone-Mockup.gif",
+            "images/cases/UI动画/WIFI.gif"
+        ],
+        "subtitle": "",
+        "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": []
+    },
+    {
+        "id": 1788513859924,
+        "sortOrder": 5,
+        "isTop": false,
+        "title": "WEB",
+        "category": "ui",
+        "categoryName": "UI设计",
+        "displayStyle": "B",
+        "image": "images/cases/WEB/外设.jpg",
+        "gallery": [
+            "images/cases/WEB/外设.jpg",
+            "images/cases/WEB/新春外设电商.jpg",
+            "images/cases/WEB/AR眼镜.jpg"
+        ],
+        "subtitle": "",
+        "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": []
+    },
+    {
+        "id": 1788513859925,
+        "sortOrder": 7,
+        "isTop": false,
+        "title": "切片软件界面设计",
+        "category": "ui",
+        "categoryName": "UI设计",
+        "displayStyle": "B",
+        "image": "images/cases/切片软件界面设计/弹窗.jpg",
+        "gallery": [
+            "images/cases/切片软件界面设计/弹窗.jpg",
+            "images/cases/切片软件界面设计/切片后.jpg",
+            "images/cases/切片软件界面设计/切片软件开机界面.jpg",
+            "images/cases/切片软件界面设计/首页-移动.jpg",
+            "images/cases/切片软件界面设计/文件列表.jpg"
+        ],
+        "subtitle": "",
+        "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": []
+    },
+    {
+        "id": 1788513859926,
+        "sortOrder": 9,
+        "isTop": false,
+        "title": "官网web设计",
+        "category": "ui",
+        "categoryName": "UI设计",
+        "displayStyle": "B",
+        "image": "images/cases/官网web设计/image19.jpeg",
+        "gallery": [
+            "images/cases/官网web设计/image19.jpeg",
+            "images/cases/官网web设计/image20.jpeg",
+            "images/cases/官网web设计/image21.jpeg"
+        ],
+        "subtitle": "",
+        "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": []
+    },
+    {
+        "id": 1788513859927,
+        "sortOrder": 11,
+        "isTop": false,
+        "title": "雕刻机app界面设计",
+        "category": "ui",
+        "categoryName": "UI设计",
+        "displayStyle": "B",
+        "image": "images/cases/雕刻机app界面设计/1.jpg",
+        "gallery": [
+            "images/cases/雕刻机app界面设计/1.jpg",
+            "images/cases/雕刻机app界面设计/裁切-自由.jpg",
+            "images/cases/雕刻机app界面设计/创作-绘画.jpg",
+            "images/cases/雕刻机app界面设计/雕刻设置2.jpg",
+            "images/cases/雕刻机app界面设计/机型／蓝牙连接.jpg",
+            "images/cases/雕刻机app界面设计/开机界面.jpg",
+            "images/cases/雕刻机app界面设计/开始预览.jpg",
+            "images/cases/雕刻机app界面设计/IMG_6268 iPhone X mockup.jpg"
+        ],
+        "subtitle": "",
+        "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": []
+    },
+    {
+        "id": 1788513859928,
+        "sortOrder": 13,
+        "isTop": false,
+        "title": "3D打印其他",
+        "category": "3d",
+        "categoryName": "3D渲染",
+        "displayStyle": "B",
+        "image": "images/cases/3D打印其他/A1_40661ea6.jpg",
+        "gallery": [
+            "images/cases/3D打印其他/A1_40661ea6.jpg",
+            "images/cases/3D打印其他/A1.jpg",
+            "images/cases/3D打印其他/A2_7d8b0052.jpg",
+            "images/cases/3D打印其他/A2_e81216ea.jpg",
+            "images/cases/3D打印其他/A2_ff7efa7a.jpg",
+            "images/cases/3D打印其他/A2.jpg",
+            "images/cases/3D打印其他/A3.jpg",
+            "images/cases/3D打印其他/A4.jpg"
+        ],
+        "subtitle": "",
+        "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": []
+    },
+    {
+        "id": 1788513859929,
+        "sortOrder": 15,
         "isTop": false,
         "title": "3D打印耗材",
-        "category": "branding",
-        "categoryName": "品牌设计",
+        "category": "3d",
+        "categoryName": "3D渲染",
         "displayStyle": "B",
-        "image": "images/3d dayin_1.jpg",
+        "image": "images/cases/3D打印耗材/未标题-3.jpg",
         "gallery": [
-            "images/3d dayin_1.jpg",
-            "images/3d dayin_2.jpg",
-            "images/3d dayin_3.jpg",
-            "images/3d dayin_4.jpg",
-            "images/3d dayin_5.jpg"
+            "images/cases/3D打印耗材/未标题-3.jpg",
+            "images/cases/3D打印耗材/未标题-10.jpg",
+            "images/cases/3D打印耗材/未标题-14.jpg",
+            "images/cases/3D打印耗材/未标题-16.jpg",
+            "images/cases/3D打印耗材/未标题-17.jpg"
         ],
-        "subtitle": "3D打印耗材",
-        "client": "",
-        "year": "2022",
-        "duration": "",
-        "services": [],
-        "description": "这是一个品牌重塑案例，展示了我们如何为客户打造全新的品牌视觉系统。",
+        "subtitle": "",
+        "description": "",
         "challenge": "",
         "solution": "",
         "results": [],
         "features": [],
-        "tags": [
-            "产品实拍"
-        ]
+        "tags": []
     },
     {
-        "id": 1781236130509,
-        "sortOrder": 16,
+        "id": 1788513859930,
+        "sortOrder": 17,
         "isTop": false,
-        "title": "灯具照明",
-        "category": "branding",
-        "categoryName": "品牌设计",
+        "title": "3D渲染-散图",
+        "category": "3d",
+        "categoryName": "3D渲染",
         "displayStyle": "B",
-        "image": "images/dengjuzhaomign_1_b5d932f1.jpg",
+        "image": "images/cases/3D渲染-散图/500ml.jpg",
         "gallery": [
-            "images/dengjuzhaomign_1_b5d932f1.jpg",
-            "images/dengjuzhaomign_1_f2b8ecd5.jpg",
-            "images/dengjuzhaomign_1.jpg",
-            "images/dengjuzhaomign_3.jpg",
-            "images/dengjuzhaomign_4_9a4e924f.jpg",
-            "images/dengjuzhaomign_5_d5f7bc69.jpg",
-            "images/dengjuzhaomign_7.jpg",
-            "images/dengjuzhaomign_Main_02.jpg"
+            "images/cases/3D渲染-散图/500ml.jpg",
+            "images/cases/3D渲染-散图/1000ml.jpg",
+            "images/cases/3D渲染-散图/3554-1.jpg",
+            "images/cases/3D渲染-散图/场景banner.jpg",
+            "images/cases/3D渲染-散图/树脂.jpg",
+            "images/cases/3D渲染-散图/秩序之光.jpg",
+            "images/cases/3D渲染-散图/主要 拷贝.jpg",
+            "images/cases/3D渲染-散图/A35.jpg",
+            "images/cases/3D渲染-散图/A36.jpg",
+            "images/cases/3D渲染-散图/A37.jpg",
+            "images/cases/3D渲染-散图/A38.jpg",
+            "images/cases/3D渲染-散图/image1.jpg",
+            "images/cases/3D渲染-散图/image2.jpg",
+            "images/cases/3D渲染-散图/image4.jpg",
+            "images/cases/3D渲染-散图/image7.jpg",
+            "images/cases/3D渲染-散图/lADPBFuNc9K8RqrNBDjNB4A_1920_1080.jpg",
+            "images/cases/3D渲染-散图/lADPBGnDbmYWonPNC7jNC7g_3000_3000.jpg",
+            "images/cases/3D渲染-散图/lADPBGY178FUQsDNC7jNC7g_3000_3000.jpg"
         ],
-        "subtitle": "灯具照明",
-        "client": "",
-        "year": "2022",
-        "duration": "",
-        "services": [],
-        "description": "专注用户体验的移动应用设计，打造直观易用的界面体验。",
+        "subtitle": "",
+        "description": "",
         "challenge": "",
         "solution": "",
         "results": [],
         "features": [],
-        "tags": [
-            "产品实拍"
-        ]
+        "tags": []
     },
     {
-        "id": 1781236130510,
-        "sortOrder": 18,
+        "id": 1788513859931,
+        "sortOrder": 19,
+        "isTop": false,
+        "title": "A10",
+        "category": "3d",
+        "categoryName": "3D渲染",
+        "displayStyle": "B",
+        "image": "images/cases/A10/背面.jpg",
+        "gallery": [
+            "images/cases/A10/背面.jpg",
+            "images/cases/A10/底部图.jpg",
+            "images/cases/A10/顶部图.jpg",
+            "images/cases/A10/热床打开图.jpg",
+            "images/cases/A10/特写.jpg",
+            "images/cases/A10/液晶屏幕特写.jpg",
+            "images/cases/A10/主图1.jpg",
+            "images/cases/A10/image8.jpg"
+        ],
+        "subtitle": "",
+        "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": []
+    },
+    {
+        "id": 1788513859932,
+        "sortOrder": 21,
+        "isTop": false,
+        "title": "A5",
+        "category": "3d",
+        "categoryName": "3D渲染",
+        "displayStyle": "B",
+        "image": "images/cases/A5/A1.jpg",
+        "gallery": [
+            "images/cases/A5/A1.jpg",
+            "images/cases/A5/A14.jpg",
+            "images/cases/A5/A15.jpg",
+            "images/cases/A5/A16.jpg",
+            "images/cases/A5/A17.jpg",
+            "images/cases/A5/A18.jpg",
+            "images/cases/A5/A19.jpg",
+            "images/cases/A5/A20.jpg",
+            "images/cases/A5/A21.jpg",
+            "images/cases/A5/A22.jpg",
+            "images/cases/A5/A23.jpg",
+            "images/cases/A5/A24.jpg",
+            "images/cases/A5/A25.jpg",
+            "images/cases/A5/A26.jpg",
+            "images/cases/A5/A27.jpg",
+            "images/cases/A5/A28.jpg",
+            "images/cases/A5/A29.jpg",
+            "images/cases/A5/A30.jpg",
+            "images/cases/A5/A31.jpg",
+            "images/cases/A5/A32.jpg",
+            "images/cases/A5/A33.jpg",
+            "images/cases/A5/A34.jpg",
+            "images/cases/A5/A35.jpg",
+            "images/cases/A5/A36.jpg",
+            "images/cases/A5/A37.jpg",
+            "images/cases/A5/A38.jpg",
+            "images/cases/A5/A39.jpg"
+        ],
+        "subtitle": "",
+        "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": []
+    },
+    {
+        "id": 1788513859933,
+        "sortOrder": 23,
+        "isTop": false,
+        "title": "A8Plus",
+        "category": "3d",
+        "categoryName": "3D渲染",
+        "displayStyle": "B",
+        "image": "images/cases/A8Plus/A8-Plus-1.jpg",
+        "gallery": [
+            "images/cases/A8Plus/A8-Plus-1.jpg",
+            "images/cases/A8Plus/A8-Plus-2.jpg",
+            "images/cases/A8Plus/A8-Plus-4.jpg",
+            "images/cases/A8Plus/A8-Plus-5.jpg",
+            "images/cases/A8Plus/A8-Plus-6-1.jpg",
+            "images/cases/A8Plus/A8-Plus-6.jpg",
+            "images/cases/A8Plus/A8-Plus-7.jpg",
+            "images/cases/A8Plus/A8-Plus-10.jpg",
+            "images/cases/A8Plus/A8-Plus-11.jpg",
+            "images/cases/A8Plus/A8-Plus-12.jpg",
+            "images/cases/A8Plus/A8-Plus-13.jpg",
+            "images/cases/A8Plus/A8-Plus-14.jpg",
+            "images/cases/A8Plus/A21.jpg",
+            "images/cases/A8Plus/A23.jpg",
+            "images/cases/A8Plus/A25.jpg",
+            "images/cases/A8Plus/A26.jpg",
+            "images/cases/A8Plus/B25.jpg"
+        ],
+        "subtitle": "",
+        "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": []
+    },
+    {
+        "id": 1788513859934,
+        "sortOrder": 25,
+        "isTop": false,
+        "title": "DLP",
+        "category": "3d",
+        "categoryName": "3D渲染",
+        "displayStyle": "B",
+        "image": "images/cases/DLP/A1 拷贝.jpg",
+        "gallery": [
+            "images/cases/DLP/A1 拷贝.jpg",
+            "images/cases/DLP/A2 拷贝.jpg",
+            "images/cases/DLP/A3 拷贝.jpg",
+            "images/cases/DLP/A4 拷贝.jpg",
+            "images/cases/DLP/A5 拷贝.jpg",
+            "images/cases/DLP/A6 拷贝.jpg",
+            "images/cases/DLP/lADPBE1XeT_hhEXNA-jNA-g_1000_1000.jpg",
+            "images/cases/DLP/lADPBFRydoluCFDNA-jNA-g_1000_1000.jpg"
+        ],
+        "subtitle": "",
+        "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": []
+    },
+    {
+        "id": 1788513859935,
+        "sortOrder": 27,
+        "isTop": false,
+        "title": "E12PLUS",
+        "category": "3d",
+        "categoryName": "3D渲染",
+        "displayStyle": "B",
+        "image": "images/cases/E12PLUS/A1_0001.jpg",
+        "gallery": [
+            "images/cases/E12PLUS/A1_0001.jpg",
+            "images/cases/E12PLUS/A2_0001.jpg",
+            "images/cases/E12PLUS/A3_0001.jpg",
+            "images/cases/E12PLUS/A4_0001.jpg",
+            "images/cases/E12PLUS/A5_0001.jpg",
+            "images/cases/E12PLUS/A18X1000.jpg",
+            "images/cases/E12PLUS/B1_0000.jpg",
+            "images/cases/E12PLUS/B16_0001.jpg",
+            "images/cases/E12PLUS/image9.jpg"
+        ],
+        "subtitle": "",
+        "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": []
+    },
+    {
+        "id": 1788513859936,
+        "sortOrder": 29,
+        "isTop": false,
+        "title": "ET4",
+        "category": "3d",
+        "categoryName": "3D渲染",
+        "displayStyle": "B",
+        "image": "images/cases/ET4/A1.jpg",
+        "gallery": [
+            "images/cases/ET4/A1.jpg",
+            "images/cases/ET4/A2.jpg",
+            "images/cases/ET4/A3.jpg",
+            "images/cases/ET4/A4.jpg",
+            "images/cases/ET4/A5.jpg",
+            "images/cases/ET4/A6.jpg",
+            "images/cases/ET4/A7.jpg",
+            "images/cases/ET4/A8.jpg",
+            "images/cases/ET4/A9.jpg",
+            "images/cases/ET4/A10.jpg"
+        ],
+        "subtitle": "",
+        "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": []
+    },
+    {
+        "id": 1788513859937,
+        "sortOrder": 31,
+        "isTop": false,
+        "title": "LC100",
+        "category": "3d",
+        "categoryName": "3D渲染",
+        "displayStyle": "B",
+        "image": "images/cases/LC100/5.jpg",
+        "gallery": [
+            "images/cases/LC100/5.jpg",
+            "images/cases/LC100/5c4f8b92c90449a507268c1d23c83231.jpg",
+            "images/cases/LC100/32.jpg",
+            "images/cases/LC100/A0_0269.jpg",
+            "images/cases/LC100/ab4d1fe1abd698324137b0d0edd5ec7d.jpg",
+            "images/cases/LC100/Creator-Devices-2.jpg",
+            "images/cases/LC100/Creator-Devices-6.jpg",
+            "images/cases/LC100/Creator-Devices-7.jpg",
+            "images/cases/LC100/lADPBFf_9S3_AKHNBDjNB4A_1920_1080.jpg",
+            "images/cases/LC100/LaserCube LC100 Portable Laser Engraving Machine Featured_.jpg"
+        ],
+        "subtitle": "",
+        "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": []
+    },
+    {
+        "id": 1788513859938,
+        "sortOrder": 33,
+        "isTop": false,
+        "title": "N4",
+        "category": "3d",
+        "categoryName": "3D渲染",
+        "displayStyle": "B",
+        "image": "images/cases/N4/2.jpg",
+        "gallery": [
+            "images/cases/N4/2.jpg",
+            "images/cases/N4/3.jpg",
+            "images/cases/N4/4.jpg",
+            "images/cases/N4/7.jpg",
+            "images/cases/N4/8.jpg",
+            "images/cases/N4/8~1.jpg",
+            "images/cases/N4/9.jpg",
+            "images/cases/N4/2244.jpg",
+            "images/cases/N4/带彩色模型.jpg",
+            "images/cases/N4/中文界面主图4.jpg",
+            "images/cases/N4/中文界面主图5.jpg",
+            "images/cases/N4/中文界面主图6.jpg",
+            "images/cases/N4/A7.jpg",
+            "images/cases/N4/A8.jpg",
+            "images/cases/N4/A16~1.jpg",
+            "images/cases/N4/A17~1.jpg",
+            "images/cases/N4/A18~1.jpg",
+            "images/cases/N4/A20~1.jpg",
+            "images/cases/N4/A23~1.jpg",
+            "images/cases/N4/A24~1.jpg",
+            "images/cases/N4/A26~1.jpg",
+            "images/cases/N4/A32~1.jpg",
+            "images/cases/N4/A33~1.jpg",
+            "images/cases/N4/A35~1.jpg",
+            "images/cases/N4/A36~1.jpg",
+            "images/cases/N4/A39~1.jpg",
+            "images/cases/N4/A50-2.jpg",
+            "images/cases/N4/A51.jpg",
+            "images/cases/N4/KG405.jpg"
+        ],
+        "subtitle": "",
+        "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": []
+    },
+    {
+        "id": 1788513859939,
+        "sortOrder": 35,
+        "isTop": false,
+        "title": "N7",
+        "category": "3d",
+        "categoryName": "3D渲染",
+        "displayStyle": "B",
+        "image": "images/cases/N7/A1.jpg",
+        "gallery": [
+            "images/cases/N7/A1.jpg",
+            "images/cases/N7/A2.jpg",
+            "images/cases/N7/A3.jpg",
+            "images/cases/N7/A4.jpg",
+            "images/cases/N7/A6.jpg",
+            "images/cases/N7/A7.jpg",
+            "images/cases/N7/A8.jpg",
+            "images/cases/N7/A9.jpg",
+            "images/cases/N7/A10.jpg",
+            "images/cases/N7/A11.jpg",
+            "images/cases/N7/A12.jpg",
+            "images/cases/N7/A13.jpg",
+            "images/cases/N7/A15.jpg",
+            "images/cases/N7/A16.jpg",
+            "images/cases/N7/A17.jpg",
+            "images/cases/N7/A18.jpg",
+            "images/cases/N7/A19.jpg",
+            "images/cases/N7/A20.jpg",
+            "images/cases/N7/A21.jpg",
+            "images/cases/N7/A22.jpg",
+            "images/cases/N7/A23.jpg",
+            "images/cases/N7/A24.jpg",
+            "images/cases/N7/A25.jpg",
+            "images/cases/N7/A26.jpg",
+            "images/cases/N7/A27.jpg",
+            "images/cases/N7/A28.jpg",
+            "images/cases/N7/A29.jpg",
+            "images/cases/N7/A30.jpg",
+            "images/cases/N7/A31.jpg",
+            "images/cases/N7/A32.jpg",
+            "images/cases/N7/A33.jpg",
+            "images/cases/N7/A34.jpg",
+            "images/cases/N7/AFWEAGE.jpg",
+            "images/cases/N7/image6.jpeg",
+            "images/cases/N7/image6.jpg"
+        ],
+        "subtitle": "",
+        "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": []
+    },
+    {
+        "id": 1788513859940,
+        "sortOrder": 37,
+        "isTop": false,
+        "title": "T200S",
+        "category": "3d",
+        "categoryName": "3D渲染",
+        "displayStyle": "B",
+        "image": "images/cases/T200S/A1.jpg",
+        "gallery": [
+            "images/cases/T200S/A1.jpg",
+            "images/cases/T200S/A2.jpg",
+            "images/cases/T200S/A3.jpg",
+            "images/cases/T200S/A4.jpg",
+            "images/cases/T200S/A5.jpg",
+            "images/cases/T200S/A6.jpg",
+            "images/cases/T200S/B1.jpg",
+            "images/cases/T200S/B2.jpg",
+            "images/cases/T200S/B3.jpg",
+            "images/cases/T200S/lADPBGKocRxQW-zNBDjNB4A_1920_1080.jpg"
+        ],
+        "subtitle": "",
+        "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": []
+    },
+    {
+        "id": 1788513859941,
+        "sortOrder": 39,
+        "isTop": false,
+        "title": "VP01",
+        "category": "3d",
+        "categoryName": "3D渲染",
+        "displayStyle": "B",
+        "image": "images/cases/VP01/2-1.jpg",
+        "gallery": [
+            "images/cases/VP01/2-1.jpg",
+            "images/cases/VP01/2-2.jpg",
+            "images/cases/VP01/2-3.jpg",
+            "images/cases/VP01/A2.jpg",
+            "images/cases/VP01/A4.jpg",
+            "images/cases/VP01/A5.jpg",
+            "images/cases/VP01/A6.jpg",
+            "images/cases/VP01/A7.jpg",
+            "images/cases/VP01/A8.jpg",
+            "images/cases/VP01/A9.jpg",
+            "images/cases/VP01/A10.jpg",
+            "images/cases/VP01/A11.jpg",
+            "images/cases/VP01/A12.jpg"
+        ],
+        "subtitle": "",
+        "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": []
+    },
+    {
+        "id": 1788513859942,
+        "sortOrder": 41,
+        "isTop": false,
+        "title": "VP05",
+        "category": "3d",
+        "categoryName": "3D渲染",
+        "displayStyle": "B",
+        "image": "images/cases/VP05/1-2.jpg",
+        "gallery": [
+            "images/cases/VP05/1-2.jpg",
+            "images/cases/VP05/1-3.jpg",
+            "images/cases/VP05/1-4.jpg",
+            "images/cases/VP05/1-5.jpg",
+            "images/cases/VP05/1-6.jpg",
+            "images/cases/VP05/1-7.jpg",
+            "images/cases/VP05/1-8.jpg",
+            "images/cases/VP05/1-10.jpg",
+            "images/cases/VP05/A1.jpg",
+            "images/cases/VP05/A2.jpg",
+            "images/cases/VP05/A3.jpg",
+            "images/cases/VP05/A4.jpg",
+            "images/cases/VP05/A5.jpg",
+            "images/cases/VP05/A6.jpg",
+            "images/cases/VP05/A7.jpg",
+            "images/cases/VP05/A8.jpg",
+            "images/cases/VP05/A9.jpg"
+        ],
+        "subtitle": "",
+        "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": []
+    },
+    {
+        "id": 1788513859943,
+        "sortOrder": 43,
+        "isTop": false,
+        "title": "耗材",
+        "category": "3d",
+        "categoryName": "3D渲染",
+        "displayStyle": "B",
+        "image": "images/cases/耗材/橙色.jpg",
+        "gallery": [
+            "images/cases/耗材/橙色.jpg",
+            "images/cases/耗材/橙色2.jpg",
+            "images/cases/耗材/粉色.jpg",
+            "images/cases/耗材/粉色2.jpg",
+            "images/cases/耗材/黄色.jpg",
+            "images/cases/耗材/黄色2.jpg",
+            "images/cases/耗材/蓝色.jpg",
+            "images/cases/耗材/蓝色2.jpg",
+            "images/cases/耗材/绿色.jpg",
+            "images/cases/耗材/绿色2.jpg",
+            "images/cases/耗材/透明.jpg",
+            "images/cases/耗材/透明2.jpg",
+            "images/cases/耗材/银色.jpg",
+            "images/cases/耗材/银色2.jpg",
+            "images/cases/耗材/A2_0060.jpg",
+            "images/cases/耗材/A5.jpg",
+            "images/cases/耗材/A18.jpg",
+            "images/cases/耗材/A25.jpg",
+            "images/cases/耗材/A26.jpg",
+            "images/cases/耗材/A27.jpg",
+            "images/cases/耗材/A28.jpg",
+            "images/cases/耗材/ABS-Filament-1.jpg",
+            "images/cases/耗材/ABS-Filament-2.jpg",
+            "images/cases/耗材/ABS-Filament-3.jpg"
+        ],
+        "subtitle": "",
+        "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": []
+    },
+    {
+        "id": 1788513859944,
+        "sortOrder": 45,
+        "isTop": false,
+        "title": "工矿灯",
+        "category": "photography",
+        "categoryName": "产品摄影",
+        "displayStyle": "B",
+        "image": "images/cases/工矿灯/1_b5d932f1.jpg",
+        "gallery": [
+            "images/cases/工矿灯/1_b5d932f1.jpg",
+            "images/cases/工矿灯/3.jpg",
+            "images/cases/工矿灯/4_9a4e924f.jpg",
+            "images/cases/工矿灯/7.jpg"
+        ],
+        "subtitle": "",
+        "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": []
+    },
+    {
+        "id": 1788513859945,
+        "sortOrder": 47,
+        "isTop": false,
+        "title": "灯泡",
+        "category": "photography",
+        "categoryName": "产品摄影",
+        "displayStyle": "B",
+        "image": "images/cases/灯泡/Main_02.jpg",
+        "gallery": [
+            "images/cases/灯泡/Main_02.jpg",
+            "images/cases/灯泡/Main_12.jpg"
+        ],
+        "subtitle": "",
+        "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": []
+    },
+    {
+        "id": 1788513859946,
+        "sortOrder": 49,
+        "isTop": false,
+        "title": "生活实拍",
+        "category": "photography",
+        "categoryName": "产品摄影",
+        "displayStyle": "B",
+        "image": "images/cases/生活实拍/28bfba35b010934f8a47595e26ad1336.JPG",
+        "gallery": [
+            "images/cases/生活实拍/28bfba35b010934f8a47595e26ad1336.JPG",
+            "images/cases/生活实拍/073e0ff9392ab0937db81cdae3f7f890.JPG",
+            "images/cases/生活实拍/2024_08_10_00_01_IMG_5198.JPG",
+            "images/cases/生活实拍/2024_08_10_00_01_IMG_5199.JPG",
+            "images/cases/生活实拍/2024_08_10_00_01_IMG_5200.JPG",
+            "images/cases/生活实拍/2024_08_10_00_01_IMG_5201.JPG",
+            "images/cases/生活实拍/2024_08_10_00_01_IMG_5202.JPG",
+            "images/cases/生活实拍/2024_08_10_00_01_IMG_5203.JPG",
+            "images/cases/生活实拍/2024_08_10_00_01_IMG_5204.JPG",
+            "images/cases/生活实拍/2024_08_10_00_01_IMG_5205.JPG",
+            "images/cases/生活实拍/2024_08_10_00_09_IMG_5206.JPG",
+            "images/cases/生活实拍/2024_08_10_00_09_IMG_5207.JPG",
+            "images/cases/生活实拍/2024_08_10_00_14_IMG_5208.JPG",
+            "images/cases/生活实拍/微信图片_20240729183440.jpg",
+            "images/cases/生活实拍/微信图片_20240729183441.jpg",
+            "images/cases/生活实拍/微信图片_20240729183442.jpg",
+            "images/cases/生活实拍/微信图片_202407291834411.jpg",
+            "images/cases/生活实拍/微信图片_202407291834421.jpg",
+            "images/cases/生活实拍/d132be37437c8587b68bbf1738deee59.JPG",
+            "images/cases/生活实拍/DSC_3565 拷贝.jpg",
+            "images/cases/生活实拍/IMG_0741.jpg",
+            "images/cases/生活实拍/IMG_1168.jpg",
+            "images/cases/生活实拍/IMG_1849.jpg",
+            "images/cases/生活实拍/IMG_2361.jpg",
+            "images/cases/生活实拍/IMG_2488.jpg"
+        ],
+        "subtitle": "",
+        "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": []
+    },
+    {
+        "id": 1788513859947,
+        "sortOrder": 51,
+        "isTop": false,
+        "title": "筒灯",
+        "category": "photography",
+        "categoryName": "产品摄影",
+        "displayStyle": "B",
+        "image": "images/cases/筒灯/1_f2b8ecd5.jpg",
+        "gallery": [
+            "images/cases/筒灯/1_f2b8ecd5.jpg",
+            "images/cases/筒灯/1.jpg"
+        ],
+        "subtitle": "",
+        "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": []
+    },
+    {
+        "id": 1788513859948,
+        "sortOrder": 53,
         "isTop": false,
         "title": "防水灯",
-        "category": "branding",
-        "categoryName": "品牌设计",
+        "category": "photography",
+        "categoryName": "产品摄影",
         "displayStyle": "B",
-        "image": "images/fangsshuideng_1.jpg",
+        "image": "images/cases/防水灯/1.jpg",
         "gallery": [
-            "images/fangsshuideng_1.jpg",
-            "images/fangsshuideng_11.jpg",
-            "images/fangsshuideng_12.jpg",
-            "images/fangsshuideng_2_18772230.jpg",
-            "images/fangsshuideng_2.jpg",
-            "images/fangsshuideng_4.jpg",
-            "images/fangsshuideng_5.jpg"
+            "images/cases/防水灯/1.jpg",
+            "images/cases/防水灯/2_18772230.jpg",
+            "images/cases/防水灯/2.jpg",
+            "images/cases/防水灯/4.jpg",
+            "images/cases/防水灯/5.jpg",
+            "images/cases/防水灯/11.jpg",
+            "images/cases/防水灯/12.jpg"
         ],
-        "subtitle": "防水灯",
-        "client": "",
-        "year": "2022",
-        "duration": "",
-        "services": [],
-        "description": "创意与功能并重的产品包装设计，提升产品市场竞争力。",
+        "subtitle": "",
+        "description": "",
         "challenge": "",
         "solution": "",
         "results": [],
         "features": [],
-        "tags": [
-            "产品实拍"
-        ]
+        "tags": []
+    },
+    {
+        "id": 1788513859949,
+        "sortOrder": 55,
+        "isTop": false,
+        "title": "面板灯照明",
+        "category": "photography",
+        "categoryName": "产品摄影",
+        "displayStyle": "B",
+        "image": "images/cases/面板灯照明/5_d5f7bc69.jpg",
+        "gallery": [
+            "images/cases/面板灯照明/5_d5f7bc69.jpg",
+            "images/cases/面板灯照明/IMG_0780.JPG",
+            "images/cases/面板灯照明/IMG_3223.JPG",
+            "images/cases/面板灯照明/IMG_3225.JPG",
+            "images/cases/面板灯照明/IMG_3377.JPG",
+            "images/cases/面板灯照明/IMG_3378.JPG"
+        ],
+        "subtitle": "",
+        "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": []
+    },
+    {
+        "id": 1788513859950,
+        "sortOrder": 57,
+        "isTop": false,
+        "title": "3d打印耗材手提袋",
+        "category": "packaging",
+        "categoryName": "包装设计",
+        "displayStyle": "B",
+        "image": "images/cases/3d打印耗材手提袋/侧面2.jpg",
+        "gallery": [
+            "images/cases/3d打印耗材手提袋/侧面2.jpg",
+            "images/cases/3d打印耗材手提袋/耗材.jpg",
+            "images/cases/3d打印耗材手提袋/机器.jpg",
+            "images/cases/3d打印耗材手提袋/两个袋子_333_1.jpg"
+        ],
+        "subtitle": "",
+        "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": []
+    },
+    {
+        "id": 1788513859951,
+        "sortOrder": 59,
+        "isTop": false,
+        "title": "灯具包装盒",
+        "category": "packaging",
+        "categoryName": "包装设计",
+        "displayStyle": "B",
+        "image": "images/cases/灯具包装盒/（新地址）底发光 595595 RRLP-BL50W 2022-8-5(1)-改版.jpg",
+        "gallery": [
+            "images/cases/灯具包装盒/（新地址）底发光 595595 RRLP-BL50W 2022-8-5(1)-改版.jpg",
+            "images/cases/灯具包装盒/暗装无边框面板灯彩盒_画板 1 副本 4.jpg",
+            "images/cases/灯具包装盒/彩盒_暗装30W.jpg",
+            "images/cases/灯具包装盒/奇正-D6349-PB10--更改彩盒色温名称、删除二类灯具图标-02.jpg",
+            "images/cases/灯具包装盒/射灯包装内盒.jpg",
+            "images/cases/灯具包装盒/DW-36 Octubre2022.jpg",
+            "images/cases/灯具包装盒/PAN-38y43-A4-NE-Q-JUL2023.jpg",
+            "images/cases/灯具包装盒/RR - LED TRACK LIGHT - 20W - INNER.jpg"
+        ],
+        "subtitle": "",
+        "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": []
+    },
+    {
+        "id": 1788513859952,
+        "sortOrder": 61,
+        "isTop": false,
+        "title": "CCML logo设计",
+        "category": "branding",
+        "categoryName": "品牌设计",
+        "displayStyle": "B",
+        "image": "images/cases/CCML logo设计/1.jpg",
+        "gallery": [
+            "images/cases/CCML logo设计/1.jpg"
+        ],
+        "subtitle": "",
+        "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": []
+    },
+    {
+        "id": 1788513859953,
+        "sortOrder": 63,
+        "isTop": false,
+        "title": "Pure color logo设计",
+        "category": "branding",
+        "categoryName": "品牌设计",
+        "displayStyle": "B",
+        "image": "images/cases/Pure color logo设计/00001.jpg",
+        "gallery": [
+            "images/cases/Pure color logo设计/00001.jpg",
+            "images/cases/Pure color logo设计/5d6a409066b93.jpg",
+            "images/cases/Pure color logo设计/5e0ea982957a0.jpg",
+            "images/cases/Pure color logo设计/single_cup35002327.jpg"
+        ],
+        "subtitle": "",
+        "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": []
+    },
+    {
+        "id": 1788513859954,
+        "sortOrder": 65,
+        "isTop": false,
+        "title": "一组logo设计",
+        "category": "branding",
+        "categoryName": "品牌设计",
+        "displayStyle": "B",
+        "image": "images/cases/一组logo设计/auto-orient_1 (4).jpg",
+        "gallery": [
+            "images/cases/一组logo设计/auto-orient_1 (4).jpg",
+            "images/cases/一组logo设计/image22.jpeg",
+            "images/cases/一组logo设计/image23.jpg",
+            "images/cases/一组logo设计/image24.jpeg",
+            "images/cases/一组logo设计/image25.jpg",
+            "images/cases/一组logo设计/OJL.jpg",
+            "images/cases/一组logo设计/Snipaste_2024-08-26_16-23-18.jpg",
+            "images/cases/一组logo设计/ZHONGCHUANG .jpg"
+        ],
+        "subtitle": "",
+        "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": []
+    },
+    {
+        "id": 1788513859955,
+        "sortOrder": 67,
+        "isTop": false,
+        "title": "创宏智控系列品牌logo",
+        "category": "branding",
+        "categoryName": "品牌设计",
+        "displayStyle": "B",
+        "image": "images/cases/创宏智控系列品牌logo/BEAUTIFUL COLOR_LOGO.jpg",
+        "gallery": [
+            "images/cases/创宏智控系列品牌logo/BEAUTIFUL COLOR_LOGO.jpg",
+            "images/cases/创宏智控系列品牌logo/BESTGEE.jpg",
+            "images/cases/创宏智控系列品牌logo/KINGEE.jpg",
+            "images/cases/创宏智控系列品牌logo/LASERCUBE.jpg",
+            "images/cases/创宏智控系列品牌logo/PURE COLOR_LOGO.jpg",
+            "images/cases/创宏智控系列品牌logo/TRUE COLOR_LOGO.jpg"
+        ],
+        "subtitle": "",
+        "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": []
+    },
+    {
+        "id": 1788513859956,
+        "sortOrder": 69,
+        "isTop": false,
+        "title": "合鼎集团",
+        "category": "branding",
+        "categoryName": "品牌设计",
+        "displayStyle": "B",
+        "image": "images/cases/合鼎集团/7.jpg",
+        "gallery": [
+            "images/cases/合鼎集团/7.jpg"
+        ],
+        "subtitle": "",
+        "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": []
+    },
+    {
+        "id": 1788513859957,
+        "sortOrder": 71,
+        "isTop": false,
+        "title": "琢光照明logo设计",
+        "category": "branding",
+        "categoryName": "品牌设计",
+        "displayStyle": "B",
+        "image": "images/cases/琢光照明logo设计/ZOOM LOGO_logo.jpg",
+        "gallery": [
+            "images/cases/琢光照明logo设计/ZOOM LOGO_logo.jpg",
+            "images/cases/琢光照明logo设计/ZOOM LOGO.jpg"
+        ],
+        "subtitle": "",
+        "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": []
+    },
+    {
+        "id": 1788513859958,
+        "sortOrder": 73,
+        "isTop": false,
+        "title": "Banner",
+        "category": "dianshang",
+        "categoryName": "电商设计",
+        "displayStyle": "B",
+        "image": "images/cases/Banner/场景banner.jpg",
+        "gallery": [
+            "images/cases/Banner/场景banner.jpg",
+            "images/cases/Banner/超薄面板灯.jpg",
+            "images/cases/Banner/法兰克福banner.jpg",
+            "images/cases/Banner/三防灯.jpg",
+            "images/cases/Banner/首页_35099ff0.jpg",
+            "images/cases/Banner/首页.jpg",
+            "images/cases/Banner/A8plusbanner 2.jpg",
+            "images/cases/Banner/Banner2.jpg",
+            "images/cases/Banner/image12.jpg",
+            "images/cases/Banner/image13.jpeg",
+            "images/cases/Banner/image13.jpg",
+            "images/cases/Banner/image14.jpg",
+            "images/cases/Banner/image15.jpg",
+            "images/cases/Banner/image16.jpg",
+            "images/cases/Banner/lc100.jpg",
+            "images/cases/Banner/N4banner 1.jpg",
+            "images/cases/Banner/T300SPRO.jpg",
+            "images/cases/Banner/T400.jpg"
+        ],
+        "subtitle": "",
+        "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": []
+    },
+    {
+        "id": 1788513859959,
+        "sortOrder": 75,
+        "isTop": false,
+        "title": "主图",
+        "category": "dianshang",
+        "categoryName": "电商设计",
+        "displayStyle": "B",
+        "image": "images/cases/主图/2 (2).jpg",
+        "gallery": [
+            "images/cases/主图/2 (2).jpg",
+            "images/cases/主图/2x2ft-5Y-30mm.jpg",
+            "images/cases/主图/3Y底发光.jpg",
+            "images/cases/主图/600.jpg",
+            "images/cases/主图/超薄灯体.jpg",
+            "images/cases/主图/家装筒灯-主图2.jpg",
+            "images/cases/主图/面板灯60x60-定制2.jpg",
+            "images/cases/主图/面板灯60x60-主图1.jpg",
+            "images/cases/主图/面板灯60x60-主图2.jpg",
+            "images/cases/主图/面板灯60x60-主图4.jpg",
+            "images/cases/主图/射灯-7-3-B.jpg",
+            "images/cases/主图/H射灯-主图2.jpg",
+            "images/cases/主图/main_14.jpg",
+            "images/cases/主图/panel light 01.jpg",
+            "images/cases/主图/panel light 04.jpg",
+            "images/cases/主图/panel light 09.jpg",
+            "images/cases/主图/panel light 10.jpg"
+        ],
+        "subtitle": "",
+        "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": []
+    },
+    {
+        "id": 1788513859960,
+        "sortOrder": 77,
+        "isTop": false,
+        "title": "详情页",
+        "category": "dianshang",
+        "categoryName": "电商设计",
+        "displayStyle": "B",
+        "image": "images/cases/详情页/电脑主机详情页.jpg",
+        "gallery": [
+            "images/cases/详情页/电脑主机详情页.jpg",
+            "images/cases/详情页/射灯详情页.jpg",
+            "images/cases/详情页/音响详情页.jpg",
+            "images/cases/详情页/琢光企业详情页.jpg",
+            "images/cases/详情页/E12PLUS详情页英文.jpg",
+            "images/cases/详情页/N4详情页.jpg",
+            "images/cases/详情页/N7详情页1000.jpg",
+            "images/cases/详情页/N7详情页英文版.jpg"
+        ],
+        "subtitle": "",
+        "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": []
+    },
+    {
+        "id": 1788513859961,
+        "sortOrder": 79,
+        "isTop": false,
+        "title": "135广交会照明展物料",
+        "category": "offline",
+        "displayStyle": "B",
+        "subtitle": "",
+        "image": "images/cases/135广交会现场/135广交会正面灯箱内容1.jpg",
+        "gallery": [
+            "images/cases/135广交会现场/135广交会正面灯箱内容1.jpg",
+            "images/cases/135广交会现场/135广交会正面灯箱内容.jpg",
+            "images/cases/135广交会现场/135广交会顶部灯箱-01.jpg",
+            "images/cases/135广交会现场/135广交会顶部灯箱-02.jpg",
+            "images/cases/135广交会现场/135广交会现场.jpg",
+            "images/cases/135广交会现场/135广交会现场2.jpg",
+            "images/cases/135广交会现场/135广交会现场3.jpg",
+            "images/cases/135广交会现场/135广交会正面灯箱内容_画板 1 .jpg"
+        ],
+        "description": "",
+        "tags": []
+    },
+    {
+        "id": 1788513859962,
+        "sortOrder": 81,
+        "isTop": false,
+        "title": "3d打印产品物料",
+        "category": "offline",
+        "categoryName": "线下物料",
+        "displayStyle": "B",
+        "image": "images/cases/3d打印产品物料/ET4英文单页转曲_1.jpg",
+        "gallery": [
+            "images/cases/3d打印产品物料/ET4英文单页转曲_1.jpg",
+            "images/cases/3d打印产品物料/ET4英文单页转曲_2.jpg",
+            "images/cases/3d打印产品物料/image17.jpg",
+            "images/cases/3d打印产品物料/image18.jpg"
+        ],
+        "subtitle": "",
+        "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": []
+    },
+    {
+        "id": 1788513859963,
+        "sortOrder": 83,
+        "isTop": false,
+        "title": "3d打印展会背景墙",
+        "category": "offline",
+        "categoryName": "线下物料",
+        "displayStyle": "B",
+        "image": "images/cases/3d打印展会背景墙/微信图片_202009052030188.jpg",
+        "gallery": [
+            "images/cases/3d打印展会背景墙/微信图片_202009052030188.jpg",
+            "images/cases/3d打印展会背景墙/微信图片_2020090520301814.jpg",
+            "images/cases/3d打印展会背景墙/微信图片_2020090520301815.jpg"
+        ],
+        "subtitle": "",
+        "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": []
+    },
+    {
+        "id": 1788513859964,
+        "sortOrder": 85,
+        "isTop": false,
+        "title": "婚博会展位背景墙物料",
+        "category": "offline",
+        "categoryName": "线下物料",
+        "displayStyle": "B",
+        "image": "images/cases/婚博会展位背景墙物料/70X100cm广告sg.jpg",
+        "gallery": [
+            "images/cases/婚博会展位背景墙物料/70X100cm广告sg.jpg",
+            "images/cases/婚博会展位背景墙物料/背景墙样机.jpg",
+            "images/cases/婚博会展位背景墙物料/微信图片_20240725172850.jpg"
+        ],
+        "subtitle": "",
+        "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": []
+    },
+    {
+        "id": 1788513859965,
+        "sortOrder": 87,
+        "isTop": false,
+        "title": "灯具展会物料",
+        "category": "offline",
+        "categoryName": "线下物料",
+        "displayStyle": "B",
+        "image": "images/cases/灯具展会物料/光亚展邀请函2.jpg",
+        "gallery": [
+            "images/cases/灯具展会物料/光亚展邀请函2.jpg",
+            "images/cases/灯具展会物料/邀请函.jpg",
+            "images/cases/灯具展会物料/IMG_0044.jpg",
+            "images/cases/灯具展会物料/IMG_0045.jpg",
+            "images/cases/灯具展会物料/IMG_0046.JPG",
+            "images/cases/灯具展会物料/IMG_1975.jpg",
+            "images/cases/灯具展会物料/IMG_5511.HEIC.jpg"
+        ],
+        "subtitle": "",
+        "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": []
+    },
+    {
+        "id": 1788513859966,
+        "sortOrder": 89,
+        "isTop": false,
+        "title": "照明产品折页",
+        "category": "offline",
+        "categoryName": "线下物料",
+        "displayStyle": "B",
+        "image": "images/cases/照明产品折页/奇正折页1.jpg",
+        "gallery": [
+            "images/cases/照明产品折页/奇正折页1.jpg",
+            "images/cases/照明产品折页/奇正折页2.jpg",
+            "images/cases/照明产品折页/奇正折页3.jpg",
+            "images/cases/照明产品折页/奇正折页4.jpg",
+            "images/cases/照明产品折页/奇正折页5.jpg",
+            "images/cases/照明产品折页/奇正折页6.jpg"
+        ],
+        "subtitle": "",
+        "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": []
+    },
+    {
+        "id": 1788513859967,
+        "sortOrder": 91,
+        "isTop": false,
+        "title": "照明挪威展 展板背景墙",
+        "category": "offline",
+        "categoryName": "线下物料",
+        "displayStyle": "B",
+        "image": "images/cases/照明挪威展 展板背景墙/挪威展2.jpg",
+        "gallery": [
+            "images/cases/照明挪威展 展板背景墙/挪威展2.jpg",
+            "images/cases/照明挪威展 展板背景墙/样机.jpg"
+        ],
+        "subtitle": "",
+        "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": []
+    },
+    {
+        "id": 1788513859968,
+        "sortOrder": 93,
+        "isTop": false,
+        "title": "门店活动物料",
+        "category": "offline",
+        "categoryName": "线下物料",
+        "displayStyle": "B",
+        "image": "images/cases/门店活动物料/46.5x68关于我们sg2.jpg",
+        "gallery": [
+            "images/cases/门店活动物料/46.5x68关于我们sg2.jpg",
+            "images/cases/门店活动物料/爱贝和美海报sg.jpg",
+            "images/cases/门店活动物料/分娩课指引牌.jpg",
+            "images/cases/门店活动物料/空中瑜伽sg.jpg",
+            "images/cases/门店活动物料/微信图片_20240725172835.jpg",
+            "images/cases/门店活动物料/微信图片_20240725172841.jpg",
+            "images/cases/门店活动物料/微信图片_20240725172845.jpg",
+            "images/cases/门店活动物料/易拉宝样机.jpg",
+            "images/cases/门店活动物料/征稿启示.jpg",
+            "images/cases/门店活动物料/KT板样机.jpg"
+        ],
+        "subtitle": "",
+        "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": []
     }
 ];
 
@@ -816,7 +1355,11 @@ const categories = {
     "branding": "品牌设计",
     "ui": "UI设计",
     "packaging": "包装设计",
-    "dianshang": "电商设计"
+    "dianshang": "电商设计",
+    "3d": "3D渲染",
+    "aigc": "AIGC",
+    "photography": "产品摄影",
+    "offline": "线下物料"
 };
 
 const blogCategories = {
@@ -853,7 +1396,11 @@ const presetTags = [
     "信息架构",
     "响应式设计",
     "场景化设计",
-    "产品实拍"
+    "产品实拍",
+    "3D渲染",
+    "AIGC",
+    "产品摄影",
+    "线下物料"
 ];
 
 function getCategoryName(category) {
@@ -864,49 +1411,75 @@ function getProjectById(id) {
     return projectsData.find(project => project.id === parseInt(id));
 }
 
-window.blogPosts = [];
-// 注意：初始化为空数组，不再硬编码文章内容作为兜底显示
-// 真正的单一数据源 = blog/posts/*.md 文件开头的 front matter
-// 前端展示的列表来自 blog/index.json（由后台「重新扫描博客目录」或 loadBlogPosts() 自动扫描 md 生成）
-// 如果你打开前端页面看到空列表：请在后台点「博客管理 → 重新扫描」
-// 如果是 GitHub Pages 部署：确保 push 上去的 blog/ 目录里有 index.json
+window.blogPosts = [
+    {
+        "slug": "2024-brand-trends",
+        "fileName": "2024-brand-trends.md",
+        "title": "2024-brand-trends",
+        "date": "",
+        "category": "",
+        "author": "",
+        "cover": "",
+        "excerpt": "",
+        "tags": []
+    },
+    {
+        "slug": "brand-vi-guide",
+        "fileName": "brand-vi-guide.md",
+        "title": "brand-vi-guide",
+        "date": "",
+        "category": "",
+        "author": "",
+        "cover": "",
+        "excerpt": "",
+        "tags": []
+    },
+    {
+        "slug": "color-theory",
+        "fileName": "color-theory.md",
+        "title": "color-theory",
+        "date": "",
+        "category": "",
+        "author": "",
+        "cover": "",
+        "excerpt": "",
+        "tags": []
+    },
+    {
+        "slug": "ecommerce-design",
+        "fileName": "ecommerce-design.md",
+        "title": "ecommerce-design",
+        "date": "",
+        "category": "",
+        "author": "",
+        "cover": "",
+        "excerpt": "",
+        "tags": []
+    },
+    {
+        "slug": "packaging-design",
+        "fileName": "packaging-design.md",
+        "title": "packaging-design",
+        "date": "",
+        "category": "",
+        "author": "",
+        "cover": "",
+        "excerpt": "",
+        "tags": []
+    },
+    {
+        "slug": "ui-ux-tips",
+        "fileName": "ui-ux-tips.md",
+        "title": "ui-ux-tips",
+        "date": "",
+        "category": "",
+        "author": "",
+        "cover": "",
+        "excerpt": "",
+        "tags": []
+    }
+];
 
 function getBlogPostById(id) {
     return window.blogPosts.find(post => post.id === parseInt(id));
-}
-
-async function loadBlogPostsData() {
-    // 优先从自动生成的索引文件读取（单一数据源 = md 文件开头的 front matter）
-    // blog/index.json 由后台「重新扫描博客目录」功能生成，也可手动维护
-    try {
-        const resp = await fetch('blog/index.json');
-        if (resp.ok) {
-            const posts = await resp.json();
-            if (Array.isArray(posts)) {
-                window.blogPosts = posts;
-                return posts;
-            }
-        } else {
-            console.warn('[博客数据] fetch blog/index.json 失败，状态码: ' + resp.status + '。请在后台点「博客管理 → 重新扫描」生成索引；如果是 GitHub Pages 部署请确保 blog/index.json 已 push。');
-        }
-    } catch (e) {
-        console.warn('[博客数据] fetch blog/index.json 异常: ' + (e && e.message || e) + '。可能原因：① file:// 直开浏览器被 CORS 拦截 ② 还没跑「重新扫描」生成该文件。');
-    }
-    // 回退：window.blogPosts（已初始化为空数组，不再有硬编码文章作为假数据兜底）
-    // 如果是空数组，调用方渲染「空列表」提示就好，不再显示假数据
-    if (!window.blogPosts || window.blogPosts.length === 0) {
-        console.warn('[博客数据] 最终返回空列表：前端不会显示文章。解决方法：① Electron 后台里「博客管理 → 重新扫描」② 打包后重打安装包（新代码+新 index.json 一起打包进去）。');
-    }
-    return window.blogPosts || [];
-}
-
-async function loadBlogContent(slug) {
-    // 正文统一从 md 文件读取（单一数据源）
-    try {
-        const resp = await fetch(`blog/posts/${slug}.md`);
-        if (resp.ok) {
-            return await resp.text();
-        }
-    } catch (e) {}
-    return '';
 }

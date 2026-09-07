@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>正在跳转预览...</title>
+<script>
+(function(){
+  // 相对路径跳转到目标页面，并带上 query 参数
+  var target = "project.html?id=15";
+  try { location.replace(target); }
+  catch(e) { location.href = target; }
+  setTimeout(function(){
+    document.body.innerHTML = '<p style="font-family:sans-serif;padding:40px;text-align:center;color:#666;">跳转失败，请 <a style="color:#00cec9;" href="' + target + '">点这里手动打开</a></p>';
+  }, 2000);
+})();
+</script>
+</head>
+<body style="margin:0;background:#f5f7fa;">
+  <p style="font-family:sans-serif;padding:40px;text-align:center;color:#636e72;">正在打开预览，请稍候...</p>
+</body>
+</html>

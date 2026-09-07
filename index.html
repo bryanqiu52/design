@@ -192,86 +192,115 @@
 <div id="site-footer"></div>
 
 <script src="js/config.js"></script>
+<script src="blog/index-data.js"></script>
 <script src="js/data.js"></script>
 <script>
 
 function loadFeaturedWorks() {
     const container = document.getElementById('featuredWorks');
     container.innerHTML = featuredWorks.map((work, index) => `
-        <a href="project.html?id=${work.id}" class="work-item" data-animate style="transition-delay: ${index * 0.1}s">
-            <div class="work-image">
+        <a href="project.html?id=${work.id}" class="portfolio-item" data-animate style="transition-delay: ${index * 0.1}s">
+            <div class="portfolio-item-image">
                 <img src="${work.image}" alt="${work.title}" loading="lazy">
-                <div class="work-overlay">
-                    <span class="work-category">${getCategoryName(work.category)}</span>
-                    <div class="work-arrow"><i class="fas fa-arrow-right"></i></div>
+                <div class="portfolio-item-overlay">
+                    <span class="portfolio-item-category">${getCategoryName(work.category)}</span>
                 </div>
             </div>
-            <div class="work-info">
+            <div class="portfolio-item-info">
                 <h3>${work.title}</h3>
+                <p>${work.description}</p>
+                <span class="portfolio-item-link">
+                    查看详情 <i class="fas fa-arrow-right"></i>
+                </span>
             </div>
         </a>
     `).join('');
 }
 
-function loadBlogPosts() {
-    console.log('loadBlogPosts called');
+// 首页博客区加载：必须 await loadBlogPostsData()（从 index.json 读）后再渲染
+// 修复之前"同步读 window.blogPosts（初始化是空数组）→ 立即渲染暂无文章"的竞态问题
+async function loadBlogPosts() {
+    console.log('[首页博客] loadBlogPosts called');
     const container = document.getElementById('blogPosts');
-    
     if (!container) {
-        console.log('blogPosts container not found');
+        console.log('[首页博客] blogPosts container not found');
         return;
     }
-    
-    console.log('window.blogPosts:', window.blogPosts);
-    console.log('window.blogPosts length:', window.blogPosts ? window.blogPosts.length : 'undefined');
-    
-    if (!window.blogPosts || !Array.isArray(window.blogPosts) || window.blogPosts.length === 0) {
-        container.innerHTML = '<div style="text-align: center; padding: 40px; color: rgba(255,255,255,0.6);"><i class="fas fa-file-alt" style="font-size: 48px; margin-bottom: 16px; display: block;"></i><h3 style="margin-bottom: 8px;">暂无博客文章</h3></div>';
+    // 先从真源取数据（fetch blog/index.json）
+    let posts = [];
+    if (typeof loadBlogPostsData === 'function') {
+        try {
+            posts = await loadBlogPostsData();
+        } catch (e) {
+            console.warn('[首页博客] loadBlogPostsData 出错:', e);
+        }
+    }
+    // 回退：如果数据函数没加载成功或返回空，再看 window.blogPosts 里有没有
+    if (!posts || !posts.length) {
+        posts = Array.isArray(window.blogPosts) ? window.blogPosts : [];
+    }
+    console.log('[首页博客] 最终文章数:', posts.length);
+    if (!posts.length) {
+        container.innerHTML = '<div style="text-align: center; padding: 40px; color: rgba(255,255,255,0.6);"><i class="fas fa-file-alt" style="font-size: 48px; margin-bottom: 16px; display: block;"></i><h3 style="margin-bottom: 8px;">暂无博客文章</h3><p style="opacity:0.8; font-size:14px;">如果是在后台预览：请在博客管理点「重新扫描」生成索引。如果是 GitHub Pages：确保 blog/index.json 已 push。</p></div>';
         return;
     }
-    
-    const posts = window.blogPosts;
-        
-        const latestPosts = posts.slice(0, 4);
-        const featuredPost = latestPosts[0];
-        const miniPosts = latestPosts.slice(1);
-        
-        container.innerHTML = `
-            <article class="blog-card-featured" data-animate style="animation-delay: 0s">
-                <a href="blog-detail.html?slug=${featuredPost.slug}" class="blog-image-link">
-                    <div class="blog-image">
-                        <img src="${featuredPost.cover}" alt="${featuredPost.title}" loading="lazy">
-                    </div>
-                </a>
-                <div class="blog-content">
-                    <span class="blog-category">${featuredPost.category}</span>
-                    <h3><a href="blog-detail.html?slug=${featuredPost.slug}">${featuredPost.title}</a></h3>
-                    <p>${featuredPost.excerpt}</p>
-                    <div class="blog-meta">
-                        <span class="blog-author"><i class="fas fa-user"></i> ${featuredPost.author}</span>
-                        <span class="blog-date"><i class="far fa-calendar"></i> ${featuredPost.date}</span>
-                    </div>
+    const latestPosts = posts.slice(0, 4);
+    const featuredPost = latestPosts[0];
+    const miniPosts = latestPosts.slice(1);
+    container.innerHTML = `
+        <article class="blog-card-featured" data-animate style="animation-delay: 0s">
+            <a href="blog-detail.html?slug=${featuredPost.slug}" class="blog-image-link">
+                <div class="blog-image">
+                    <img src="${featuredPost.cover || ''}" alt="${featuredPost.title || ''}" loading="lazy"
+                         onerror="this.style.display='none'; let p=this.closest('.blog-image'); if(p) p.classList.add('img-placeholder');">
                 </div>
-            </article>
-            
-            <div class="blog-card-list">
-                ${miniPosts.map((post, index) => `
-                    <article class="blog-card-mini" data-animate style="animation-delay: ${(index + 1) * 0.1}s" onclick="location.href='blog-detail.html?slug=${post.slug}'">
-                        <div class="blog-mini-image">
-                            <img src="${post.cover}" alt="${post.title}" loading="lazy">
-                        </div>
-                        <div class="blog-mini-content">
-                            <span class="blog-mini-category">${post.category}</span>
-                            <div class="blog-mini-title">${post.title}</div>
-                            <div class="blog-mini-meta">
-                                <span><i class="fas fa-user"></i> ${post.author}</span>
-                                <span><i class="far fa-calendar"></i> ${post.date}</span>
-                            </div>
-                        </div>
-                    </article>
-                `).join('')}
+            </a>
+            <div class="blog-content">
+                <span class="blog-category">${featuredPost.category || ''}</span>
+                <h3><a href="blog-detail.html?slug=${featuredPost.slug}">${featuredPost.title || '未命名文章'}</a></h3>
+                <p>${featuredPost.excerpt || ''}</p>
+                <div class="blog-meta">
+                    <span class="blog-author"><i class="fas fa-user"></i> ${featuredPost.author || ''}</span>
+                    <span class="blog-date"><i class="far fa-calendar"></i> ${featuredPost.date || ''}</span>
+                </div>
             </div>
-        `;
+        </article>
+        <div class="blog-card-list">
+            ${miniPosts.map((post, index) => `
+                <article class="blog-card-mini" data-animate style="animation-delay: ${(index + 1) * 0.1}s" onclick="location.href='blog-detail.html?slug=${post.slug}'">
+                    <div class="blog-mini-image">
+                        <img src="${post.cover || ''}" alt="${post.title || ''}" loading="lazy"
+                             onerror="this.style.display='none'; let p=this.closest('.blog-mini-image'); if(p) p.classList.add('img-placeholder');">
+                    </div>
+                    <div class="blog-mini-content">
+                        <span class="blog-mini-category">${post.category || ''}</span>
+                        <div class="blog-mini-title">${post.title || post.slug || '未命名文章'}</div>
+                        <div class="blog-mini-meta">
+                            <span><i class="fas fa-user"></i> ${post.author || ''}</span>
+                            <span><i class="far fa-calendar"></i> ${post.date || ''}</span>
+                        </div>
+                    </div>
+                </article>
+            `).join('')}
+        </div>
+    `;
+
+    // 异步插入 DOM 后，重新触发动画监听 + 响应式重排，避免出现 grid 两列布局失效、卡片坍塌等问题
+    if (typeof window === 'object' && window.animationObserver && typeof window.animationObserver.observe === 'function') {
+        try {
+            container.querySelectorAll('[data-animate]').forEach(el => window.animationObserver.observe(el));
+        } catch (e) {}
+    } else if (typeof window === 'object' && typeof window.initAnimations === 'function') {
+        try { window.initAnimations(); } catch (e) {}
+    }
+    // 兜底：确保 blog-grid（容器）本身已经在 observer 里观察到了
+    const section = document.getElementById('blog-section') || container.closest('.blog-section');
+    if (section && window.animationObserver && typeof window.animationObserver.observe === 'function') {
+        try { window.animationObserver.observe(section); } catch (e) {}
+    }
+    // 手动触发一次浏览器重排，确保 grid-template-columns: 1fr 380px 生效
+    container.style.display = 'grid';
+    requestAnimationFrame(() => { container.style.display = ''; });
 }
 
 function loadSiteImages() {
@@ -505,5 +534,6 @@ document.addEventListener('DOMContentLoaded', function() {
 <script src="js/site-ui.js"></script>
 <script src="js/aurora.js"></script>
 <script src="js/fullpage.js"></script>
+<script src="js/image-protect.js"></script>
 </body>
 </html>
