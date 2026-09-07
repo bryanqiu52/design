@@ -866,7 +866,7 @@ body {
         <div class="hero-avatar-section" data-animate>
             <div class="avatar-container">
                 <div class="avatar-main">
-                    <img src="images/XIFOFLY%20logo.jpg" alt="XIFOFLY" class="avatar-brand">
+                    <img id="about-avatar" src="images/XIFOFLY_logo.jpg" alt="XIFOFLY" class="avatar-brand">
                 </div>
                 <div class="avatar-ring"></div>
                 <div class="avatar-ring-outer"></div>
@@ -1038,6 +1038,15 @@ document.addEventListener('DOMContentLoaded', function() {
 <script src="js/aurora.js"></script>
 <script src="js/config.js"></script>
 <script>
+// 关于页头像（数据来源：js/config.js 的 siteConfig.aboutAvatar）
+// 改图请改 config.js 的 aboutAvatar 字段，不要改这里
+(function loadAboutAvatar() {
+    const img = document.getElementById('about-avatar');
+    if (img && typeof siteConfig !== 'undefined' && siteConfig.aboutAvatar) {
+        img.src = siteConfig.aboutAvatar;
+    }
+})();
+
 // 渲染 hero 区统计数字（数据来源：js/config.js 的 siteConfig.stats）
 // 改数据请改 config.js 的 stats 字段，不要改这里
 (function loadHeroStats() {
@@ -1058,5 +1067,6 @@ document.addEventListener('DOMContentLoaded', function() {
 })();
 </script>
 <script src="js/site-ui.js"></script>
+<script src="js/image-protect.js"></script>
 </body>
 </html>
