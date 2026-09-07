@@ -1232,6 +1232,11 @@ const projectsData = [
             "images/cases/婚博会展位背景墙物料/微信图片_20240725172850.jpg"
         ],
         "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": []
         "tags": []
     },
     {
@@ -1254,6 +1259,25 @@ const projectsData = [
             "images/cases/灯具展会物料/IMG_5511.HEIC.jpg"
         ],
         "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": []
+            "images/cases/灯具展会物料/光亚展邀请函2.jpg",
+            "images/cases/灯具展会物料/邀请函.jpg",
+            "images/cases/灯具展会物料/IMG_0044.jpg",
+            "images/cases/灯具展会物料/IMG_0045.jpg",
+            "images/cases/灯具展会物料/IMG_0046.JPG",
+            "images/cases/灯具展会物料/IMG_1975.jpg",
+            "images/cases/灯具展会物料/IMG_5511.HEIC.jpg"
+        ],
+        "subtitle": "",
+        "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
         "tags": [
             "场景化设计",
             "线下物料",
@@ -1300,6 +1324,11 @@ const projectsData = [
             "images/cases/照明挪威展 展板背景墙/挪威展2.jpg"
         ],
         "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": []
         "tags": []
     },
     {
@@ -1316,15 +1345,25 @@ const projectsData = [
             "images/cases/门店活动物料/易拉宝样机.jpg",
             "images/cases/门店活动物料/46.5x68关于我们sg2.jpg",
             "images/cases/门店活动物料/爱贝和美海报sg.jpg",
+            "images/cases/门店活动物料/分娩课指引牌.jpg"
+            "images/cases/门店活动物料/46.5x68关于我们sg2.jpg",
+            "images/cases/门店活动物料/爱贝和美海报sg.jpg",
             "images/cases/门店活动物料/分娩课指引牌.jpg",
             "images/cases/门店活动物料/空中瑜伽sg.jpg",
             "images/cases/门店活动物料/微信图片_20240725172835.jpg",
             "images/cases/门店活动物料/微信图片_20240725172841.jpg",
             "images/cases/门店活动物料/微信图片_20240725172845.jpg",
+            "images/cases/门店活动物料/易拉宝样机.jpg",
             "images/cases/门店活动物料/征稿启示.jpg",
             "images/cases/门店活动物料/KT板样机.jpg"
         ],
+        "subtitle": "",
         "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
+        "tags": []
         "tags": []
     }
 ];

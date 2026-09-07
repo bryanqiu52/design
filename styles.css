@@ -2143,6 +2143,7 @@ html {
         opacity: 0;
     }
 }
+}
 
 .portfolio-item-image img {
     width: 100%;
@@ -2196,6 +2197,7 @@ html {
     .portfolio-item:hover .portfolio-item-info {
         height: 150px;
     }
+}
 }
 
 .portfolio-item-info h3 {
@@ -2273,6 +2275,13 @@ html {
     .portfolio-item-link {
         opacity: 1;
         transform: none;
+    }
+}
+
+/* 手机上卡片两列排布、宽度更窄，稍微压低总高避免图片拉得过长 */
+@media (max-width: 768px) {
+    .portfolio-item {
+        height: 300px;
     }
 }
 
@@ -5120,6 +5129,8 @@ img {
     width: 100%;
     height: auto;
     max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
     background: transparent;
     cursor: grab;
     user-select: none;
@@ -5319,7 +5330,6 @@ img {
 .lightbox-overlay.bg-white #lightbox-image {
     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08), 0 4px 20px rgba(0, 0, 0, 0.12);
 }
-
 .lightbox-overlay.bg-checker {
     background-color: #2a2a2a;
     background-image:
@@ -5377,8 +5387,6 @@ img {
     .lightbox-next {
         right: 10px;
         z-index: 20;
-    }
-
     /* 手机端：内容区改用 dvh（随地址栏伸缩的真实可见高度），并预留顶部按钮空间，
        避免关闭按钮被浏览器地址栏裁切、或盖住图片显示区 */
     .lightbox-content {

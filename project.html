@@ -911,6 +911,10 @@ function initLongImageEvents() {
             lightboxZoom.isDragging = false;
             return;
         }
+
+        if (e.touches.length !== 1) return;
+        lightboxZoom.isDragging = true;
+        lightboxZoom.startX = e.touches[0].clientX;
         if (e.touches.length !== 1) return;
         lightboxZoom.isDragging = true;
         lightboxZoom.startX = e.touches[0].clientX;
@@ -935,6 +939,10 @@ function initLongImageEvents() {
             setLightboxZoom(level);
             return;
         }
+
+        if (!lightboxZoom.isDragging || e.touches.length !== 1) return;
+        e.preventDefault();
+        lightboxZoom.panX = lightboxZoom.startPanX + (e.touches[0].clientX - lightboxZoom.startX);
         if (!lightboxZoom.isDragging || e.touches.length !== 1) return;
         e.preventDefault();
         lightboxZoom.panX = lightboxZoom.startPanX + (e.touches[0].clientX - lightboxZoom.startX);
@@ -960,6 +968,8 @@ function initLongImageEvents() {
 
     viewer.addEventListener('touchcancel', function() {
         pinch = null;
+        lightboxZoom.isDragging = false;
+    });
         lightboxZoom.isDragging = false;
     });
 
