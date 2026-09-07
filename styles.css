@@ -5319,7 +5319,6 @@ img {
 .lightbox-overlay.bg-white #lightbox-image {
     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08), 0 4px 20px rgba(0, 0, 0, 0.12);
 }
-
 .lightbox-overlay.bg-checker {
     background-color: #2a2a2a;
     background-image:
