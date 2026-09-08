@@ -25,6 +25,9 @@
     var isAnimating = false;
     var dotWrap = null;
     var scrollHint = null;
+    var rafId = null;        // 当前滚动动画帧句柄（防重入，避免两套动画抢 scrollTo）
+    var pendingWheel = 0;    // 动画期间被吞掉的滚轮累计量（正=向下）
+    var pendingTimer = null; // 延迟消费 pendingWheel 的定时器
 
     function lerp(start, end, factor) {
         return start + (end - start) * factor;
@@ -35,6 +38,7 @@
         var startY = window.scrollY || window.pageYOffset;
         var diff = targetY - startY;
         if (Math.abs(diff) < 1) { if (done) done(); return; }
+        if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
         var startTime = null;
         isAnimating = true;
         function step(ts) {
@@ -43,14 +47,32 @@
             var ease = p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2; // easeInOutQuad
             window.scrollTo(0, startY + diff * ease);
             if (p < 1) {
-                requestAnimationFrame(step);
+                rafId = requestAnimationFrame(step);
             } else {
+                rafId = null;
                 window.scrollTo(0, targetY);
                 isAnimating = false;
                 if (done) done();
+                /* 动画期间积攒的滚轮量顺势消费，快速连滚不丢手势也不抖动 */
+                if (pendingWheel !== 0) scheduleFlush(60);
             }
         }
-        requestAnimationFrame(step);
+        rafId = requestAnimationFrame(step);
+    }
+
+    /* 动画结束后消费动画期间积累的滚轮量：超过一格阈值就顺势翻屏 */
+    function flushPendingWheel() {
+        pendingTimer = null;
+        if (isAnimating) return;
+        var amount = pendingWheel;
+        pendingWheel = 0;
+        if (amount > 60) goNext();
+        else if (amount < -60) goPrev();
+    }
+
+    function scheduleFlush(delay) {
+        if (pendingTimer) return;
+        pendingTimer = setTimeout(flushPendingWheel, delay || 60);
     }
 
     function sectionTop(el) {
@@ -71,6 +93,9 @@
     }
 
     function goTo(index) {
+        /* 主动跳屏（指示器/键盘）时清掉积攒的滚轮量，避免落屏后又被顺势翻走 */
+        pendingWheel = 0;
+        if (pendingTimer) { clearTimeout(pendingTimer); pendingTimer = null; }
         setActive(index);
         smoothScrollTo(sectionTop(sections[index]), 620);
     }
@@ -155,7 +180,14 @@
 
     /* 处理滚轮：先在卡片区横向滚动，仅在屏边缘且非超高屏内部滚动时翻页 */
     function onWheel(e) {
-        if (isAnimating) return;
+        if (isAnimating) {
+            /* 动画期间必须吞掉滚轮：否则原生滚动与缓动动画互相拉扯造成"抽搐"。
+               累计方向量，动画结束后顺势续翻，快速连滚依然连贯。 */
+            pendingWheel += e.deltaY;
+            scheduleFlush(80);
+            e.preventDefault();
+            return;
+        }
         if (handleHorizontal(e)) { e.preventDefault(); return; }
 
         var rect = document.documentElement.getBoundingClientRect();
@@ -187,7 +219,7 @@
     }
 
     function onKey(e) {
-        if (isAnimating) return;
+        if (isAnimating) { e.preventDefault(); return; } // 动画期间吞掉按键，避免原生滚动干扰
         var tag = (e.target.tagName || '').toLowerCase();
         if (tag === 'input' || tag === 'textarea' || tag === 'select') return;
         switch (e.key) {
