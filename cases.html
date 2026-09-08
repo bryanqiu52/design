@@ -34,7 +34,7 @@
 <div class="portfolio-grid" id="portfolioGrid">
 </div>
 <div class="pagination-container" id="paginationContainer" style="display: none;">
-    <div class="pagination">
+    <div class="pagination" id="paginationNav">
         <button class="pagination-btn arrow" id="prevPageBtn" disabled>
             <i class="fas fa-chevron-left"></i>
         </button>
@@ -44,9 +44,21 @@
         </button>
     </div>
     <span class="pagination-info" id="paginationInfo"></span>
-    <div class="pagination-jump">
-        <span class="pagination-jump-label">跳转到:</span>
-        <input type="number" class="pagination-jump-input" id="jumpInput" placeholder="e.g. 10" min="1">
+    <div class="pagination-extras">
+        <div class="pagination-size">
+            <span class="pagination-size-label">每页显示:</span>
+            <select class="pagination-size-select" id="pageSizeSelect">
+                <option value="8" selected>8 个</option>
+                <option value="12">12 个</option>
+                <option value="16">16 个</option>
+                <option value="24">24 个</option>
+                <option value="9999">全部</option>
+            </select>
+        </div>
+        <div class="pagination-jump" id="paginationJump">
+            <span class="pagination-jump-label">跳转到:</span>
+            <input type="number" class="pagination-jump-input" id="jumpInput" placeholder="e.g. 10" min="1">
+        </div>
     </div>
 </div>
 </div>
@@ -56,7 +68,7 @@
 
 <script src="js/data.js"></script>
 <script>
-const ITEMS_PER_PAGE = 8;
+let pageSize = 8;
 let currentPage = 1;
 let currentFilter = 'all';
 let currentSearch = '';
@@ -106,8 +118,8 @@ function clearSearch() {
 
 function renderWorks() {
     const container = document.getElementById('portfolioGrid');
-    const start = (currentPage - 1) * ITEMS_PER_PAGE;
-    const end = start + ITEMS_PER_PAGE;
+    const start = (currentPage - 1) * pageSize;
+    const end = start + pageSize;
     const worksToShow = displayedWorks.slice(start, end);
     
     const scrollTop = window.pageYOffset;
@@ -135,7 +147,7 @@ function renderWorks() {
             </div>
             <div class="portfolio-item-info">
                 <h3>${work.title}</h3>
-                <p>${work.description}</p>
+                <p>${work.subtitle || ''}</p>
                 <span class="portfolio-item-link">
                     查看详情 <i class="fas fa-arrow-right"></i>
                 </span>
@@ -151,19 +163,30 @@ function renderWorks() {
 }
 
 function renderPagination() {
-    const totalPages = Math.ceil(displayedWorks.length / ITEMS_PER_PAGE);
+    const totalPages = Math.ceil(displayedWorks.length / pageSize);
     const paginationContainer = document.getElementById('paginationContainer');
+    const paginationNav = document.getElementById('paginationNav');
     const paginationNumbers = document.getElementById('paginationNumbers');
     const paginationInfo = document.getElementById('paginationInfo');
+    const paginationJump = document.getElementById('paginationJump');
     const prevBtn = document.getElementById('prevPageBtn');
     const nextBtn = document.getElementById('nextPageBtn');
 
-    if (totalPages <= 1) {
+    if (displayedWorks.length === 0) {
         paginationContainer.style.display = 'none';
         return;
     }
 
     paginationContainer.style.display = 'flex';
+
+    if (totalPages <= 1) {
+        // 只有一页（如选择"全部"）时保留每页数量选择，隐藏翻页和跳转
+        paginationNav.style.display = 'none';
+        paginationJump.style.display = 'none';
+    } else {
+        paginationNav.style.display = 'flex';
+        paginationJump.style.display = 'flex';
+    }
 
     prevBtn.disabled = currentPage === 1;
     nextBtn.disabled = currentPage === totalPages;
@@ -263,14 +286,14 @@ function renderPagination() {
         }
     }
 
-    const startItem = (currentPage - 1) * ITEMS_PER_PAGE + 1;
-    const endItem = Math.min(currentPage * ITEMS_PER_PAGE, displayedWorks.length);
+    const startItem = (currentPage - 1) * pageSize + 1;
+    const endItem = Math.min(currentPage * pageSize, displayedWorks.length);
     paginationInfo.textContent = `共 ${displayedWorks.length} 个案例，当前显示 ${startItem}-${endItem} 个`;
 }
 
 function handleJumpInput() {
     const input = document.getElementById('jumpInput');
-    const totalPages = Math.ceil(displayedWorks.length / ITEMS_PER_PAGE);
+    const totalPages = Math.ceil(displayedWorks.length / pageSize);
     const pageNum = parseInt(input.value);
     
     if (!isNaN(pageNum) && pageNum >= 1 && pageNum <= totalPages) {
@@ -291,7 +314,7 @@ function goToPrevPage() {
 }
 
 function goToNextPage() {
-    const totalPages = Math.ceil(displayedWorks.length / ITEMS_PER_PAGE);
+    const totalPages = Math.ceil(displayedWorks.length / pageSize);
     if (currentPage < totalPages) {
         currentPage++;
         applyFilters();
@@ -331,10 +354,17 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    document.getElementById('pageSizeSelect').addEventListener('change', function() {
+        pageSize = parseInt(this.value);
+        currentPage = 1;
+        applyFilters();
+    });
+
 });
 </script>
 <script src="js/config.js"></script>
 <script src="js/site-ui.js"></script>
 <script src="js/aurora.js"></script>
+<script src="js/image-protect.js"></script>
 </body>
 </html>
