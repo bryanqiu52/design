@@ -3,7 +3,7 @@ title: "包装设计如何提升产品价值"
 date: "2024-01-05"
 category: "包装设计"
 author: "城南设计"
-cover: "images/blog/packaging-design.jpg"
+cover: "images/work3.jpg"
 excerpt: "探讨包装设计在产品营销中的重要作用。好的包装设计能够在货架上脱颖而出，讲述品牌故事。"
 ---
 

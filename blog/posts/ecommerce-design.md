@@ -3,7 +3,7 @@ title: "电商视觉设计的转化密码"
 date: "2024-01-01"
 category: "电商设计"
 author: "城南设计"
-cover: "images/blog/ecommerce-design.jpg"
+cover: "images/work4.jpg"
 excerpt: "揭秘高转化电商页面的设计秘诀。视觉层级分明、高质量产品图片和营造紧迫感是关键要素。"
 ---
 

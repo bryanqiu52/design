@@ -3,7 +3,7 @@ title: "2024年品牌设计趋势分析"
 date: "2024-01-15"
 category: "设计趋势"
 author: "城南设计"
-cover: "images/blog/2024-brand-trends.jpg"
+cover: "images/work1.jpg"
 excerpt: "探讨新一年品牌设计的主流趋势，从色彩运用到视觉风格的演变。极简主义回归、大胆色彩搭配和动态视觉元素成为今年的关键词。"
 ---
 

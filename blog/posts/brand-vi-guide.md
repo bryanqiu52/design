@@ -3,7 +3,7 @@ title: "品牌VI系统建设指南"
 date: "2023-12-28"
 category: "品牌设计"
 author: "城南设计"
-cover: "images/blog/brand-vi-guide.jpg"
+cover: "images/work5.jpg"
 excerpt: "从零开始建立完整的品牌视觉识别系统。品牌定位分析、核心元素设计和应用规范制定是三大核心步骤。"
 ---
 

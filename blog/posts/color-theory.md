@@ -3,7 +3,7 @@ title: "设计师必备的配色技巧"
 date: "2023-12-20"
 category: "设计技巧"
 author: "城南设计"
-cover: "images/blog/color-theory.jpg"
+cover: "images/work6.jpg"
 excerpt: "掌握这些配色原则，让你的设计更加专业。色彩心理学、配色比例和色彩对比是设计师必备的知识。"
 ---
 

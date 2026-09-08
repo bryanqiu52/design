@@ -57,7 +57,36 @@
 </div>
 <p class="section-desc">从品牌策略到数字界面，从包装到电商，覆盖品牌全触点设计</p>
 </div>
-<div class="services-grid" id="servicesGrid"></div>
+<div class="services-grid">
+<div class="service-card" data-animate>
+<div class="service-image"><img src="images/featured1.jpg" alt="品牌设计" loading="lazy"></div>
+<div class="service-body">
+<h3><i class="fas fa-palette"></i><span>品牌设计</span></h3>
+<p>LOGO设计、VI系统、品牌视觉升级，打造独特品牌形象</p>
+</div>
+</div>
+<div class="service-card" data-animate>
+<div class="service-image"><img src="images/featured2.jpg" alt="UI/UX设计" loading="lazy"></div>
+<div class="service-body">
+<h3><i class="fas fa-mobile-alt"></i><span>UI/UX设计</span></h3>
+<p>移动端APP、Web界面设计，注重用户体验与交互</p>
+</div>
+</div>
+<div class="service-card" data-animate>
+<div class="service-image"><img src="images/featured3.jpg" alt="包装设计" loading="lazy"></div>
+<div class="service-body">
+<h3><i class="fas fa-box"></i><span>包装设计</span></h3>
+<p>产品包装、标签设计，让产品在货架上脱颖而出</p>
+</div>
+</div>
+<div class="service-card" data-animate>
+<div class="service-image"><img src="images/featured4.jpg" alt="电商设计" loading="lazy"></div>
+<div class="service-body">
+<h3><i class="fas fa-shopping-cart"></i><span>电商设计</span></h3>
+<p>店铺装修、主图详情页，提升转化率</p>
+</div>
+</div>
+</div>
 </div>
 </section>
 
@@ -163,139 +192,86 @@
 <div id="site-footer"></div>
 
 <script src="js/config.js"></script>
-<script src="blog/index-data.js"></script>
 <script src="js/data.js"></script>
 <script>
 
 function loadFeaturedWorks() {
     const container = document.getElementById('featuredWorks');
     container.innerHTML = featuredWorks.map((work, index) => `
-        <a href="project.html?id=${work.id}" class="portfolio-item" data-animate style="transition-delay: ${index * 0.1}s">
-            <div class="portfolio-item-image">
+        <a href="project.html?id=${work.id}" class="work-item" data-animate style="transition-delay: ${index * 0.1}s">
+            <div class="work-image">
                 <img src="${work.image}" alt="${work.title}" loading="lazy">
-                <div class="portfolio-item-overlay">
-                    <span class="portfolio-item-category">${getCategoryName(work.category)}</span>
+                <div class="work-overlay">
+                    <span class="work-category">${getCategoryName(work.category)}</span>
+                    <div class="work-arrow"><i class="fas fa-arrow-right"></i></div>
                 </div>
             </div>
-            <div class="portfolio-item-info">
+            <div class="work-info">
                 <h3>${work.title}</h3>
-                <p>${work.subtitle || ''}</p>
-                <span class="portfolio-item-link">
-                    查看详情 <i class="fas fa-arrow-right"></i>
-                </span>
             </div>
         </a>
     `).join('');
 }
 
-// 首页服务卡片：从 config.js 的 siteConfig.aboutServices 渲染（正面图文，hover 翻转显示服务标签）
-function loadServices() {
-    const container = document.getElementById('servicesGrid');
-    if (!container || !Array.isArray(siteConfig.aboutServices)) return;
-    container.innerHTML = siteConfig.aboutServices.map(service => `
-        <div class="service-card" data-animate>
-            <div class="flip-inner">
-                <div class="flip-front">
-                    <div class="service-image"><img src="${service.image || ''}" alt="${service.title || ''}" loading="lazy"></div>
-                    <div class="service-body">
-                        <h3><i class="fas ${service.icon || 'fa-gem'}"></i><span>${service.title || ''}</span></h3>
-                        <p>${service.description || ''}</p>
-                    </div>
-                </div>
-                <div class="flip-back">
-                    <h3 class="flip-back-title"><i class="fas ${service.icon || 'fa-gem'}"></i><span>${service.title || ''}</span></h3>
-                    <ul class="service-items">
-                        ${(service.items || []).map(item => `<li>${item}</li>`).join('')}
-                    </ul>
-                </div>
-            </div>
-        </div>
-    `).join('');
-}
-
-// ========== 临时硬编码数据 ==========
-// 背景：loadBlogPostsData 函数缺失、data.js 的 window.blogPosts 为空壳索引，暂不修根因；
-// 首页博客区临时用下面的 BLOG_POSTS_DATA 渲染，后续恢复数据链路时删除本段即可。
-const BLOG_POSTS_DATA = [
-    { "slug": "2024-brand-trends", "title": "2024年品牌设计趋势分析", "date": "2024-01-15", "category": "设计趋势", "author": "城南设计", "cover": "images/blog/2024-brand-trends.jpg", "excerpt": "探讨新一年品牌设计的主流趋势，从色彩运用到视觉风格的演变。极简主义回归、大胆色彩搭配和动态视觉元素成为今年的关键词。", "tags": [] },
-    { "slug": "ui-ux-tips", "title": "UI设计中的用户体验优化技巧", "date": "2024-01-10", "category": "UI设计", "author": "城南设计", "cover": "images/blog/ui-ux-tips.jpg", "excerpt": "分享提升用户体验的实用技巧，让你的界面设计更加人性化。直观的导航设计、响应式布局和微交互设计是关键。", "tags": [] },
-    { "slug": "packaging-design", "title": "包装设计如何提升产品价值", "date": "2024-01-05", "category": "包装设计", "author": "城南设计", "cover": "images/blog/packaging-design.jpg", "excerpt": "探讨包装设计在产品营销中的重要作用。好的包装设计能够在货架上脱颖而出，讲述品牌故事。", "tags": [] },
-    { "slug": "ecommerce-design", "title": "电商视觉设计的转化密码", "date": "2024-01-01", "category": "电商设计", "author": "城南设计", "cover": "images/blog/ecommerce-design.jpg", "excerpt": "揭秘高转化电商页面的设计秘诀。视觉层级分明、高质量产品图片和营造紧迫感是关键要素。", "tags": [] },
-    { "slug": "brand-vi-guide", "title": "品牌VI系统建设指南", "date": "2023-12-28", "category": "品牌设计", "author": "城南设计", "cover": "images/blog/brand-vi-guide.jpg", "excerpt": "从零开始建立完整的品牌视觉识别系统。品牌定位分析、核心元素设计和应用规范制定是三大核心步骤。", "tags": [] },
-    { "slug": "color-theory", "title": "设计师必备的配色技巧", "date": "2023-12-20", "category": "设计技巧", "author": "城南设计", "cover": "images/blog/color-theory.jpg", "excerpt": "掌握这些配色原则，让你的设计更加专业。色彩心理学、配色比例和色彩对比是设计师必备的知识。", "tags": [] }
-];
-
-// 首页博客区加载（临时：直接用上面的硬编码数据渲染）
 function loadBlogPosts() {
-    console.log('[首页博客] loadBlogPosts called');
+    console.log('loadBlogPosts called');
     const container = document.getElementById('blogPosts');
+    
     if (!container) {
-        console.log('[首页博客] blogPosts container not found');
+        console.log('blogPosts container not found');
         return;
     }
-    const posts = BLOG_POSTS_DATA;
-    console.log('[首页博客] 最终文章数:', posts.length);
-    if (!posts.length) {
-        container.innerHTML = '<div style="text-align: center; padding: 40px; color: rgba(255,255,255,0.6);"><i class="fas fa-file-alt" style="font-size: 48px; margin-bottom: 16px; display: block;"></i><h3 style="margin-bottom: 8px;">暂无博客文章</h3><p style="opacity:0.8; font-size:14px;">如果是在后台预览：请在博客管理点「重新扫描」生成索引。如果是 GitHub Pages：确保 blog/index.json 已 push。</p></div>';
+    
+    console.log('window.blogPosts:', window.blogPosts);
+    console.log('window.blogPosts length:', window.blogPosts ? window.blogPosts.length : 'undefined');
+    
+    if (!window.blogPosts || !Array.isArray(window.blogPosts) || window.blogPosts.length === 0) {
+        container.innerHTML = '<div style="text-align: center; padding: 40px; color: rgba(255,255,255,0.6);"><i class="fas fa-file-alt" style="font-size: 48px; margin-bottom: 16px; display: block;"></i><h3 style="margin-bottom: 8px;">暂无博客文章</h3></div>';
         return;
     }
-    const latestPosts = posts.slice(0, 4);
-    const featuredPost = latestPosts[0];
-    const miniPosts = latestPosts.slice(1);
-    container.innerHTML = `
-        <article class="blog-card-featured" data-animate style="animation-delay: 0s">
-            <a href="blog-detail.html?slug=${featuredPost.slug}" class="blog-image-link">
-                <div class="blog-image">
-                    <img src="${featuredPost.cover || ''}" alt="${featuredPost.title || ''}" loading="lazy"
-                         onerror="this.style.display='none'; let p=this.closest('.blog-image'); if(p) p.classList.add('img-placeholder');">
-                </div>
-            </a>
-            <div class="blog-content">
-                <span class="blog-category">${featuredPost.category || ''}</span>
-                <h3><a href="blog-detail.html?slug=${featuredPost.slug}">${featuredPost.title || '未命名文章'}</a></h3>
-                <p>${featuredPost.excerpt || ''}</p>
-                <div class="blog-meta">
-                    <span class="blog-author"><i class="fas fa-user"></i> ${featuredPost.author || ''}</span>
-                    <span class="blog-date"><i class="far fa-calendar"></i> ${featuredPost.date || ''}</span>
-                </div>
-            </div>
-        </article>
-        <div class="blog-card-list">
-            ${miniPosts.map((post, index) => `
-                <article class="blog-card-mini" data-animate style="animation-delay: ${(index + 1) * 0.1}s" onclick="location.href='blog-detail.html?slug=${post.slug}'">
-                    <div class="blog-mini-image">
-                        <img src="${post.cover || ''}" alt="${post.title || ''}" loading="lazy"
-                             onerror="this.style.display='none'; let p=this.closest('.blog-mini-image'); if(p) p.classList.add('img-placeholder');">
+    
+    const posts = window.blogPosts;
+        
+        const latestPosts = posts.slice(0, 4);
+        const featuredPost = latestPosts[0];
+        const miniPosts = latestPosts.slice(1);
+        
+        container.innerHTML = `
+            <article class="blog-card-featured" data-animate style="animation-delay: 0s">
+                <a href="blog-detail.html?slug=${featuredPost.slug}" class="blog-image-link">
+                    <div class="blog-image">
+                        <img src="${featuredPost.cover}" alt="${featuredPost.title}" loading="lazy">
                     </div>
-                    <div class="blog-mini-content">
-                        <span class="blog-mini-category">${post.category || ''}</span>
-                        <div class="blog-mini-title">${post.title || post.slug || '未命名文章'}</div>
-                        <div class="blog-mini-meta">
-                            <span><i class="fas fa-user"></i> ${post.author || ''}</span>
-                            <span><i class="far fa-calendar"></i> ${post.date || ''}</span>
+                </a>
+                <div class="blog-content">
+                    <span class="blog-category">${featuredPost.category}</span>
+                    <h3><a href="blog-detail.html?slug=${featuredPost.slug}">${featuredPost.title}</a></h3>
+                    <p>${featuredPost.excerpt}</p>
+                    <div class="blog-meta">
+                        <span class="blog-author"><i class="fas fa-user"></i> ${featuredPost.author}</span>
+                        <span class="blog-date"><i class="far fa-calendar"></i> ${featuredPost.date}</span>
+                    </div>
+                </div>
+            </article>
+            
+            <div class="blog-card-list">
+                ${miniPosts.map((post, index) => `
+                    <article class="blog-card-mini" data-animate style="animation-delay: ${(index + 1) * 0.1}s" onclick="location.href='blog-detail.html?slug=${post.slug}'">
+                        <div class="blog-mini-image">
+                            <img src="${post.cover}" alt="${post.title}" loading="lazy">
                         </div>
-                    </div>
-                </article>
-            `).join('')}
-        </div>
-    `;
-
-    // 异步插入 DOM 后，重新触发动画监听 + 响应式重排，避免出现 grid 两列布局失效、卡片坍塌等问题
-    if (typeof window === 'object' && window.animationObserver && typeof window.animationObserver.observe === 'function') {
-        try {
-            container.querySelectorAll('[data-animate]').forEach(el => window.animationObserver.observe(el));
-        } catch (e) {}
-    } else if (typeof window === 'object' && typeof window.initAnimations === 'function') {
-        try { window.initAnimations(); } catch (e) {}
-    }
-    // 兜底：确保 blog-grid（容器）本身已经在 observer 里观察到了
-    const section = document.getElementById('blog-section') || container.closest('.blog-section');
-    if (section && window.animationObserver && typeof window.animationObserver.observe === 'function') {
-        try { window.animationObserver.observe(section); } catch (e) {}
-    }
-    // 手动触发一次浏览器重排，确保 grid-template-columns: 1fr 380px 生效
-    container.style.display = 'grid';
-    requestAnimationFrame(() => { container.style.display = ''; });
+                        <div class="blog-mini-content">
+                            <span class="blog-mini-category">${post.category}</span>
+                            <div class="blog-mini-title">${post.title}</div>
+                            <div class="blog-mini-meta">
+                                <span><i class="fas fa-user"></i> ${post.author}</span>
+                                <span><i class="far fa-calendar"></i> ${post.date}</span>
+                            </div>
+                        </div>
+                    </article>
+                `).join('')}
+            </div>
+        `;
 }
 
 function loadSiteImages() {
@@ -499,7 +475,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (heroImg && siteConfig.heroImage) heroImg.src = siteConfig.heroImage;
     }
 
-    loadServices();
     loadFeaturedWorks();
     loadBlogPosts();
     loadSiteImages();
@@ -530,6 +505,5 @@ document.addEventListener('DOMContentLoaded', function() {
 <script src="js/site-ui.js"></script>
 <script src="js/aurora.js"></script>
 <script src="js/fullpage.js"></script>
-<script src="js/image-protect.js"></script>
 </body>
 </html>
