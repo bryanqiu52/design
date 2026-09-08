@@ -5434,6 +5434,232 @@ img {
     background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
 }
 
+/* ==================== */
+/* 长图查看器（花瓣风格） */
+/* ==================== */
+/* 灯箱图片区：默认随图片自适应大小（要么限制高、要么限制宽），保证打开时整图可见、
+   箱体紧贴图片无空白；缩放/平移时 overflow:hidden 负责裁剪 */
+.lightbox-image-viewer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    flex: 1 1 auto;   /* 图片区占满剩余纵向空间，底部工具栏固定在下方 */
+    min-height: 0;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    background: transparent;
+    cursor: grab;
+    user-select: none;
+    touch-action: none; /* 移动端：双指捏合由 JS 接管，禁止浏览器接管手势 */
+    -webkit-overflow-scrolling: touch;
+}
+
+.lightbox-image-viewer.dragging {
+    cursor: grabbing;
+}
+
+/* wrapper：JS 设置 transform: translate(panX,panY) scale(zoom)，默认铺满 viewer，图片在其中完整居中 */
+.lightbox-image-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    transform-origin: center center;
+    will-change: transform;
+    line-height: 0;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+#lightbox-image {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* 阴影贴着图片，不再套在整个查看区上 */
+    pointer-events: none;
+}
+
+/* 长图模式（minimap 出现）：图片按宽度铺满 viewer，高度自内容，可上下平移 */
+.lightbox-overlay.long-image-mode .lightbox-image-viewer {
+    width: 100%;
+}
+
+.lightbox-overlay.long-image-mode .lightbox-image-wrapper {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: none;
+}
+
+.lightbox-overlay.long-image-mode #lightbox-image {
+    width: 100%;
+    max-width: 100%;
+    max-height: none;
+    height: auto;
+}
+
+/* 小地图（minimap）——花瓣三层叠加 */
+.lightbox-minimap {
+    position: absolute;
+    right: -110px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 52px;
+    background: #1a1a1a;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 6px;
+    padding: 0;
+    display: none;
+    z-index: 5;
+    overflow: hidden;
+}
+
+.lightbox-overlay.long-image-mode .lightbox-minimap {
+    display: block;
+}
+
+/* Layer 1: 底层缩略图 */
+.lightbox-minimap .minimap-base {
+    display: block;
+    width: 100%;
+    height: auto;
+    position: relative;
+    z-index: 0;
+}
+
+/* Layer 2: 暗色遮罩 */
+.lightbox-minimap .minimap-dim {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.35);
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Layer 3: 视口框 */
+.lightbox-minimap .minimap-viewport {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    overflow: hidden;
+    z-index: 2;
+    pointer-events: none;
+    outline: 2px solid var(--secondary);
+    box-sizing: border-box;
+    border-radius: 2px;
+    background: transparent;
+    border: none;
+}
+
+/* 视口内部第二张缩略图 */
+.lightbox-minimap .minimap-viewport-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+/* ==================== */
+/* 缩放控件栏 */
+/* ==================== */
+.lightbox-zoom-controls {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0;
+    margin-top: 0.5rem;
+    background: #1a1a1a;
+    border-radius: 20px;
+    padding: 4px 8px;
+    z-index: 10;
+    flex-shrink: 0;   /* 不被图片区压缩，始终固定在底部 */
+}
+
+.zoom-btn {
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: none;
+    color: rgba(255,255,255,0.8);
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.zoom-btn::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 4px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #000;
+    color: #fff;
+    font-size: 0.7rem;
+    padding: 3px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.1s ease;
+}
+
+.zoom-btn:hover::after {
+    opacity: 1;
+}
+
+.zoom-btn:hover {
+    background: rgba(255,255,255,0.15);
+    color: white;
+}
+
+.zoom-level {
+    min-width: 55px;
+    text-align: center;
+    color: rgba(255,255,255,0.8);
+    font-size: 0.85rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* 背景切换 */
+.lightbox-overlay.bg-white {
+    background: #fff;
+}
+
+/* 白底模式下白图会融进背景，加一圈极淡描边区分边界 */
+.lightbox-overlay.bg-white #lightbox-image {
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08), 0 4px 20px rgba(0, 0, 0, 0.12);
+}
+.lightbox-overlay.bg-checker {
+    background-color: #2a2a2a;
+    background-image:
+        linear-gradient(45deg, #555 25%, transparent 25%),
+        linear-gradient(-45deg, #555 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #555 75%),
+        linear-gradient(-45deg, transparent 75%, #555 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+}
+
 /* 移动端适配 */
 @media (max-width: 768px) {
     .project-gallery.gallery-style-b {
@@ -5506,6 +5732,13 @@ img {
 
     .lightbox-thumbnails {
         width: calc(100% - 108px);   /* 手机端两侧各留 54px 给箭头（10px 边距 + 44px 按钮） */
+    }
+
+    .lightbox-image-viewer {
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+        max-height: none;
     }
 
     #lightbox-image {
