@@ -22,98 +22,139 @@
 
 <section class="container">
 <section class="contact-section">
-<div class="contact-grid">
-<div class="contact-info">
-<h2>开始合作</h2>
-<p>无论是品牌重塑还是全新项目，我们都能为你提供专业的设计方案。欢迎通过以下方式联系我们，聊聊你的项目需求。</p>
-<div class="contact-methods">
-<div class="contact-method">
-<div class="contact-method-icon"><i class="fas fa-envelope"></i></div>
-<div class="contact-method-info">
-<h4>电子邮件</h4>
-<a href="#" id="contact-email-link">bryanqiu52@gmail.com</a>
+<div class="section-header contact-head">
+<div class="head-title">
+<span class="section-tag">Contact</span>
+<h2 class="section-title">开始合作</h2>
 </div>
+<p class="section-desc section-desc-nowrap">无论是品牌重塑还是全新项目，我们都能为你提供专业的设计方案</p>
 </div>
-<div class="contact-method">
-<div class="contact-method-icon"><i class="fab fa-weixin"></i></div>
-<div class="contact-method-info">
-<h4>微信</h4>
-<p id="contact-wechat">poke1883</p>
-</div>
-</div>
-<div class="contact-method">
-<div class="contact-method-icon"><i class="fas fa-clock"></i></div>
-<div class="contact-method-info">
-<h4>响应时间</h4>
-<p>24小时内回复</p>
-</div>
-</div>
-</div>
-</div>
+
 <div class="contact-form">
 <form id="contactForm" action="https://api.web3forms.com/submit" method="POST">
 <!-- Web3Forms 邮件中转配置：
      提交后由 Web3Forms 将表单内容以邮件发送到站长邮箱（无需自建后端）。
      access_key 在 https://web3forms.com 注册邮箱后生成，对应站长收件邮箱。 -->
-<input type="hidden" name="access_key" value="a76d1a6a-52bc-441e-9e35-ab12927b0805">
+<input type="hidden" name="access_key" value="5fd8d711-8dc6-4e9c-955f-82a14dd48f24">
 <input type="hidden" name="subject" id="wf-subject" value="网站联系表单新留言">
 <input type="hidden" name="from_name" id="wf-from-name" value="网站访客">
 <!-- 蜜罐字段：对用户不可见，机器人自动填写后将被拦截 -->
 <input type="text" name="botcheck" id="wf-botcheck" style="display:none !important; visibility:hidden; position:absolute; left:-9999px; width:0; height:0; opacity:0;" tabindex="-1" autocomplete="off" aria-hidden="true">
+<div class="form-row">
 <div class="form-group">
-<label for="name">您的姓名</label>
-<input type="text" id="name" name="name" placeholder="请输入您的姓名" required>
+<label for="name">您的称呼 <span class="req-mark">*</span></label>
+<input type="text" id="name" name="name" placeholder="怎么称呼您" required>
 </div>
 <div class="form-group">
-<label for="email">邮箱地址</label>
+<label for="company">公司名称</label>
+<input type="text" id="company" name="company" placeholder="您所在的公司（选填）">
+</div>
+</div>
+<div class="form-row">
+<div class="form-group">
+<label for="phone">手机号码</label>
+<input type="tel" id="phone" name="phone" placeholder="方便的话留个电话（选填）">
+</div>
+<div class="form-group">
+<label for="email">邮箱地址 <span class="req-mark">*</span></label>
 <input type="email" id="email" name="email" placeholder="请输入您的邮箱" required>
+</div>
 </div>
 <div class="form-group">
 <label for="project">项目类型</label>
 <input type="text" id="project" name="project" placeholder="如：品牌设计、UI设计等">
 </div>
 <div class="form-group">
-<label for="message">项目描述</label>
+<label for="message">项目需求 <span class="req-mark">*</span></label>
 <textarea id="message" name="message" placeholder="请简要描述您的项目需求..." required></textarea>
 </div>
-<button type="submit" class="btn btn-primary" style="width: 100%;">
+<button type="submit" class="btn contact-form-btn">
 <span>发送消息</span>
 <i class="fas fa-paper-plane"></i>
 </button>
 </form>
 </div>
+
+<div class="contact-methods">
+<div class="contact-method">
+<div class="contact-method-icon"><i class="fas fa-mobile-alt"></i></div>
+<div class="contact-method-info">
+<h4>手机</h4>
+<a href="tel:16675191883" id="contact-phone-link">16675191883</a>
 </div>
+</div>
+<div class="contact-method">
+<div class="contact-method-icon"><i class="fab fa-weixin"></i></div>
+<div class="contact-method-info">
+<h4>微信</h4>
+<p id="contact-wechat">xifofly</p>
+</div>
+</div>
+<div class="contact-method">
+<div class="contact-method-icon"><i class="fas fa-envelope"></i></div>
+<div class="contact-method-info">
+<h4>邮箱</h4>
+<a href="#" id="contact-email-link">xifofly@163.com</a>
+</div>
+</div>
+</div>
+</section>
 </section>
 
 <section class="about-section">
+<div class="social-wrap">
 <div class="section-header">
 <div class="head-title">
 <span class="section-tag">Social</span>
 <h2 class="section-title">关注我们</h2>
 </div>
-<p class="section-desc">在各大平台关注我们，获取更多设计灵感与作品动态</p>
+<p class="section-desc section-desc-nowrap">在各大平台关注我们，获取更多设计灵感与作品动态</p>
 </div>
-<div class="services-grid">
-<div class="service-card">
-<div class="service-icon"><i class="fab fa-behance"></i></div>
-<h3>Behance</h3>
-<p>查看我们的设计作品集</p>
-<a href="#" id="contact-behance-link" target="_blank" class="btn btn-outline" style="margin-top: 1rem;">访问主页</a>
+
+<!-- 平台主页：点击跳转 -->
+<div class="social-link-grid">
+<a class="social-link-card" id="social-xiaohongshu" href="#" target="_blank" rel="noopener noreferrer">
+<span class="social-link-icon"><img src="images/小红书-copy-copy.svg" alt="小红书"></span>
+<span class="social-link-body">
+<span class="social-link-name">小红书</span>
+</span>
+<i class="fas fa-arrow-up-right-from-square social-link-go"></i>
+</a>
+<a class="social-link-card" id="social-bilibili" href="#" target="_blank" rel="noopener noreferrer">
+<span class="social-link-icon"><img src="images/哔哩哔哩.svg" alt="B站"></span>
+<span class="social-link-body">
+<span class="social-link-name">B站</span>
+</span>
+<i class="fas fa-arrow-up-right-from-square social-link-go"></i>
+</a>
+<a class="social-link-card" id="social-douyin" href="#" target="_blank" rel="noopener noreferrer">
+<span class="social-link-icon"><img src="images/抖音.svg" alt="抖音"></span>
+<span class="social-link-body">
+<span class="social-link-name">抖音</span>
+</span>
+<i class="fas fa-arrow-up-right-from-square social-link-go"></i>
+</a>
 </div>
-<div class="service-card">
-<div class="service-icon"><i class="fab fa-dribbble"></i></div>
-<h3>Dribbble</h3>
-<p>探索创意设计作品</p>
-<a href="#" id="contact-dribbble-link" target="_blank" class="btn btn-outline" style="margin-top: 1rem;">访问主页</a>
+
+<!-- 二维码：扫码关注 -->
+<div class="social-qr-grid">
+<div class="social-qr-card">
+<img src="images/qrcode.png" alt="微信公众号" id="social-qr-official" class="social-qr-img">
+<h4>微信公众号</h4>
+<p>扫码关注</p>
 </div>
-<div class="service-card">
-<div class="service-icon"><i class="fab fa-instagram"></i></div>
-<h3>Instagram</h3>
-<p>关注我们的日常创作</p>
-<a href="#" id="contact-instagram-link" target="_blank" class="btn btn-outline" style="margin-top: 1rem;">访问主页</a>
+<div class="social-qr-card">
+<img src="images/qrcode.png" alt="微信" id="social-qr-wechat" class="social-qr-img">
+<h4>微信</h4>
+<p>扫码联系</p>
+</div>
+<div class="social-qr-card">
+<img src="images/qrcode.png" alt="微信视频号" id="social-qr-channels" class="social-qr-img">
+<h4>视频号</h4>
+<p>扫码关注</p>
 </div>
 </div>
-</section>
+</div>
 </section>
 
 <div id="site-footer"></div>
@@ -127,15 +168,27 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('contact-email-link').href = 'mailto:' + siteConfig.email;
         document.getElementById('contact-wechat').textContent = siteConfig.wechat;
         
-        if (siteConfig.behance) {
-            document.getElementById('contact-behance-link').href = siteConfig.behance;
-        }
-        if (siteConfig.dribbble) {
-            document.getElementById('contact-dribbble-link').href = siteConfig.dribbble;
-        }
-        if (siteConfig.instagram) {
-            document.getElementById('contact-instagram-link').href = siteConfig.instagram;
-        }
+        /* 社媒平台链接：从 config 读取，未配置则保持 # */
+        var socialMap = [
+            ['social-xiaohongshu', 'xiaohongshu'],
+            ['social-bilibili', 'bilibili'],
+            ['social-douyin', 'douyin']
+        ];
+        socialMap.forEach(function(item) {
+            var el = document.getElementById(item[0]);
+            if (el && siteConfig[item[1]]) el.href = siteConfig[item[1]];
+        });
+
+        /* 二维码图片：从 config 读取 */
+        var qrMap = [
+            ['social-qr-official', 'qrcodeWechat'],
+            ['social-qr-wechat', 'qrcodeWorkwechat'],
+            ['social-qr-channels', 'qrcodeChannels']
+        ];
+        qrMap.forEach(function(item) {
+            var el = document.getElementById(item[0]);
+            if (el && siteConfig[item[1]]) el.src = siteConfig[item[1]];
+        });
     }
     
     var contactForm = document.getElementById('contactForm');
@@ -197,18 +250,23 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-        /* 基础校验：必填项非空 + 邮箱格式 */
+        /* 基础校验：必填项非空 + 邮箱格式 + 手机号格式（选填项填了才验） */
         var nameVal = document.getElementById('name').value.trim();
+        var phoneVal = (document.getElementById('phone') || {value:''}).value.trim();
         var emailVal = document.getElementById('email').value.trim();
         var projectVal = document.getElementById('project').value.trim();
         var messageVal = document.getElementById('message').value.trim();
         if (!nameVal || !emailVal || !messageVal) {
-            showMsg('请填写姓名、邮箱和项目描述', false);
+            showMsg('请填写称呼、邮箱和项目需求', false);
             return;
         }
         var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRe.test(emailVal)) {
             showMsg('请输入有效的邮箱地址', false);
+            return;
+        }
+        if (phoneVal && !/^[0-9+\-\s()]{6,20}$/.test(phoneVal)) {
+            showMsg('请输入有效的手机号码', false);
             return;
         }
         
@@ -245,5 +303,6 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 <script src="js/site-ui.js"></script>
 <script src="js/aurora.js"></script>
+<script src="js/image-protect.js"></script>
 </body>
 </html>

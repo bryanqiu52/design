@@ -3,7 +3,7 @@ title: "UI设计中的用户体验优化技巧"
 date: "2024-01-10"
 category: "UI设计"
 author: "城南设计"
-cover: "images/work2.jpg"
+cover: "images/blog/ui-ux-tips.jpg"
 excerpt: "分享提升用户体验的实用技巧，让你的界面设计更加人性化。直观的导航设计、响应式布局和微交互设计是关键。"
 ---
 

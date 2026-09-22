@@ -127,29 +127,27 @@
             '<li><i class="fab fa-weixin"></i> <span>' + val('wechat', '') + '</span></li>' +
             '</ul>' +
             '</div>' +
-            '<div class="footer-social">' +
-            '<div class="social-rings">' +
-            '<a href="#" title="视频号" class="social-ring">视</a>' +
-            '<a href="#" title="抖音" class="social-ring">抖</a>' +
-            '<a href="#" title="bilibili" class="social-ring">B</a>' +
-            '<a href="#" title="小红书" class="social-ring">红</a>' +
-            '</div>' +
-            '</div>' +
             '<div class="footer-copyright">' +
-            '<p>© ' + year + ' ' + siteTitle + ' (XIFOFLY). All rights reserved.</p>' +
+            '<p>© ' + year + ' 溪风设计 (XIFOFLY). All rights reserved.</p>' +
+            '<p class="footer-filing">' +
+            '<a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">粤ICP备2026141606号-1</a>' +
+            '</p>' +
             '</div>' +
             '</div>' +
             '<div class="footer-col footer-col-center">' +
             '<div class="footer-form">' +
             '<h4>留言</h4>' +
             '<form id="footerContactForm" action="https://api.web3forms.com/submit" method="POST">' +
-            '<input type="hidden" name="access_key" value="a76d1a6a-52bc-441e-9e35-ab12927b0805">' +
+            '<input type="hidden" name="access_key" value="5fd8d711-8dc6-4e9c-955f-82a14dd48f24">' +
             '<input type="hidden" name="subject" value="网站页脚快速咨询留言">' +
             '<input type="hidden" name="from_name" value="网站访客">' +
             '<input type="text" name="botcheck" style="display:none !important;visibility:hidden;position:absolute;left:-9999px;width:0;height:0;opacity:0;" tabindex="-1" autocomplete="off" aria-hidden="true">' +
-            '<input type="text" name="name" placeholder="您的姓名" required>' +
-            '<input type="email" name="email" placeholder="邮箱地址" required>' +
-            '<textarea name="message" placeholder="简单描述您的需求..." required></textarea>' +
+            '<input type="text" name="name" placeholder="您的称呼 *" required>' +
+            '<input type="text" name="company" placeholder="公司名称">' +
+            '<input type="tel" name="phone" placeholder="手机号码">' +
+            '<input type="email" name="email" placeholder="邮箱地址 *" required>' +
+            '<textarea name="message" placeholder="简单描述您的需求... *" required></textarea>' +
+            '<p class="footer-form-note"><span class="req-mark">*</span> 为必填项</p>' +
             '<button type="submit" class="btn btn-primary footer-form-btn">' +
             '<span>发送</span>' +
             '<i class="fas fa-paper-plane"></i>' +
@@ -161,14 +159,26 @@
             '<div class="footer-qrcode-card">' +
             '<div class="footer-qrcodes">' +
             '<div class="footer-qrcode">' +
-            '<h4>公众号</h4>' +
-            '<img src="' + val('qrcodeWechat', 'images/qrcode.png') + '" alt="公众号" class="qrcode-img">' +
+            '<h4>微信公众号</h4>' +
+            '<img src="' + val('qrcodeWechat', 'images/qrcode.png') + '" alt="微信公众号" class="qrcode-img">' +
             '<p>扫码关注</p>' +
             '</div>' +
             '<div class="footer-qrcode">' +
-            '<h4>企业微信</h4>' +
-            '<img src="' + val('qrcodeWorkwechat', 'images/qrcode.png') + '" alt="企业微信" class="qrcode-img">' +
+            '<h4>微信</h4>' +
+            '<img src="' + val('qrcodeWorkwechat', 'images/qrcode.png') + '" alt="微信" class="qrcode-img">' +
             '<p>扫码联系</p>' +
+            '</div>' +
+            '<div class="footer-qrcode">' +
+            '<h4>视频号</h4>' +
+            '<img src="' + val('qrcodeChannels', 'images/qrcode.png') + '" alt="微信视频号" class="qrcode-img">' +
+            '<p>扫码关注</p>' +
+            '</div>' +
+            '</div>' +
+            '<div class="footer-social">' +
+            '<div class="social-rings">' +
+            '<a href="' + val('xiaohongshu', '#') + '" target="_blank" rel="noopener noreferrer" title="小红书" class="social-ring"><img src="images/小红书-copy-copy.svg" alt="小红书"></a>' +
+            '<a href="' + val('bilibili', '#') + '" target="_blank" rel="noopener noreferrer" title="bilibili" class="social-ring"><img src="images/哔哩哔哩.svg" alt="bilibili"></a>' +
+            '<a href="' + val('douyin', '#') + '" target="_blank" rel="noopener noreferrer" title="抖音" class="social-ring"><img src="images/抖音.svg" alt="抖音"></a>' +
             '</div>' +
             '</div>' +
             '</div>' +
@@ -203,5 +213,28 @@
                     });
             });
         }
+    }
+
+    /* ========== data-animate 兜底：防止 IntersectionObserver 漏观察导致卡片永远透明 ==========
+       CSS 里 [data-animate]{opacity:0}，如果 Observer 没 observe 或 没进入视口就永远不显示。
+       这里在 window.onload 后 800ms 强制所有仍未 animate-in 的 [data-animate] 显示出来。 */
+    function forceAnimateInFallback() {
+        try {
+            var list = document.querySelectorAll('[data-animate]:not(.animate-in)');
+            if (list && list.length) {
+                list.forEach(function (el, idx) {
+                    // 略延迟，避免页面一打开就一堆动画挤在一起
+                    setTimeout(function () { el.classList.add('animate-in'); }, idx * 60);
+                });
+            }
+        } catch (e) {}
+    }
+    if (window.addEventListener) {
+        window.addEventListener('load', function () {
+            setTimeout(forceAnimateInFallback, 800);
+        });
+    } else {
+        // IE8 兜底
+        window.attachEvent('onload', function () { setTimeout(forceAnimateInFallback, 1000); });
     }
 })();

@@ -142,13 +142,14 @@
                 let targetAngle = null;
                 let targetT = 0;
                 if (pointerX !== null) {
-                    // 亮度按接近程度衰减；光向仅在足够近时才转向鼠标，远处保持自身扫掠
+                    // 亮度按接近程度衰减；光向仅在指针真正悬停到按钮上（进入按钮矩形）时才跟随鼠标，
+                    // 划过按钮附近（未悬停）保持自身慢速扫掠，避免高光被拖着绕边框疯狂转圈
                     const ddx = Math.max(r.left - pointerX, 0, pointerX - r.right);
                     const ddy = Math.max(r.top - pointerY, 0, pointerY - r.bottom);
                     const dist = Math.hypot(ddx, ddy);
                     const raw = Math.max(0, 1 - dist / PROXIMITY);
                     targetT = raw * raw * (3 - 2 * raw); // smoothstep 缓动
-                    if (dist < PROXIMITY * 1.5) {
+                    if (dist === 0) {
                         targetAngle = Math.atan2(r.cy - pointerY, pointerX - r.cx);
                     }
                 }
