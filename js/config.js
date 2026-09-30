@@ -11,6 +11,8 @@ const siteConfig = {
     "email": "xifofly@163.com",
     "wechat": "xifofly",
     "company": "深圳市龙华区溪风设计工作室",
+    "address": "深圳市龙华区民治樟坑1区32栋307",
+    "phone": "16675191883",
     "qrcodeWechat": "images/公众号二维码.png",
     "qrcodeWorkwechat": "images/微信二维码.png",
     "qrcodeChannels": "images/视频号二维码.jpg",
@@ -99,5 +101,17 @@ const siteConfig = {
         "clients": 80,
         "years": 8,
         "satisfaction": 100
+    },
+    "analytics": {
+        "enabled": true,
+        "provider": "umami",
+        "scriptUrl": "https://umami.xifofly.com/script.js",
+        "websiteId": "aaebaedb-13c4-4c1e-a13c-03381428abc7",
+        "domains": [
+            "xifofly.com",
+            "www.xifofly.com"
+        ],
+        "excludeLocal": true,
+        "trackFormSubmit": true
     }
 };

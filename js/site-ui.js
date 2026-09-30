@@ -41,6 +41,52 @@
         document.head.appendChild(faviconLink);
     }
 
+    /* ========== 访问统计（Umami 自托管） ==========
+       数据驱动：开关、脚本地址、站点 ID、允许上报的域名全部来自 js/config.js 的 analytics 段，
+       HTML 里不需要写任何 <script>，后台改配置即可全站生效。
+       安全保护：
+       1) file:// 本地预览不上报，避免本地流量污染线上数据；
+       2) hostname 不在白名单内不上报（测试域名、临时预览域名都统计不到）；
+       3) 脚本加载失败/被拦截时静默处理，绝不影响页面功能。 */
+    function initAnalytics() {
+        try {
+            var a = cfg.analytics;
+            if (!a || a.enabled === false || !a.scriptUrl || !a.websiteId) return;
+
+            /* 本地直接打开（file://）不上报 */
+            if (window.location.protocol === 'file:' && a.excludeLocal !== false) return;
+
+            /* 域名白名单：配置里写 xifofly.com 与 www.xifofly.com，两者都放行 */
+            var host = String(window.location.hostname || '').toLowerCase().replace(/^www\./, '');
+            var allow = [];
+            if (Object.prototype.toString.call(a.domains) === '[object Array]') {
+                allow = a.domains.map(function (d) {
+                    return String(d).toLowerCase().replace(/^https?:\/\//, '').replace(/\/.*$/, '').replace(/^www\./, '');
+                }).filter(function (d) { return d; });
+            }
+            if (allow.length && allow.indexOf(host) === -1) return;
+
+            var s = document.createElement('script');
+            s.defer = true;
+            s.src = a.scriptUrl;
+            s.setAttribute('data-website-id', a.websiteId);
+            if (allow.length) s.setAttribute('data-domains', allow.join(','));
+            s.onerror = function () { /* 统计脚本不可用时静默，页面照常 */ };
+            (document.head || document.documentElement).appendChild(s);
+
+            /* 暴露一个安全的事件上报入口：页面里调用 window.xifoflyTrack('事件名') 即可 */
+            window.xifoflyTrack = function (name, data) {
+                try {
+                    if (window.umami && typeof window.umami.track === 'function') {
+                        window.umami.track(name, data || {});
+                    }
+                } catch (e) {}
+            };
+        } catch (e) {}
+    }
+
+    initAnalytics();
+
     function isActive(href) {
         return href === currentFile ? ' class="active"' : '';
     }
@@ -123,8 +169,9 @@
             '<h4>联系方式</h4>' +
             '<ul>' +
             '<li><i class="fas fa-building"></i> <span>' + val('company', '') + '</span></li>' +
+            '<li><i class="fas fa-map-marker-alt"></i> <span>' + val('address', '') + '</span></li>' +
+            '<li><i class="fas fa-phone"></i> <span>' + val('phone', '') + '</span></li>' +
             '<li><i class="fas fa-envelope"></i> <span>' + val('email', '') + '</span></li>' +
-            '<li><i class="fab fa-weixin"></i> <span>' + val('wechat', '') + '</span></li>' +
             '</ul>' +
             '</div>' +
             '<div class="footer-copyright">' +
@@ -202,6 +249,10 @@
                     .then(function (res) { return res.json(); })
                     .then(function (data) {
                         if (data && data.success) {
+                            /* 统计：记录一次「表单提交成功」事件（未开启统计时自动忽略） */
+                            if (typeof window.xifoflyTrack === 'function' && cfg.analytics && cfg.analytics.trackFormSubmit !== false) {
+                                window.xifoflyTrack('contact-submit');
+                            }
                             footerForm.innerHTML = '<p class="footer-form-success">已收到您的留言，我们会尽快回复！</p>';
                         } else {
                             throw new Error('submit failed');
