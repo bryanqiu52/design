@@ -7,6 +7,8 @@
  *  - 侧边渲染小圆点指示器 + 数字，点击可跳屏。
  *  - 激活屏添加 .fp-active，用于触发该屏内容的进入/退出动画。
  *  - 横向卡片区：鼠标悬停在卡片上时滚轮只做横向滚动；移出卡片区才翻页。
+ *  - 一次滚轮手势最多翻一屏（2026-10-08 改）：累积够了才翻，翻完整段惯性余波一律吞掉，
+ *    不会出现"一滚滚两屏"。要恢复连翻就把 MAX_STEPS_PER_GESTURE 调成 2~3。
  * 若要整体关闭本功能，删除 <script src="js/fullpage.js"></script> 即可。
  */
 (function () {
@@ -26,8 +28,60 @@
     var dotWrap = null;
     var scrollHint = null;
     var rafId = null;        // 当前滚动动画帧句柄（防重入，避免两套动画抢 scrollTo）
-    var pendingWheel = 0;    // 动画期间被吞掉的滚轮累计量（正=向下）
-    var pendingTimer = null; // 延迟消费 pendingWheel 的定时器
+
+    /* ===== 手势节流：一次滚轮手势最多翻一屏，杜绝"一滚滚两屏" =====
+     * 背景：鼠标滚轮/触控板一次搓动会连续发出几百毫秒的 wheel 事件（惯性尤其久），
+     *       若每次事件都翻屏，一次手势就冲过去两三屏。
+     * 规则：
+     *  1. 相邻 wheel 静默超过 GESTURE_GAP 视为"新手势"，重新拿到翻页资格；
+     *  2. 手势内累计位移达到 WHEEL_TRIGGER 才真的翻一屏（滤掉触控板 1~2px 抖动）；
+     *  3. 翻完后本手势不再翻（MAX_STEPS_PER_GESTURE 控制），期间的滚轮一律吞掉（仍需 preventDefault，
+     *     否则原生滚动和缓动动画抢位置，就是之前那个"抽搐"的老毛病）；
+     *  4. 动画期间 + 落屏后的 ANIM_COOLDOWN 冷却期内同样只吞不翻。
+     */
+    var WHEEL_TRIGGER = 40;         // 触发翻页的累计滚动量（px）
+    var GESTURE_GAP = 260;          // 静默多久算换手势（ms）
+    var ANIM_COOLDOWN = 120;        // 动画结束后的落屏保护（ms）
+    var MAX_STEPS_PER_GESTURE = 1;  // 一次手势最多翻几屏（想恢复"猛滚连翻"改成 2~3）
+    var PAGE_DURATION = 560;        // 翻屏动画时长（ms）
+
+    var gestureAccum = 0;           // 本次手势累计的滚动量
+    var gestureSteps = 0;           // 本次手势已经翻了几屏
+    var gestureLocked = false;      // 本次手势的翻页资格是否已用完
+    var gestureTimer = null;        // 手势静默判定定时器
+    var lastWheelTime = 0;
+    var lockUntil = 0;              // 翻页冷却截止时间戳
+
+    /* 归一化不同浏览器的滚动量：行模式/页模式统一折算成像素 */
+    function normalizeDelta(e) {
+        var d = e.deltaY;
+        if (e.deltaMode === 1) d *= 16;                    // DOM_DELTA_LINE
+        else if (e.deltaMode === 2) d *= window.innerHeight; // DOM_DELTA_PAGE
+        return d;
+    }
+
+    /* 记录一次 wheel：判定是否新手势，并按静默时间自动收尾 */
+    function markWheelGesture(now) {
+        if (now - lastWheelTime > GESTURE_GAP) {
+            gestureLocked = false;
+            gestureSteps = 0;
+            gestureAccum = 0;
+        }
+        lastWheelTime = now;
+        if (gestureTimer) clearTimeout(gestureTimer);
+        gestureTimer = setTimeout(function () {
+            gestureTimer = null;
+            gestureLocked = false;
+            gestureSteps = 0;
+            gestureAccum = 0;
+        }, GESTURE_GAP);
+    }
+
+    /* 上翻页锁：冷却期内任何滚动输入都只吞不翻 */
+    function lockPage(ms) {
+        var until = Date.now() + ms;
+        if (until > lockUntil) lockUntil = until;
+    }
 
     function lerp(start, end, factor) {
         return start + (end - start) * factor;
@@ -53,26 +107,11 @@
                 window.scrollTo(0, targetY);
                 isAnimating = false;
                 if (done) done();
-                /* 动画期间积攒的滚轮量顺势消费，快速连滚不丢手势也不抖动 */
-                if (pendingWheel !== 0) scheduleFlush(60);
+                /* 落屏瞬间短暂冷却：收拾动画余波，避免刚到位就被下一格带走 */
+                lockPage(ANIM_COOLDOWN);
             }
         }
         rafId = requestAnimationFrame(step);
-    }
-
-    /* 动画结束后消费动画期间积累的滚轮量：超过一格阈值就顺势翻屏 */
-    function flushPendingWheel() {
-        pendingTimer = null;
-        if (isAnimating) return;
-        var amount = pendingWheel;
-        pendingWheel = 0;
-        if (amount > 60) goNext();
-        else if (amount < -60) goPrev();
-    }
-
-    function scheduleFlush(delay) {
-        if (pendingTimer) return;
-        pendingTimer = setTimeout(flushPendingWheel, delay || 60);
     }
 
     function sectionTop(el) {
@@ -93,18 +132,30 @@
     }
 
     function goTo(index) {
-        /* 主动跳屏（指示器/键盘）时清掉积攒的滚轮量，避免落屏后又被顺势翻走 */
-        pendingWheel = 0;
-        if (pendingTimer) { clearTimeout(pendingTimer); pendingTimer = null; }
+        /* 主动跳屏（指示器/键盘）：占用本次手势的资格并上锁到动画结束，
+           避免落屏后被同一手势的余波接着翻走 */
+        gestureAccum = 0;
+        gestureSteps = MAX_STEPS_PER_GESTURE;
+        gestureLocked = true;
+        lastWheelTime = Date.now();
         setActive(index);
-        smoothScrollTo(sectionTop(sections[index]), 620);
+        smoothScrollTo(sectionTop(sections[index]), PAGE_DURATION);
+    }
+
+    /* 到了首尾边界没能真的翻屏时，把这次手势的资格还回去，避免"推不动"的卡顿感 */
+    function releaseGesture() {
+        gestureAccum = 0;
+        gestureSteps = 0;
+        gestureLocked = false;
     }
 
     function goPrev() {
         if (currentIndex > 0) goTo(currentIndex - 1);
+        else releaseGesture();
     }
     function goNext() {
         if (currentIndex < sections.length - 1) goTo(currentIndex + 1);
+        else releaseGesture();
     }
 
     /* 判断当前视口中心落在第几屏 */
@@ -178,50 +229,70 @@
         return true;
     }
 
-    /* 处理滚轮：先在卡片区横向滚动，仅在屏边缘且非超高屏内部滚动时翻页 */
+    /* 处理滚轮：一次手势最多翻一屏；卡片区内走横向、超高屏内部走原生 */
     function onWheel(e) {
-        if (isAnimating) {
-            /* 动画期间必须吞掉滚轮：否则原生滚动与缓动动画互相拉扯造成"抽搐"。
-               累计方向量，动画结束后顺势续翻，快速连滚依然连贯。 */
-            pendingWheel += e.deltaY;
-            scheduleFlush(80);
+        var now = Date.now();
+        var dy = normalizeDelta(e);
+
+        /* 1) 动画中 / 落屏冷却中：必须吞掉滚轮（preventDefault），
+              否则原生滚动与逐帧 scrollTo 互相拉扯 → 当年的"抽搐"会复发 */
+        if (isAnimating || now < lockUntil) {
+            markWheelGesture(now);
             e.preventDefault();
             return;
         }
+        if (Math.abs(dy) < 1) { e.preventDefault(); return; }
+
+        /* 2) 横向卡片区：滚轮映射成横向滚动 */
         if (handleHorizontal(e)) { e.preventDefault(); return; }
 
-        var rect = document.documentElement.getBoundingClientRect();
-        var maxScroll = rect.height - window.innerHeight;
         var y = window.scrollY || window.pageYOffset;
+        var maxScroll = document.documentElement.getBoundingClientRect().height - window.innerHeight;
 
-        /* 超高屏内部滚动检测：当前屏本身超出视口，且滚动未到其边缘 */
-        var cur = sections[currentIndex] || sections[detectIndex()];
+        /* 3) 超高屏内部：屏本身高于视口且还没滚到它的边界 → 交还给浏览器原生滚动 */
+        currentIndex = detectIndex();
+        var cur = sections[currentIndex];
         if (cur) {
             var curTop = sectionTop(cur);
             var curBottom = curTop + cur.offsetHeight;
             var inside = (y > curTop + 2 && y < curBottom - window.innerHeight - 2);
-            if (inside && cur.offsetHeight > window.innerHeight + 4) {
-                return; // 让浏览器原生滚动，直到滚到屏边界
-            }
+            if (inside && cur.offsetHeight > window.innerHeight + 4) return;
         }
 
-        /* 底部/顶部边界保护 */
-        if (e.deltaY > 0) {
-            if (y >= maxScroll - 2) return;
-            /* 已到最后屏：放行原生滚动，让页脚内容也能看到 */
-            if (currentIndex >= sections.length - 1) return;
-            goNext();
-        } else {
-            if (y <= 2) return;
-            goPrev();
-        }
+        /* 4) 边界保护：页面已到底、已到顶、或已在最后一屏（页脚）→ 放行原生滚动 */
+        if (dy > 0 && (y >= maxScroll - 2 || currentIndex >= sections.length - 1)) return;
+        if (dy < 0 && y <= 2) return;
+
+        /* 5) 接管：到这里才由 JS 控制翻屏 */
+        markWheelGesture(now);
         e.preventDefault();
+
+        if (gestureLocked || gestureSteps >= MAX_STEPS_PER_GESTURE) {
+            return; // 本次手势的额度已用完，余波（惯性）一律忽略
+        }
+        /* 中途反向视为新意图，重新开始累计 */
+        if (gestureAccum !== 0 && (gestureAccum > 0) !== (dy > 0)) gestureAccum = 0;
+        gestureAccum += dy;
+        if (Math.abs(gestureAccum) < WHEEL_TRIGGER) return; // 还不够一格，先攒着（滤抖动）
+
+        gestureAccum = 0;
+        gestureSteps += 1;
+        gestureLocked = true;
+        if (dy > 0) goNext(); else goPrev();
     }
 
+    var PAGE_KEYS = { ArrowDown: 1, PageDown: 1, ArrowUp: 1, PageUp: 1, Home: 1, End: 1 };
+
     function onKey(e) {
-        if (isAnimating) { e.preventDefault(); return; } // 动画期间吞掉按键，避免原生滚动干扰
+        var now = Date.now();
         var tag = (e.target.tagName || '').toLowerCase();
         if (tag === 'input' || tag === 'textarea' || tag === 'select') return;
+        /* 只接管翻屏相关的键，其余（F5/Ctrl+R/Tab…）一律放行，不要再被吞掉 */
+        if (!PAGE_KEYS[e.key]) return;
+        if (isAnimating || now < lockUntil) { e.preventDefault(); return; } // 动画/冷却期吞掉按键，避免与滚动动画打架
+        /* 键盘同样按"一次一格"处理，长按不连跳 */
+        markWheelGesture(now);
+        gestureLocked = true;
         switch (e.key) {
             case 'ArrowDown':
             case 'PageDown':
@@ -327,6 +398,8 @@
         }, { passive: true });
         window.addEventListener('touchend', function (e) {
             if (touchStartY === null) return;
+            /* 上一次翻页还没稳住就再滑：直接丢弃，与滚轮同为"一次手势一屏" */
+            if (isAnimating || Date.now() < lockUntil) { touchStartY = null; return; }
             var endY = e.changedTouches[0].clientY;
             var endX = e.changedTouches[0].clientX;
             var dy = touchStartY - endY;
