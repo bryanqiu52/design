@@ -217,6 +217,12 @@ function renderProject(project) {
 
     document.title = `${project.title} | 溪风设计`;
 
+    /* 访问统计：上报「案例浏览」事件，后台看板据此统计各案例热度
+       （未开启统计 / 本地预览时自动忽略，不影响页面） */
+    if (typeof window.xifoflyTrack === 'function') {
+        window.xifoflyTrack('view-project:' + project.title);
+    }
+
     const displayStyle = project.displayStyle || 'A';
     currentGalleryImages = project.gallery || [project.image];
 

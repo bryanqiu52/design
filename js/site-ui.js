@@ -72,16 +72,31 @@
             s.setAttribute('data-website-id', a.websiteId);
             if (allow.length) s.setAttribute('data-domains', allow.join(','));
             s.onerror = function () { /* 统计脚本不可用时静默，页面照常 */ };
-            (document.head || document.documentElement).appendChild(s);
 
-            /* 暴露一个安全的事件上报入口：页面里调用 window.xifoflyTrack('事件名') 即可 */
+            /* 事件上报入口：页面里调用 window.xifoflyTrack('事件名') 即可。
+               统计脚本可能比页面渲染稍晚就绪，这里先入队，脚本加载完成后补发，避免漏事件 */
+            var trackQueue = [];
             window.xifoflyTrack = function (name, data) {
                 try {
                     if (window.umami && typeof window.umami.track === 'function') {
                         window.umami.track(name, data || {});
+                    } else if (trackQueue.length < 50) {
+                        trackQueue.push([name, data || {}]);
                     }
                 } catch (e) {}
             };
+            s.onload = function () {
+                try {
+                    var pending = trackQueue.splice(0);
+                    for (var i = 0; i < pending.length; i++) {
+                        if (window.umami && typeof window.umami.track === 'function') {
+                            window.umami.track(pending[i][0], pending[i][1]);
+                        }
+                    }
+                } catch (e) {}
+            };
+
+            (document.head || document.documentElement).appendChild(s);
         } catch (e) {}
     }
 

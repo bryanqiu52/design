@@ -102,6 +102,11 @@ function renderBlogDetail() {
 
     document.title = `${post.title} | 溪风设计`;
 
+    /* 访问统计：上报「博客阅读」事件，后台看板据此统计各篇文章热度 */
+    if (typeof window.xifoflyTrack === 'function') {
+        window.xifoflyTrack('view-blog:' + post.title);
+    }
+
     // 上一篇 / 下一篇：按日期降序排列取相邻文章
     const byDate = [...BLOG_POSTS_DATA].sort((a, b) => (Date.parse(b.date) || 0) - (Date.parse(a.date) || 0));
     const currentIdx = byDate.findIndex(p => p.slug === slug);

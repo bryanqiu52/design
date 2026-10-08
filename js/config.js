@@ -105,7 +105,7 @@ const siteConfig = {
     "analytics": {
         "enabled": true,
         "provider": "umami",
-        "scriptUrl": "https://umami.xifofly.com/script.js",
+        "scriptUrl": "https://weighted-triumph-encounter-extraction.trycloudflare.com/script.js",
         "websiteId": "aaebaedb-13c4-4c1e-a13c-03381428abc7",
         "domains": [
             "xifofly.com",
