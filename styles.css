@@ -1114,9 +1114,10 @@ html {
     margin: 0;
 }
 
-/* Featured Works */
+/* Featured Works：上下 padding 从 8rem 收窄到 5rem，把省下的空间让给卡片，
+   使 8 个案例（2 行）在 1080P 上更饱满地占满一屏（其余 section 的 8rem 不动，只调本屏） */
 .featured-works {
-    padding: 8rem 0;
+    padding: 5rem 0;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -2334,7 +2335,7 @@ html {
     display: flex;
     flex-direction: column;
     /* 固定整张卡片总高，hover 时图片才能把空间让给下方灰色信息区、实现“向上缩小” */
-    height: clamp(340px, 38vw, 440px);
+    height: clamp(280px, 20vw, 370px);
 }
 
 /* 触屏设备（手机/平板）没有鼠标，hover 效果一律不生效 */
