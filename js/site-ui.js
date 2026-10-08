@@ -56,15 +56,27 @@
             /* 本地直接打开（file://）不上报 */
             if (window.location.protocol === 'file:' && a.excludeLocal !== false) return;
 
-            /* 域名白名单：配置里写 xifofly.com 与 www.xifofly.com，两者都放行 */
-            var host = String(window.location.hostname || '').toLowerCase().replace(/^www\./, '');
+            /* 域名白名单：
+               1) 注入判断（本脚本自身）：www 与裸域视为同一站点，都放行；
+               2) data-domains（传给统计脚本）必须保留原始写法 —— 配置里写 xifofly.com 和
+                  www.xifofly.com 就都传下去，否则 www 访问会被脚本自己的域名校验拦掉。 */
+            var host = String(window.location.hostname || '').toLowerCase();
+            var baseHost = host.replace(/^www\./, '');
             var allow = [];
             if (Object.prototype.toString.call(a.domains) === '[object Array]') {
-                allow = a.domains.map(function (d) {
-                    return String(d).toLowerCase().replace(/^https?:\/\//, '').replace(/\/.*$/, '').replace(/^www\./, '');
-                }).filter(function (d) { return d; });
+                a.domains.forEach(function (d) {
+                    var v = String(d).toLowerCase().replace(/^https?:\/\//, '').replace(/\/.*$/, '').replace(/\/+$/, '');
+                    if (!v) return;
+                    var bare = v.replace(/^www\./, '');
+                    [v, bare, 'www.' + bare].forEach(function (item) {
+                        if (item && allow.indexOf(item) === -1) allow.push(item);
+                    });
+                });
             }
-            if (allow.length && allow.indexOf(host) === -1) return;
+            if (allow.length) {
+                var allowed = allow.some(function (d) { return d.replace(/^www\./, '') === baseHost; });
+                if (!allowed) return;
+            }
 
             var s = document.createElement('script');
             s.defer = true;
