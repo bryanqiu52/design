@@ -1364,6 +1364,22 @@ const projectsData = [
         "results": [],
         "features": [],
         "tags": []
+    },
+    {
+        "id": 1791440394839,
+        "sortOrder": 95,
+        "isTop": true,
+        "title": "临时测试",
+        "category": "branding",
+        "categoryName": "品牌设计",
+        "displayStyle": "A",
+        "subtitle": "",
+        "image": "images/featured3.jpg",
+        "gallery": [
+            "images/featured3.jpg"
+        ],
+        "description": "",
+        "tags": []
     }
 ];
 
@@ -1376,7 +1392,7 @@ function sortProjects(projects) {
 }
 
 const sortedProjects = sortProjects(projectsData);
-const featuredWorks = sortedProjects.slice(0, 8);
+const featuredWorks = sortedProjects.slice(0, 4);
 
 const categories = {
     "branding": "品牌设计",
