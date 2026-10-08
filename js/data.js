@@ -1335,6 +1335,7 @@ const projectsData = [
         "category": "branding",
         "categoryName": "品牌设计",
         "displayStyle": "A",
+        "subtitle": "IP角色",
         "image": "images/cases/悠贝初品牌（悠悠龙）/悠贝初品牌（悠悠龙）-01.jpg",
         "gallery": [
             "images/cases/悠贝初品牌（悠悠龙）/悠贝初品牌（悠悠龙）-01.jpg",
@@ -1356,27 +1357,6 @@ const projectsData = [
             "images/cases/悠贝初品牌（悠悠龙）/悠贝初品牌（悠悠龙）-17.jpg",
             "images/cases/悠贝初品牌（悠悠龙）/悠贝初品牌（悠悠龙）-18.jpg",
             "images/cases/悠贝初品牌（悠悠龙）/悠贝初品牌（悠悠龙）-19.jpg"
-        ],
-        "subtitle": "IP角色",
-        "description": "xxxxxxxxxxxxx",
-        "challenge": "",
-        "solution": "",
-        "results": [],
-        "features": [],
-        "tags": []
-    },
-    {
-        "id": 1791440394839,
-        "sortOrder": 95,
-        "isTop": true,
-        "title": "临时测试",
-        "category": "branding",
-        "categoryName": "品牌设计",
-        "displayStyle": "A",
-        "subtitle": "",
-        "image": "images/featured3.jpg",
-        "gallery": [
-            "images/featured3.jpg"
         ],
         "description": "",
         "tags": []
