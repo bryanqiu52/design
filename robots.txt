@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# 后台预览页不对外收录
+Disallow: /__xifofly_preview.html
+Disallow: /preview-footer.html
+
+Sitemap: https://www.xifofly.com/sitemap.xml

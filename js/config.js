@@ -113,5 +113,14 @@ const siteConfig = {
         ],
         "excludeLocal": true,
         "trackFormSubmit": true
+    },
+    "seo": {
+        "siteUrl": "https://www.xifofly.com",
+        "siteName": "溪风设计 XIFOFLY",
+        "defaultTitle": "溪风设计 XIFOFLY | 深圳品牌设计 · 包装设计 · 电商视觉",
+        "defaultDescription": "溪风设计（XIFOFLY）是深圳品牌视觉设计工作室，提供 LOGO/VI 品牌设计、包装设计、电商详情页与 UI/UX 设计服务。轻盈自有回响。",
+        "defaultKeywords": "深圳品牌设计,LOGO设计,VI设计,包装设计,电商详情页设计,UI设计,画册设计",
+        "ogImage": "images/hero.png",
+        "enableJsonLd": true
     }
 };

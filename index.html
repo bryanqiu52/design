@@ -3,7 +3,19 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title id="page-title">溪风设计 | XIFOFLY</title>
+<title id="page-title">溪风设计 XIFOFLY | 深圳品牌设计 · 包装设计 · 电商视觉</title>
+<meta name="description" content="溪风设计（XIFOFLY）是深圳品牌视觉设计工作室，提供 LOGO/VI 品牌设计、包装设计、电商详情页与 UI/UX 设计服务。轻盈自有回响。"/>
+<meta name="keywords" content="深圳品牌设计,LOGO设计,VI设计,包装设计,电商详情页设计,UI设计,画册设计"/>
+<meta property="og:title" content="溪风设计 XIFOFLY | 深圳品牌设计 · 包装设计 · 电商视觉"/>
+<meta property="og:description" content="溪风设计（XIFOFLY）是深圳品牌视觉设计工作室，提供 LOGO/VI 品牌设计、包装设计、电商详情页与 UI/UX 设计服务。轻盈自有回响。"/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://www.xifofly.com/"/>
+<meta property="og:image" content="https://www.xifofly.com/images/hero.png"/>
+<meta property="og:site_name" content="溪风设计 XIFOFLY"/>
+<meta property="og:locale" content="zh_CN"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="baidu-site-verification" content="codeva-fhEhvj9QFB" />
+<link rel="canonical" href="https://www.xifofly.com/"/>
 <link href="vendor/fontawesome/css/all.min.css" rel="stylesheet"/>
 <link href="styles.css?v=20260902" rel="stylesheet"/>
 <link rel="icon" id="site-favicon"/>
@@ -169,7 +181,7 @@
 function loadFeaturedWorks() {
     const container = document.getElementById('featuredWorks');
     container.innerHTML = featuredWorks.map((work, index) => `
-        <a href="project.html?id=${work.id}" class="portfolio-item" data-animate style="transition-delay: ${index * 0.1}s">
+        <a href="${work.slug ? 'case/' + work.slug + '.html' : 'project.html?id=' + work.id}" class="portfolio-item" data-animate style="transition-delay: ${index * 0.1}s">
             <div class="portfolio-item-image">
                 <img src="${work.image}" alt="${work.title}" loading="lazy">
                 <div class="portfolio-item-overlay">
@@ -494,7 +506,8 @@ function initSplitTitle() {
 
 document.addEventListener('DOMContentLoaded', function() {
     if (typeof siteConfig !== 'undefined') {
-        document.getElementById('page-title').textContent = siteConfig.siteTitle + ' | XIFOFLY';
+        document.getElementById('page-title').textContent =
+            (siteConfig.seo && siteConfig.seo.defaultTitle) || (siteConfig.siteTitle + ' | XIFOFLY');
         if (siteConfig.heroEyebrow) document.querySelector('.hero-eyebrow').textContent = siteConfig.heroEyebrow;
         if (siteConfig.heroDesc) {
             document.getElementById('hero-subtitle').textContent = siteConfig.heroDesc;
@@ -534,6 +547,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 <script src="js/hero-grid.js"></script>
 <script src="js/site-ui.js"></script>
+<script src="js/seo.js"></script>
 <script src="js/aurora.js"></script>
 <script src="js/fullpage.js"></script>
 <script src="js/image-protect.js"></script>

@@ -1,0 +1,14 @@
+{
+  // ESA Pages 构建配置：push 到 GitHub 后自动执行 buildCommand 再部署
+  // 产物目录 = 仓库根目录（网站文件直接放在根，case/ 与 blog/ 由构建生成）
+  "name": "xifofly-site",
+  "buildCommand": "node build-static.js",
+  "assets": {
+    "directory": "./",
+    // 404 必须返回真实 404 状态码，否则搜索引擎会大量收录软 404 垃圾页
+    "notFoundStrategy": {
+      "type": "page",
+      "page": "404.html"
+    }
+  }
+}

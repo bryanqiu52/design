@@ -11,7 +11,6 @@ const siteImages = {
 const projectsData = [
     {
         "id": 1788513859922,
-        "slug": "aigc",
         "sortOrder": 1,
         "isTop": false,
         "title": "AIGC",
@@ -32,7 +31,6 @@ const projectsData = [
     },
     {
         "id": 1788513859923,
-        "slug": "ui-animation",
         "sortOrder": 3,
         "isTop": false,
         "title": "UI动画",
@@ -59,7 +57,6 @@ const projectsData = [
     },
     {
         "id": 1788513859924,
-        "slug": "web-design",
         "sortOrder": 5,
         "isTop": false,
         "title": "WEB",
@@ -82,7 +79,6 @@ const projectsData = [
     },
     {
         "id": 1788513859925,
-        "slug": "slicer-software-ui",
         "sortOrder": 7,
         "isTop": false,
         "title": "切片软件界面设计",
@@ -107,7 +103,6 @@ const projectsData = [
     },
     {
         "id": 1788513859926,
-        "slug": "official-website-web",
         "sortOrder": 9,
         "isTop": false,
         "title": "官网web设计",
@@ -126,7 +121,6 @@ const projectsData = [
     },
     {
         "id": 1788513859927,
-        "slug": "engraving-machine-app-ui",
         "sortOrder": 11,
         "isTop": false,
         "title": "雕刻机app界面设计",
@@ -154,7 +148,6 @@ const projectsData = [
     },
     {
         "id": 1788513859928,
-        "slug": "3d-printing-others",
         "sortOrder": 13,
         "isTop": false,
         "title": "3D打印其他",
@@ -182,7 +175,6 @@ const projectsData = [
     },
     {
         "id": 1788513859929,
-        "slug": "3d-printing-filament",
         "sortOrder": 15,
         "isTop": false,
         "title": "3D打印耗材",
@@ -207,7 +199,6 @@ const projectsData = [
     },
     {
         "id": 1788513859930,
-        "slug": "3d-rendering-misc",
         "sortOrder": 17,
         "isTop": false,
         "title": "3D渲染-散图",
@@ -245,7 +236,6 @@ const projectsData = [
     },
     {
         "id": 1788513859931,
-        "slug": "3d-printer-a10",
         "sortOrder": 19,
         "isTop": true,
         "title": "3D打印机 A10",
@@ -272,7 +262,6 @@ const projectsData = [
     },
     {
         "id": 1788513859932,
-        "slug": "3d-printer-a5",
         "sortOrder": 21,
         "isTop": false,
         "title": "3D打印机 A5",
@@ -315,7 +304,6 @@ const projectsData = [
     },
     {
         "id": 1788513859933,
-        "slug": "3d-printer-a8plus",
         "sortOrder": 23,
         "isTop": false,
         "title": "3D打印机 A8Plus",
@@ -348,7 +336,6 @@ const projectsData = [
     },
     {
         "id": 1788513859934,
-        "slug": "3d-printer-dlp",
         "sortOrder": 25,
         "isTop": false,
         "title": "3D打印机 DLP",
@@ -372,7 +359,6 @@ const projectsData = [
     },
     {
         "id": 1788513859935,
-        "slug": "3d-printer-e12plus",
         "sortOrder": 27,
         "isTop": false,
         "title": "3D打印机 E12PLUS",
@@ -397,7 +383,6 @@ const projectsData = [
     },
     {
         "id": 1788513859936,
-        "slug": "3d-printer-et4",
         "sortOrder": 29,
         "isTop": true,
         "title": "3D打印机 ET4",
@@ -424,7 +409,6 @@ const projectsData = [
     },
     {
         "id": 1788513859937,
-        "slug": "3d-printer-lc100",
         "sortOrder": 31,
         "isTop": false,
         "title": "LC100",
@@ -454,7 +438,6 @@ const projectsData = [
     },
     {
         "id": 1788513859938,
-        "slug": "3d-printer-n4",
         "sortOrder": 33,
         "isTop": true,
         "title": "3D打印机 N4",
@@ -500,7 +483,6 @@ const projectsData = [
     },
     {
         "id": 1788513859939,
-        "slug": "3d-printer-n7",
         "sortOrder": 35,
         "isTop": false,
         "title": "3D打印机 N7",
@@ -551,7 +533,6 @@ const projectsData = [
     },
     {
         "id": 1788513859940,
-        "slug": "3d-printer-t200s",
         "sortOrder": 37,
         "isTop": false,
         "title": "3D打印机 T200S",
@@ -577,7 +558,6 @@ const projectsData = [
     },
     {
         "id": 1788513859941,
-        "slug": "3d-printing-pen-vp01",
         "sortOrder": 39,
         "isTop": false,
         "title": "3D打印笔 VP01",
@@ -606,7 +586,6 @@ const projectsData = [
     },
     {
         "id": 1788513859942,
-        "slug": "3d-printing-pen-vp05",
         "sortOrder": 41,
         "isTop": true,
         "title": "3D打印笔 VP05",
@@ -640,7 +619,6 @@ const projectsData = [
     },
     {
         "id": 1788513859943,
-        "slug": "3d-printing-filament-2",
         "sortOrder": 43,
         "isTop": false,
         "title": "3D打印耗材",
@@ -680,7 +658,6 @@ const projectsData = [
     },
     {
         "id": 1788513859944,
-        "slug": "industrial-mining-lamp",
         "sortOrder": 45,
         "isTop": false,
         "title": "工矿灯",
@@ -704,7 +681,6 @@ const projectsData = [
     },
     {
         "id": 1788513859945,
-        "slug": "light-bulb",
         "sortOrder": 47,
         "isTop": false,
         "title": "灯泡",
@@ -726,7 +702,6 @@ const projectsData = [
     },
     {
         "id": 1788513859946,
-        "slug": "photography",
         "sortOrder": 49,
         "isTop": false,
         "title": "摄影",
@@ -752,7 +727,6 @@ const projectsData = [
     },
     {
         "id": 1788513859947,
-        "slug": "downlight",
         "sortOrder": 51,
         "isTop": false,
         "title": "筒灯",
@@ -770,7 +744,6 @@ const projectsData = [
     },
     {
         "id": 1788513859948,
-        "slug": "waterproof-lamp",
         "sortOrder": 53,
         "isTop": false,
         "title": "防水灯",
@@ -797,7 +770,6 @@ const projectsData = [
     },
     {
         "id": 1788513859949,
-        "slug": "panel-light",
         "sortOrder": 55,
         "isTop": false,
         "title": "面板灯照明",
@@ -823,7 +795,6 @@ const projectsData = [
     },
     {
         "id": 1788513859950,
-        "slug": "filament-tote-bag",
         "sortOrder": 57,
         "isTop": false,
         "title": "3d打印耗材手提袋",
@@ -840,7 +811,6 @@ const projectsData = [
     },
     {
         "id": 1788513859951,
-        "slug": "lamp-packaging-box",
         "sortOrder": 59,
         "isTop": false,
         "title": "灯具包装盒",
@@ -868,7 +838,6 @@ const projectsData = [
     },
     {
         "id": 1788513859952,
-        "slug": "ccml-logo",
         "sortOrder": 61,
         "isTop": false,
         "title": "CCML logo设计",
@@ -889,7 +858,6 @@ const projectsData = [
     },
     {
         "id": 1788513859953,
-        "slug": "pure-color-logo",
         "sortOrder": 63,
         "isTop": false,
         "title": "Pure color logo设计",
@@ -913,7 +881,6 @@ const projectsData = [
     },
     {
         "id": 1788513859954,
-        "slug": "logo-collection",
         "sortOrder": 65,
         "isTop": false,
         "title": "一组logo设计",
@@ -941,7 +908,6 @@ const projectsData = [
     },
     {
         "id": 1788513859955,
-        "slug": "chuanghong-brand-logo",
         "sortOrder": 67,
         "isTop": false,
         "title": "创宏智控系列品牌logo",
@@ -967,7 +933,6 @@ const projectsData = [
     },
     {
         "id": 1788513859956,
-        "slug": "heding-group",
         "sortOrder": 69,
         "isTop": false,
         "title": "合鼎集团",
@@ -988,7 +953,6 @@ const projectsData = [
     },
     {
         "id": 1788513859957,
-        "slug": "zhuoguang-lighting-logo",
         "sortOrder": 71,
         "isTop": false,
         "title": "琢光照明logo设计",
@@ -1010,7 +974,6 @@ const projectsData = [
     },
     {
         "id": 1788513859958,
-        "slug": "product-banner",
         "sortOrder": 73,
         "isTop": false,
         "title": "产品Banner",
@@ -1044,7 +1007,6 @@ const projectsData = [
     },
     {
         "id": 1788513859959,
-        "slug": "ecommerce-main-image",
         "sortOrder": 75,
         "isTop": false,
         "title": "电商主图",
@@ -1077,7 +1039,6 @@ const projectsData = [
     },
     {
         "id": 1788513859960,
-        "slug": "product-detail-page",
         "sortOrder": 77,
         "isTop": false,
         "title": "详情页",
@@ -1105,7 +1066,6 @@ const projectsData = [
     },
     {
         "id": 1788513859961,
-        "slug": "canton-fair-lighting-materials",
         "sortOrder": 79,
         "isTop": false,
         "title": "135广交会照明展物料",
@@ -1129,7 +1089,6 @@ const projectsData = [
     },
     {
         "id": 1788513859962,
-        "slug": "3d-printing-product-materials",
         "sortOrder": 81,
         "isTop": false,
         "title": "3d打印产品物料",
@@ -1153,7 +1112,6 @@ const projectsData = [
     },
     {
         "id": 1788513859963,
-        "slug": "3d-printing-expo-backdrop",
         "sortOrder": 83,
         "isTop": false,
         "title": "3d打印展会背景墙",
@@ -1176,7 +1134,6 @@ const projectsData = [
     },
     {
         "id": 1788513859964,
-        "slug": "wedding-expo-booth-backdrop",
         "sortOrder": 85,
         "isTop": false,
         "title": "婚博会展位背景墙物料",
@@ -1195,7 +1152,6 @@ const projectsData = [
     },
     {
         "id": 1788513859965,
-        "slug": "lighting-expo-materials",
         "sortOrder": 87,
         "isTop": false,
         "title": "灯具展会物料",
@@ -1222,7 +1178,6 @@ const projectsData = [
     },
     {
         "id": 1788513859966,
-        "slug": "lighting-product-flyer",
         "sortOrder": 89,
         "isTop": false,
         "title": "照明产品折页",
@@ -1244,7 +1199,6 @@ const projectsData = [
     },
     {
         "id": 1788513859967,
-        "slug": "norway-lighting-expo-backdrop",
         "sortOrder": 91,
         "isTop": false,
         "title": "照明挪威展 展板背景墙",
@@ -1262,7 +1216,6 @@ const projectsData = [
     },
     {
         "id": 1788513859968,
-        "slug": "store-event-materials",
         "sortOrder": 93,
         "isTop": false,
         "title": "门店活动物料",
@@ -1288,7 +1241,6 @@ const projectsData = [
     },
     {
         "id": 1788837582372,
-        "slug": "youbeichu-brand-ip",
         "sortOrder": 94,
         "isTop": false,
         "title": "悠贝初品牌IP角色",

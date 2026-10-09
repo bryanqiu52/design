@@ -3,7 +3,18 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>案例 | 溪风设计</title>
+<title>设计案例 | 溪风设计 XIFOFLY - 品牌 · 包装 · 电商 · UI 作品集</title>
+<meta name="description" content="溪风设计作品集：品牌 VI、LOGO、包装设计、电商详情页、UI/UX 界面等 49 个真实商业案例，服务深圳及全国客户。"/>
+<meta name="keywords" content="设计案例,品牌设计案例,包装设计案例,电商详情页设计,UI设计作品集,VI设计"/>
+<meta property="og:title" content="设计案例 | 溪风设计 XIFOFLY - 品牌 · 包装 · 电商 · UI 作品集"/>
+<meta property="og:description" content="溪风设计作品集：品牌 VI、LOGO、包装设计、电商详情页、UI/UX 界面等 49 个真实商业案例。"/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://www.xifofly.com/cases.html"/>
+<meta property="og:image" content="https://www.xifofly.com/images/hero.png"/>
+<meta property="og:site_name" content="溪风设计 XIFOFLY"/>
+<meta property="og:locale" content="zh_CN"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<link rel="canonical" href="https://www.xifofly.com/cases.html"/>
 <link href="vendor/fontawesome/css/all.min.css" rel="stylesheet"/>
 <link href="styles.css" rel="stylesheet"/>
 <link rel="icon" id="site-favicon"/>
@@ -134,7 +145,7 @@ function renderWorks() {
 
     worksToShow.forEach((work, index) => {
         const card = document.createElement('a');
-        card.href = `project.html?id=${work.id}`;
+        card.href = work.slug ? `case/${work.slug}.html` : `project.html?id=${work.id}`;
         card.className = 'portfolio-item';
         card.dataset.id = work.id;
         card.style.animationDelay = `${index * 0.05}s`;
@@ -365,6 +376,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 <script src="js/config.js"></script>
 <script src="js/site-ui.js"></script>
+<script src="js/seo.js"></script>
 <script src="js/aurora.js"></script>
 <script src="js/image-protect.js"></script>
 </body>

@@ -1,0 +1,9 @@
+{
+  "name": "xifofly-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "溪风设计官网静态站点：由 build-static.js 从 js/data.js 生成案例静态页与 sitemap",
+  "scripts": {
+    "build": "node build-static.js"
+  }
+}

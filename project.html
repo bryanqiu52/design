@@ -2,7 +2,12 @@
 <html lang="zh-CN"><head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>详情页 | 溪风设计</title>
+<title>设计案例详情 | 溪风设计 XIFOFLY</title>
+<meta name="description" content="溪风设计商业案例详情：品牌设计、包装设计、电商详情页与 UI/UX 设计作品展示，含完整项目图集与设计说明。"/>
+<meta name="keywords" content="设计案例,品牌设计,包装设计,电商详情页,UI设计,溪风设计"/>
+<meta property="og:site_name" content="溪风设计 XIFOFLY"/>
+<meta property="og:locale" content="zh_CN"/>
+<meta name="twitter:card" content="summary_large_image"/>
 <link href="vendor/fontawesome/css/all.min.css" rel="stylesheet">
 <link href="styles.css" rel="stylesheet">
 
@@ -204,7 +209,7 @@ function renderProject(project) {
 
     const relatedProjects = getRelatedProjects(project);
     const relatedProjectsHtml = relatedProjects.map(p => `
-        <a href="project.html?id=${p.id}" class="case-item">
+        <a href="${p.slug ? 'case/' + p.slug + '.html' : 'project.html?id=' + p.id}" class="case-item">
             <div class="case-image">
                 <img src="${p.image}" alt="${p.title}">
             </div>
@@ -216,6 +221,8 @@ function renderProject(project) {
     `).join('');
 
     document.title = `${project.title} | 溪风设计`;
+    /* 供 js/seo.js 读取，生成准确的 meta / og / 结构化数据 */
+    window.__currentProject = project;
 
     /* 访问统计：上报「案例浏览」事件，后台看板据此统计各案例热度
        （未开启统计 / 本地预览时自动忽略，不影响页面） */
@@ -263,7 +270,7 @@ function renderProject(project) {
 
                 <div class="project-nav-anchor"></div>
                 <div class="project-nav-card">
-                    <a href="${prevProject ? `project.html?id=${prevProject.id}` : '#'}" 
+                    <a href="${prevProject ? (prevProject.slug ? `case/${prevProject.slug}.html` : `project.html?id=${prevProject.id}`) : '#'}" 
                        class="project-nav-link${prevProject ? '' : ' disabled'}">
                         <i class="fas fa-arrow-left"></i>
                         <span>上一个</span>
@@ -275,7 +282,7 @@ function renderProject(project) {
                         <span>返回案例</span>
                     </a>
 
-                    <a href="${nextProject ? `project.html?id=${nextProject.id}` : '#'}" 
+                    <a href="${nextProject ? (nextProject.slug ? `case/${nextProject.slug}.html` : `project.html?id=${nextProject.id}`) : '#'}" 
                        class="project-nav-link next${nextProject ? '' : ' disabled'}">
                         <span>下一个</span>
                         <span>${nextProject ? nextProject.title : '--'}</span>
@@ -1176,6 +1183,7 @@ function scrollCases(direction) {
 </script>
 <script src="js/config.js"></script>
 <script src="js/site-ui.js"></script>
+<script src="js/seo.js"></script>
 <script src="js/aurora.js"></script>
 <script src="js/image-protect.js"></script>
 

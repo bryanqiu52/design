@@ -3,7 +3,12 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>博客详情 | 溪风设计</title>
+<title>设计干货 | 溪风设计 XIFOFLY</title>
+<meta name="description" content="溪风设计博客文章：品牌设计、VI 系统、包装设计、电商视觉与配色技巧的实用干货分享。"/>
+<meta name="keywords" content="设计干货,品牌设计,VI设计,包装设计,电商视觉,配色技巧"/>
+<meta property="og:site_name" content="溪风设计 XIFOFLY"/>
+<meta property="og:locale" content="zh_CN"/>
+<meta name="twitter:card" content="summary_large_image"/>
 <link href="vendor/fontawesome/css/all.min.css" rel="stylesheet"/>
 <link href="styles.css" rel="stylesheet"/>
 <link rel="icon" id="site-favicon"/>
@@ -101,6 +106,8 @@ function renderBlogDetail() {
     const readMinutes = estimateReadMinutes(parsedHtml);
 
     document.title = `${post.title} | 溪风设计`;
+    /* 供 js/seo.js 读取，生成准确的 meta / og / 结构化数据 */
+    window.__currentPost = post;
 
     /* 访问统计：上报「博客阅读」事件，后台看板据此统计各篇文章热度 */
     if (typeof window.xifoflyTrack === 'function') {
@@ -287,6 +294,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 <script src="js/config.js"></script>
 <script src="js/site-ui.js"></script>
+<script src="js/seo.js"></script>
 <script src="js/aurora.js"></script>
 <script src="js/image-protect.js"></script>
 </body>
