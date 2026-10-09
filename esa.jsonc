@@ -5,10 +5,9 @@
   "buildCommand": "node build-static.js",
   "assets": {
     "directory": "./",
-    // 404 必须返回真实 404 状态码，否则搜索引擎会大量收录软 404 垃圾页
-    "notFoundStrategy": {
-      "type": "page",
-      "page": "404.html"
-    }
+    // 404Page：未命中的路径返回根目录的 404.html，并带真实 404 状态码
+    // 注意：ESA 只接受字符串枚举，写成对象会导致创建版本时报
+    // d.toLowerCase is not a function
+    "notFoundStrategy": "404Page"
   }
 }
