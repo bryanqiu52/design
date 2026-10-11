@@ -390,17 +390,10 @@ ordered.forEach(p => {
     urls.push({ loc: `${SITE_URL}/case/${p.slug}.html`, priority: '0.8', changefreq: 'monthly' });
 });
 
-/* 博客：数据来自 js/data.js 的 window.blogPosts */
-const blogPosts = (typeof window.blogPosts !== 'undefined' && Array.isArray(window.blogPosts))
-    ? window.blogPosts : [];
-blogPosts.forEach(b => {
-    if (!b || !b.slug) return;
-    urls.push({
-        loc: `${SITE_URL}/blog-detail.html?slug=${encodeURIComponent(b.slug)}`,
-        priority: '0.5',
-        changefreq: 'monthly'
-    });
-});
+/* 博客：URL 交给 build-blog.js 统一维护（从 blog/posts/*.md 生成静态页），
+   这里不再追加，避免出现已废弃的 blog-detail.html?slug= 动态地址。
+   注意：脚本执行顺序是 build-static.js 先、build-blog.js 后，
+   博客条目会由后者写入 sitemap。 */
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -414,6 +407,20 @@ ${urls.map(u => `    <url>
 `;
 
 fs.writeFileSync(path.join(ROOT, 'sitemap.xml'), sitemap, 'utf8');
+
+/* ---------- 清理孤儿页面 ----------
+   case/ 是产物目录：删掉案例、后台改了 slug、或导入时改了网址名之后，
+   旧的 html 不会自己消失。留着就是能被正常访问到的重复内容页（还会被爬虫收录），
+   所以每次生成完按当前 slug 名单清一遍。
+   安全兜底：名单为空（比如 data.js 读挂了）时一律不删，避免误清空整个目录。 */
+const validPages = new Set(ordered.map(p => p.slug + '.html'));
+if (validPages.size > 0 && fs.existsSync(outDir)) {
+    const orphans = fs.readdirSync(outDir).filter(f => f.endsWith('.html') && !validPages.has(f));
+    orphans.forEach(f => fs.unlinkSync(path.join(outDir, f)));
+    if (orphans.length > 0) {
+        console.log(`清理孤儿页面：${orphans.length} 个 → ${orphans.join('、')}`);
+    }
+}
 
 console.log(`案例静态页：${ordered.length} 个 → case/`);
 console.log(`跳过（缺 slug）：${skipped} 个`);

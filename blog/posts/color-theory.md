@@ -5,6 +5,7 @@ category: "设计技巧"
 author: "溪风设计"
 cover: "images/blog/color-theory.jpg"
 excerpt: "掌握这些配色原则，让你的设计更加专业。色彩心理学、配色比例和色彩对比是设计师必备的知识。"
+tags: ["视觉系统", "品牌策略"]
 ---
 
 ## 色彩基础理论

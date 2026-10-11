@@ -1,0 +1,14 @@
+# 博客草稿区：物理在仓库内，但不推送到 GitHub
+blog/_drafts/
+
+# 依赖与构建产物
+node_modules/
+package-lock.json
+
+# 备份目录
+.backup-*/
+
+# 系统文件
+.DS_Store
+Thumbs.db
+desktop.ini

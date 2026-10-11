@@ -68,17 +68,16 @@
             spawnSpark(e.clientX, e.clientY);
         });
 
-        // 站内页面链接：把点击坐标写入 URL 参数，立即跳转（零延迟），新页面加载时在点击位置绽放
+        // 站内页面链接：把点击坐标暂存到 sessionStorage（不写进 URL），
+        // 新页面加载时读取，在点击位置绽放一次火花；地址栏保持干净。
         document.addEventListener('click', function (e) {
             const link = e.target.closest('a[href]');
             if (!link || !isPageNav(e, link)) return;
             try {
-                const url = new URL(link.href, location.href);
-                url.searchParams.set('sparkx', String(e.clientX));
-                url.searchParams.set('sparky', String(e.clientY));
-                link.setAttribute('href', url.toString());
+                sessionStorage.setItem('sparkx', String(e.clientX));
+                sessionStorage.setItem('sparky', String(e.clientY));
             } catch (err) {
-                // URL 解析失败则忽略，保持原导航
+                // 存储不可用则忽略，导航照常进行
             }
         });
     }
@@ -177,21 +176,19 @@
         requestAnimationFrame(update);
     }
 
-    // 读取 URL 中的跨页点击坐标，并移除参数避免刷新重复触发
+    // 读取跨页点击坐标（存于 sessionStorage，不写进 URL，避免地址栏出现参数）
     function readEntryPosition() {
         let result = null;
         try {
-            const url = new URL(location.href);
-            const sx = url.searchParams.get('sparkx');
-            const sy = url.searchParams.get('sparky');
+            const sx = sessionStorage.getItem('sparkx');
+            const sy = sessionStorage.getItem('sparky');
             if (sx !== null && sy !== null) {
                 result = { x: +sx, y: +sy };
-                url.searchParams.delete('sparkx');
-                url.searchParams.delete('sparky');
-                history.replaceState({}, '', url);
+                sessionStorage.removeItem('sparkx');
+                sessionStorage.removeItem('sparky');
             }
         } catch (err) {
-            // 忽略 URL 读取或清理异常
+            // 忽略存储读取异常（隐私模式等）
         }
         return result;
     }
