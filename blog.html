@@ -124,7 +124,7 @@ function renderBlogList() {
         <article class="news-item">
             <div class="news-image">
                 <a href="blog/${post.slug}.html">
-                    <img src="${post.cover || ''}" alt="${post.title || ''}" loading="lazy"
+                    <img src="${post.cover || ''}" alt="${post.coverAlt || post.title || ''}" loading="lazy"
                          onerror="this.style.display='none'; if(this.parentElement) this.parentElement.classList.add('img-placeholder');">
                 </a>
             </div>

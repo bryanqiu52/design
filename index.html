@@ -260,7 +260,7 @@ function loadBlogPosts() {
         <article class="blog-card-featured" data-animate style="animation-delay: 0s">
             <a href="blog/${featuredPost.slug}.html" class="blog-image-link">
                 <div class="blog-image">
-                    <img src="${featuredPost.cover || ''}" alt="${featuredPost.title || ''}" loading="lazy"
+                    <img src="${featuredPost.cover || ''}" alt="${featuredPost.coverAlt || featuredPost.title || ''}" loading="lazy"
                          onerror="this.style.display='none'; let p=this.closest('.blog-image'); if(p) p.classList.add('img-placeholder');">
                 </div>
             </a>
@@ -278,7 +278,7 @@ function loadBlogPosts() {
             ${miniPosts.map((post, index) => `
                 <article class="blog-card-mini" data-animate style="animation-delay: ${(index + 1) * 0.1}s" onclick="location.href='blog/${post.slug}.html'">
                     <div class="blog-mini-image">
-                        <img src="${post.cover || ''}" alt="${post.title || ''}" loading="lazy"
+                        <img src="${post.cover || ''}" alt="${post.coverAlt || post.title || ''}" loading="lazy"
                              onerror="this.style.display='none'; let p=this.closest('.blog-mini-image'); if(p) p.classList.add('img-placeholder');">
                     </div>
                     <div class="blog-mini-content">

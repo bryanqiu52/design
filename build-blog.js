@@ -67,9 +67,12 @@ function parseFrontmatter(raw) {
             const mm = line.match(/^([A-Za-z0-9_-]+)\s*:\s*(.*)$/);
             if (!mm) return;
             let v = mm[2].trim();
-            if ((v.startsWith('"') && v.endsWith('"')) || (v.startsWith("'") && v.endsWith("'"))) {
-                v = v.slice(1, -1);
-            }
+            // 与写作工具的 yamlVal 对齐：写入时 \ → \\ 、" → \"，读回来要反转，
+            // 否则标题里的引号会带着斜杠上线上页
+            let dq = false;
+            if (v.startsWith('"') && v.endsWith('"')) { v = v.slice(1, -1); dq = true; }
+            else if (v.startsWith("'") && v.endsWith("'")) { v = v.slice(1, -1); }
+            if (dq) v = v.replace(/\\(["\\])/g, '$1');
             if (v.startsWith('[') && v.endsWith(']')) {
                 try { v = JSON.parse(v.replace(/'/g, '"')); } catch (e) { /* 保留原串 */ }
             }
@@ -169,6 +172,7 @@ files.forEach(fileName => {
         category: meta.category || '设计',
         author: meta.author || (siteConfig.company || '溪风设计'),
         cover: meta.cover || '',
+        coverAlt: meta.coverAlt || '',
         excerpt: meta.excerpt || '',
         tags: Array.isArray(meta.tags) ? meta.tags : [],
         bodyHtml: finalHtml,
@@ -199,7 +203,7 @@ function postPage(p, prev, next, related) {
     const relatedHtml = related.map(r => `
                         <a href="blog/${esc(r.slug)}.html" class="sidebar-post-item related-post">
                             <div class="sidebar-post-image">
-                                <img src="${esc(r.cover)}" alt="${esc(r.title)}" loading="lazy">
+                                <img src="${esc(r.cover)}" alt="${esc(r.coverAlt || r.title)}" loading="lazy">
                             </div>
                             <div class="sidebar-post-info">
                                 <span class="sidebar-post-category">${esc(r.category)}</span>
@@ -243,6 +247,7 @@ function postPage(p, prev, next, related) {
 <meta property="og:type" content="article"/>
 <meta property="og:url" content="${escAttr(url)}"/>
 ${p.cover ? `<meta property="og:image" content="${escAttr(SITE_URL + '/' + p.cover)}"/>` : ''}
+${p.cover ? `<meta property="og:image:alt" content="${escAttr(p.coverAlt || p.title)}"/>` : ''}
 <meta property="og:site_name" content="溪风设计 XIFOFLY"/>
 <meta property="og:locale" content="zh_CN"/>
 <meta name="twitter:card" content="summary_large_image"/>
@@ -287,7 +292,7 @@ ${jsonLd}
     </header>
 
     ${p.cover ? `<div class="blog-detail-image">
-        <img src="${esc(p.cover)}" alt="${esc(p.title)}"
+        <img src="${esc(p.cover)}" alt="${esc(p.coverAlt || p.title)}"
              onerror="this.style.display='none'; let p=this.closest('.blog-detail-image'); if(p) p.classList.add('img-placeholder');">
     </div>` : ''}
 
@@ -395,6 +400,7 @@ const indexArr = posts.map(p => ({
     category: p.category,
     author: p.author,
     cover: p.cover,
+    coverAlt: p.coverAlt,
     excerpt: p.excerpt,
     tags: p.tags
 }));

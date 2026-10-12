@@ -1,41 +1,21 @@
 // 自动生成，请勿手动编辑。单一数据源=blog/posts/*.md
 window.__blogIndex = [
     {
-        "slug": "ai-产品怎么做-克制设计-mv4qy9t0",
-        "fileName": "ai-产品怎么做-克制设计-mv4qy9t0.md",
-        "title": "AI 产品怎么做\\\"克制设计\\\"",
-        "date": "2026-10-11",
-        "category": "设计趋势",
+        "slug": "luxury-logo-brand-value",
+        "fileName": "luxury-logo-brand-value.md",
+        "title": "当品牌去掉 logo，你还会买吗",
+        "date": "2026-10-12",
+        "category": "品牌设计",
         "author": "溪风设计",
-        "cover": "images/blog/AI产品克制设计封面.jpeg",
-        "excerpt": "Anthropic 工程博客谈 Claude 的工程与设计取舍，提出“不再监督 agent 做了什么，而是监督它能做什么”。本文借此讨论 AI 产品的克制设计：克制是边界而非风格，有效防御应做在环境层而非模型层，视觉减法往往是边界清晰的副产品，同时提醒不要把成本约束误读为设计美德。",
+        "cover": "images/blog/深色牛皮金属铭牌特写.png",
+        "coverAlt": "深棕色皮革包盖特写，金属搭扣刻着YSL交织字母，斜射光突出皮纹与缝线，呼应品牌去掉标识后是否仍被选择的设计讨论",
+        "excerpt": "把 logo 从奢侈品上抹掉，认得出和愿意买单是两回事。这篇文章拆开品牌的两种价值，聊清楚哪些品牌去掉 logo 还站得住、哪些去掉就什么都不剩，以及设计师真正该建的是哪一层东西。META",
         "tags": [
-            "UI设计"
+            "品牌策略",
+            "视觉系统",
+            "消费心理",
+            "工艺细节"
         ]
-    },
-    {
-        "slug": "2024-brand-trends",
-        "fileName": "2024-brand-trends.md",
-        "title": "2024年品牌设计趋势分析",
-        "date": "2024-01-15",
-        "category": "设计趋势",
-        "author": "溪风设计",
-        "cover": "images/blog/2024-brand-trends.jpg",
-        "excerpt": "探讨新一年品牌设计的主流趋势，从色彩运用到视觉风格的演变。极简主义回归、大胆色彩搭配和动态视觉元素成为今年的关键词。",
-        "tags": [
-            "品牌设计"
-        ]
-    },
-    {
-        "slug": "ui-ux-tips",
-        "fileName": "ui-ux-tips.md",
-        "title": "UI设计中的用户体验优化技巧",
-        "date": "2024-01-10",
-        "category": "UI设计",
-        "author": "溪风设计",
-        "cover": "images/blog/ui-ux-tips.jpg",
-        "excerpt": "分享提升用户体验的实用技巧，让你的界面设计更加人性化。直观的导航设计、响应式布局和微交互设计是关键。",
-        "tags": []
     },
     {
         "slug": "packaging-design",
@@ -45,6 +25,7 @@ window.__blogIndex = [
         "category": "包装设计",
         "author": "溪风设计",
         "cover": "images/blog/packaging-design.jpg",
+        "coverAlt": "",
         "excerpt": "探讨包装设计在产品营销中的重要作用。好的包装设计能够在货架上脱颖而出，讲述品牌故事。",
         "tags": []
     },
@@ -56,6 +37,7 @@ window.__blogIndex = [
         "category": "电商设计",
         "author": "溪风设计",
         "cover": "images/blog/ecommerce-design.jpg",
+        "coverAlt": "",
         "excerpt": "揭秘高转化电商页面的设计秘诀。视觉层级分明、高质量产品图片和营造紧迫感是关键要素。",
         "tags": []
     },
@@ -67,6 +49,7 @@ window.__blogIndex = [
         "category": "品牌设计",
         "author": "溪风设计",
         "cover": "images/blog/brand-vi-guide.jpg",
+        "coverAlt": "",
         "excerpt": "从零开始建立完整的品牌视觉识别系统。品牌定位分析、核心元素设计和应用规范制定是三大核心步骤。",
         "tags": []
     },
@@ -78,6 +61,7 @@ window.__blogIndex = [
         "category": "设计技巧",
         "author": "溪风设计",
         "cover": "images/blog/color-theory.jpg",
+        "coverAlt": "",
         "excerpt": "掌握这些配色原则，让你的设计更加专业。色彩心理学、配色比例和色彩对比是设计师必备的知识。",
         "tags": [
             "视觉系统",
