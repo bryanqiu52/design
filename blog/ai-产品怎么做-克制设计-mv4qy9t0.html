@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<base href="../"/>
+<title>AI 产品怎么做\&quot;克制设计\&quot; - 溪风设计 XIFOFLY</title>
+<meta name="description" content="Anthropic 工程博客谈 Claude 的工程与设计取舍，提出“不再监督 agent 做了什么，而是监督它能做什么”。本文借此讨论 AI 产品的克制设计：克制是边界而非风格，有效防御应做在环境层而非模型层，视觉减法往往是边界清晰的副产品，同时提醒不要把成本约束误读为设计美德。"/>
+<meta name="keywords" content="AI 产品怎么做\&quot;克制设计\&quot;,设计趋势,UI设计,溪风设计,XIFOFLY"/>
+<meta property="og:title" content="AI 产品怎么做\&quot;克制设计\&quot;"/>
+<meta property="og:description" content="Anthropic 工程博客谈 Claude 的工程与设计取舍，提出“不再监督 agent 做了什么，而是监督它能做什么”。本文借此讨论 AI 产品的克制设计：克制是边界而非风格，有效防御应做在环境层而非模型层，视觉减法往往是边界清晰的副产品，同时提醒不要把成本约束误读为设计美德。"/>
+<meta property="og:type" content="article"/>
+<meta property="og:url" content="https://www.xifofly.com/blog/ai-产品怎么做-克制设计-mv4qy9t0.html"/>
+<meta property="og:image" content="https://www.xifofly.com/images/blog/AI产品克制设计封面.jpeg"/>
+<meta property="og:site_name" content="溪风设计 XIFOFLY"/>
+<meta property="og:locale" content="zh_CN"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<link rel="canonical" href="https://www.xifofly.com/blog/ai-产品怎么做-克制设计-mv4qy9t0.html"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"AI 产品怎么做\\\"克制设计\\\"","description":"Anthropic 工程博客谈 Claude 的工程与设计取舍，提出“不再监督 agent 做了什么，而是监督它能做什么”。本文借此讨论 AI 产品的克制设计：克制是边界而非风格，有效防御应做在环境层而非模型层，视觉减法往往是边界清晰的副产品，同时提醒不要把成本约束误读为设计美德。","datePublished":"2026-10-11","dateModified":"2026-10-12","articleSection":"设计趋势","keywords":"设计趋势,UI设计","wordCount":1354,"inLanguage":"zh-CN","author":{"@type":"Person","name":"溪风设计"},"publisher":{"@type":"Organization","name":"深圳市龙华区溪风设计工作室","url":"https://www.xifofly.com"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://www.xifofly.com/blog/ai-产品怎么做-克制设计-mv4qy9t0.html"},"image":["https://www.xifofly.com/images/blog/AI产品克制设计封面.jpeg"]}</script>
+<link href="vendor/fontawesome/css/all.min.css" rel="stylesheet"/>
+<link href="styles.css" rel="stylesheet"/>
+<link rel="icon" id="site-favicon"/>
+</head>
+<body>
+<canvas id="spark-canvas"></canvas>
+<script src="js/spark.js"></script>
+
+<div id="site-nav"></div>
+
+<article class="blog-detail" id="blogDetail">
+    <header class="blog-detail-header">
+        <div class="container">
+            <nav class="breadcrumb" aria-label="面包屑导航">
+                <a href="index.html">首页</a>
+                <span class="breadcrumb-sep">›</span>
+                <a href="blog.html">博客</a>
+                <span class="breadcrumb-sep">›</span>
+                <span class="breadcrumb-current">AI 产品怎么做\&quot;克制设计\&quot;</span>
+            </nav>
+            <span class="blog-detail-category">设计趋势</span>
+            <h1>AI 产品怎么做\&quot;克制设计\&quot;</h1>
+            <div class="blog-detail-meta">
+                <span class="blog-detail-author">
+                    <span class="author-avatar">溪</span>
+                    溪风设计
+                </span>
+                <span class="meta-dot">·</span>
+                <span class="blog-detail-date"><i class="far fa-calendar-alt"></i> 2026 - 10 11</span>
+                <span class="meta-dot">·</span>
+                <span class="blog-detail-readtime"><i class="far fa-clock"></i> 5 分钟阅读</span>
+            </div>
+            <div class="blog-detail-tags">
+                <span class="blog-tag">UI设计</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="blog-detail-image">
+        <img src="images/blog/AI产品克制设计封面.jpeg" alt="AI 产品怎么做\&quot;克制设计\&quot;"
+             onerror="this.style.display='none'; let p=this.closest('.blog-detail-image'); if(p) p.classList.add('img-placeholder');">
+    </div>
+
+    <div class="container article-container">
+        <div class="blog-detail-wrapper">
+            <section class="blog-detail-content">
+<h2 id="blog-sec-0">克制不是风格，是边界</h2>
+<p class="blog-lead">Anthropic 工程博客最近连发三篇长文，讲 Claude 的工程与设计取舍。其中《How we contain Claude》里有一句话，值得每个做 AI 产品的人抄下来：</p>
+<p><strong>「我们不再监督 agent 做了什么，而是监督它能做什么。」</strong></p>
+<p>这句话表面在讲安全架构，实际在讲一个设计问题：当能力膨胀到一定程度，产品的工作重心就从「展示能做什么」转向「声明不能做什么」。</p>
+<h2 id="blog-sec-1">两套克制，别搞混</h2>
+<p>Anthropic 在文里把防御分成两层。</p>
+<p>一层是<strong>模型层</strong>：system prompt、分类器、探针、训练调整。原文说得很清楚——这些只能影响模型「倾向于」做什么，不能决定它「理论上能」做什么。因为模型是概率性的。</p>
+<p>另一层是<strong>环境层</strong>：沙箱、虚拟机、文件系统边界、出口控制。这一层是硬边界。原文举了个例子：如果凭证从不进入沙箱，那它就无法被泄露——不管起因是用户、模型还是攻击者。</p>
+<p><strong>对做设计的人来说，这个区分极其重要。</strong></p>
+<p>很多 AI 产品的「克制」做在模型层：加一句提示词让模型别乱说、加一个二次确认弹窗让用户别乱点。这是概率性防御，会失效。原文给了一个刺眼的数字：Claude Code 早期的逐轮权限确认，用户批准率大约是 **93%**。批准得越多，看得越不认真——这就是批准疲劳。</p>
+<p>真正有效的克制做在环境层：<strong>把不该出现的选项，从界面上拿掉。</strong></p>
+<h2 id="blog-sec-2">视觉减法，先减掉「可选项」</h2>
+<p>Anthropic 提到 Claude Code 的 reference devcontainer，存在的意义就是让 agent 可以无人值守地跑，不需要逐动作批准。因为边界够紧，所以监督可以放松。</p>
+<p>这个逻辑反过来看界面设计：</p>
+<ul>
+<li>如果一个操作有硬边界保护，就不需要弹窗确认</li>
+<li>如果不需要确认，就不需要那个按钮</li>
+<li>如果没有那个按钮，界面就少一个决策点</li>
+</ul>
+<p><strong>留白不是审美选择，是边界清晰的副产品。</strong> 一个到处是确认弹窗、到处是灰色禁用态、到处是「高级设置」的 AI 界面，往往说明底层的边界没想清楚，只能把判断责任推给用户。</p>
+<p>灰度层级也是一个道理。什么时候用主色、什么时候用次级灰、什么时候直接不显示——这不是配色问题，是<strong>信息优先级问题</strong>。Claude 的界面克制，是因为它默认用户只需看一件事：当前任务的状态。其余都是干扰。</p>
+<h2 id="blog-sec-3">但别把成本约束当美德</h2>
+<p>这里必须说一句反常识的话。</p>
+<p>Anthropic 的克制，本质是工程成本和安全风险的转嫁。原文里提到 Claude Mythos Preview 这个模型，2026 年 4 月因为「爆炸半径」被判定过高而没有发布。这不是设计品味，这是风险计算。</p>
+<p><strong>设计师如果照搬这套克制，很容易把资源约束误读成设计美德。</strong></p>
+<ul>
+<li>少功能，可能是因为没资源做</li>
+<li>少动效，可能是因为性能扛不住</li>
+<li>少选项，可能是因为后端不支持</li>
+</ul>
+<p>真正的克制设计，是先有能力，再主动收窄。不是做不出来所以不做，而是能做但选择不做。</p>
+<h2 id="blog-sec-4">三条演进信号</h2>
+<p>未来 12 个月，判断一个 AI 产品是否真的在做克制设计，可以看三个信号：</p>
+<p><strong>第一，看它有没有「不可撤销」的硬边界。</strong> 不是弹窗警告，是操作本身就不存在。</p>
+<p><strong>第二，看它的默认状态是不是最安全的状态。</strong> 需要用户主动开启的，才是高风险能力。</p>
+<p><strong>第三，看它敢不敢承认能力边界。</strong> 像 Anthropic 那样直接说某个模型「不发布」，比含糊其辞地限制使用，更值得信任。</p>
+<p>克制的终点不是让产品看起来干净，是让用户在不需要理解全部风险的前提下，也能安全地使用它。这才是设计该做的事。</p>
+
+            </section>
+
+            <aside class="blog-sidebar">
+
+                <nav class="sidebar-section toc" id="blogToc">
+                    <h3><i class="fas fa-list-ul"></i> 文章目录</h3>
+                    <ul>
+                        <li class="toc-h2"><a href="#blog-sec-0">克制不是风格，是边界</a></li>
+                        <li class="toc-h2"><a href="#blog-sec-1">两套克制，别搞混</a></li>
+                        <li class="toc-h2"><a href="#blog-sec-2">视觉减法，先减掉「可选项」</a></li>
+                        <li class="toc-h2"><a href="#blog-sec-3">但别把成本约束当美德</a></li>
+                        <li class="toc-h2"><a href="#blog-sec-4">三条演进信号</a></li>
+                    </ul>
+                </nav>
+            </aside>
+        </div>
+    </div>
+
+    <section class="blog-detail-end">
+        <div class="container">
+            <nav class="blog-pager" aria-label="上一篇 / 下一篇">
+                <a class="blog-pager-link prev" href="blog/2024-brand-trends.html">
+                    <span class="pager-label"><i class="fas fa-arrow-left"></i> 上一篇</span>
+                    <span class="pager-title">2024年品牌设计趋势分析</span>
+                </a>
+                <span class="blog-pager-link placeholder"></span>
+            </nav>
+            <div class="related-posts">
+                <h3 class="related-posts-title"><i class="fas fa-file-alt"></i> 相关文章</h3>
+                <div class="related-posts-grid">
+
+                        <a href="blog/2024-brand-trends.html" class="sidebar-post-item related-post">
+                            <div class="sidebar-post-image">
+                                <img src="images/blog/2024-brand-trends.jpg" alt="2024年品牌设计趋势分析" loading="lazy">
+                            </div>
+                            <div class="sidebar-post-info">
+                                <span class="sidebar-post-category">设计趋势</span>
+                                <h4>2024年品牌设计趋势分析</h4>
+                            </div>
+                        </a>
+
+                        <a href="blog/ui-ux-tips.html" class="sidebar-post-item related-post">
+                            <div class="sidebar-post-image">
+                                <img src="images/blog/ui-ux-tips.jpg" alt="UI设计中的用户体验优化技巧" loading="lazy">
+                            </div>
+                            <div class="sidebar-post-info">
+                                <span class="sidebar-post-category">UI设计</span>
+                                <h4>UI设计中的用户体验优化技巧</h4>
+                            </div>
+                        </a>
+
+                        <a href="blog/packaging-design.html" class="sidebar-post-item related-post">
+                            <div class="sidebar-post-image">
+                                <img src="images/blog/packaging-design.jpg" alt="包装设计如何提升产品价值" loading="lazy">
+                            </div>
+                            <div class="sidebar-post-info">
+                                <span class="sidebar-post-category">包装设计</span>
+                                <h4>包装设计如何提升产品价值</h4>
+                            </div>
+                        </a>
+                </div>
+            </div>
+            <div class="blog-end-back">
+                <a href="blog.html" class="btn btn-outline">
+                    <i class="fas fa-arrow-left"></i> 返回博客列表
+                </a>
+            </div>
+        </div>
+    </section>
+</article>
+
+<div id="site-footer"></div>
+
+<script src="js/config.js"></script>
+<script src="js/site-ui.js"></script>
+<script src="js/seo.js"></script>
+<script src="js/spark.js"></script>
+<script>
+/* 目录点击平滑滚动 + 滚动高亮（静态页内联，无需额外文件） */
+(function () {
+    var toc = document.getElementById('blogToc');
+    if (!toc) return;
+    var links = toc.querySelectorAll('a');
+    links.forEach(function (a) {
+        a.addEventListener('click', function (e) {
+            e.preventDefault();
+            var id = a.getAttribute('href').slice(1);
+            var el = document.getElementById(id);
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    });
+    var headings = Array.prototype.slice.call(document.querySelectorAll('.blog-detail-content h2, .blog-detail-content h3'));
+    if (!headings.length || !('IntersectionObserver' in window)) return;
+    var obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+            if (!en.isIntersecting) return;
+            links.forEach(function (a) { a.classList.remove('active'); });
+            var active = toc.querySelector('a[href="#' + en.target.id + '"]');
+            if (active) active.classList.add('active');
+        });
+    }, { rootMargin: '-80px 0px -70% 0px' });
+    headings.forEach(function (h) { obs.observe(h); });
+})();
+</script>
+</body>
+</html>

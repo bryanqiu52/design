@@ -1,5 +1,18 @@
 [
     {
+        "slug": "ai-产品怎么做-克制设计-mv4qy9t0",
+        "fileName": "ai-产品怎么做-克制设计-mv4qy9t0.md",
+        "title": "AI 产品怎么做\\\"克制设计\\\"",
+        "date": "2026-10-11",
+        "category": "设计趋势",
+        "author": "溪风设计",
+        "cover": "images/blog/AI产品克制设计封面.jpeg",
+        "excerpt": "Anthropic 工程博客谈 Claude 的工程与设计取舍，提出“不再监督 agent 做了什么，而是监督它能做什么”。本文借此讨论 AI 产品的克制设计：克制是边界而非风格，有效防御应做在环境层而非模型层，视觉减法往往是边界清晰的副产品，同时提醒不要把成本约束误读为设计美德。",
+        "tags": [
+            "UI设计"
+        ]
+    },
+    {
         "slug": "2024-brand-trends",
         "fileName": "2024-brand-trends.md",
         "title": "2024年品牌设计趋势分析",
