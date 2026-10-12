@@ -25,12 +25,6 @@
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/blog.html</loc>
-        <lastmod>2026-10-11</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-    </url>
-    <url>
         <loc>https://www.xifofly.com/case/youbeichu-brand-ip.html</loc>
         <lastmod>2026-10-11</lastmod>
         <changefreq>monthly</changefreq>
@@ -317,5 +311,41 @@
         <lastmod>2026-10-11</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://www.xifofly.com/blog/2024-brand-trends.html</loc>
+        <lastmod>2026-10-12</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.xifofly.com/blog/ui-ux-tips.html</loc>
+        <lastmod>2026-10-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.xifofly.com/blog/packaging-design.html</loc>
+        <lastmod>2026-10-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.xifofly.com/blog/ecommerce-design.html</loc>
+        <lastmod>2026-10-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.xifofly.com/blog/brand-vi-guide.html</loc>
+        <lastmod>2026-10-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.xifofly.com/blog/color-theory.html</loc>
+        <lastmod>2026-10-11</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
     </url>
 </urlset>
