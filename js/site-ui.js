@@ -206,6 +206,13 @@
             '<p class="footer-filing">' +
             '<a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">粤ICP备2026141606号-1</a>' +
             '</p>' +
+            /* 公安联网备案：图标在左、编号在右，点图标或编号均跳转公安部备案查询 */
+            '<p class="footer-police">' +
+            '<a href="https://beian.mps.gov.cn/#/query/webSearch?code=44030002018027" target="_blank" rel="noreferrer">' +
+            '<img src="images/备案图标.png" alt="公安备案" width="14" height="14">' +
+            '粤公网安备44030002018027号' +
+            '</a>' +
+            '</p>' +
             '</div>' +
             '</div>' +
             '<div class="footer-col footer-col-center">' +

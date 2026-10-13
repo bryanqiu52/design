@@ -1640,19 +1640,31 @@ html {
     text-decoration: underline;
 }
 
-/* 公安联网备案号（通过后填号与图标，HTML 代码贴于此处） */
+/* 公安联网备案号：图标 + 编号同一链接，样式与 ICP 备案行保持一致 */
 .footer-copyright .footer-police {
     margin-top: 0.25rem;
     font-size: 0.78rem;
     opacity: 0.78;
-    display: flex;
+}
+
+.footer-copyright .footer-police a {
+    display: inline-flex;
     align-items: center;
     gap: 0.35rem;
+    color: inherit;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+.footer-copyright .footer-police a:hover {
+    opacity: 1;
+    text-decoration: underline;
 }
 
 .footer-copyright .footer-police img {
     height: 14px;
-    width: auto;
+    width: 14px;
+    display: block;
 }
 
 /* 作品版权声明：案例列表页底部 / 作品详情页图集下方 */
