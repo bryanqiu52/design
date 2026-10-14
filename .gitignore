@@ -8,6 +8,10 @@ package-lock.json
 # 备份目录
 .backup-*/
 
+# Design Admin 预览时生成的临时跳转页（属软件产物，不入库）
+__xifofly_preview.html
+preview-footer.html
+
 # 系统文件
 .DS_Store
 Thumbs.db

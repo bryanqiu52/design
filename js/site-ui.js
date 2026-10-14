@@ -12,17 +12,20 @@
         return (cfg[key] !== undefined && cfg[key] !== '') ? cfg[key] : fallback;
     }
 
-    /* 当前页面文件名，用于导航高亮 */
+    /* 当前页面标识，用于导航高亮。
+       线上是干净 URL（/about、/case/xxx，不带 .html），本地预览则可能带 .html，
+       所以统一剥掉 .html 后缀再比对，两种形态都能正确高亮
+       （此前按「带 .html」比对，线上无后缀时高亮一直失效）。 */
     var pathParts = window.location.pathname.split('/');
-    var currentFile = pathParts[pathParts.length - 1] || 'index.html';
+    var currentFile = (pathParts[pathParts.length - 1] || '').replace(/\.html$/, '') || 'index';
 
-    /* 导航菜单配置 */
+    /* 导航菜单配置：href 用干净 URL（不带 .html），key 仅用于高亮比对 */
     var menu = [
-        { href: 'index.html', text: '首页', en: 'HOME' },
-        { href: 'cases.html', text: '案例', en: 'CASES' },
-        { href: 'blog.html', text: '博客', en: 'BLOG' },
-        { href: 'about.html', text: '关于', en: 'ABOUT' },
-        { href: 'contact.html', text: '联系', en: 'CONTACT' }
+        { href: './', key: 'index', text: '首页', en: 'HOME' },
+        { href: 'cases', key: 'cases', text: '案例', en: 'CASES' },
+        { href: 'blog', key: 'blog', text: '博客', en: 'BLOG' },
+        { href: 'about', key: 'about', text: '关于', en: 'ABOUT' },
+        { href: 'contact', key: 'contact', text: '联系', en: 'CONTACT' }
     ];
 
     var siteTitle = val('siteTitle', '溪风');
@@ -114,15 +117,15 @@
 
     initAnalytics();
 
-    function isActive(href) {
-        return href === currentFile ? ' class="active"' : '';
+    function isActive(key) {
+        return key === currentFile ? ' class="active"' : '';
     }
 
     /* ========== 渲染导航 ========== */
     var navBox = document.getElementById('site-nav');
     if (navBox) {
         var navLinksHtml = menu.map(function (item) {
-            return '<a href="' + item.href + '"' + isActive(item.href) + '>' + item.text + '</a>';
+            return '<a href="' + item.href + '"' + isActive(item.key) + '>' + item.text + '</a>';
         }).join('');
 
         var mmenuHtml = menu.map(function (item, i) {
@@ -133,12 +136,12 @@
 
         navBox.innerHTML =
             '<nav class="nav" id="nav">' +
-            '<a href="index.html" class="logo">' +
+            '<a href="./" class="logo">' +
             '<img src="' + val('logoNav', 'images/xifofly-logo.png') + '" alt="' + siteTitle + '" class="logo-img">' +
             '</a>' +
             '<div class="nav-links" id="navLinks">' + navLinksHtml + '</div>' +
             '<div class="nav-actions">' +
-            '<a href="contact.html" class="nav-cta">开始合作 <span>→</span></a>' +
+            '<a href="contact" class="nav-cta">开始合作 <span>→</span></a>' +
             '<button class="burger" id="burger" aria-label="打开菜单"><i></i><i></i><i></i></button>' +
             '</div>' +
             '</nav>' +
@@ -185,7 +188,7 @@
             return '<footer class="footer footer-v2' + (fullscreen ? ' footer-fullscreen' : '') + '">' +
             '<div class="container">' +
             '<div class="footer-head">' +
-            '<a href="index.html" class="footer-brand-link">' +
+            '<a href="./" class="footer-brand-link">' +
             '<img src="' + val('logoFooter', 'images/xifofly-logo.png') + '" alt="' + siteTitle + '" class="footer-brand-logo">' +
             '</a>' +
             '<p class="footer-tagline">' + siteSubtitle + ' <span>Lightness echoes.</span></p>' +
@@ -269,7 +272,7 @@
             '</footer>';
         }
 
-        footerBox.innerHTML = footerHtml(currentFile === 'index.html');
+        footerBox.innerHTML = footerHtml(currentFile === 'index');
 
         /* 页脚快速咨询表单：AJAX 提交 Web3Forms，成功后在原位显示反馈，不跳转 */
         var footerForm = document.getElementById('footerContactForm');

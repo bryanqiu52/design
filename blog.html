@@ -9,12 +9,12 @@
 <meta property="og:title" content="设计博客 | 溪风设计 XIFOFLY - 品牌设计与包装设计干货"/>
 <meta property="og:description" content="溪风设计博客：品牌设计趋势、VI 系统建设、包装设计、电商视觉转化、配色技巧等实用设计干货分享。"/>
 <meta property="og:type" content="website"/>
-<meta property="og:url" content="https://www.xifofly.com/blog.html"/>
+<meta property="og:url" content="https://www.xifofly.com/blog"/>
 <meta property="og:image" content="https://www.xifofly.com/images/hero.png"/>
 <meta property="og:site_name" content="溪风设计 XIFOFLY"/>
 <meta property="og:locale" content="zh_CN"/>
 <meta name="twitter:card" content="summary_large_image"/>
-<link rel="canonical" href="https://www.xifofly.com/blog.html"/>
+<link rel="canonical" href="https://www.xifofly.com/blog"/>
 <link href="vendor/fontawesome/css/all.min.css" rel="stylesheet"/>
 <link href="styles.css" rel="stylesheet"/>
 <link rel="icon" id="site-favicon"/>
@@ -123,13 +123,13 @@ function renderBlogList() {
     container.innerHTML = postsToShow.map((post, index) => `
         <article class="news-item">
             <div class="news-image">
-                <a href="blog/${post.slug}.html">
+                <a href="blog/${post.slug}">
                     <img src="${post.cover || ''}" alt="${post.coverAlt || post.title || ''}" loading="lazy"
                          onerror="this.style.display='none'; if(this.parentElement) this.parentElement.classList.add('img-placeholder');">
                 </a>
             </div>
             <div class="news-content">
-                <h3><a href="blog/${post.slug}.html">${post.title || '未命名文章'}</a></h3>
+                <h3><a href="blog/${post.slug}">${post.title || '未命名文章'}</a></h3>
                 <p>${post.excerpt || ''}</p>
                 <div class="news-meta">
                     <span class="news-author"><i class="fas fa-user"></i> ${post.author || ''}</span>
@@ -138,7 +138,7 @@ function renderBlogList() {
                 </div>
             </div>
             <div class="news-action">
-                <a href="blog/${post.slug}.html" class="btn btn-primary btn-sm">阅读全文</a>
+                <a href="blog/${post.slug}" class="btn btn-primary btn-sm">阅读全文</a>
             </div>
         </article>
     `).join('');

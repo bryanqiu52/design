@@ -188,7 +188,9 @@ posts.sort((a, b) => (Date.parse(b.date) || 0) - (Date.parse(a.date) || 0));
 
 /* ---------- 页面模板：文章静态页 ---------- */
 function postPage(p, prev, next, related) {
-    const url = `${SITE_URL}/blog/${p.slug}.html`;
+    /* 干净 URL：站点在 ESA 上会把 .html 去掉（307 跳转），对外地址一律不带 .html；
+       磁盘文件名仍是 <slug>.html 不变 */
+    const url = `${SITE_URL}/blog/${p.slug}`;
     const title = `${p.title} - 溪风设计 XIFOFLY`;
     const desc = p.excerpt || `${p.title}｜溪风设计（XIFOFLY）设计干货分享。`;
 
@@ -201,7 +203,7 @@ function postPage(p, prev, next, related) {
                 </nav>` : '';
 
     const relatedHtml = related.map(r => `
-                        <a href="blog/${esc(r.slug)}.html" class="sidebar-post-item related-post">
+                        <a href="blog/${esc(r.slug)}" class="sidebar-post-item related-post">
                             <div class="sidebar-post-image">
                                 <img src="${esc(r.cover)}" alt="${esc(r.coverAlt || r.title)}" loading="lazy">
                             </div>
@@ -267,9 +269,9 @@ ${jsonLd}
     <header class="blog-detail-header">
         <div class="container">
             <nav class="breadcrumb" aria-label="面包屑导航">
-                <a href="index.html">首页</a>
+                <a href="./">首页</a>
                 <span class="breadcrumb-sep">›</span>
-                <a href="blog.html">博客</a>
+                <a href="blog">博客</a>
                 <span class="breadcrumb-sep">›</span>
                 <span class="breadcrumb-current">${esc(p.title)}</span>
             </nav>
@@ -311,11 +313,11 @@ ${tocHtml}
     <section class="blog-detail-end">
         <div class="container">
             <nav class="blog-pager" aria-label="上一篇 / 下一篇">
-                ${prev ? `<a class="blog-pager-link prev" href="blog/${esc(prev.slug)}.html">
+                ${prev ? `<a class="blog-pager-link prev" href="blog/${esc(prev.slug)}">
                     <span class="pager-label"><i class="fas fa-arrow-left"></i> 上一篇</span>
                     <span class="pager-title">${esc(prev.title)}</span>
                 </a>` : '<span class="blog-pager-link placeholder"></span>'}
-                ${next ? `<a class="blog-pager-link next" href="blog/${esc(next.slug)}.html">
+                ${next ? `<a class="blog-pager-link next" href="blog/${esc(next.slug)}">
                     <span class="pager-label">下一篇 <i class="fas fa-arrow-right"></i></span>
                     <span class="pager-title">${esc(next.title)}</span>
                 </a>` : '<span class="blog-pager-link placeholder"></span>'}
@@ -327,7 +329,7 @@ ${relatedHtml}
                 </div>
             </div>` : ''}
             <div class="blog-end-back">
-                <a href="blog.html" class="btn btn-outline">
+                <a href="blog" class="btn btn-outline">
                     <i class="fas fa-arrow-left"></i> 返回博客列表
                 </a>
             </div>
@@ -425,10 +427,11 @@ const sitemapPath = path.join(ROOT, 'sitemap.xml');
 if (fs.existsSync(sitemapPath)) {
     let xml = fs.readFileSync(sitemapPath, 'utf8');
     const today = new Date().toISOString().slice(0, 10);
-    /* 先移除旧的博客条目（静态页 + 旧的动态详情页） */
-    xml = xml.replace(/\s*<url>\s*<loc>[^<]*\/blog[^<]*<\/loc>[\s\S]*?<\/url>/g, '');
+    /* 先移除旧的博客详情条目（/blog/<slug>）。注意匹配必须是 /blog/ 带斜杠，
+       否则会把博客列表页 /blog 本身也一并删掉（历史 bug）。 */
+    xml = xml.replace(/\s*<url>\s*<loc>[^<]*\/blog\/[^<]*<\/loc>[\s\S]*?<\/url>/g, '');
     const blogUrls = posts.map(p => `    <url>
-        <loc>${SITE_URL}/blog/${p.slug}.html</loc>
+        <loc>${SITE_URL}/blog/${p.slug}</loc>
         <lastmod>${p.modified || p.date || today}</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>

@@ -2,342 +2,348 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
         <loc>https://www.xifofly.com/</loc>
-        <lastmod>2026-10-11</lastmod>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/cases.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/cases</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/about.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/about</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/contact.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/contact</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/case/youbeichu-brand-ip.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/blog</loc>
+        <lastmod>2026-10-14</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.xifofly.com/case/youbeichu-brand-ip</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/case/store-event-materials.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/case/store-event-materials</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/case/norway-lighting-expo-backdrop.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/case/norway-lighting-expo-backdrop</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/case/lighting-product-flyer.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/case/lighting-product-flyer</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/case/lighting-expo-materials.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/case/lighting-expo-materials</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/case/wedding-expo-booth-backdrop.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/case/wedding-expo-booth-backdrop</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/case/3d-printing-expo-backdrop.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/case/3d-printing-expo-backdrop</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/case/3d-printing-product-materials.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/case/3d-printing-product-materials</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/case/canton-fair-lighting-materials.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/case/canton-fair-lighting-materials</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/case/product-detail-page.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/case/product-detail-page</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/case/ecommerce-main-image.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/case/ecommerce-main-image</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/case/product-banner.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/case/product-banner</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/case/zhuoguang-lighting-logo.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/case/zhuoguang-lighting-logo</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/case/heding-group.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/case/heding-group</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/case/chuanghong-brand-logo.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/case/chuanghong-brand-logo</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/case/logo-collection.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/case/logo-collection</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/case/pure-color-logo.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/case/pure-color-logo</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/case/ccml-logo.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/case/ccml-logo</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/case/lamp-packaging-box.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/case/lamp-packaging-box</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/case/filament-tote-bag.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/case/filament-tote-bag</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/case/panel-light.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/case/panel-light</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/case/waterproof-lamp.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/case/waterproof-lamp</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/case/downlight.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/case/downlight</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/case/photography.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/case/photography</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/case/light-bulb.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/case/light-bulb</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/case/industrial-mining-lamp.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/case/industrial-mining-lamp</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/case/3d-printing-filament-2.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/case/3d-printing-filament-2</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/case/3d-printing-pen-vp05.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/case/3d-printing-pen-vp05</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/case/3d-printing-pen-vp01.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/case/3d-printing-pen-vp01</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/case/3d-printer-t200s.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/case/3d-printer-t200s</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/case/3d-printer-n7.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/case/3d-printer-n7</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/case/3d-printer-n4.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/case/3d-printer-n4</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/case/3d-printer-lc100.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/case/3d-printer-lc100</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/case/3d-printer-et4.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/case/3d-printer-et4</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/case/3d-printer-e12plus.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/case/3d-printer-e12plus</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/case/3d-printer-dlp.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/case/3d-printer-dlp</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/case/3d-printer-a8plus.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/case/3d-printer-a8plus</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/case/3d-printer-a5.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/case/3d-printer-a5</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/case/3d-printer-a10.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/case/3d-printer-a10</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/case/3d-rendering-misc.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/case/3d-rendering-misc</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/case/3d-printing-filament.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/case/3d-printing-filament</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/case/3d-printing-others.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/case/3d-printing-others</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/case/engraving-machine-app-ui.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/case/engraving-machine-app-ui</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/case/official-website-web.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/case/official-website-web</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/case/slicer-software-ui.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/case/slicer-software-ui</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/case/web-design.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/case/web-design</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/case/ui-animation.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/case/ui-animation</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/case/aigc.html</loc>
-        <lastmod>2026-10-11</lastmod>
+        <loc>https://www.xifofly.com/case/aigc</loc>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/blog/luxury-logo-brand-value.html</loc>
+        <loc>https://www.xifofly.com/blog/luxury-logo-brand-value</loc>
         <lastmod>2026-10-12</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/blog/packaging-design.html</loc>
+        <loc>https://www.xifofly.com/blog/packaging-design</loc>
         <lastmod>2026-10-08</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/blog/ecommerce-design.html</loc>
+        <loc>https://www.xifofly.com/blog/ecommerce-design</loc>
         <lastmod>2026-10-08</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/blog/brand-vi-guide.html</loc>
+        <loc>https://www.xifofly.com/blog/brand-vi-guide</loc>
         <lastmod>2026-10-08</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
-        <loc>https://www.xifofly.com/blog/color-theory.html</loc>
+        <loc>https://www.xifofly.com/blog/color-theory</loc>
         <lastmod>2026-10-11</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>

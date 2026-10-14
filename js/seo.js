@@ -41,8 +41,10 @@
     function canonicalUrl() {
         if (isFile || !SITE_URL) return '';
         var p = window.__currentProject || window.__currentPost;
-        if (p && p.slug) return SITE_URL + '/case/' + p.slug + '.html';
-        var path = window.location.pathname.replace(/index\.html$/, '');
+        if (p && p.slug) return SITE_URL + '/case/' + p.slug;
+        /* /index.html 与 /index 都归一成根路径；顺带剥掉 .html 后缀，
+           与线上的干净 URL 保持一致（线下本地预览带后缀时也不会写出错的 canonical） */
+        var path = window.location.pathname.replace(/\/index(\.html)?$/, '/').replace(/\.html$/, '');
         return SITE_URL + path + window.location.search;
     }
 

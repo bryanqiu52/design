@@ -41,11 +41,11 @@
 </h1>
 <p class="hero-desc" id="hero-subtitle" data-animate>专注于品牌视觉与数字设计的创意工作室。不做沉重的装饰，只做精准的设计。</p>
 <div class="hero-cta" data-animate>
-<a href="cases.html" class="btn btn-primary">
+<a href="cases" class="btn btn-primary">
 <span>浏览案例</span>
 <i class="fas fa-arrow-right"></i>
 </a>
-<a href="contact.html" class="btn btn-outline">立即咨询</a>
+<a href="contact" class="btn btn-outline">立即咨询</a>
 </div>
 <div class="hero-brand" data-animate><span class="dot"></span>Brand · Visual · Digital Studio</div>
 </div>
@@ -101,7 +101,7 @@
 </div>
 <div class="works-grid" id="featuredWorks">
 </div>
-<div class="view-all-wrap"><a href="cases.html" class="view-all">查看全部 <i class="fas fa-arrow-right"></i></a></div>
+<div class="view-all-wrap"><a href="cases" class="view-all">查看全部 <i class="fas fa-arrow-right"></i></a></div>
 </div>
 </section>
 
@@ -149,7 +149,7 @@
 </div>
 </div>
 <div class="process-cta" data-animate>
-<a href="contact.html" class="btn btn-primary">
+<a href="contact" class="btn btn-primary">
 <span>开始你的项目</span>
 <i class="fas fa-arrow-right"></i>
 </a>
@@ -168,7 +168,7 @@
 </div>
 <div class="blog-grid" id="blogPosts">
 </div>
-<div class="view-all-wrap"><a href="blog.html" class="view-all">查看全部 <i class="fas fa-arrow-right"></i></a></div>
+<div class="view-all-wrap"><a href="blog" class="view-all">查看全部 <i class="fas fa-arrow-right"></i></a></div>
 </div>
 </section>
 
@@ -182,7 +182,7 @@
 function loadFeaturedWorks() {
     const container = document.getElementById('featuredWorks');
     container.innerHTML = featuredWorks.map((work, index) => `
-        <a href="${work.slug ? 'case/' + work.slug + '.html' : 'project.html?id=' + work.id}" class="portfolio-item" data-animate style="transition-delay: ${index * 0.1}s">
+        <a href="${work.slug ? 'case/' + work.slug : 'cases'}" class="portfolio-item" data-animate style="transition-delay: ${index * 0.1}s">
             <div class="portfolio-item-image">
                 <img src="${work.image}" alt="${work.title}" loading="lazy">
                 <div class="portfolio-item-overlay">
@@ -258,7 +258,7 @@ function loadBlogPosts() {
     const miniPosts = latestPosts.slice(1);
     container.innerHTML = `
         <article class="blog-card-featured" data-animate style="animation-delay: 0s">
-            <a href="blog/${featuredPost.slug}.html" class="blog-image-link">
+            <a href="blog/${featuredPost.slug}" class="blog-image-link">
                 <div class="blog-image">
                     <img src="${featuredPost.cover || ''}" alt="${featuredPost.coverAlt || featuredPost.title || ''}" loading="lazy"
                          onerror="this.style.display='none'; let p=this.closest('.blog-image'); if(p) p.classList.add('img-placeholder');">
@@ -266,7 +266,7 @@ function loadBlogPosts() {
             </a>
             <div class="blog-content">
                 <span class="blog-category">${featuredPost.category || ''}</span>
-                <h3><a href="blog/${featuredPost.slug}.html">${featuredPost.title || '未命名文章'}</a></h3>
+                <h3><a href="blog/${featuredPost.slug}">${featuredPost.title || '未命名文章'}</a></h3>
                 <p>${featuredPost.excerpt || ''}</p>
                 <div class="blog-meta">
                     <span class="blog-author"><i class="fas fa-user"></i> ${featuredPost.author || ''}</span>
@@ -276,7 +276,7 @@ function loadBlogPosts() {
         </article>
         <div class="blog-card-list">
             ${miniPosts.map((post, index) => `
-                <article class="blog-card-mini" data-animate style="animation-delay: ${(index + 1) * 0.1}s" onclick="location.href='blog/${post.slug}.html'">
+                <article class="blog-card-mini" data-animate style="animation-delay: ${(index + 1) * 0.1}s" onclick="location.href='blog/${post.slug}'">
                     <div class="blog-mini-image">
                         <img src="${post.cover || ''}" alt="${post.coverAlt || post.title || ''}" loading="lazy"
                              onerror="this.style.display='none'; let p=this.closest('.blog-mini-image'); if(p) p.classList.add('img-placeholder');">

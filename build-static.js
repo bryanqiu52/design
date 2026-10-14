@@ -161,7 +161,10 @@ const LIGHTBOX_HTML = `<div class="lightbox-overlay" id="lightbox-overlay">
 /* ---------- 页面模板 ---------- */
 function page(p, prev, next, related) {
     const slug = p.slug;
-    const url = `${SITE_URL}/case/${slug}.html`;
+    /* 干净 URL：站点在 ESA 上会把 .html 去掉（307 跳转），
+       所以对外地址（canonical / og:url / JSON-LD）一律不带 .html，
+       与真实可访问的地址一致；磁盘上的文件名仍是 <slug>.html 不变。 */
+    const url = `${SITE_URL}/case/${slug}`;
     /* 分类名与标题相同时不重复（如 AIGC 分类下的 AIGC 案例）；后台填了 SEO 标题则优先用 */
     const cn = catName(p);
     const autoTitle = (cn && cn !== p.title)
@@ -219,7 +222,7 @@ function page(p, prev, next, related) {
     const galleryScript = isStyleB ? '<script src="js/gallery-b.js"></script>' : '';
 
     const relatedHtml = related.map(r =>
-        `                        <a href="case/${esc(r.slug)}.html" class="case-item">
+        `                        <a href="case/${esc(r.slug)}" class="case-item">
                             <div class="case-image">
                                 <img src="${esc(r.image)}" alt="${esc(r.title)}" loading="lazy">
                             </div>
@@ -231,12 +234,12 @@ function page(p, prev, next, related) {
     ).join('\n');
 
     const prevLink = prev
-        ? `<a href="case/${esc(prev.slug)}.html" class="project-nav-link"><i class="fas fa-arrow-left"></i><span>上一个</span><span>${esc(prev.title)}</span></a>`
-        : `<a href="cases.html" class="project-nav-link disabled"><i class="fas fa-arrow-left"></i><span>上一个</span><span>--</span></a>`;
+        ? `<a href="case/${esc(prev.slug)}" class="project-nav-link"><i class="fas fa-arrow-left"></i><span>上一个</span><span>${esc(prev.title)}</span></a>`
+        : `<a href="cases" class="project-nav-link disabled"><i class="fas fa-arrow-left"></i><span>上一个</span><span>--</span></a>`;
 
     const nextLink = next
-        ? `<a href="case/${esc(next.slug)}.html" class="project-nav-link next"><span>下一个</span><span>${esc(next.title)}</span><i class="fas fa-arrow-right"></i></a>`
-        : `<a href="cases.html" class="project-nav-link next disabled"><span>下一个</span><span>--</span><i class="fas fa-arrow-right"></i></a>`;
+        ? `<a href="case/${esc(next.slug)}" class="project-nav-link next"><span>下一个</span><span>${esc(next.title)}</span><i class="fas fa-arrow-right"></i></a>`
+        : `<a href="cases" class="project-nav-link next disabled"><span>下一个</span><span>--</span><i class="fas fa-arrow-right"></i></a>`;
 
     return `<!DOCTYPE html>
 <html lang="zh-CN">
@@ -299,7 +302,7 @@ ${galleryHtml}
         <div class="project-nav-anchor"></div>
         <div class="project-nav-card">
             ${prevLink}
-            <a href="cases.html" class="back-btn"><i class="fas fa-arrow-left"></i><span>返回案例</span></a>
+            <a href="cases" class="back-btn"><i class="fas fa-arrow-left"></i><span>返回案例</span></a>
             ${nextLink}
         </div>
     </div>
@@ -380,26 +383,46 @@ ordered.forEach((p, i) => {
 /* ---------- sitemap ---------- */
 const urls = [
     { loc: `${SITE_URL}/`, priority: '1.0', changefreq: 'weekly' },
-    { loc: `${SITE_URL}/cases.html`, priority: '0.9', changefreq: 'weekly' },
-    { loc: `${SITE_URL}/about.html`, priority: '0.7', changefreq: 'monthly' },
-    { loc: `${SITE_URL}/contact.html`, priority: '0.7', changefreq: 'monthly' },
-    { loc: `${SITE_URL}/blog.html`, priority: '0.6', changefreq: 'weekly' }
+    { loc: `${SITE_URL}/cases`, priority: '0.9', changefreq: 'weekly' },
+    { loc: `${SITE_URL}/about`, priority: '0.7', changefreq: 'monthly' },
+    { loc: `${SITE_URL}/contact`, priority: '0.7', changefreq: 'monthly' },
+    { loc: `${SITE_URL}/blog`, priority: '0.6', changefreq: 'weekly' }
 ];
 
 ordered.forEach(p => {
-    urls.push({ loc: `${SITE_URL}/case/${p.slug}.html`, priority: '0.8', changefreq: 'monthly' });
+    urls.push({ loc: `${SITE_URL}/case/${p.slug}`, priority: '0.8', changefreq: 'monthly' });
 });
 
-/* 博客：URL 交给 build-blog.js 统一维护（从 blog/posts/*.md 生成静态页），
-   这里不再追加，避免出现已废弃的 blog-detail.html?slug= 动态地址。
-   注意：脚本执行顺序是 build-static.js 先、build-blog.js 后，
-   博客条目会由后者写入 sitemap。 */
+/* 博客：从 blog/index.json（写作台生成的索引）读取并追加进 sitemap。
+   为什么要在这里也写一遍：后台「重建静态页」只跑本脚本，而博客条目若只由
+   build-blog.js 写入，后台保存作品后会把 sitemap 里的博客条目整段冲掉。
+   这里补上，build-blog.js 随后按同样规则刷新（幂等，不会重复）。
+   只列 blog/<slug> 静态页，不出现已废弃的 blog-detail.html?slug= 动态地址。 */
+let blogItems = [];
+try {
+    const blogIndexPath = path.join(ROOT, 'blog', 'index.json');
+    if (fs.existsSync(blogIndexPath)) {
+        const parsed = JSON.parse(fs.readFileSync(blogIndexPath, 'utf8'));
+        if (Array.isArray(parsed)) blogItems = parsed;
+    }
+} catch (e) {
+    console.warn('sitemap：读取 blog/index.json 失败，跳过博客条目（' + e.message + '）');
+}
+blogItems.forEach(p => {
+    if (!p || !p.slug) return;
+    urls.push({
+        loc: `${SITE_URL}/blog/${p.slug}`,
+        priority: '0.6',
+        changefreq: 'monthly',
+        lastmod: p.date || today
+    });
+});
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls.map(u => `    <url>
         <loc>${esc(u.loc)}</loc>
-        <lastmod>${today}</lastmod>
+        <lastmod>${u.lastmod || today}</lastmod>
         <changefreq>${u.changefreq}</changefreq>
         <priority>${u.priority}</priority>
     </url>`).join('\n')}
