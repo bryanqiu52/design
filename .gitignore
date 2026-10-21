@@ -16,3 +16,8 @@ preview-footer.html
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# 备份文件（历史 .bak 曾被推到线上，可被直接下载）
+*.bak
+*.bak-*
+*.bak.*
