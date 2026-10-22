@@ -1202,7 +1202,6 @@ const projectsData = [
         "category": "offline",
         "categoryName": "线下物料",
         "displayStyle": "B",
-        "subtitle": "",
         "image": "images/cases/灯具展会物料/IMG_0046.JPG",
         "gallery": [
             "images/cases/灯具展会物料/IMG_0046.JPG",
@@ -1213,7 +1212,12 @@ const projectsData = [
             "images/cases/灯具展会物料/IMG_1975.jpg",
             "images/cases/灯具展会物料/IMG_5511.HEIC.jpg"
         ],
+        "subtitle": "",
         "description": "",
+        "challenge": "",
+        "solution": "",
+        "results": [],
+        "features": [],
         "tags": [
             "场景化设计",
             "线下物料",
