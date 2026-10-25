@@ -56,6 +56,38 @@ function esc(s) {
 }
 function escAttr(s) { return esc(s); }
 
+/* ---------- 响应式图片（srcset）----------
+ * 800px 变体由 xifofly-writer 的 temp/_a-srcset.js 批量生成，命名固定 xxx-800w.webp。
+ * 读 WebP 头拿原图真实宽度，把「800w 变体 + 原图」一起写进 srcset：手机取小图，
+ * 桌面 / 视网膜屏取原图。变体不存在或宽度读不出来就整条不写（宁缺勿错）。
+ * 与 build-static.js 里的同名函数保持一致。 */
+function webpWidth(abs) {
+    let buf;
+    try {
+        const fd = fs.openSync(abs, 'r');
+        buf = Buffer.alloc(40);
+        fs.readSync(fd, buf, 0, 40, 0);
+        fs.closeSync(fd);
+    } catch (e) { return 0; }
+    if (buf.slice(0, 4).toString() !== 'RIFF' || buf.slice(8, 12).toString() !== 'WEBP') return 0;
+    const chunk = buf.slice(12, 16).toString();
+    if (chunk === 'VP8X') return 1 + buf.readUIntLE(24, 3);
+    if (chunk === 'VP8 ') return buf.readUInt16LE(26) & 0x3fff;
+    if (chunk === 'VP8L') return 1 + ((buf[22] | (buf[23] << 8) | (buf[24] << 16)) & 0x3fff);
+    return 0;
+}
+function srcsetOf(src, sizes) {
+    const s = String(src || '');
+    if (!/\.webp$/i.test(s)) return '';
+    const abs = path.join(ROOT, s.replace(/^\/+/, ''));
+    const small = abs.replace(/\.webp$/i, '-800w.webp');
+    if (!fs.existsSync(small) || !fs.existsSync(abs)) return '';
+    const w = webpWidth(abs);
+    if (!w || w <= 800) return '';
+    const relSmall = path.relative(ROOT, small).split(path.sep).join('/');
+    return ` srcset="${esc(relSmall)} 800w, ${esc(s)} ${w}w" sizes="${esc(sizes || '(max-width: 900px) 100vw, 900px')}"`;
+}
+
 /* 极简 frontmatter 解析：--- 包裹的 key: value（值可带引号） */
 function parseFrontmatter(raw) {
     const m = raw.match(/^---\s*\r?\n([\s\S]*?)\r?\n---\s*\r?\n?/);
@@ -205,7 +237,7 @@ function postPage(p, prev, next, related) {
     const relatedHtml = related.map(r => `
                         <a href="blog/${esc(r.slug)}" class="sidebar-post-item related-post">
                             <div class="sidebar-post-image">
-                                <img src="${esc(r.cover)}" alt="${esc(r.coverAlt || r.title)}" loading="lazy">
+                                <img src="${esc(r.cover)}"${srcsetOf(r.cover, '(max-width: 900px) 30vw, 280px')} alt="${esc(r.coverAlt || r.title)}" loading="lazy">
                             </div>
                             <div class="sidebar-post-info">
                                 <span class="sidebar-post-category">${esc(r.category)}</span>
@@ -294,7 +326,7 @@ ${jsonLd}
     </header>
 
     ${p.cover ? `<div class="blog-detail-image">
-        <img src="${esc(p.cover)}" alt="${esc(p.coverAlt || p.title)}"
+        <img src="${esc(p.cover)}"${srcsetOf(p.cover, '(max-width: 900px) 100vw, 900px')} alt="${esc(p.coverAlt || p.title)}"
              onerror="this.style.display='none'; let p=this.closest('.blog-detail-image'); if(p) p.classList.add('img-placeholder');">
     </div>` : ''}
 

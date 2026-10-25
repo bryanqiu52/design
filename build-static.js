@@ -64,10 +64,43 @@ function imgAlt(p, i) {
     return `${p.title} ${catName(p)}设计作品 ${i + 1}`;
 }
 
+/* ---------- 响应式图片（srcset）----------
+ * 800px 宽的变体由 xifofly-writer 的 temp/_a-srcset.js 批量生成，命名固定为 xxx-800w.webp。
+ * 构建时读 WebP 头拿原图真实宽度，把「800w 变体 + 原图」一起写进 srcset：
+ * 手机取 800w（体积常常只有原图三分之一），桌面 / 视网膜屏仍取原图，不牺牲清晰度。
+ * 变体不存在或读不出宽度就整条不写 —— 宁可没有 srcset，也不能写错描述符。 */
+function webpWidth(abs) {
+    let buf;
+    try {
+        const fd = fs.openSync(abs, 'r');
+        buf = Buffer.alloc(40);
+        fs.readSync(fd, buf, 0, 40, 0);
+        fs.closeSync(fd);
+    } catch (e) { return 0; }
+    if (buf.slice(0, 4).toString() !== 'RIFF' || buf.slice(8, 12).toString() !== 'WEBP') return 0;
+    const chunk = buf.slice(12, 16).toString();
+    if (chunk === 'VP8X') return 1 + buf.readUIntLE(24, 3);
+    if (chunk === 'VP8 ') return buf.readUInt16LE(26) & 0x3fff;
+    if (chunk === 'VP8L') return 1 + ((buf[22] | (buf[23] << 8) | (buf[24] << 16)) & 0x3fff);
+    return 0;
+}
+const SIZES = '(max-width: 900px) 100vw, 900px';
+function srcsetOf(src) {
+    if (!/\.webp$/i.test(String(src))) return '';
+    const relPath = decodeURIComponent(String(src)).replace(/^\/+/, '');
+    const abs = path.join(ROOT, relPath);
+    const small = abs.replace(/\.webp$/i, '-800w.webp');
+    if (!fs.existsSync(small) || !fs.existsSync(abs)) return '';
+    const w = webpWidth(abs);
+    if (!w || w <= 800) return '';
+    const relSmall = path.relative(ROOT, small).split(path.sep).join('/');
+    return ` srcset="${esc(relSmall)} 800w, ${esc(src)} ${w}w" sizes="${SIZES}"`;
+}
+
 /* ---------- 展示方式 A：长图纵向平铺 ---------- */
 function renderGalleryA(p, images) {
     const items = images.map((src, i) =>
-        `                <img src="${esc(src)}" alt="${esc(imgAlt(p, i))}" loading="lazy">`
+        `                <img src="${esc(src)}"${srcsetOf(src)} alt="${esc(imgAlt(p, i))}" loading="lazy">`
     ).join('\n');
     return `            <div class="project-gallery gallery-style-a">
 ${items}
@@ -81,14 +114,14 @@ function renderGalleryB(p, images) {
     const mainImage = images[0];
     const thumbs = images.map((src, i) =>
         `                        <div class="gallery-thumb-item${i === 0 ? ' active' : ''}" data-index="${i}" data-src="${esc(src)}">
-                            <img src="${esc(src)}" alt="${esc(imgAlt(p, i))}" loading="lazy">
+                            <img src="${esc(src)}"${srcsetOf(src)} alt="${esc(imgAlt(p, i))}" loading="lazy">
                         </div>`
     ).join('\n');
     return `            <div class="project-gallery gallery-style-b">
                 <div class="gallery-main" id="gallery-main">
                     <div class="gallery-main-viewer" id="gallery-main-viewer">
                         <div class="gallery-main-wrapper" id="gallery-main-wrapper">
-                            <img src="${esc(mainImage)}" alt="${esc(imgAlt(p, 0))}" id="gallery-main-image">
+                            <img src="${esc(mainImage)}"${srcsetOf(mainImage)} alt="${esc(imgAlt(p, 0))}" id="gallery-main-image">
                         </div>
                     </div>
                     <div class="gallery-click-hint">
@@ -121,17 +154,18 @@ const LIGHTBOX_HTML = `<div class="lightbox-overlay" id="lightbox-overlay">
         <button class="lightbox-next" id="lightbox-next"><i class="fas fa-chevron-right"></i></button>
         <div class="lightbox-image-viewer" id="lightbox-image-viewer">
             <div class="lightbox-image-wrapper" id="lightbox-image-wrapper">
-                <img id="lightbox-image" src="" alt="大图展示">
+                <!-- 占位图不写 src：打开灯箱时由 gallery-b.js 赋值。留空 src 会让浏览器按当前页地址再发一次请求 -->
+                <img id="lightbox-image" alt="大图展示">
             </div>
             <div class="lightbox-counter" id="lightbox-counter"></div>
         </div>
 
         <!-- 长图小地图（minimap）：仅在长图模式显示 -->
         <div class="lightbox-minimap" id="lightbox-minimap">
-            <img class="minimap-base" src="" alt="">
+            <img class="minimap-base" alt="">
             <div class="minimap-dim"></div>
             <div class="minimap-viewport">
-                <img class="minimap-viewport-img" src="" alt="">
+                <img class="minimap-viewport-img" alt="">
             </div>
         </div>
 
@@ -167,9 +201,19 @@ function page(p, prev, next, related) {
     const url = `${SITE_URL}/case/${slug}`;
     /* 分类名与标题相同时不重复（如 AIGC 分类下的 AIGC 案例）；后台填了 SEO 标题则优先用 */
     const cn = catName(p);
-    const autoTitle = (cn && cn !== p.title)
-        ? `${p.title}｜${cn}设计案例 - 溪风设计 XIFOFLY`
-        : `${p.title}设计案例 - 溪风设计 XIFOFLY`;
+    /* 中文标题的通行长度是 20–32 字（百度 SERP ≤30 汉字）。原来是固定挂「- 溪风设计 XIFOFLY」，
+     * 48 个案例里 18 个落到 33–41 字的边界、1 个直接越界，白扣 title_len。
+     * 改成按长度自适应：超长先缩品牌后缀，再缩成「案例｜溪风设计」，偏短补「与作品」。 */
+    const baseTitle = (cn && cn !== p.title)
+        ? `${p.title}｜${cn}设计案例`
+        : `${p.title}设计案例`;
+    const autoTitle = (function () {
+        let t = baseTitle + `｜溪风设计 XIFOFLY`;
+        if (t.length > 32) t = baseTitle + `｜溪风设计`;
+        if (t.length > 32) t = `${p.title}｜${cn || ''}案例｜溪风设计`;
+        if (t.length < 20) t = baseTitle + `与作品｜溪风设计`;
+        return t;
+    })();
     const title = p.seoTitle || autoTitle;
     const desc = buildDesc(p);
     /* 项目概述优先用数据里真实写的 description，没有才用兜底文案 */
@@ -224,7 +268,7 @@ function page(p, prev, next, related) {
     const relatedHtml = related.map(r =>
         `                        <a href="case/${esc(r.slug)}" class="case-item">
                             <div class="case-image">
-                                <img src="${esc(r.image)}" alt="${esc(r.title)}" loading="lazy">
+                                <img src="${esc(r.image)}"${srcsetOf(r.image)} alt="${esc(r.title)}" loading="lazy">
                             </div>
                             <div class="case-info">
                                 <span class="case-category">${esc(catName(r))}</span>
@@ -269,6 +313,14 @@ ${jsonLdHtml}
 <script src="js/spark.js"></script>
 
 <div id="site-nav"></div>
+<nav class="breadcrumb" aria-label="面包屑">
+    <a href="index.html">首页</a>
+    <span class="breadcrumb-sep">/</span>
+    <a href="cases">案例</a>
+    <span class="breadcrumb-sep">/</span>
+    <span class="breadcrumb-current">${esc(p.title)}</span>
+</nav>
+
 
 <section class="project-hero">
     <div class="page-aurora"></div>
@@ -417,6 +469,27 @@ blogItems.forEach(p => {
         lastmod: p.date || today
     });
 });
+
+/* SEO 一键修复：sitemap 补录遗漏静态页（404.html 不收录；case/ 已含） */
+const __seoSeen = new Set(urls.map(function (u) { return u.loc; }));
+let __seoExtra = 0;
+(function () {
+    const __walk = function (dir, prefix) {
+        let ents; try { ents = fs.readdirSync(dir, { withFileTypes: true }); } catch (e) { return; }
+        ents.forEach(function (en) {
+            const abs = path.join(dir, en.name);
+            if (en.isDirectory()) {
+                if (en.name.charAt(0) === '.' || en.name === '_drafts' || en.name === 'vendor' || en.name === 'node_modules') return;
+                __walk(abs, prefix + en.name + '/');
+            } else if (en.isFile() && en.name.toLowerCase().endsWith('.html') && en.name !== '404.html') {
+                const loc = SITE_URL + '/' + prefix + en.name.replace(/\.html?$/i, '');
+                if (!__seoSeen.has(loc)) { __seoSeen.add(loc); urls.push({ loc: loc, priority: '0.5', changefreq: 'monthly', lastmod: today }); __seoExtra++; }
+            }
+        });
+    };
+    __walk(ROOT, '');
+})();
+if (__seoExtra) console.log('sitemap：SEO 修复补录 ' + __seoExtra + ' 个静态页');
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
