@@ -711,10 +711,10 @@ const projectsData = [
         "category": "photography",
         "categoryName": "产品摄影",
         "displayStyle": "B",
-        "image": "images/cases/灯泡/Main_02.webp",
+        "image": "images/cases/灯泡/bulb-main-02.webp",
         "gallery": [
-            "images/cases/灯泡/Main_02.webp",
-            "images/cases/灯泡/Main_12.webp"
+            "images/cases/灯泡/bulb-main-02.webp",
+            "images/cases/灯泡/bulb-main-12.webp"
         ],
         "subtitle": "",
         "description": "灯泡（产品摄影）设计案例，展示设计思路与视觉呈现。溪风设计 XIFOFLY 提供专业设计服务。",
@@ -1018,9 +1018,9 @@ const projectsData = [
         "categoryName": "电商设计",
         "displayStyle": "B",
         "subtitle": "",
-        "image": "images/cases/Banner/场景banner.webp",
+        "image": "images/cases/Banner/scene-banner.webp",
         "gallery": [
-            "images/cases/Banner/场景banner.webp",
+            "images/cases/Banner/scene-banner.webp",
             "images/cases/Banner/超薄面板灯.webp",
             "images/cases/Banner/法兰克福banner.webp",
             "images/cases/Banner/三防灯.webp",

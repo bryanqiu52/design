@@ -319,39 +319,39 @@
         <priority>0.8</priority>
     </url>
     <url>
+        <loc>https://www.xifofly.com/index</loc>
+        <lastmod>2026-10-25</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
         <loc>https://www.xifofly.com/blog/luxury-logo-brand-value</loc>
-        <lastmod>2026-10-12</lastmod>
+        <lastmod>2026-10-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
         <loc>https://www.xifofly.com/blog/packaging-design</loc>
-        <lastmod>2024-01-05</lastmod>
+        <lastmod>2026-10-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
         <loc>https://www.xifofly.com/blog/ecommerce-design</loc>
-        <lastmod>2024-01-01</lastmod>
+        <lastmod>2026-10-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
         <loc>https://www.xifofly.com/blog/brand-vi-guide</loc>
-        <lastmod>2023-12-28</lastmod>
+        <lastmod>2026-10-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
         <loc>https://www.xifofly.com/blog/color-theory</loc>
-        <lastmod>2023-12-20</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-    </url>
-    <url>
-        <loc>https://www.xifofly.com/index</loc>
         <lastmod>2026-10-25</lastmod>
         <changefreq>monthly</changefreq>
-        <priority>0.5</priority>
+        <priority>0.6</priority>
     </url>
 </urlset>
