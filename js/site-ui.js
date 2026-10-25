@@ -137,7 +137,7 @@
         navBox.innerHTML =
             '<nav class="nav" id="nav">' +
             '<a href="./" class="logo">' +
-            '<img src="' + val('logoNav', 'images/xifofly-logo.png') + '" alt="' + siteTitle + '" class="logo-img">' +
+            '<img src="' + val('logoNav', 'images/xifofly-logo.webp') + '" alt="' + siteTitle + '" class="logo-img">' +
             '</a>' +
             '<div class="nav-links" id="navLinks">' + navLinksHtml + '</div>' +
             '<div class="nav-actions">' +
@@ -189,7 +189,7 @@
             '<div class="container">' +
             '<div class="footer-head">' +
             '<a href="./" class="footer-brand-link">' +
-            '<img src="' + val('logoFooter', 'images/xifofly-logo.png') + '" alt="' + siteTitle + '" class="footer-brand-logo">' +
+            '<img src="' + val('logoFooter', 'images/xifofly-logo.webp') + '" alt="' + siteTitle + '" class="footer-brand-logo">' +
             '</a>' +
             '<p class="footer-tagline">' + siteSubtitle + ' <span>Lightness echoes.</span></p>' +
             '</div>' +
@@ -212,7 +212,7 @@
             /* 公安联网备案：图标在左、编号在右，点图标或编号均跳转公安部备案查询 */
             '<p class="footer-police">' +
             '<a href="https://beian.mps.gov.cn/#/query/webSearch?code=44030002018027" target="_blank" rel="noreferrer">' +
-            '<img src="images/备案图标.png" alt="公安备案" width="14" height="14">' +
+            '<img src="images/备案图标.webp" alt="公安备案" width="14" height="14">' +
             '粤公网安备44030002018027号' +
             '</a>' +
             '</p>' +
@@ -244,17 +244,17 @@
             '<div class="footer-qrcodes">' +
             '<div class="footer-qrcode">' +
             '<h4>微信公众号</h4>' +
-            '<img src="' + val('qrcodeWechat', 'images/qrcode.png') + '" alt="微信公众号" class="qrcode-img">' +
+            '<img src="' + val('qrcodeWechat', 'images/qrcode.webp') + '" alt="微信公众号" class="qrcode-img">' +
             '<p>扫码关注</p>' +
             '</div>' +
             '<div class="footer-qrcode">' +
             '<h4>微信</h4>' +
-            '<img src="' + val('qrcodeWorkwechat', 'images/qrcode.png') + '" alt="微信" class="qrcode-img">' +
+            '<img src="' + val('qrcodeWorkwechat', 'images/qrcode.webp') + '" alt="微信" class="qrcode-img">' +
             '<p>扫码联系</p>' +
             '</div>' +
             '<div class="footer-qrcode">' +
             '<h4>视频号</h4>' +
-            '<img src="' + val('qrcodeChannels', 'images/qrcode.png') + '" alt="微信视频号" class="qrcode-img">' +
+            '<img src="' + val('qrcodeChannels', 'images/qrcode.webp') + '" alt="微信视频号" class="qrcode-img">' +
             '<p>扫码关注</p>' +
             '</div>' +
             '</div>' +

@@ -10,7 +10,7 @@
 <meta property="og:description" content="溪风设计（XIFOFLY）是深圳品牌视觉设计工作室，提供 LOGO/VI 品牌设计、包装设计、电商详情页与 UI/UX 设计服务。轻盈自有回响。"/>
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://www.xifofly.com/"/>
-<meta property="og:image" content="https://www.xifofly.com/images/hero.png"/>
+<meta property="og:image" content="https://www.xifofly.com/images/hero.webp"/>
 <meta property="og:site_name" content="溪风设计 XIFOFLY"/>
 <meta property="og:locale" content="zh_CN"/>
 <meta name="twitter:card" content="summary_large_image"/>
@@ -19,6 +19,50 @@
 <link href="vendor/fontawesome/css/all.min.css" rel="stylesheet"/>
 <link href="styles.css?v=20260902" rel="stylesheet"/>
 <link rel="icon" id="site-favicon"/>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "name": "溪风设计 XIFOFLY 官网",
+      "url": "https://www.xifofly.com/",
+      "isPartOf": {
+        "@id": "https://www.xifofly.com/#website"
+      },
+      "about": {
+        "@id": "https://www.xifofly.com/#org"
+      },
+      "inLanguage": "zh-CN"
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://www.xifofly.com/#org",
+      "name": "溪风设计 XIFOFLY",
+      "alternateName": "XIFOFLY",
+      "url": "https://www.xifofly.com/",
+      "logo": "https://www.xifofly.com/images/xifofly-logo.webp",
+      "description": "深圳品牌视觉设计工作室，提供品牌设计、包装设计、电商视觉与 UI/UX 设计服务。",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "深圳",
+        "addressCountry": "CN"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.xifofly.com/#website",
+      "url": "https://www.xifofly.com/",
+      "name": "溪风设计 XIFOFLY",
+      "inLanguage": "zh-CN",
+      "publisher": {
+        "@id": "https://www.xifofly.com/#org"
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <canvas id="spark-canvas"></canvas>
@@ -50,7 +94,7 @@
 <div class="hero-brand" data-animate><span class="dot"></span>Brand · Visual · Digital Studio</div>
 </div>
 <div class="hero-visual">
-<img id="hero-image" src="images/hero.png" alt="溪风设计工作室" />
+<img id="hero-image" src="images/hero.webp" srcset="images/hero-800w.webp 800w, images/hero.webp 1600w" sizes="100vw" alt="溪风设计工作室" />
 </div>
 </div>
 <div class="marquee" aria-hidden="true">
@@ -323,13 +367,13 @@ function loadSiteImages() {
     
     const images = typeof siteImages !== 'undefined' ? siteImages : {
         featured: [
-            'images/featured1.jpg',
-            'images/featured2.jpg',
-            'images/featured3.jpg',
-            'images/featured4.jpg'
+            'images/featured1.webp',
+            'images/featured2.webp',
+            'images/featured3.webp',
+            'images/featured4.webp'
         ],
-        qrcodeWechat: 'images/qrcode.png',
-        qrcodeWorkwechat: 'images/qrcode.png'
+        qrcodeWechat: 'images/qrcode.webp',
+        qrcodeWorkwechat: 'images/qrcode.webp'
     };
     
     sliderTrack.innerHTML = images.featured.map((img, index) => {

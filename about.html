@@ -10,7 +10,7 @@
 <meta property="og:description" content="溪风设计（XIFOFLY）是位于深圳龙华的品牌视觉设计工作室，专注品牌策略、视觉识别、包装与数字界面设计。"/>
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://www.xifofly.com/about"/>
-<meta property="og:image" content="https://www.xifofly.com/images/hero.png"/>
+<meta property="og:image" content="https://www.xifofly.com/images/hero.webp"/>
 <meta property="og:site_name" content="溪风设计 XIFOFLY"/>
 <meta property="og:locale" content="zh_CN"/>
 <meta name="twitter:card" content="summary_large_image"/>
@@ -862,6 +862,50 @@ body {
 [data-animate]:nth-child(4) { transition-delay: 0.3s; }
 [data-animate]:nth-child(5) { transition-delay: 0.4s; }
 </style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "AboutPage",
+      "name": "关于我们",
+      "url": "https://www.xifofly.com/about",
+      "isPartOf": {
+        "@id": "https://www.xifofly.com/#website"
+      },
+      "about": {
+        "@id": "https://www.xifofly.com/#org"
+      },
+      "inLanguage": "zh-CN"
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://www.xifofly.com/#org",
+      "name": "溪风设计 XIFOFLY",
+      "alternateName": "XIFOFLY",
+      "url": "https://www.xifofly.com/",
+      "logo": "https://www.xifofly.com/images/xifofly-logo.webp",
+      "description": "深圳品牌视觉设计工作室，提供品牌设计、包装设计、电商视觉与 UI/UX 设计服务。",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "深圳",
+        "addressCountry": "CN"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.xifofly.com/#website",
+      "url": "https://www.xifofly.com/",
+      "name": "溪风设计 XIFOFLY",
+      "inLanguage": "zh-CN",
+      "publisher": {
+        "@id": "https://www.xifofly.com/#org"
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <canvas id="spark-canvas"></canvas>
@@ -877,7 +921,7 @@ body {
         <div class="hero-avatar-section" data-animate>
             <div class="avatar-container">
                 <div class="avatar-main">
-                    <img id="about-avatar" src="images/XIFOFLY_logo.jpg" alt="XIFOFLY" class="avatar-brand">
+                    <img id="about-avatar" src="images/XIFOFLY_logo.webp" alt="XIFOFLY" class="avatar-brand">
                 </div>
                 <div class="avatar-ring"></div>
                 <div class="avatar-ring-outer"></div>

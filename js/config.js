@@ -1,21 +1,21 @@
 const siteConfig = {
     "siteTitle": "溪风",
     "siteSubtitle": "轻盈自有回响",
-    "logoNav": "images/xifofly-logo.png",
-    "logoFooter": "images/xifofly-logo.png",
+    "logoNav": "images/xifofly-logo.webp",
+    "logoFooter": "images/xifofly-logo.webp",
     "favicon": "images/favicon.ico",
     "heroEyebrow": "XIFOFLY · 溪风设计工作室",
     "heroDesc": "专注品牌视觉 · UI设计 · 包装设计 · 电商设计",
-    "heroImage": "images/hero.png",
-    "aboutAvatar": "images/XIFOFLY_logo.jpg",
+    "heroImage": "images/hero.webp",
+    "aboutAvatar": "images/XIFOFLY_logo.webp",
     "email": "xifofly@163.com",
     "wechat": "xifofly",
     "company": "深圳市龙华区溪风设计工作室",
     "address": "深圳市龙华区民治樟坑1区32栋307",
     "phone": "16675191883",
-    "qrcodeWechat": "images/公众号二维码.png",
-    "qrcodeWorkwechat": "images/微信二维码.png",
-    "qrcodeChannels": "images/视频号二维码.jpg",
+    "qrcodeWechat": "images/公众号二维码.webp",
+    "qrcodeWorkwechat": "images/微信二维码.webp",
+    "qrcodeChannels": "images/视频号二维码.webp",
     "bilibili": "https://space.bilibili.com/1205717743",
     "xiaohongshu": "https://www.xiaohongshu.com/user/profile/615e6f8b000000001f0341f0",
     "douyin": "https://www.douyin.com/user/MS4wLjABAAAAovH9vtFa_5JLfo62mWHwIyHS0CXFpbidQYN1w14eEZ8",
@@ -24,7 +24,7 @@ const siteConfig = {
         {
             "icon": "fa-palette",
             "title": "品牌设计",
-            "image": "images/featured1.jpg",
+            "image": "images/featured1.webp",
             "description": "从一枚LOGO到完整VI体系，打造有识别度与生命力的品牌",
             "items": [
                 "LOGO",
@@ -44,7 +44,7 @@ const siteConfig = {
         {
             "icon": "fa-mobile-alt",
             "title": "UI/UX设计",
-            "image": "images/featured2.jpg",
+            "image": "images/featured2.webp",
             "description": "从用户洞察到流畅界面，让好体验驱动产品持续增长",
             "items": [
                 "APP界面",
@@ -63,7 +63,7 @@ const siteConfig = {
         {
             "icon": "fa-box",
             "title": "包装设计",
-            "image": "images/featured3.jpg",
+            "image": "images/featured3.webp",
             "description": "从货架思维出发，让包装成为货架上无声的推销员",
             "items": [
                 "产品包装设计",
@@ -81,7 +81,7 @@ const siteConfig = {
         {
             "icon": "fa-shopping-cart",
             "title": "电商设计",
-            "image": "images/featured4.jpg",
+            "image": "images/featured4.webp",
             "description": "用高转化的视觉逻辑，让详情页成为你的金牌销售",
             "items": [
                 "店铺装修",
@@ -120,7 +120,7 @@ const siteConfig = {
         "defaultTitle": "溪风设计 XIFOFLY | 深圳品牌设计 · 包装设计 · 电商视觉",
         "defaultDescription": "溪风设计（XIFOFLY）是深圳品牌视觉设计工作室，提供 LOGO/VI 品牌设计、包装设计、电商详情页与 UI/UX 设计服务。轻盈自有回响。",
         "defaultKeywords": "深圳品牌设计,LOGO设计,VI设计,包装设计,电商详情页设计,UI设计,画册设计",
-        "ogImage": "images/hero.png",
+        "ogImage": "images/hero.webp",
         "enableJsonLd": true
     }
 };

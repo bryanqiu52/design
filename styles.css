@@ -2599,7 +2599,8 @@ html {
     font-size: 1.2rem;
 }
 
-.contact-method-info h4 {
+/* 联系方式的标题用 h3：原来是 h4，从 h2 直接跳到 h4，标题层级断了（SEO / 无障碍都要顺） */
+.contact-method-info h3 {
     font-size: 1rem;
     margin-bottom: 0.3rem;
 }
@@ -6264,7 +6265,7 @@ img {
     margin-bottom: 1rem;
 }
 
-.social-qr-card h4 {
+.social-qr-card h3 {
     font-size: 0.95rem;
     margin-bottom: 0.3rem;
     color: var(--text);
