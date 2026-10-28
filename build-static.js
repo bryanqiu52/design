@@ -518,7 +518,13 @@ let __seoExtra = 0;
                 if (en.name.charAt(0) === '.' || en.name === '_drafts' || en.name === 'vendor' || en.name === 'node_modules') return;
                 __walk(abs, prefix + en.name + '/');
             } else if (en.isFile() && en.name.toLowerCase().endsWith('.html') && en.name !== '404.html') {
-                const loc = SITE_URL + '/' + prefix + en.name.replace(/\.html?$/i, '');
+                /* index.html 就是它所在目录的首页，地址是目录本身（根目录即 /）。
+                 * 直接拼成 /index 的话，跟上面已经登记的 / 字符串不相等，会被当成"遗漏"再补一条，
+                 * 同一个首页在 sitemap 里出现两次 —— 搜索引擎当成重复页面，权重被摊薄。 */
+                const base = en.name.replace(/\.html?$/i, '');
+                const loc = base.toLowerCase() === 'index'
+                    ? SITE_URL + '/' + prefix.replace(/\/$/, '')
+                    : SITE_URL + '/' + prefix + base;
                 if (!__seoSeen.has(loc)) { __seoSeen.add(loc); urls.push({ loc: loc, priority: '0.5', changefreq: 'monthly', lastmod: today }); __seoExtra++; }
             }
         });

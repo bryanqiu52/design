@@ -462,9 +462,13 @@ if (fs.existsSync(sitemapPath)) {
     /* 先移除旧的博客详情条目（/blog/<slug>）。注意匹配必须是 /blog/ 带斜杠，
        否则会把博客列表页 /blog 本身也一并删掉（历史 bug）。 */
     xml = xml.replace(/\s*<url>\s*<loc>[^<]*\/blog\/[^<]*<\/loc>[\s\S]*?<\/url>/g, '');
+    /* lastmod 用文章自己的发布日期（frontmatter 的 date），不用 .md 的磁盘修改时间。
+       文件 mtime 不可靠：批量复制、改目录结构、换机器都会把它刷成同一天，
+       于是 2024 年的老文章全被标成"最近更新"，蜘蛛白跑一趟，久了就不信这个字段。
+       注意 JSON-LD 里的 dateModified 仍用 mtime —— 那个字段本来就是"内容改过"的信号。 */
     const blogUrls = posts.map(p => `    <url>
         <loc>${SITE_URL}/blog/${p.slug}</loc>
-        <lastmod>${p.modified || p.date || today}</lastmod>
+        <lastmod>${p.date || today}</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>`).join('\n');
