@@ -488,3 +488,7 @@ if (validPages.size > 0) {
 console.log(`博客静态页：${posts.length} 篇 → blog/`);
 posts.forEach(p => console.log(`  · blog/${p.slug}.html  《${p.title}》`));
 console.log('索引：index.json / index-data.js 已更新');
+
+/* ---------- 列表页静态化 ----------
+   博客索引刚更新，首页博客区与 blog 列表页要跟着重写（幂等，build-static.js 末尾也调一次）。 */
+require('./build-lists').buildLists();

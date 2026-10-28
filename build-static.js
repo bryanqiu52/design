@@ -10,8 +10,9 @@
  *   3. 生成 sitemap.xml
  *
  * 不做什么：
- *   - 不改动任何源文件。js/data.js 仍是唯一真源，case/ 是产物，不可手改
- *   - 不处理博客（后台博客编辑已停更，博客静态化留到以后）
+ *   - 不处理博客详情页（博客静态页与索引由 build-blog.js 负责）
+ *   - 不改 case/ 之外的页面结构：唯一例外是列表页的锚点区段
+ *     （首页精选、首页博客、cases 列表、blog 列表），由 build-lists.js 在末尾注入
  */
 const fs = require('fs');
 const path = require('path');
@@ -556,3 +557,9 @@ if (validPages.size > 0 && fs.existsSync(outDir)) {
 console.log(`案例静态页：${ordered.length} 个 → case/`);
 console.log(`跳过（缺 slug）：${skipped} 个`);
 console.log(`sitemap.xml：${urls.length} 条 URL`);
+
+/* ---------- 列表页静态化 ----------
+   首页 / cases / blog 三个列表页的条目由 build-lists.js 在构建时写进 HTML。
+   放这里是因为「重建静态页」按钮只跑本脚本，列表也得跟着刷新；
+   build-blog.js 末尾也会调一次（幂等），博客更新走那条链路时同样覆盖。 */
+require('./build-lists').buildLists();
