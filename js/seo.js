@@ -86,8 +86,8 @@
         var exist = document.head.querySelector('meta[name="description"]');
         if (exist && exist.getAttribute('content')) return exist.getAttribute('content');
 
+        /* 只有一个描述字段（2026-10-26 起不再有 seoDescription，别在这儿留两套优先级） */
         var p = window.__currentProject || window.__currentPost;
-        if (p && p.seoDescription) return p.seoDescription;
         if (p && p.description) return String(p.description).slice(0, 160);
         if (p && p.excerpt) return String(p.excerpt).slice(0, 160);
 
@@ -189,7 +189,7 @@
                     '@context': 'https://schema.org',
                     '@type': 'CreativeWork',
                     'name': prj.title,
-                    'description': prj.seoDescription || prj.description || desc,
+                    'description': prj.description || desc,
                     'image': (Array.isArray(prj.gallery) && prj.gallery.length
                         ? prj.gallery.slice(0, 5).map(abs)
                         : [abs(prj.image || '')]),

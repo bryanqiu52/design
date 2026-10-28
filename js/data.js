@@ -23,7 +23,7 @@ const projectsData = [
             "images/cases/AIGC/00023-725325415.webp"
         ],
         "subtitle": "",
-        "description": "AIGC（AIGC）设计案例，展示设计思路与视觉呈现。溪风设计 XIFOFLY 提供专业设计服务。",
+        "description": "",
         "challenge": "",
         "solution": "",
         "results": [],
@@ -50,7 +50,7 @@ const projectsData = [
             "images/cases/UI动画/WIFI.gif"
         ],
         "subtitle": "",
-        "description": "UI动画（UI设计）设计案例，展示设计思路与视觉呈现。溪风设计 XIFOFLY 提供专业设计服务。",
+        "description": "",
         "challenge": "",
         "solution": "",
         "results": [],
@@ -73,7 +73,7 @@ const projectsData = [
             "images/cases/WEB/AR眼镜.webp"
         ],
         "subtitle": "",
-        "description": "WEB（UI设计）设计案例，展示设计思路与视觉呈现。溪风设计 XIFOFLY 提供专业设计服务。",
+        "description": "",
         "challenge": "",
         "solution": "",
         "results": [],
@@ -98,7 +98,7 @@ const projectsData = [
             "images/cases/切片软件界面设计/文件列表.webp"
         ],
         "subtitle": "",
-        "description": "切片软件界面设计（UI设计）设计案例，展示设计思路与视觉呈现。溪风设计 XIFOFLY 提供专业设计服务。",
+        "description": "",
         "challenge": "",
         "solution": "",
         "results": [],
@@ -121,7 +121,7 @@ const projectsData = [
             "images/cases/官网web设计/官网web设计-01.webp",
             "images/cases/官网web设计/官网web设计-03.webp"
         ],
-        "description": "官网web设计（UI设计）设计案例，展示设计思路与视觉呈现。溪风设计 XIFOFLY 提供专业设计服务。",
+        "description": "",
         "tags": []
     },
     {
@@ -145,7 +145,7 @@ const projectsData = [
             "images/cases/雕刻机app界面设计/雕刻机app界面设计-01.webp"
         ],
         "subtitle": "",
-        "description": "雕刻机app界面设计（UI设计）设计案例，展示设计思路与视觉呈现。溪风设计 XIFOFLY 提供专业设计服务。",
+        "description": "",
         "challenge": "",
         "solution": "",
         "results": [],
@@ -173,7 +173,7 @@ const projectsData = [
             "images/cases/3D打印其他/A4.webp"
         ],
         "subtitle": "",
-        "description": "3D打印其他（3D渲染）设计案例，展示设计思路与视觉呈现。溪风设计 XIFOFLY 提供专业设计服务。",
+        "description": "",
         "challenge": "",
         "solution": "",
         "results": [],
@@ -198,7 +198,7 @@ const projectsData = [
             "images/cases/3D打印耗材/未标题-17.webp"
         ],
         "subtitle": "",
-        "description": "3D打印耗材（3D渲染）设计案例，展示设计思路与视觉呈现。溪风设计 XIFOFLY 提供专业设计服务。",
+        "description": "",
         "challenge": "",
         "solution": "",
         "results": [],
@@ -236,7 +236,7 @@ const projectsData = [
             "images/cases/3D渲染-散图/lADPBGY178FUQsDNC7jNC7g_3000_3000.webp"
         ],
         "subtitle": "",
-        "description": "3D渲染-散图（3D渲染）设计案例，展示设计思路与视觉呈现。溪风设计 XIFOFLY 提供专业设计服务。",
+        "description": "",
         "challenge": "",
         "solution": "",
         "results": [],
@@ -267,7 +267,7 @@ const projectsData = [
             "images/cases/A10/主图1.webp",
             "images/cases/A10/A10-01.webp"
         ],
-        "description": "3D打印机 A10（3D渲染）设计案例，展示设计思路与视觉呈现。溪风设计 XIFOFLY 提供专业设计服务。",
+        "description": "",
         "tags": []
     },
     {
@@ -310,7 +310,7 @@ const projectsData = [
             "images/cases/A5/A38.webp",
             "images/cases/A5/A39.webp"
         ],
-        "description": "3D打印机 A5（3D渲染）设计案例，展示设计思路与视觉呈现。溪风设计 XIFOFLY 提供专业设计服务。",
+        "description": "",
         "tags": []
     },
     {
@@ -343,7 +343,7 @@ const projectsData = [
             "images/cases/A8Plus/A26.webp",
             "images/cases/A8Plus/B25.webp"
         ],
-        "description": "3D打印机 A8Plus（3D渲染）设计案例，展示设计思路与视觉呈现。溪风设计 XIFOFLY 提供专业设计服务。",
+        "description": "",
         "tags": []
     },
     {
@@ -367,7 +367,7 @@ const projectsData = [
             "images/cases/DLP/lADPBE1XeT_hhEXNA-jNA-g_1000_1000.webp",
             "images/cases/DLP/lADPBFRydoluCFDNA-jNA-g_1000_1000.webp"
         ],
-        "description": "3D打印机 DLP（3D渲染）设计案例，展示设计思路与视觉呈现。溪风设计 XIFOFLY 提供专业设计服务。",
+        "description": "",
         "tags": []
     },
     {
@@ -392,7 +392,7 @@ const projectsData = [
             "images/cases/E12PLUS/B16_0001.webp",
             "images/cases/E12PLUS/E12PLUS-01.webp"
         ],
-        "description": "3D打印机 E12PLUS（3D渲染）设计案例，展示设计思路与视觉呈现。溪风设计 XIFOFLY 提供专业设计服务。",
+        "description": "",
         "tags": []
     },
     {
@@ -419,7 +419,7 @@ const projectsData = [
             "images/cases/ET4/A9.webp",
             "images/cases/ET4/A10.webp"
         ],
-        "description": "3D打印机 ET4（3D渲染）设计案例，展示设计思路与视觉呈现。溪风设计 XIFOFLY 提供专业设计服务。",
+        "description": "",
         "tags": []
     },
     {
@@ -445,7 +445,7 @@ const projectsData = [
             "images/cases/LC100/LaserCube-LC100-Portable-Laser-Engraving-Machine-Featured_.webp"
         ],
         "subtitle": "",
-        "description": "LC100（3D渲染）设计案例，展示设计思路与视觉呈现。溪风设计 XIFOFLY 提供专业设计服务。",
+        "description": "",
         "challenge": "",
         "solution": "",
         "results": [],
@@ -495,7 +495,7 @@ const projectsData = [
             "images/cases/N4/A51.webp",
             "images/cases/N4/KG405.webp"
         ],
-        "description": "3D打印机 N4（3D渲染）设计案例，展示设计思路与视觉呈现。溪风设计 XIFOFLY 提供专业设计服务。",
+        "description": "",
         "tags": []
     },
     {
@@ -546,7 +546,7 @@ const projectsData = [
             "images/cases/N7/N7-01.webp",
             "images/cases/N7/N7-01.webp"
         ],
-        "description": "3D打印机 N7（3D渲染）设计案例，展示设计思路与视觉呈现。溪风设计 XIFOFLY 提供专业设计服务。",
+        "description": "",
         "tags": []
     },
     {
@@ -572,7 +572,7 @@ const projectsData = [
             "images/cases/T200S/B3.webp",
             "images/cases/T200S/lADPBGKocRxQW-zNBDjNB4A_1920_1080.webp"
         ],
-        "description": "3D打印机 T200S（3D渲染）设计案例，展示设计思路与视觉呈现。溪风设计 XIFOFLY 提供专业设计服务。",
+        "description": "",
         "tags": []
     },
     {
@@ -601,7 +601,7 @@ const projectsData = [
             "images/cases/VP01/A11.webp",
             "images/cases/VP01/A12.webp"
         ],
-        "description": "3D打印笔 VP01（3D渲染）设计案例，展示设计思路与视觉呈现。溪风设计 XIFOFLY 提供专业设计服务。",
+        "description": "",
         "tags": []
     },
     {
@@ -635,7 +635,7 @@ const projectsData = [
             "images/cases/VP05/A8.webp",
             "images/cases/VP05/A9.webp"
         ],
-        "description": "3D打印笔 VP05（3D渲染）设计案例，展示设计思路与视觉呈现。溪风设计 XIFOFLY 提供专业设计服务。",
+        "description": "",
         "tags": []
     },
     {
@@ -675,7 +675,7 @@ const projectsData = [
             "images/cases/耗材/ABS-Filament-2.webp",
             "images/cases/耗材/ABS-Filament-3.webp"
         ],
-        "description": "3D打印耗材（3D渲染）设计案例，展示设计思路与视觉呈现。溪风设计 XIFOFLY 提供专业设计服务。",
+        "description": "",
         "tags": []
     },
     {
@@ -695,7 +695,7 @@ const projectsData = [
             "images/cases/工矿灯/工矿灯-01.webp"
         ],
         "subtitle": "",
-        "description": "工矿灯（产品摄影）设计案例，展示设计思路与视觉呈现。溪风设计 XIFOFLY 提供专业设计服务。",
+        "description": "",
         "challenge": "",
         "solution": "",
         "results": [],
@@ -717,7 +717,7 @@ const projectsData = [
             "images/cases/灯泡/bulb-main-12.webp"
         ],
         "subtitle": "",
-        "description": "灯泡（产品摄影）设计案例，展示设计思路与视觉呈现。溪风设计 XIFOFLY 提供专业设计服务。",
+        "description": "",
         "challenge": "",
         "solution": "",
         "results": [],
@@ -747,7 +747,7 @@ const projectsData = [
             "images/cases/生活实拍/28bfba35b010934f8a47595e26ad1336.webp",
             "images/cases/生活实拍/生活实拍-01.webp"
         ],
-        "description": "摄影（产品摄影）设计案例，展示设计思路与视觉呈现。溪风设计 XIFOFLY 提供专业设计服务。",
+        "description": "",
         "tags": []
     },
     {
@@ -765,7 +765,7 @@ const projectsData = [
             "images/cases/筒灯/筒灯-01.webp",
             "images/cases/筒灯/1_f2b8ecd5.webp"
         ],
-        "description": "筒灯（产品摄影）设计案例，展示设计思路与视觉呈现。溪风设计 XIFOFLY 提供专业设计服务。",
+        "description": "",
         "tags": []
     },
     {
@@ -788,7 +788,7 @@ const projectsData = [
             "images/cases/防水灯/防水灯-03.webp"
         ],
         "subtitle": "",
-        "description": "防水灯（产品摄影）设计案例，展示设计思路与视觉呈现。溪风设计 XIFOFLY 提供专业设计服务。",
+        "description": "",
         "challenge": "",
         "solution": "",
         "results": [],
@@ -814,7 +814,7 @@ const projectsData = [
             "images/cases/面板灯照明/IMG_3378.webp"
         ],
         "subtitle": "",
-        "description": "面板灯照明（产品摄影）设计案例，展示设计思路与视觉呈现。溪风设计 XIFOFLY 提供专业设计服务。",
+        "description": "",
         "challenge": "",
         "solution": "",
         "results": [],
@@ -835,7 +835,7 @@ const projectsData = [
         "gallery": [
             "images/cases/3d打印耗材手提袋/两个袋子_333_1.webp"
         ],
-        "description": "3d打印耗材手提袋（包装设计）设计案例，展示设计思路与视觉呈现。溪风设计 XIFOFLY 提供专业设计服务。",
+        "description": "",
         "tags": []
     },
     {
@@ -859,7 +859,7 @@ const projectsData = [
             "images/cases/灯具包装盒/RR-LED-TRACK-LIGHT-20W-INNER.webp"
         ],
         "subtitle": "",
-        "description": "灯具包装盒（包装设计）设计案例，展示设计思路与视觉呈现。溪风设计 XIFOFLY 提供专业设计服务。",
+        "description": "",
         "challenge": "",
         "solution": "",
         "results": [],
@@ -880,7 +880,7 @@ const projectsData = [
             "images/cases/CCML logo设计/CCML-logo设计-01.webp"
         ],
         "subtitle": "",
-        "description": "CCML logo设计（品牌设计）设计案例，展示设计思路与视觉呈现。溪风设计 XIFOFLY 提供专业设计服务。",
+        "description": "",
         "challenge": "",
         "solution": "",
         "results": [],
@@ -904,7 +904,7 @@ const projectsData = [
             "images/cases/Pure color logo设计/single_cup35002327.webp"
         ],
         "subtitle": "",
-        "description": "Pure color logo设计（品牌设计）设计案例，展示设计思路与视觉呈现。溪风设计 XIFOFLY 提供专业设计服务。",
+        "description": "",
         "challenge": "",
         "solution": "",
         "results": [],
@@ -932,7 +932,7 @@ const projectsData = [
             "images/cases/一组logo设计/ZHONGCHUANG.webp"
         ],
         "subtitle": "",
-        "description": "一组logo设计（品牌设计）设计案例，展示设计思路与视觉呈现。溪风设计 XIFOFLY 提供专业设计服务。",
+        "description": "",
         "challenge": "",
         "solution": "",
         "results": [],
@@ -958,7 +958,7 @@ const projectsData = [
             "images/cases/创宏智控系列品牌logo/TRUE-COLOR_LOGO.webp"
         ],
         "subtitle": "",
-        "description": "创宏智控系列品牌logo（品牌设计）设计案例，展示设计思路与视觉呈现。溪风设计 XIFOFLY 提供专业设计服务。",
+        "description": "",
         "challenge": "",
         "solution": "",
         "results": [],
@@ -979,7 +979,7 @@ const projectsData = [
             "images/cases/合鼎集团/合鼎集团-01.webp"
         ],
         "subtitle": "",
-        "description": "合鼎集团（品牌设计）设计案例，展示设计思路与视觉呈现。溪风设计 XIFOFLY 提供专业设计服务。",
+        "description": "",
         "challenge": "",
         "solution": "",
         "results": [],
@@ -1001,7 +1001,7 @@ const projectsData = [
             "images/cases/琢光照明logo设计/ZOOM-LOGO.webp"
         ],
         "subtitle": "",
-        "description": "琢光照明logo设计（品牌设计）设计案例，展示设计思路与视觉呈现。溪风设计 XIFOFLY 提供专业设计服务。",
+        "description": "",
         "challenge": "",
         "solution": "",
         "results": [],
@@ -1039,7 +1039,7 @@ const projectsData = [
             "images/cases/Banner/T300SPRO.webp",
             "images/cases/Banner/T400.webp"
         ],
-        "description": "产品Banner（电商设计）设计案例，展示设计思路与视觉呈现。溪风设计 XIFOFLY 提供专业设计服务。",
+        "description": "",
         "tags": []
     },
     {
@@ -1072,7 +1072,7 @@ const projectsData = [
             "images/cases/主图/panel-light-09.webp",
             "images/cases/主图/panel-light-10.webp"
         ],
-        "description": "电商主图（电商设计）设计案例，展示设计思路与视觉呈现。溪风设计 XIFOFLY 提供专业设计服务。",
+        "description": "",
         "tags": []
     },
     {
@@ -1096,7 +1096,7 @@ const projectsData = [
             "images/cases/详情页/N7详情页英文版.webp"
         ],
         "subtitle": "",
-        "description": "详情页（电商设计）设计案例，展示设计思路与视觉呈现。溪风设计 XIFOFLY 提供专业设计服务。",
+        "description": "",
         "challenge": "",
         "solution": "",
         "results": [],
@@ -1124,7 +1124,7 @@ const projectsData = [
             "images/cases/135广交会现场/135广交会现场3.webp",
             "images/cases/135广交会现场/135广交会正面灯箱内容_画板-1.webp"
         ],
-        "description": "135广交会照明展物料（线下物料）设计案例，展示设计思路与视觉呈现。溪风设计 XIFOFLY 提供专业设计服务。",
+        "description": "",
         "tags": []
     },
     {
@@ -1144,7 +1144,7 @@ const projectsData = [
             "images/cases/3d打印产品物料/3d打印产品物料-02.webp"
         ],
         "subtitle": "",
-        "description": "3d打印产品物料（线下物料）设计案例，展示设计思路与视觉呈现。溪风设计 XIFOFLY 提供专业设计服务。",
+        "description": "",
         "challenge": "",
         "solution": "",
         "results": [],
@@ -1167,7 +1167,7 @@ const projectsData = [
             "images/cases/3d打印展会背景墙/微信图片_2020090520301815.webp"
         ],
         "subtitle": "",
-        "description": "3d打印展会背景墙（线下物料）设计案例，展示设计思路与视觉呈现。溪风设计 XIFOFLY 提供专业设计服务。",
+        "description": "",
         "challenge": "",
         "solution": "",
         "results": [],
@@ -1190,7 +1190,7 @@ const projectsData = [
             "images/cases/婚博会展位背景墙物料/70X100cm广告sg.webp",
             "images/cases/婚博会展位背景墙物料/微信图片_20240725172850.webp"
         ],
-        "description": "婚博会展位背景墙物料（线下物料）设计案例，展示设计思路与视觉呈现。溪风设计 XIFOFLY 提供专业设计服务。",
+        "description": "",
         "tags": []
     },
     {
@@ -1213,7 +1213,7 @@ const projectsData = [
             "images/cases/灯具展会物料/灯具展会物料-01.webp"
         ],
         "subtitle": "",
-        "description": "灯具展会物料（线下物料）设计案例，展示设计思路与视觉呈现。溪风设计 XIFOFLY 提供专业设计服务。",
+        "description": "",
         "challenge": "",
         "solution": "",
         "results": [],
@@ -1243,7 +1243,7 @@ const projectsData = [
             "images/cases/照明产品折页/奇正折页5.webp",
             "images/cases/照明产品折页/奇正折页6.webp"
         ],
-        "description": "照明产品折页（线下物料）设计案例，展示设计思路与视觉呈现。溪风设计 XIFOFLY 提供专业设计服务。",
+        "description": "",
         "tags": []
     },
     {
@@ -1322,7 +1322,7 @@ const projectsData = [
             "images/cases/悠贝初品牌（悠悠龙）/悠贝初品牌-悠悠龙-18.webp",
             "images/cases/悠贝初品牌（悠悠龙）/悠贝初品牌-悠悠龙-19.webp"
         ],
-        "description": "悠贝初品牌IP角色（品牌设计）设计案例，展示设计思路与视觉呈现。溪风设计 XIFOFLY 提供专业设计服务。",
+        "description": "",
         "tags": []
     }
 ];

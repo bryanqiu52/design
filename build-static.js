@@ -44,13 +44,46 @@ function catName(p) {
     return p.categoryName || (categories && categories[p.category]) || '设计';
 }
 
-/* 描述兜底：数据里大量 description 为空，甚至是测试数据，不能让页面没有描述 */
+/* 描述只有一个来源：p.description。
+ * 2026-10-26 老板定：不再维护 seoDescription / seoTitle 两个字段（一份文案两处同步太多余）。
+ * 写了就当页面「项目概述」原样用 —— 想写多长写多长，正文越足越有内容价值；
+ * meta description 由 metaDescOf() 自己截，不需要你为 80 字上限单独写一句。
+ * 没写就按真实数据拼一句（55–80 字），图张数是真实数字，不编内容。 */
 function buildDesc(p) {
-    let d = String(p.seoDescription || p.description || '').trim();
-    if (!d || /^\d{4,}$/.test(d)) {
-        d = `${p.title}｜${catName(p)}设计案例。溪风设计（XIFOFLY）为该客户提供了${catName(p)}服务，点击查看完整作品图集与设计说明。`;
-    }
-    return d;
+    const raw = String(p.description || '').trim();
+    /* 纯数字（666666 这类测试垃圾）当没写处理 */
+    if (raw && !/^\d{4,}$/.test(raw)) return raw;
+    const n = (p.gallery && p.gallery.length) || (p.image ? 1 : 0);
+    const cat = catName(p);
+    /* 由短到长，挑第一句落在 55–80 字的。句式统一成「品牌 + 分类 + 标题」开头：
+     * 标题放在「」里，长短都不会把句子读成病句。事实只有三项：作者、分类、图张数；
+     * 「点击放大 / 按原比例展示」是案例页灯箱真实具备的，不编设计故事。 */
+    const cands = [
+        `溪风设计（XIFOFLY）的${cat}案例「${p.title}」，收录 ${n} 张作品图，可点击放大查看细节。`,
+        `溪风设计（XIFOFLY）的${cat}案例「${p.title}」，收录 ${n} 张作品图，可点击放大查看细节，图片按原比例展示。`,
+        `溪风设计（XIFOFLY）的${cat}案例「${p.title}」为本项目完整作品集，收录 ${n} 张作品图，可点击放大查看细节，图片按原比例展示。`
+    ];
+    const fit = cands.filter(function (c) { return c.length >= 55 && c.length <= 80; })[0];
+    if (fit) return fit;
+    /* 长标题怎么拼都超 80：挑一个离 68 字最近的 */
+    return cands.reduce(function (a, b) {
+        return Math.abs(b.length - 68) < Math.abs(a.length - 68) ? b : a;
+    });
+}
+
+/* meta description：从完整描述里切出 55–80 字，尽量落在句末标点上。
+ * 这样老板写描述只管把事说清楚，不用为了「别超 80 字」故意写短 —— 一段 150 字的概述
+ * 页面正文照样完整渲染，进 <meta> 的只是前面完整的那几句。 */
+function metaDescOf(p) {
+    const full = buildDesc(p).trim();
+    if (full.length <= 80) return full;
+    const seg = full.slice(0, 80);
+    /* 优先在句末断（。！？；），其次逗号、顿号，都没有才硬切 */
+    const strong = Math.max(seg.lastIndexOf('。'), seg.lastIndexOf('！'), seg.lastIndexOf('？'), seg.lastIndexOf('；'));
+    if (strong >= 40) return seg.slice(0, strong + 1);
+    const weak = Math.max(seg.lastIndexOf('，'), seg.lastIndexOf('、'));
+    if (weak >= 40) return seg.slice(0, weak) + '。';
+    return seg.replace(/[，、；：]$/, '') + '。';
 }
 
 function buildKeywords(p) {
@@ -214,11 +247,13 @@ function page(p, prev, next, related) {
         if (t.length < 20) t = baseTitle + `与作品｜溪风设计`;
         return t;
     })();
-    const title = p.seoTitle || autoTitle;
+    /* 标题同样只有一个来源：p.title（autoTitle 就是在它基础上加分类与品牌，并压到 20–32 字） */
+    const title = autoTitle;
     const desc = buildDesc(p);
-    /* 项目概述优先用数据里真实写的 description，没有才用兜底文案 */
-    const rawDesc = String(p.description || '').trim();
-    const overview = (rawDesc && !/^\d{4,}$/.test(rawDesc)) ? rawDesc : desc;
+    /* 概述与描述同源：写了就是原文（想多长都行），没写是自动句 */
+    const overview = desc;
+    /* 进 <meta>/og 的版本：超长在句末切到 55–80 字，页面正文不受影响 */
+    const metaDesc = metaDescOf(p);
     const cover = p.image || (p.gallery && p.gallery[0]) || '';
     const gallery = (p.gallery && p.gallery.length ? p.gallery : [cover]).filter(Boolean);
 
@@ -292,10 +327,10 @@ function page(p, prev, next, related) {
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <base href="../"/>
 <title>${esc(title)}</title>
-<meta name="description" content="${esc(desc)}"/>
+<meta name="description" content="${esc(metaDesc)}"/>
 <meta name="keywords" content="${esc(buildKeywords(p))}"/>
 <meta property="og:title" content="${esc(title)}"/>
-<meta property="og:description" content="${esc(desc)}"/>
+<meta property="og:description" content="${esc(metaDesc)}"/>
 <meta property="og:type" content="article"/>
 <meta property="og:url" content="${esc(url)}"/>
 <meta property="og:image" content="${esc(SITE_URL)}/${esc(cover)}"/>
