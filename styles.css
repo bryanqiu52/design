@@ -4456,6 +4456,24 @@ img.loaded {
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
+/* 正文并排图：<!--imgrow:2--> / <!--imgrow:3--> 由 build-blog.js 渲染成 figure.img-row
+ * 单张图不走这里，仍是上面的通栏大图。margin 必须归零，否则继承上面那行的 1.5rem
+ * 把格子挤歪；display:block 消掉 img 默认的行内基线缝隙。 */
+.blog-detail-content figure.img-row {
+    display: grid;
+    gap: 12px;
+    margin: 1.5rem 0;
+    align-items: start;   /* 顶部对齐、不裁切：同组图比例不同时底部允许参差，作品图不切边 */
+}
+.blog-detail-content figure.img-row.n2 { grid-template-columns: 1fr 1fr; }
+.blog-detail-content figure.img-row.n3 { grid-template-columns: 1fr 1fr 1fr; }
+.blog-detail-content figure.img-row img {
+    width: 100%;
+    height: auto;
+    margin: 0;
+    display: block;
+}
+
 /* 引用块：整块淡绿底 + 四角圆角 + 引号，与 h2 的"细条"区分开 */
 .blog-detail-content blockquote {
     position: relative;
@@ -4836,6 +4854,11 @@ img.loaded {
 
     .blog-detail-content h3 {
         font-size: 1.12rem;
+    }
+
+    /* 手机上三栏每张不足 100px，看不清，统一塌成一列；两栏保持并排 */
+    .blog-detail-content figure.img-row.n3 {
+        grid-template-columns: 1fr;
     }
 
     /* 小屏表格：允许横向滚动，别把版式撑破 */

@@ -114,16 +114,59 @@ function parseFrontmatter(raw) {
     return { meta, body: body.trim() };
 }
 
+/* ---------- 正文并排图（<!--imgrow:N-->）----------
+ * 写作台出稿时在并排组前落一行 <!--imgrow:2--> 或 <!--imgrow:3-->，紧跟 N 个 ![]()
+ * 就渲染成一行 N 栏；没有这个标记的图仍是一张一行通栏。
+ *
+ * 必须在 marked 之前转成 HTML：figure 属 CommonMark 的 block tag，独占一行 + 前后留空行
+ * 时 marked 会原样透传，块内不再做 markdown 解析 —— 所以 src / alt 得在这里自己转义。
+ * 组内不足 2 张 → 退化单图、标记丢弃（绝不报错，写歪了只是不并排）。
+ * ⚠️ public/v2/js/preview.js 里有同名同算法的副本，改这里要点名同步那边。 */
+const IMGROW_RE = /^<!--\s*imgrow\s*:\s*([23])\s*-->\s*$/i;
+const IMGROW_IMG_RE = /^!\[([^\]]*)\]\(\s*([^)\s]+)(?:\s+"[^"]*")?\s*\)\s*$/;
+
+function preRenderImgRows(md) {
+    const lines = String(md || '').split(/\r?\n/);
+    const out = [];
+    for (let i = 0; i < lines.length; i++) {
+        const rowM = IMGROW_RE.exec(lines[i].trim());
+        if (!rowM) { out.push(lines[i]); continue; }
+        const want = parseInt(rowM[1], 10);
+        const picked = [];
+        let j = i + 1, blanks = 0;
+        while (j < lines.length && picked.length < want) {
+            const t = lines[j].trim();
+            if (!t) { if (++blanks > 2) break; j++; continue; }   /* 组内最多容忍 2 个空行 */
+            const im = IMGROW_IMG_RE.exec(t);
+            if (!im) break;                                        /* 正文 / 标题 / 另一个标记 → 组到此为止 */
+            picked.push({ alt: im[1] || '', src: im[2], raw: t });
+            blanks = 0;
+            j++;
+        }
+        if (picked.length < 2) {
+            picked.forEach(p => { out.push(p.raw); out.push(''); });
+            i = j - 1;
+            continue;
+        }
+        out.push('', '<figure class="img-row n' + picked.length + '">');
+        picked.forEach(p => out.push('  <img src="' + esc(p.src) + '" alt="' + esc(p.alt) + '" loading="lazy">'));
+        out.push('</figure>', '');
+        i = j - 1;
+    }
+    return out.join('\n');
+}
+
 /* Markdown -> HTML（返回 { html, headings }） */
 function renderMarkdown(body) {
     let html;
+    const src = preRenderImgRows(body);
     if (marked && typeof marked.parse === 'function') {
         try {
             if (marked.setOptions) marked.setOptions({ breaks: true, gfm: true, headerIds: false, mangle: false });
-            html = marked.parse(body);
+            html = marked.parse(src);
         } catch (e) { html = null; }
     }
-    if (html == null) html = '<pre>' + esc(body) + '</pre>';
+    if (html == null) html = '<pre>' + esc(src) + '</pre>';
     return normalizeTaskList(html);
 }
 
