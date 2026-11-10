@@ -349,18 +349,17 @@ ${jsonLdHtml}
 <script src="js/spark.js"></script>
 
 <div id="site-nav"></div>
-<nav class="breadcrumb" aria-label="面包屑">
-    <a href="index.html">首页</a>
-    <span class="breadcrumb-sep">/</span>
-    <a href="cases">案例</a>
-    <span class="breadcrumb-sep">/</span>
-    <span class="breadcrumb-current">${esc(p.title)}</span>
-</nav>
-
 
 <section class="project-hero">
     <div class="page-aurora"></div>
     <div class="project-hero-container">
+        <nav class="breadcrumb" aria-label="面包屑">
+            <a href="index.html">首页</a>
+            <span class="breadcrumb-sep">/</span>
+            <a href="cases">案例</a>
+            <span class="breadcrumb-sep">/</span>
+            <span class="breadcrumb-current">${esc(p.title)}</span>
+        </nav>
         <div class="project-hero-left">
             <div class="project-hero-top">
                 <span class="project-category">${esc(catName(p))}</span>

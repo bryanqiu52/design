@@ -2734,6 +2734,17 @@ html {
     z-index: 1;
 }
 
+/* 案例详情：面包屑是 project-hero 容器的第一行，占满整行、与下方内容同左边界。
+   不要把它裸放在 body 里 —— 那样会贴页面左上角、被固定导航（top:20px + 62px）压住，
+   还跟 1600px 的内容区左右错位。
+   网格 gap 是全行统一的，没法只改第一行；用负 margin 把面包屑这行的 3rem 抵掉 1.5rem，
+   留 24px（与博客详情页面包屑到分类的间距一致）。窄屏 gap 变 2rem，抵值在 1024 断点里改成 0.5rem，
+   两档都落在 24px。 */
+.project-hero-container > .breadcrumb {
+    grid-column: 1 / -1;
+    margin-bottom: -1.5rem;
+}
+
 .project-hero-left {
     display: flex;
     flex-direction: column;
@@ -2978,6 +2989,11 @@ html {
         grid-template-columns: 1fr;
         gap: 2rem;
         padding: 0 20px;
+    }
+
+    /* 窄屏 gap 2rem，抵 0.5rem → 面包屑到内容仍是 24px */
+    .project-hero-container > .breadcrumb {
+        margin-bottom: -0.5rem;
     }
     
     .project-hero h1 {
