@@ -30,6 +30,7 @@
     --secondary-25: rgba(200,255,62,0.25);
     --secondary-30: rgba(200,255,62,0.3);
     --secondary-35: rgba(200,255,62,0.35);
+    --secondary-45: rgba(200,255,62,0.45);
     --secondary-50: rgba(200,255,62,0.5);
     
     /* 发光效果 */
@@ -4398,6 +4399,47 @@ img.loaded {
     color: var(--text);
     scroll-margin-top: 110px;
 }
+
+/* ========== 区块标记（母稿放开结构 2026-11-10 D 官网认 blk）==========
+ * build-blog.js 把 <!--blk:类型--> + 后续内容包进 .blk.blk-类型 div。
+ * 母稿结构语义类型：quote / data / list / compare / conclusion / question
+ * 通用：所有 blk 块统一微灰底 + 圆角，视觉上从正文里"提"出来 */
+.blog-detail-content .blk {
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.025);
+    padding: 0.2rem 1.4rem 0.3rem;
+    margin: 1rem -0.8rem 1rem;
+}
+
+/* 类型化：每种类型给一条不同的左边线颜色（品牌绿系同宗，深浅略异不抢） */
+.blog-detail-content .blk-quote {
+    border-left: 3px solid var(--secondary-45);   /* 荧光绿 45% → 引语块偏亮 */
+}
+.blog-detail-content .blk-data {
+    border-left: 3px solid var(--secondary-25);   /* 荧光绿 25% → 数据块偏暗（表格多，不跳） */
+}
+.blog-detail-content .blk-list {
+    border-left: 3px solid var(--secondary-35);   /* 中间值 */
+}
+.blog-detail-content .blk-compare {
+    border-left: 3px solid var(--secondary);       /* 满格 → 两方对照最显眼 */
+}
+.blog-detail-content .blk-conclusion {
+    border-left: 3px solid var(--secondary-35);
+}
+.blog-detail-content .blk-question {
+    border-left: 3px solid var(--secondary-25);
+}
+
+/* blk 里的 h2 紧贴容器上边距：去掉它正常的 2.8rem 上边距 */
+.blog-detail-content .blk h2:first-child {
+    margin-top: 1.4rem;
+}
+.blog-detail-content .blk h3:first-child {
+    margin-top: 1.2rem;
+}
+
+/* ========== 区块标记 END ========== */
 
 .blog-detail-content .blog-lead {
     font-size: 1.2rem;

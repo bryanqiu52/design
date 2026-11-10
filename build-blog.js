@@ -167,13 +167,82 @@ function renderMarkdown(body) {
         } catch (e) { html = null; }
     }
     if (html == null) html = '<pre>' + esc(src) + '</pre>';
-    return normalizeTaskList(html);
+    return processBlkMarkers(normalizeTaskList(html));
 }
 
 /* 给任务列表项加 task-list-item 类（marked 只输出 <li><input ...>），
  * 便于 CSS 精准控制勾选框样式 */
 function normalizeTaskList(html) {
     return html.replace(/<li>(\s*<input[^>]*type="checkbox"[^>]*>)/gi, '<li class="task-list-item">$1');
+}
+
+/* ---------- 区块标记（母稿放开结构 2026-11-10 D 官网认 blk）----------
+ * 母稿作者在 Markdown 里写 <!--blk:类型--> 独占一行（紧挨着 ## 小标题上一行），
+ * marked 会把它原样保留成 HTML 注释。
+ * 这里把「标记 + 它后面直到下一个标记/文章结尾的所有兄弟块元素」包进
+ * <div class="blk blk-类型">，让 CSS 能给不同区块上不同版式。
+ *
+ * 支持的类型（母稿提示词里定义的结构语义）：
+ *   quote（引语/金句）、data（数字/表格）、list（并列经验）、
+ *   compare（两方对照）、conclusion（收尾判断）、question（待解问题）
+ * 未知类型 → 退化成 class="blk"，不报错。 */
+function processBlkMarkers(html) {
+    const BLK_RE = /\s*<!--\s*blk\s*:\s*([a-zA-Z]+)\s*-->\s*\n?/g;
+
+    // 先把所有 <!--blk:类型--> 注释位置和类型记下来
+    const markers = [];
+    let m;
+    while ((m = BLK_RE.exec(html)) !== null) {
+        markers.push({ type: (m[1] || '').toLowerCase(), index: m.index, len: m[0].length });
+    }
+    if (markers.length === 0) return html;
+
+    // 每个标记 → 找它"后面那个兄弟块元素"的起始位置
+    // 然后收集从那个块开始到下一个标记之前的所有兄弟块，包进 <div class="blk blk-类型">
+    //
+    // 块元素：h2/h3/h4/p/ul/ol/blockquote/pre/table
+    const BLOCK_TAG = /<(h[2-4]|p|ul|ol|blockquote|pre|table)(\s|>)/i;
+    const blockCloseOf = tag => '</' + tag.toLowerCase() + '>';
+
+    let out = html;
+    // 倒序处理（后面的标记先包，不会影响前面的 index）
+    for (let i = markers.length - 1; i >= 0; i--) {
+        const mk = markers[i];
+        const openTag = '<div class="blk' + (mk.type ? ' blk-' + mk.type : '') + '">';
+        const closeTag = '</div>';
+
+        // 找到这个标记后面的第一个块元素
+        const searchFrom = mk.index + mk.len;
+        const tagMatch = out.slice(searchFrom).match(BLOCK_TAG);
+        if (!tagMatch) {
+            // 标记后面没块了 → 只删注释，不包
+            out = out.slice(0, mk.index) + out.slice(searchFrom);
+            continue;
+        }
+        const blockStart = searchFrom + tagMatch.index;
+        const tagName = tagMatch[1].toLowerCase();
+
+        // 找到"到下一个标记之前"所有兄弟块的总范围
+        // 下一个标记的起始位置（或文章结尾）
+        const nextMk = markers[i + 1];
+        const rangeEnd = nextMk ? nextMk.index : out.length;
+
+        // 从 blockStart 往后找，直到在 rangeEnd 之前遇到一个块的闭合标签
+        // 这里简化处理：直接把 blockStart 到 rangeEnd 之间的内容包起来
+        // （因为母稿结构是 <!--blk:--> + 块标题 + 内容，整块到下一个 blk 之前都是这个类型）
+        const content = out.slice(blockStart, rangeEnd);
+
+        // 删掉注释本身（它在 mk.index 到 mk.index + mk.len）
+        // 包之前先把本标记的注释从原文里去掉
+        const beforeComment = out.slice(0, mk.index);
+        const afterComment = out.slice(searchFrom);  // 已经跳过注释
+        // 现在在 afterComment 里，blockStart 变成 blockStart - searchFrom
+        const relStart = blockStart - mk.len - mk.index + 0; // 重新算... 算了直接替换
+        // 更简单：把 out 里 [mk.index, rangeEnd) 这段换成 openTag + 内容 + closeTag
+        const cleaned = out.slice(0, mk.index) + openTag + out.slice(blockStart, rangeEnd) + closeTag + out.slice(rangeEnd);
+        out = cleaned;
+    }
+    return out;
 }
 
 /* 给 h2/h3 加锚点 id，并提取目录 */
