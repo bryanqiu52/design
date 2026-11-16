@@ -1,4 +1,18 @@
 /* ==================== */
+/* 正文字体：MiSans 可变字体（自托管子集）2026-11-16
+ * 来源：小米官方免费商用字体；授权要求注明使用了 MiSans（见页脚）
+ * font-weight 用标准 CSS 刻度 100-900，浏览器映射到字体内部 wght 轴(150-700)
+ * 字集外的生僻字会回退到后面的系统字体，不会出现豆腐块
+ * ==================== */
+@font-face {
+    font-family: 'MiSans VF';
+    src: url('vendor/fonts/MiSansVF.woff2') format('woff2');
+    font-weight: 150 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* ==================== */
 /* CSS 变量 - 主题系统 */
 /* ==================== */
 :root {
@@ -52,7 +66,7 @@
 }
 
 body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'MiSans VF', 'PingFang SC', 'Microsoft YaHei', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     background: var(--primary);
     color: var(--text);
     line-height: 1.6;
@@ -736,7 +750,7 @@ ul {
 }
 
 .marquee-track span {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'MiSans VF', 'PingFang SC', 'Microsoft YaHei', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     font-size: clamp(18px, 2vw, 28px);
     font-weight: 500;
     letter-spacing: -0.01em;
@@ -4441,15 +4455,16 @@ img.loaded {
 
 /* ========== 区块标记 END ========== */
 
+/* 正文亮度只在这里调亮，不动全站 --text-secondary 变量：避免导航/卡片一起变 */
 .blog-detail-content .blog-lead {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     line-height: 1.8;
-    color: var(--text-secondary);
+    color: rgba(255,255,255,0.72);
 }
 
 .blog-detail-content p {
-    color: var(--text-secondary);
-    font-size: 1.05rem;
+    color: rgba(255,255,255,0.72);
+    font-size: 1.15rem;
     line-height: 1.8;
     margin-bottom: 1.2rem;
 }

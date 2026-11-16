@@ -216,6 +216,8 @@
             '粤公网安备44030002018027号' +
             '</a>' +
             '</p>' +
+            /* MiSans 免费商用授权要求注明字体来源 */
+            '<p class="footer-police">本站字体：MiSans</p>' +
             '</div>' +
             '</div>' +
             '<div class="footer-col footer-col-center">' +
