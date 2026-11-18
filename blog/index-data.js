@@ -1,6 +1,22 @@
 // 自动生成，请勿手动编辑。单一数据源=blog/posts/*.md
 window.__blogIndex = [
     {
+        "slug": "label-text-rules",
+        "fileName": "label-text-rules.md",
+        "title": "标签上的字，到底谁说了算？",
+        "date": "2026-11-16",
+        "category": "包装设计",
+        "author": "溪风设计",
+        "cover": "images/blog/posts/label-text-rules/ct017-cover.jpg",
+        "coverAlt": "标签上的字，到底谁说了算？",
+        "excerpt": "那张比 A4 纸还大的女装吊牌，把「拆除不退不换」当成了最后一块自留地。文章从水洗标讲到食品营养标签，拆开哪些字法规硬性要求、哪些只是推荐性标准，以及版面里真正能动的那几毫米。",
+        "tags": [
+            "吊牌",
+            "视觉系统",
+            "营销设计"
+        ]
+    },
+    {
         "slug": "luxury-logo-brand-value",
         "fileName": "luxury-logo-brand-value.md",
         "title": "当品牌去掉 logo，你还会买吗",
