@@ -91,7 +91,7 @@
             </div>
             <div class="news-content">
                 <h3><a href="blog/luxury-logo-brand-value">当品牌去掉 logo，你还会买吗</a></h3>
-                <p>把 logo 从奢侈品上抹掉，认得出和愿意买单是两回事。这篇文章拆开品牌的两种价值，聊清楚哪些品牌去掉 logo 还站得住、哪些去掉就什么都不剩，以及设计师真正该建的是哪一层东西。META</p>
+                <p>把 logo 从奢侈品上抹掉，认得出和愿意买单是两回事。这篇文章拆开品牌的两种价值，聊清楚哪些品牌去掉 logo 还站得住、哪些去掉就什么都不剩，以及设计师真正该建的是哪一层东西。</p>
                 <div class="news-meta">
                     <span class="news-author"><i class="fas fa-user"></i> 溪风设计</span>
                     <span class="news-date"><i class="far fa-calendar"></i> 2026-10-12</span>
@@ -215,7 +215,27 @@ const BLOG_POSTS_DATA = (window.__blogIndex && Array.isArray(window.__blogIndex)
     ? window.__blogIndex
     : [];
 
-const BLOG_ITEMS_PER_PAGE = 3;
+// 单页最多放 4 篇；实际每页几条由 blogPagePlan() 均分算出来（7 篇 = 4+3，9 篇 = 3+3+3），
+// 免得出现「最后一页只剩 1 篇」这种尾巴。
+const BLOG_MAX_PER_PAGE = 4;
+
+// 分页方案：页数 = ceil(总数/上限)，再把条数均匀铺到各页（各页相差不超过 1）
+function blogPagePlan(total) {
+    const pages = Math.max(1, Math.ceil(total / BLOG_MAX_PER_PAGE));
+    const base = Math.floor(total / pages);
+    const rem = total % pages;
+    const sizes = [];
+    const starts = [];
+    let offset = 0;
+    for (let i = 0; i < pages; i++) {
+        starts.push(offset);
+        const size = base + (i < rem ? 1 : 0);
+        sizes.push(size);
+        offset += size;
+    }
+    return { pages, sizes, starts };
+}
+
 let currentBlogFilter = 'all';
 let currentBlogPage = 1;
 let filteredBlogPosts = [];
@@ -260,18 +280,20 @@ function renderBlogList() {
         return;
     }
     
-    const start = (currentBlogPage - 1) * BLOG_ITEMS_PER_PAGE;
-    const end = start + BLOG_ITEMS_PER_PAGE;
-    const postsToShow = filteredBlogPosts.slice(start, end);
+    const plan = blogPagePlan(filteredBlogPosts.length);
+    if (currentBlogPage > plan.pages) currentBlogPage = plan.pages;
+    const start = plan.starts[currentBlogPage - 1];
+    const pageSize = plan.sizes[currentBlogPage - 1];
+    const postsToShow = filteredBlogPosts.slice(start, start + pageSize);
     
     container.innerHTML = postsToShow.map((post, index) => `
         <article class="news-item">
-            <div class="news-image">
+            ${post.cover ? `<div class="news-image">
                 <a href="blog/${post.slug}">
-                    <img src="${post.cover || ''}" alt="${post.coverAlt || post.title || ''}" loading="lazy"
-                         onerror="this.style.display='none'; if(this.parentElement) this.parentElement.classList.add('img-placeholder');">
+                    <img src="${post.cover}" alt="${post.coverAlt || post.title || ''}" loading="lazy"
+                         onerror="this.parentElement.parentElement.style.display='none';">
                 </a>
-            </div>
+            </div>` : ''}
             <div class="news-content">
                 <h3><a href="blog/${post.slug}">${post.title || '未命名文章'}</a></h3>
                 <p>${post.excerpt || ''}</p>
@@ -295,7 +317,7 @@ function renderBlogList() {
 }
 
 function renderBlogPagination() {
-    const totalPages = Math.ceil(filteredBlogPosts.length / BLOG_ITEMS_PER_PAGE);
+    const totalPages = blogPagePlan(filteredBlogPosts.length).pages;
     const paginationContainer = document.getElementById('paginationContainer');
     const paginationNumbers = document.getElementById('paginationNumbers');
     const paginationInfo = document.getElementById('paginationInfo');
@@ -407,14 +429,15 @@ function renderBlogPagination() {
         }
     }
 
-    const startItem = (currentBlogPage - 1) * BLOG_ITEMS_PER_PAGE + 1;
-    const endItem = Math.min(currentBlogPage * BLOG_ITEMS_PER_PAGE, filteredBlogPosts.length);
+    const plan = blogPagePlan(filteredBlogPosts.length);
+    const startItem = plan.starts[currentBlogPage - 1] + 1;
+    const endItem = plan.starts[currentBlogPage - 1] + plan.sizes[currentBlogPage - 1];
     paginationInfo.textContent = `共 ${filteredBlogPosts.length} 篇文章，当前显示 ${startItem}-${endItem} 篇`;
 }
 
 function handleBlogJumpInput() {
     const input = document.getElementById('jumpInput');
-    const totalPages = Math.ceil(filteredBlogPosts.length / BLOG_ITEMS_PER_PAGE);
+    const totalPages = blogPagePlan(filteredBlogPosts.length).pages;
     const pageNum = parseInt(input.value);
     
     if (!isNaN(pageNum) && pageNum >= 1 && pageNum <= totalPages) {
@@ -435,7 +458,7 @@ function goToPrevBlogPage() {
 }
 
 function goToNextBlogPage() {
-    const totalPages = Math.ceil(filteredBlogPosts.length / BLOG_ITEMS_PER_PAGE);
+    const totalPages = blogPagePlan(filteredBlogPosts.length).pages;
     if (currentBlogPage < totalPages) {
         currentBlogPage++;
         renderBlogList();

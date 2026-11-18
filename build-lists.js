@@ -36,11 +36,11 @@ const TARGETS = {
 };
 
 /* 首屏条数必须与页面里的 JS 常量一致：
-   cases.html 的 pageSize 默认 8；blog.html 的 BLOG_ITEMS_PER_PAGE = 3；首页博客取 4 篇。
+   cases.html 的 pageSize 默认 8；blog.html 单页最多 4 篇（blogPagePlan 均分，避免最后一页只剩 1 篇）；首页博客取 3 篇（大卡 + 右栏 2 张小卡，一屏放得下）。
    改了页面里的常量，这里跟着改，否则静态首屏和 JS 渲染会对不上（会闪一下）。 */
 const CASES_PER_PAGE = 8;
 const BLOG_PER_PAGE = 3;
-const HOME_BLOG_COUNT = 4;
+const HOME_BLOG_COUNT = 3;
 
 /* ---------- 工具 ---------- */
 function esc(s) {
@@ -177,6 +177,7 @@ ${minis.map((post, i) => `            <article class="blog-card-mini" data-anima
                 <div class="blog-mini-content">
                     <span class="blog-mini-category">${esc(post.category || '')}</span>
                     <div class="blog-mini-title">${esc(post.title || post.slug || '未命名文章')}</div>
+                    <p class="blog-mini-excerpt">${esc(post.excerpt || '')}</p>
                     <div class="blog-mini-meta">
                         <span><i class="fas fa-user"></i> ${esc(post.author || '')}</span>
                         <span><i class="far fa-calendar"></i> ${esc(post.date || '')}</span>
@@ -265,3 +266,5 @@ function buildLists() {
 module.exports = { buildLists };
 
 if (require.main === module) buildLists();
+
+

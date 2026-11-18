@@ -341,7 +341,7 @@
             <div class="blog-content">
                 <span class="blog-category">品牌设计</span>
                 <h3><a href="blog/luxury-logo-brand-value">当品牌去掉 logo，你还会买吗</a></h3>
-                <p>把 logo 从奢侈品上抹掉，认得出和愿意买单是两回事。这篇文章拆开品牌的两种价值，聊清楚哪些品牌去掉 logo 还站得住、哪些去掉就什么都不剩，以及设计师真正该建的是哪一层东西。META</p>
+                <p>把 logo 从奢侈品上抹掉，认得出和愿意买单是两回事。这篇文章拆开品牌的两种价值，聊清楚哪些品牌去掉 logo 还站得住、哪些去掉就什么都不剩，以及设计师真正该建的是哪一层东西。</p>
                 <div class="blog-meta">
                     <span class="blog-author"><i class="fas fa-user"></i> 溪风设计</span>
                     <span class="blog-date"><i class="far fa-calendar"></i> 2026-10-12</span>
@@ -357,6 +357,7 @@
                 <div class="blog-mini-content">
                     <span class="blog-mini-category">包装设计</span>
                     <div class="blog-mini-title">包装设计如何提升产品价值</div>
+                    <p class="blog-mini-excerpt">探讨包装设计在产品营销中的重要作用。好的包装设计能够在货架上脱颖而出，讲述品牌故事。</p>
                     <div class="blog-mini-meta">
                         <span><i class="fas fa-user"></i> 溪风设计</span>
                         <span><i class="far fa-calendar"></i> 2024-01-05</span>
@@ -371,23 +372,10 @@
                 <div class="blog-mini-content">
                     <span class="blog-mini-category">电商设计</span>
                     <div class="blog-mini-title">电商视觉设计的转化密码</div>
+                    <p class="blog-mini-excerpt">揭秘高转化电商页面的设计秘诀。视觉层级分明、高质量产品图片和营造紧迫感是关键要素。</p>
                     <div class="blog-mini-meta">
                         <span><i class="fas fa-user"></i> 溪风设计</span>
                         <span><i class="far fa-calendar"></i> 2024-01-01</span>
-                    </div>
-                </div>
-            </article>
-            <article class="blog-card-mini" data-animate style="animation-delay: 0.3s" onclick="location.href='blog/brand-vi-guide'">
-                <div class="blog-mini-image">
-                    <img src="images/blog/brand-vi-guide.webp" alt="品牌VI系统建设指南" loading="lazy"
-                         onerror="this.style.display='none'; let p=this.closest('.blog-mini-image'); if(p) p.classList.add('img-placeholder');">
-                </div>
-                <div class="blog-mini-content">
-                    <span class="blog-mini-category">品牌设计</span>
-                    <div class="blog-mini-title">品牌VI系统建设指南</div>
-                    <div class="blog-mini-meta">
-                        <span><i class="fas fa-user"></i> 溪风设计</span>
-                        <span><i class="far fa-calendar"></i> 2023-12-28</span>
                     </div>
                 </div>
             </article>
@@ -478,7 +466,7 @@ function loadBlogPosts() {
         container.innerHTML = '<div style="text-align: center; padding: 40px; color: rgba(255,255,255,0.6);"><i class="fas fa-file-alt" style="font-size: 48px; margin-bottom: 16px; display: block;"></i><h3 style="margin-bottom: 8px;">暂无博客文章</h3><p style="opacity:0.8; font-size:14px;">如果是在后台预览：请在博客管理点「重新扫描」生成索引。如果是 GitHub Pages：确保 blog/index.json 已 push。</p></div>';
         return;
     }
-    const latestPosts = posts.slice(0, 4);
+    const latestPosts = posts.slice(0, 3);
     const featuredPost = latestPosts[0];
     const miniPosts = latestPosts.slice(1);
     container.innerHTML = `
@@ -509,6 +497,7 @@ function loadBlogPosts() {
                     <div class="blog-mini-content">
                         <span class="blog-mini-category">${post.category || ''}</span>
                         <div class="blog-mini-title">${post.title || post.slug || '未命名文章'}</div>
+                        <p class="blog-mini-excerpt">${post.excerpt || ''}</p>
                         <div class="blog-mini-meta">
                             <span><i class="fas fa-user"></i> ${post.author || ''}</span>
                             <span><i class="far fa-calendar"></i> ${post.date || ''}</span>

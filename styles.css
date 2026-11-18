@@ -3785,7 +3785,8 @@ img.loaded {
 /* 博客板块样式 - 首页 */
 /* ==================== */
 .blog-section {
-    padding: 6rem 0;
+    /* 首页博客区要在首屏看到底，上下留白和头尾间距都比其它分区收一档 */
+    padding: 3rem 0;
     background: transparent;
     min-height: 100vh;
     display: flex;
@@ -3793,90 +3794,117 @@ img.loaded {
     justify-content: safe center;
 }
 
+.blog-section .section-header {
+    margin-bottom: 2rem;
+}
+
+.blog-section .view-all-wrap {
+    margin-top: 1.5rem;
+}
+
+/* 首页博客：一带多（左边一张大卡 + 右栏三张小卡）
+   小卡统一改成「上图下文」：封面满宽 16:9 贴顶，文字紧贴其下，卡内不留上下空隙 */
 .blog-grid {
     display: grid;
-    grid-template-columns: 1fr 380px;
+    /* 大头给右栏（32%）：大卡窄一点、三张里留两张小卡，整块高度才压得回一屏 */
+    grid-template-columns: minmax(0, 1fr) min(520px, 34.5%);
     gap: 1.5rem;
+    /* 两列底边对齐：右栏按自己的小卡堆高，大卡跟着行高走，多余空间落在卡内文字下方 */
     align-items: stretch;
 }
 
-.blog-card-featured {
+.blog-card-featured,
+.blog-card-mini {
     position: relative;
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 20px;
+    border-radius: 18px;
     overflow: hidden;
     transition: all 0.4s ease;
+}
+
+/* 大卡：封面在上、文字在下 */
+.blog-card-featured {
     display: flex;
     flex-direction: column;
 }
 
-.blog-card-featured:hover {
-    transform: translateY(-4px);
+/* 小卡：封面在上、文字在下，图片顶到卡片边缘（卡内上下不留白） */
+.blog-card-mini {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 0;
+    /* 不拉伸：小卡按自己的内容收高，多出来的空间留在右栏底部，
+       而不是把空白塞进每张卡的文字下面 */
+    flex: 0 0 auto;
+    min-height: 0;
+    cursor: pointer;
+}
+
+.blog-card-featured:hover,
+.blog-card-mini:hover {
+    transform: translateY(-6px);
     border-color: var(--secondary-25);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.25);
-}
-
-.blog-card-featured .blog-image {
-    flex-shrink: 0;
-    height: 220px;
-    overflow: hidden;
-}
-
-.blog-card-featured .blog-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.6s ease;
-}
-
-.blog-card-featured:hover .blog-image img {
-    transform: scale(1.04);
-}
-
-.blog-card-featured .blog-content {
-    padding: 1.75rem;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
 }
 
 .blog-card-list {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.75rem;
+    min-width: 0;
 }
 
-.blog-card-mini {
-    display: flex;
-    gap: 1.2rem;
-    padding: 1.1rem;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 14px;
-    transition: all 0.35s ease;
-    cursor: pointer;
+.blog-card-featured .blog-image-link {
+    display: block;
 }
 
-.blog-card-mini:hover {
-    transform: translateX(6px);
-    border-color: var(--secondary-25);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-}
-
-.blog-card-mini .blog-mini-image {
-    width: 90px;
-    height: 65px;
-    border-radius: 10px;
+/* 封面统一口径：2.35:1（等于公众号封面的尺寸标准，一张图两处通用，不必另做）。
+   展示按宽度定高，不套 16:9 硬框 —— 图与卡片边缘永远贴合，也不裁掉内容。 */
+.blog-card-featured .blog-image {
+    width: 100%;
     overflow: hidden;
     flex-shrink: 0;
 }
 
+.blog-card-mini .blog-mini-image {
+    width: 100%;
+    border-radius: 0;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.blog-card-featured .blog-image img,
 .blog-card-mini .blog-mini-image img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
     display: block;
+    transition: transform 0.6s ease;
+}
+
+/* 封面不放大：16:9 以外的原图整张显示，绝不裁掉内容 */
+.blog-card-featured:hover .blog-image img,
+.blog-card-mini:hover .blog-mini-image img {
+    transform: none;
+}
+
+.blog-card-featured .blog-content {
+    padding: 1.4rem;
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.blog-card-mini .blog-mini-content {
+    padding: 0.8rem 0.95rem 0.85rem;
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
 /* 首页/详情页图片容器：默认不画渐变，真实图加载成功就完全干净不扎眼；
@@ -3890,6 +3918,8 @@ img.loaded {
 .blog-card-featured .blog-image.img-placeholder,
 .blog-card-mini .blog-mini-image.img-placeholder,
 .blog-detail-image.img-placeholder {
+    /* 图裂了/没封面时撑出 2.35:1 的渐变占位块 —— 正常封面按宽度自然定高，不需要固定比例 */
+    aspect-ratio: 2.35 / 1;
     background: linear-gradient(135deg, #00cec9 0%, #0984e3 50%, #6c5ce7 100%);
 }
 .blog-card-featured .blog-image.img-placeholder::before,
@@ -3910,93 +3940,104 @@ img.loaded {
     display: block; /* 取消 img 内联默认的 3-4px 下边距间隙 */
 }
 
-.blog-card-mini .blog-mini-content {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
+.blog-card-featured .blog-content h3,
 .blog-card-mini .blog-mini-title {
-    font-size: 0.92rem;
-    font-weight: 600;
-    color: var(--text);
-    margin-bottom: 0.4rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    transition: color 0.3s ease;
-}
-
-.blog-card-mini:hover .blog-mini-title {
-    color: var(--secondary);
-}
-
-.blog-card-mini .blog-mini-meta {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    font-size: 0.78rem;
-    color: var(--text-secondary);
-}
-
-.blog-card-mini .blog-mini-category {
-    display: inline-block;
-    padding: 0.2rem 0.5rem;
-    background: var(--secondary-10);
-    border-radius: 8px;
-    font-size: 0.68rem;
-    font-weight: 500;
-    color: var(--secondary);
-}
-
-.blog-category {
-    display: inline-block;
-    padding: 0.4rem 1rem;
-    background: var(--secondary-10);
-    border-radius: 18px;
-    font-size: 0.72rem;
-    font-weight: 600;
-    color: var(--secondary);
-    margin-bottom: 0.9rem;
-}
-
-.blog-content h3 {
-    font-size: 1.4rem;
+    font-size: 1.05rem;
     font-weight: 700;
-    margin-bottom: 0.8rem;
     line-height: 1.45;
-}
-
-.blog-content h3 a {
+    margin-bottom: 0.6rem;
     color: var(--text);
-    transition: color 0.3s ease;
-}
-
-.blog-content h3 a:hover {
-    color: var(--secondary);
-}
-
-.blog-content p {
-    color: var(--text-secondary);
-    font-size: 0.92rem;
-    line-height: 1.7;
-    margin-bottom: 1.2rem;
+    white-space: normal;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    flex: 1;
+    transition: color 0.3s ease;
 }
 
-.blog-meta {
-    display: flex;
-    gap: 1.5rem;
+/* 大卡是这一屏的主角，字要压过右栏三张小卡 */
+.blog-card-featured .blog-content h3 {
+    font-size: 1.45rem;
+    line-height: 1.4;
+    margin-bottom: 0.7rem;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+}
+
+.blog-card-featured .blog-category {
+    font-size: 0.75rem;
+    padding: 0.26rem 0.7rem;
+}
+
+.blog-card-featured .blog-meta {
     font-size: 0.82rem;
+}
+
+.blog-card-featured .blog-content h3 a {
+    color: var(--text);
+    transition: color 0.3s ease;
+}
+
+.blog-card-featured:hover .blog-content h3 a,
+.blog-card-mini:hover .blog-mini-title {
+    color: var(--secondary);
+}
+
+.blog-card-featured .blog-content p,
+.blog-card-mini .blog-mini-excerpt {
     color: var(--text-secondary);
-    padding-top: 0.5rem;
+    font-size: 0.86rem;
+    line-height: 1.65;
+    margin-bottom: 0.9rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* 大卡的摘要要比小卡大一档；大卡很宽，摘要限宽免得一行拉太长不好读 */
+.blog-card-featured .blog-content p {
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    max-width: 660px;
+}
+
+/* 小卡只留「封面 + 标题 + 作者/日期」：分类标和摘要不进小卡。
+   三张上图下文竖排，每多一行字，整列就比大卡高出一截，卡里也会顶出上下空白 */
+.blog-card-mini .blog-mini-content .blog-mini-category,
+.blog-card-mini .blog-mini-content .blog-mini-excerpt {
+    display: none;
+}
+
+.blog-card-mini .blog-mini-title {
+    margin-bottom: 0.4rem;
+}
+
+.blog-meta,
+.blog-card-mini .blog-mini-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    margin-top: auto;
+    padding-top: 0.4rem;
+}
+
+.blog-card-mini .blog-mini-category,
+.blog-category {
+    display: inline-block;
+    align-self: flex-start;
+    padding: 0.22rem 0.6rem;
+    background: var(--secondary-10);
+    border-radius: 8px;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--secondary);
+    margin-bottom: 0.75rem;
 }
 
 .blog-author,
@@ -4015,38 +4056,43 @@ img.loaded {
 @media (max-width: 900px) {
     .blog-grid {
         grid-template-columns: 1fr;
-        gap: 1.2rem;
     }
-    
-    .blog-card-featured .blog-image {
-        height: 180px;
-    }
-    
-    .blog-card-list {
-        flex-direction: row;
-        overflow-x: auto;
-        padding-bottom: 0.5rem;
-        gap: 0.8rem;
-    }
-    
+
+    /* 单列时右栏那三张放满宽就太高了，退回「左图右文」的紧凑横条 */
     .blog-card-mini {
-        flex-shrink: 0;
-        width: 260px;
-        flex-direction: column;
-        gap: 0.8rem;
+        flex: none;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.9rem;
+        padding: 0.75rem;
     }
-    
+
     .blog-card-mini .blog-mini-image {
-        width: 100%;
-        height: 120px;
+        width: 168px;
+        border-radius: 10px;
     }
-    
-    .blog-card-mini .blog-mini-title {
-        white-space: normal;
+
+    .blog-card-mini .blog-mini-content {
+        padding: 0;
+        justify-content: center;
+    }
+
+    .blog-card-mini .blog-mini-content .blog-mini-category {
+        display: inline-block;
+    }
+
+    .blog-card-mini .blog-mini-content .blog-mini-excerpt {
         display: -webkit-box;
-        -webkit-line-clamp: 2;
-        line-clamp: 2;
-        -webkit-box-orient: vertical;
+    }
+}
+
+@media (max-width: 700px) {
+    .blog-grid {
+        gap: 1rem;
+    }
+
+    .blog-card-mini .blog-mini-image {
+        width: 130px;
     }
 }
 
@@ -4203,17 +4249,15 @@ img.loaded {
     width: calc(100% - 80px); /* 原来的 padding:0 40px 改成宽度扣掉 80，这样 img 能填满整个容器而不会在两侧露 padding 区域 */
     max-width: 1200px;
     margin: 2.5rem auto 0;
-    max-height: 500px;
     overflow: hidden;
     border-radius: 20px;
-    /* 强制 aspect-ratio 保持宽高比例一致，避免图片因尺寸不匹配 object-fit 导致两侧露背景 */
-    aspect-ratio: 1200 / 500;
+    /* 封面按图片自己比例、宽度定高度：16:9 的图正好铺满，非 16:9 的老图也不裁不裁留白 */
 }
 
 .blog-detail-image img {
+    display: block;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
 }
 
 .blog-detail-wrapper {
@@ -4289,7 +4333,7 @@ img.loaded {
 .sidebar-post-image img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
 }
 
 .sidebar-post-info {
@@ -4873,7 +4917,9 @@ img.loaded {
 
 .related-post .sidebar-post-image {
     width: 100%;
-    height: 130px;
+    height: auto;
+    /* 封面统一 2.35:1（与公众号封面同源），相关文章缩略图跟着同一口径 */
+    aspect-ratio: 2.35 / 1;
 }
 
 .blog-end-back {
@@ -4893,7 +4939,6 @@ img.loaded {
     .blog-detail-image {
         border-radius: 12px;
         padding: 0 20px;
-        max-height: 360px;
     }
 
     .related-posts-grid {
@@ -4911,7 +4956,6 @@ img.loaded {
     }
     
     .blog-detail-image {
-        max-height: 300px;
         margin-top: 1.5rem;
     }
     
@@ -5005,7 +5049,9 @@ img.loaded {
 }
 
 .news-image {
-    width: 220px;
+    /* 封面统一 2.35:1（公众号封面同尺寸），所以同样宽度下图比 16:9 矮一档，
+       宽度放到 440 让它在列表里仍有分量；高度仍按原图比例走，不裁不塞白 */
+    width: 440px;
     flex-shrink: 0;
     border-radius: 12px;
     overflow: hidden;
@@ -5013,9 +5059,7 @@ img.loaded {
 
 .news-image img {
     width: 100%;
-    height: 100%;
-    min-height: 150px;
-    object-fit: cover;
+    height: auto;
     transition: transform 0.4s ease;
     display: block; /* 取消 img 的内联元素默认下边距间隙 */
 }
@@ -5023,8 +5067,7 @@ img.loaded {
 /* 图片容器默认不画渐变/图标（避免真实图加载成功后还露边）。
    只有图片 onerror 时，父容器加 .img-placeholder 才显示渐变占位。 */
 .news-image {
-    min-height: 150px;
-    aspect-ratio: 220 / 150;
+    /* 宽度定死、高度跟着原图走：16:9 的封面出图自然就是 16:9，非 16:9 的图也不会被裁或被塞进留白框 */
     position: relative;
     overflow: hidden; /* 防止 object-fit 溢出超出圆角 */
     border-radius: inherit;
@@ -5046,8 +5089,9 @@ img.loaded {
     z-index: 1;
 }
 
+/* 不再放大，避免 16:9 以外的原图被裁出边缘 */
 .news-item:hover .news-image img {
-    transform: scale(1.05);
+    transform: none;
 }
 
 .news-content {
@@ -5132,7 +5176,7 @@ img.loaded {
     
     .news-image {
         width: 100%;
-        height: 200px;
+        height: auto;
     }
     
     .news-content {
@@ -6383,3 +6427,6 @@ img {
         height: 170px;
     }
 }
+
+
+
