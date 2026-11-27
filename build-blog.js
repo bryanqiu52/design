@@ -441,7 +441,7 @@ ${jsonLd}
 <div id="site-nav"></div>
 
 <article class="blog-detail" id="blogDetail">
-    <header class="blog-detail-header">
+    <header class="blog-detail-header"${p.cover ? '' : ' id="blog-start"'}>
         <div class="container">
             <nav class="breadcrumb" aria-label="面包屑导航">
                 <a href="./">首页</a>
@@ -468,14 +468,14 @@ ${jsonLd}
         </div>
     </header>
 
-    ${p.cover ? `<div class="blog-detail-image">
+    ${p.cover ? `<div class="blog-detail-image" id="blog-start">
         <img src="${esc(p.cover)}"${srcsetOf(p.cover, '(max-width: 900px) 100vw, 900px')} alt="${esc(p.coverAlt || p.title)}"
              onerror="this.style.display='none'; let p=this.closest('.blog-detail-image'); if(p) p.classList.add('img-placeholder');">
     </div>` : ''}
 
     <div class="container article-container">
         <div class="blog-detail-wrapper">
-            <section class="blog-detail-content" id="blog-start">
+            <section class="blog-detail-content">
 ${p.bodyHtml}
             </section>
 

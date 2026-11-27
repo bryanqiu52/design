@@ -4415,6 +4415,12 @@ img.loaded {
     font-size: 0.8rem;
 }
 
+/* 目录第一条「开篇」：落到封面图顶部，留出固定导航的高度，别盖住画面 */
+.blog-detail-image#blog-start,
+.blog-detail-header#blog-start {
+    scroll-margin-top: 110px;
+}
+
 .blog-detail-content h1 {
     font-size: 2.2rem;
     margin-bottom: 1.5rem;
