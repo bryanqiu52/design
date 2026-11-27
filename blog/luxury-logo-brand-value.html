@@ -66,7 +66,7 @@
 
     <div class="container article-container">
         <div class="blog-detail-wrapper">
-            <section class="blog-detail-content">
+            <section class="blog-detail-content" id="blog-start">
 <h2 id="blog-sec-0">品牌给人的东西，本来就有两种</h2>
 <p class="blog-lead">品牌附加在产品和 logo 上的价值，大致可以分两类。</p>
 <p>一类是<strong>荣誉感</strong>。买它、用它、被别人看到，这件事本身就是价值。男士的腕表、西装、皮鞋，女士的鞋、箱包、饰品，大多属于这一类。产品好不好当然重要，但真正让人掏钱的，是那个符号。</p>
@@ -108,6 +108,7 @@
                 <nav class="sidebar-section toc" id="blogToc">
                     <h3><i class="fas fa-list-ul"></i> 文章目录</h3>
                     <ul>
+                        <li class="toc-top"><a href="#blog-start">开篇</a></li>
                         <li class="toc-h2"><a href="#blog-sec-0">品牌给人的东西，本来就有两种</a></li>
                         <li class="toc-h2"><a href="#blog-sec-1">奢侈品卖的从来不是这件东西</a></li>
                         <li class="toc-h2"><a href="#blog-sec-2">没 logo 也认得出，靠的是另一套识别系统</a></li>
@@ -195,6 +196,19 @@
         });
     });
     var headings = Array.prototype.slice.call(document.querySelectorAll('.blog-detail-content h2, .blog-detail-content h3'));
+    /* 顶部那条「开篇」：还没滚到第一个小标题时点亮它 */
+    var startLink = toc.querySelector('a[href="#blog-start"]');
+    var firstH = headings[0] || null;
+    function syncTop() {
+        if (!startLink) return;
+        var t = firstH ? firstH.getBoundingClientRect().top : 1e9;
+        if (t > 120) {
+            links.forEach(function (a) { a.classList.remove('active'); });
+            startLink.classList.add('active');
+        }
+    }
+    window.addEventListener('scroll', syncTop, { passive: true });
+    syncTop();
     if (!headings.length || !('IntersectionObserver' in window)) return;
     var obs = new IntersectionObserver(function (entries) {
         entries.forEach(function (en) {

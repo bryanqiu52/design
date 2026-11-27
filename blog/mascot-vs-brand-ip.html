@@ -65,7 +65,7 @@
 
     <div class="container article-container">
         <div class="blog-detail-wrapper">
-            <section class="blog-detail-content">
+            <section class="blog-detail-content" id="blog-start">
 <p class="blog-lead">有人曾问过我，吉祥物和品牌 IP 到底差在哪。</p>
 <p>这个问题在报价单上最容易被糊过去：客户说要一个 IP，交回去的往往是一套三视图加六个表情包。双方都点头，因为没人说得清差在哪。</p>
 <p>十一月这轮「护送太子回京」，是个现成的例子。</p>
@@ -151,6 +151,7 @@
                 <nav class="sidebar-section toc" id="blogToc">
                     <h3><i class="fas fa-list-ul"></i> 文章目录</h3>
                     <ul>
+                        <li class="toc-top"><a href="#blog-start">开篇</a></li>
                         <li class="toc-h2"><a href="#blog-sec-0">1000 张图，共用一套模板</a></li>
                         <li class="toc-h2"><a href="#blog-sec-1">借势这笔账，为什么都算得过</a></li>
                         <li class="toc-h2"><a href="#blog-sec-2">吉祥物和品牌 IP，差的是工作量</a></li>
@@ -235,6 +236,19 @@
         });
     });
     var headings = Array.prototype.slice.call(document.querySelectorAll('.blog-detail-content h2, .blog-detail-content h3'));
+    /* 顶部那条「开篇」：还没滚到第一个小标题时点亮它 */
+    var startLink = toc.querySelector('a[href="#blog-start"]');
+    var firstH = headings[0] || null;
+    function syncTop() {
+        if (!startLink) return;
+        var t = firstH ? firstH.getBoundingClientRect().top : 1e9;
+        if (t > 120) {
+            links.forEach(function (a) { a.classList.remove('active'); });
+            startLink.classList.add('active');
+        }
+    }
+    window.addEventListener('scroll', syncTop, { passive: true });
+    syncTop();
     if (!headings.length || !('IntersectionObserver' in window)) return;
     var obs = new IntersectionObserver(function (entries) {
         entries.forEach(function (en) {

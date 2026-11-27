@@ -372,6 +372,7 @@ function postPage(p, prev, next, related) {
                 <nav class="sidebar-section toc" id="blogToc">
                     <h3><i class="fas fa-list-ul"></i> 文章目录</h3>
                     <ul>
+                        <li class="toc-top"><a href="#blog-start">开篇</a></li>
                         ${p.toc.map(it => `<li class="toc-${it.tag}"><a href="#${it.id}">${esc(it.text)}</a></li>`).join('\n                        ')}
                     </ul>
                 </nav>` : '';
@@ -474,7 +475,7 @@ ${jsonLd}
 
     <div class="container article-container">
         <div class="blog-detail-wrapper">
-            <section class="blog-detail-content">
+            <section class="blog-detail-content" id="blog-start">
 ${p.bodyHtml}
             </section>
 
@@ -532,6 +533,19 @@ ${relatedHtml}
         });
     });
     var headings = Array.prototype.slice.call(document.querySelectorAll('.blog-detail-content h2, .blog-detail-content h3'));
+    /* 顶部那条「开篇」：还没滚到第一个小标题时点亮它 */
+    var startLink = toc.querySelector('a[href="#blog-start"]');
+    var firstH = headings[0] || null;
+    function syncTop() {
+        if (!startLink) return;
+        var t = firstH ? firstH.getBoundingClientRect().top : 1e9;
+        if (t > 120) {
+            links.forEach(function (a) { a.classList.remove('active'); });
+            startLink.classList.add('active');
+        }
+    }
+    window.addEventListener('scroll', syncTop, { passive: true });
+    syncTop();
     if (!headings.length || !('IntersectionObserver' in window)) return;
     var obs = new IntersectionObserver(function (entries) {
         entries.forEach(function (en) {

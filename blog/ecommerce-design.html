@@ -61,7 +61,7 @@
 
     <div class="container article-container">
         <div class="blog-detail-wrapper">
-            <section class="blog-detail-content">
+            <section class="blog-detail-content" id="blog-start">
 <h2 id="blog-sec-0">视觉设计如何驱动转化？</h2>
 <p class="blog-lead">电商页面的设计目标非常明确：让用户停留、浏览、下单。每一个像素都应该服务于转化目标。</p>
 <h2 id="blog-sec-1">视觉层级设计</h2>
@@ -107,6 +107,7 @@
                 <nav class="sidebar-section toc" id="blogToc">
                     <h3><i class="fas fa-list-ul"></i> 文章目录</h3>
                     <ul>
+                        <li class="toc-top"><a href="#blog-start">开篇</a></li>
                         <li class="toc-h2"><a href="#blog-sec-0">视觉设计如何驱动转化？</a></li>
                         <li class="toc-h2"><a href="#blog-sec-1">视觉层级设计</a></li>
                         <li class="toc-h2"><a href="#blog-sec-2">产品图片策略</a></li>
@@ -196,6 +197,19 @@
         });
     });
     var headings = Array.prototype.slice.call(document.querySelectorAll('.blog-detail-content h2, .blog-detail-content h3'));
+    /* 顶部那条「开篇」：还没滚到第一个小标题时点亮它 */
+    var startLink = toc.querySelector('a[href="#blog-start"]');
+    var firstH = headings[0] || null;
+    function syncTop() {
+        if (!startLink) return;
+        var t = firstH ? firstH.getBoundingClientRect().top : 1e9;
+        if (t > 120) {
+            links.forEach(function (a) { a.classList.remove('active'); });
+            startLink.classList.add('active');
+        }
+    }
+    window.addEventListener('scroll', syncTop, { passive: true });
+    syncTop();
     if (!headings.length || !('IntersectionObserver' in window)) return;
     var obs = new IntersectionObserver(function (entries) {
         entries.forEach(function (en) {
