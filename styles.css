@@ -4594,6 +4594,29 @@ img.loaded {
     display: block;
 }
 
+/* 图注：图片下一行写 <!--cap: 图源：…-->，build-blog.js 渲染成 figure.fig + figcaption。
+ * 单图也包 figure，所以上面 img 的 1.5rem 外边距与阴影要在这里归零，间距交给 figure 和 figcaption。
+ * 字号/灰度对齐公众号的 imagetext 图注（12.5px 居中），两边看起来是一回事。 */
+.blog-detail-content figure.fig {
+    margin: 1.5rem 0;
+}
+
+.blog-detail-content figure.fig img {
+    width: 100%;
+    height: auto;
+    margin: 0;
+    display: block;
+}
+
+.blog-detail-content figure.fig figcaption {
+    margin: 0.65rem 0 0;
+    font-size: 12.5px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.45);
+    text-align: center;
+    letter-spacing: 0.3px;
+}
+
 /* 引用块：整块淡绿底 + 四角圆角 + 引号，与 h2 的"细条"区分开 */
 .blog-detail-content blockquote {
     position: relative;

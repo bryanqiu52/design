@@ -156,10 +156,40 @@ function preRenderImgRows(md) {
     return out.join('\n');
 }
 
+/* ---------- 图注（<!--cap: ...-->，2026-11-27）----------
+ * 写作台出稿时在图片的下一行落 <!--cap: 图源：…-->，渲染成 figure.fig + figcaption 小字。
+ * 公众号侧同名标记走 wechat.js 的小字图注 —— 同一份 md，两边都能吃。
+ * 与 imgrow 同理必须在 marked 之前转 HTML：figure 属 block tag，块内不再做 markdown 解析，
+ * 所以正文与属性都得在这里自己转义。图与标记之间最多容忍 2 个空行。
+ * ⚠️ public/v2/js/preview.js 里有同名同算法的副本，改这里要点名同步那边。 */
+const CAP_RE = /^<!--\s*cap\s*:\s*([\s\S]*?)-->\s*$/i;
+
+function preRenderFigcaptions(md) {
+    const lines = String(md || '').split(/\r?\n/);
+    const out = [];
+    for (let i = 0; i < lines.length; i++) {
+        const im = IMGROW_IMG_RE.exec(lines[i].trim());
+        if (!im) { out.push(lines[i]); continue; }
+        let j = i + 1, blanks = 0;
+        while (j < lines.length && !lines[j].trim()) {
+            if (++blanks > 2) break;
+            j++;
+        }
+        const cm = (j < lines.length) ? CAP_RE.exec(lines[j].trim()) : null;
+        if (!cm) { out.push(lines[i]); continue; }              /* 没有图注标记 = 仍是通栏图 */
+        out.push('', '<figure class="fig">');
+        out.push('  <img src="' + esc(im[2]) + '" alt="' + esc(im[1] || '') + '" loading="lazy">');
+        out.push('  <figcaption>' + esc(String(cm[1]).trim()) + '</figcaption>');
+        out.push('</figure>', '');
+        i = j;
+    }
+    return out.join('\n');
+}
+
 /* Markdown -> HTML（返回 { html, headings }） */
 function renderMarkdown(body) {
     let html;
-    const src = preRenderImgRows(body);
+    const src = preRenderFigcaptions(preRenderImgRows(body));
     if (marked && typeof marked.parse === 'function') {
         try {
             if (marked.setOptions) marked.setOptions({ breaks: true, gfm: true, headerIds: false, mangle: false });
